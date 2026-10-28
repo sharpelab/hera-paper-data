@@ -1,0 +1,8 @@
+## Runs 6 + 7 — SdH spot checks at D = 0 (`sdh-spot-check`): strong multi-tone SdH on both carrier signs
+
+Raw traces + tone inventory (`sdh_onset`, `sdh_fft`) for the two spot checks (run 6: electron, n = +3.2×10¹², B 0→10 T; run 7: hole, n = −1.2×10¹², 10→0.3 T; both sr1 50 µV, run-5 calibration). **Read:**
+
+- **Run 6 (electron, F_L = 33.1 T):** dominant light tone **F ≈ 7.1 T** (21 % of F_L), oscillating from below the 0.3 T record edge (onset censored) with a clean harmonic ladder 2×/3×/4× (14.1 / 22.2 / 29.5 T, SNR 50–100). Extra low-F content at 3.0 / 4.2 / 5.2 T (censored at the edge; candidates: region-B mosaic at ×1.13 n, spin/valley splitting of the light band, or beats). The light band carries only ~0.7×10¹² of the 3.2×10¹² total — the rest must sit in a heavier FS whose fundamental (ABAB two-band model predicts ≈ 25.6 T) is **not separable from the 3–4× harmonics of 7.1 T at the spot's 4.3 T FFT resolution**. Consistent with a light+heavy two-band structure (ABAB-like), but not yet a call.
+- **Run 7 (hole, F_L = 12.4 T):** rich multi-tone set (4.7 / 6.6 / 8.5 / 12.3 T fundamentals + harmonics; strongest 12.3 T ≈ F_L), non-marginal fundamental sum ≈ 26 T ≈ 2×F_L — over-complete, the expected low-|n| semimetal/mixing regime; not decisive by itself.
+
+**Verdict:** device shows textbook SdH (onsets 0.3–0.7 T, tones tracked to ~30 T) at T_e ≈ 8 K — a Landau fan is well-conditioned. The stacking call needs the tone *dispersion vs n*: fundamentals move with n, harmonics stay locked at integer multiples of their parent, and the two-band partition F_light(n) + F_heavy(n) = F_L(n) (or its failure) is the ABAB/ABCA/ABCB discriminator. → next: `landau-fan` along D = 0.

@@ -1,0 +1,12 @@
+## HERA — Gate C: contact-wiring liveness (first-session, no references)
+
+**Bring-up status.** Gate A green — setup cells ran sequentially in this kernel (magnet 1.1 µT ≈ 0, probe MC 33.7 mK base, all lock-ins / gates / DC205 connected). Gate B green — SAFETIES (cell 16) committed TG (−7, +6), BG (−4, +4.2), B-cap 0.1 T, heater 6.5 V: exact device-card / brief numbers, all inside machine limits (0.1 T ≪ 9 T). Remaining gate is **C**: confirm the provided wiring is alive before the Step-1 map.
+
+**What this is.** `gate-current-sanity-check`, **cheap-liveness branch only** — validators are already committed from the device card, so the validator-blessing loop / range-finding (blocklisted this session) is *not* run. One parametrized leg per run: sweep one gate 0 → ±2 V (well inside validators), park the other at 0; `nplci=10` on both gate-current channels for pA readback; AC drive set to **1 nA** (sr830_1.amplitude 0.1 V through 100 MΩ). Magnet is **not** touched — Step 1 needs pristine field.
+
+**What to read on the live Qt plot** (E0 — you have the screen):
+- **sr3** (4T R_xx, contacts 30-31) `X` nonzero and smoothly varying → device alive + 4T wiring good.
+- both gate `*.curr` flat in **pA** to the endpoint → gates clean, no leakage; parked gate at the readback floor → no cross-gate path.
+- If sr3 `X` rails or is buried in noise, bump that lock-in's sensitivity and re-run (we have no R-scale prior — first session).
+
+**Run the four legs** by editing the EDIT block: `k_bg 0→+2`, `k_bg 0→−2`, `k_tg 0→+2`, `k_tg 0→−2`. ~1.5–2 min/leg. Tell me what you see (sr3 X alive? gate currents pA? rough R_xx scale?) and I'll advance to the **Step-1 pristine-field (n, D) gate map** — taken before energising the magnet, doing double duty for the cap-ratio (CNP-slope) calibration the device card flags as an unverified prior.

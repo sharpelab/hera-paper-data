@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.5,
+  "B_max_T": 8.0,
+  "n_B": 190,
+  "spacing": "invB",
+  "n_min_cm2": -1.24e12,
+  "n_max_cm2": 3.24e12,
+  "n_columns": 113,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 9.25,
+  "flags": [],
+  "notes": "Cell 48: multimegasweep with magnet.field slow over field_invB(0.5, 8.0, 190) and gates fast from calc_gate_voltages over np.round(np.arange(-1.24, 3.2401, 0.04), 3) in 1e12 cm^-2 at D = 0, using the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); I re-ran both vectors in a scratch script and got 113 columns and B 0.5 -> 8.0 T in 190 rows. Cell 48 sets sr1 sensitivity to 200 uV; sr0 sensitivity/tau, sr1 tau and both Keithley nplci (1.0) are inherited from the cell-44 close_out(restore=state0) readback, as is the sr1 drive amplitude 1.0 V, which feeds the device card's 100 MOhm bias resistor. stated_wall_clock_h is the cell-47 markdown headline ETA of about 9 h 15 m (its own arithmetic line gives ~8.8 h)."
+}

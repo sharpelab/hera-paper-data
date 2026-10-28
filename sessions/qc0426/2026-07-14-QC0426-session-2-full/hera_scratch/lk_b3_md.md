@@ -1,0 +1,3 @@
+### Cell B v3 — ladder re-run (second guard fix; v2 aborted safely at rung 1)
+
+v2's `logfile_fresh(max_age_s=30)` threshold exactly equals the lakeshore worker's write cadence (measured from disk: 30 s between writes) — a poll landing at the end of a write period sees age ≈ 30 s and fires falsely. The worker is alive. **Fix**: threshold → 90 s (3 write periods; still catches a genuinely dead worker inside ~1.5 min). Rig-card note logged: the VTI logfile cadence is 30 s, so any freshness guard must use ≥ 2–3 periods. Ladder otherwise identical to v2 (directional vaporizer guard kept). T drifted to ~48 K during the aborts — rung 1's set_both(25) proceeds as designed.

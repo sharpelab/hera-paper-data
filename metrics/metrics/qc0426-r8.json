@@ -1,0 +1,171 @@
+{
+ "run_id": "qc0426-r8",
+ "manifest": {
+  "run_id": "qc0426-r8",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-20",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-20-QC0426-session",
+  "rig_session_dir": "zack/20260620-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": true,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-21T03:38:56+00:00",
+  "t_transcript_last": "2026-06-21T10:23:07+00:00",
+  "transcript_span_h": 6.7363883333736,
+  "session_h": 6.7363883333736,
+  "t_final_decision": "2026-06-21T10:07:58.302598+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 6.483738777240117,
+  "t_first_sweep": "2026-06-21T03:56:06+00:00",
+  "t_last_sweep_end": "2026-06-21T09:56:40+00:00",
+  "sweep_span_h": 6.0096004724502565,
+  "measuring_h": 5.408086189428965,
+  "longest_sweep_h": 1.9978235924243928
+ },
+ "sweeps": {
+  "n_sweeps": 4,
+  "by_recipe": {
+   "gatemap": {
+    "n": 1,
+    "hours": 1.598
+   },
+   "landau-fan-vti": {
+    "n": 1,
+    "hours": 1.998
+   },
+   "sdh-spot-check": {
+    "n": 2,
+    "hours": 1.813
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.8999077749379836,
+  "hil": 0.9041846001955128,
+  "frac_measuring": 0.8999077749379836,
+  "frac_hera_court": 0.09536218956195984,
+  "frac_human_court": 0.004730035500056555,
+  "hera_court_h": 0.5730886594454447,
+  "human_court_h": 0.028425623575846354,
+  "n_lands": 14,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 1240.3692135810852,
+    "hera_s": 1172.4760193824768,
+    "human_s": 67.8931941986084,
+    "land": 1782021090.006385,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 418.20484137535095,
+    "hera_s": 402.29866576194763,
+    "human_s": 15.90617561340332,
+    "land": 1782025237.4026,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 506.8773639202118,
+    "hera_s": 488.34448885917664,
+    "human_s": 18.532875061035156,
+    "land": 1782028590.14674,
+    "next_slug": "landau-fan-vti"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 434,
+  "n_api_requests": 167,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 206,
+  "message_counts": {
+   "human": 9,
+   "loop_tick": 0,
+   "task_notification": 5,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 191,
+  "tool_calls": {
+   "Bash": 46,
+   "Write": 33,
+   "Bash[nb-collab]": 25,
+   "Read": 20,
+   "Bash[nb]": 20,
+   "Bash[hera-watch]": 19,
+   "Edit": 11,
+   "ScheduleWakeup": 11,
+   "Bash[hera-notify]": 6
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 18605,
+    "out": 346046,
+    "cr": 47712268,
+    "cw5": 0,
+    "cw1h": 666514,
+    "n_requests": 167
+   }
+  },
+  "cost_usd_est": 39.27,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-20-QC0426-session/20260620_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-20-QC0426-session/20260620_ana.ipynb",
+  "n_cells": 40,
+  "n_hera_cells": 14,
+  "n_slot_cells": 5,
+  "n_human_cells": 21,
+  "n_hera_executed": 7,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 23,
+  "n_ana_figures": 5
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T05:42:32.487745+00:00",
+   "excerpt": "**Read \u2014 (n, D) calibration established.** The CNP ridge is a single clean diagonal in both Rxx channels (sr1 T3-T4, sr2 B4-B5); the fit tracks it by eye (overl"
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T10:07:58.302598+00:00",
+   "excerpt": "# STACKING CALL \u2014 QC0426 is **ABA (Bernal)**, not ABC\n\nOutput contract (`trilayer-stacking-fs-count` Step 7).\n\n## 1. Per-region verdict (STYLE strength scale)\n-"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 40,
+  "scratch_by_ext": {
+   ".md": 2,
+   ".png": 7,
+   ".py": 9,
+   ".txt": 22
+  },
+  "scratch_loc": 413,
+  "n_scratch_figures": 7,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 9,
+  "n_interrupts": 0,
+  "longest_unattended_h": 1.149727222190963,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

@@ -1,0 +1,34 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_fan_design.py:44: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  onset=sdh_onset(R,B,b_lo=.3,r_full_scale=5000.)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_fan_design.py:44: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.6 vs 5 across 3 windows))
+  onset=sdh_onset(R,B,b_lo=.3,r_full_scale=5000.)
+run 6: rows 921, interrupted=False, R=0.00..529.63 ohm, I=9.843..9.935 nA, max |Vxx|=5.225 uV, T=1.165..1.292 K
+max abs leakage pA: 123.3946 117.2982
+acquisition {'sr0': {'amplitude': None, 'sensitivity': 0.02, 'time_constant': 0.3, 'filter_slope': 24, 'nplci': None}, 'sr1': {'amplitude': 1.0, 'sensitivity': 5e-05, 'time_constant': 0.3, 'filter_slope': 24, 'nplci': None}, 'k_2400_tg': {'amplitude': None, 'sensitivity': None, 'time_constant': None, 'filter_slope': None, 'nplci': 1.0}, 'k_2400_bg': {'amplitude': None, 'sensitivity': None, 'time_constant': None, 'filter_slope': None, 'nplci': 1.0}}
+run 7: rows 486, interrupted=False, R=0.38..586.87 ohm, I=9.809..9.931 nA, max |Vxx|=5.757 uV, T=1.175..1.291 K
+max abs leakage pA: 215.8295 120.0978
+acquisition {'sr0': {'amplitude': None, 'sensitivity': 0.02, 'time_constant': 0.3, 'filter_slope': 24, 'nplci': None}, 'sr1': {'amplitude': 1.0, 'sensitivity': 5e-05, 'time_constant': 0.3, 'filter_slope': 24, 'nplci': None}, 'k_2400_tg': {'amplitude': None, 'sensitivity': None, 'time_constant': None, 'filter_slope': None, 'nplci': 1.0}, 'k_2400_bg': {'amplitude': None, 'sensitivity': None, 'time_constant': None, 'filter_slope': None, 'nplci': 1.0}}
+run 6, FFT 1-8 T peaks: [(6.86, 1.0), (29.71, 0.86), (22.85, 0.78), (1.14, 0.44), (14.85, 0.42), (35.42, 0.27), (52.56, 0.22), (58.27, 0.22), (42.28, 0.18), (68.55, 0.13)]
+run 6, FFT 1.5-8 T peaks: [(29.53, 1.0), (7.38, 0.99), (22.15, 0.85), (14.77, 0.54), (51.68, 0.33), (59.06, 0.19)]
+run 6, FFT 2-8 T peaks: [(29.33, 1.0), (8.0, 0.8), (21.33, 0.71), (16.0, 0.5), (50.65, 0.31), (58.65, 0.21), (37.32, 0.17)]
+run 6: sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.6  [censored@edge, 2x->14.1T, 3x->22.2T, 4x->29.5T]
+  tone   22.2 T: onset  1.33 T  dF  1.53 T  snr_max  100.6  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   49.7  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   87.5  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   63.1  [censored@edge, near-residual, 3x->9.5T]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   34.8  [censored@edge]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   22.9  [censored@edge, ~3x3.0T]
+  tone    5.2 T: onset  0.30 T  dF  0.31 T  snr_max   52.8  [censored@edge]
+run 7, FFT 1-8 T peaks: [(8.0, 1.0), (3.43, 0.76), (20.57, 0.29)]
+run 7, FFT 1.5-8 T peaks: [(5.54, 1.0), (14.77, 0.35), (20.3, 0.23), (23.99, 0.15)]
+run 7, FFT 2-8 T peaks: [(5.33, 1.0)]
+run 7: sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.8  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)

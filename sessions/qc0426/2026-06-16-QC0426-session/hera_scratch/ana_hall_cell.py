@@ -1,0 +1,17 @@
+# Low-field Hall lever-arm: n_Hall from Rxy slope vs gate density (file_id 3)
+mF=load_meta(3); fi={c:i for i,c in enumerate(mF['columns'])}
+try: dF=load1d(3)
+except OSError: dF=np.loadtxt(f"{file_path}/3/data.tsv")
+nfast=36; nr=dF.shape[0]//nfast; gF=dF[:nr*nfast].reshape(nr,nfast,-1)
+Bf=gF[:,0,fi['magnet_mag']]; I_bias=5e-9; n_gate=np.linspace(-1.4e12,-5.0e12,nfast)
+sel=(Bf>=0.5)&(Bf<=1.8)   # classical Hall, below SdH onset
+nH=np.array([1.0/(cst_e*np.polyfit(Bf[sel],gF[sel,j,fi['sr3_X']]/I_bias,1)[0]) for j in range(nfast)])
+ratio=np.abs(nH)/np.abs(n_gate*1e4)
+fig,ax=plt.subplots(figsize=(6,5))
+ax.plot(np.abs(n_gate)/1e12,np.abs(nH)/1e16,'o',label='Hall n (low-field Rxy)')
+ax.plot([0,5],[0,5],'k--',label='n_Hall = n_gate')
+ax.set_xlabel('|n_gate| (1e12 cm^-2)');ax.set_ylabel('|n_Hall| (1e12 cm^-2)')
+ax.set_title('QH/Hall lever-arm check');ax.legend();plt.show()
+print(f"mean |n_Hall|/|n_gate| = {ratio.mean():.2f} +/- {ratio.std():.2f}")
+print("=> geometry n-scale confirmed to ~10% (lever-arm upgrade); single-carrier Hall ~ one dominant pocket.")
+print("Caveat: a ~5% ML pocket (ABA) is below Hall sensitivity -> does NOT break ABC vs ABA-BL.")

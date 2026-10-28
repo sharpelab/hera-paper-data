@@ -1,0 +1,3 @@
+## HERA — plan step 1: BG sweep at V_tg = 0 (CNP hunt)
+
+Run 0 (gate C) passed: pair alive at 9.9 nA, no leakage, but |Rxx| only 40–370 Ω over the whole TG box at V_bg = 0 with no CNP peak — the CNP is outside that cut (device looks electron-doped by the R trend). The back gate reaches n ≈ −2e12 cm⁻² at V_bg = −1.3 (geometry prior), so this sweep is the cheap way to find the CNP before spending 30 min on a map. Same fp set, but lock-in X stored raw (mc carries the Ithaco gain — run 0 double-divided) and τ = 100 ms / delay 0.5 s to kill the ripple seen at 30 ms. Timing from run 0: 0.30 s/pt at delay 0.2 → ~0.6 s/pt here, 661 pts. Preconditions: base T, B ≈ 0, V_tg = V_si = 0. Kill: leakage excess > 200 pA on either Keithley, or I_drain collapse.

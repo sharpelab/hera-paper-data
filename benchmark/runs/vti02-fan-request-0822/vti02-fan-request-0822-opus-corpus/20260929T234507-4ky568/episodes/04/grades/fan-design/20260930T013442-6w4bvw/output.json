@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 10.0,
+  "n_B": 179,
+  "spacing": "invB",
+  "n_min_cm2": 2.0e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 37,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.5,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) issues s.multimegasweep([magnet.field],[field_invB(0.7,10.0,179)],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.8); densities np.linspace(2.0,3.2,37)e12 cm^-2 at D=0 via calc_gate_voltages with the session's run-5 calibration CAL (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) committed in the cell (Vtg +0.640..+0.984, Vbg +0.721..+1.166, inside the card limits). Recorded lock-in channels are sr0.X/P and sr1.X/P; the cell sets sr1.sensitivity(50e-6), while sr0 sensitivity 0.02 V and both tau = 0.3 s are inherited from the executed close_out(restore=state0) readback in cell 44 (which had reset sr1 to 2 uV, so the markdown's 'inherited from the spot checks' is loose but the cell sets it explicitly). nplci 1/1 for k_tg.curr/k_bg.curr is asserted (not set) in cell 48 and matches the cell-44 readback; drive amplitude 1.0 V through the card's 100 MOhm bias resistor. Stated time '≈5 h 30 m' from the cell-47 markdown header. The autorange hook is registered only on the gate-C station (cell 34), not on this fan's station."
+}

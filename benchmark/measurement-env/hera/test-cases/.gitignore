@@ -1,0 +1,13 @@
+# The bulky binary layer of each fixture lives on the data volume
+# ($HERA_DATA, default /data/sharpelab/hera-data) and is symlinked back in by
+# link-data.sh — keep it out of git. Only the authored layer (frontiers/,
+# ground_truth/, *.md) is tracked. A fixture is ~99.9% binary / 0.1% text.
+*/data
+*/images
+*/runs
+*/*.ipynb
+# Extracted ana-notebook figures (answer-key illustrations) also live on the
+# data volume and are symlinked into ground_truth/<slug>/figures — keep the
+# symlink + its PNGs out of git. The authored analysis capture (method.py,
+# result.md) under ground_truth/<slug>/analysis/ stays tracked.
+*/ground_truth/*/figures

@@ -1,0 +1,828 @@
+
+============================================================
+cell 29  [markdown]
+============================================================
+# HERA — session start (2026-08-22) — vti-02
+
+============================================================
+cell 30  [markdown]
+============================================================
+## HERA — VERIFY (session-start checks, read-only)
+
+Gate A and gate B verified from disk: setup cells [1]–[9] executed this kernel with sane readbacks (magnet 0.006 T, output on, PS heater on; T_sample 1.166 K, T_vaporizer 0.945 K, logfiles live at 5 s cadence; both Keithleys verified at 0 V; DC205 RNGE 2, output on), and SAFETIES [10] commits exactly the card's limits — TG [−0.3, +1.0] V, BG [−1.3, +2.0] V, Si ±25 V, |B| ≤ 10 T, T ≤ 100 K — inside the rig's 14 T / 100 K machine limits.
+
+Two cells below, both read-only (gets only, nothing set). **Cell 1** is the kernel-binding probe; **Cell 2** is VERIFY, ending in the verdict line `VERIFY: ALL GREEN` / `VERIFY: FAIL <items>`. Per the brief, Zack says **"go for autonomy"** without running them; I execute probe → VERIFY as my first E1 acts and engage only on the printed green line. One item VERIFY cannot read from this kernel: **He level** (AMI 1700 not connected in this notebook) — please state the He level / session budget 
+
+Noted for the first measurement, not a blocker: `sr1` sits at 2 µV sensitivity (= 200 Ω full scale at the 10 nA bias) and both lock-ins at τ = 0.3 s / 24 dB/oct (settling floor ≈ 2–3 s/pt). The liveness cell will size sensitivity for an unknown Rxx; τ I will leave as set unless it prices a sweep out.
+
+============================================================
+cell 31  [code]
+============================================================
+```python
+# === Kernel-binding probe (read-only) ===
+# First E1 act after the grant: confirms the nb-collab execute path lands on the
+# operator's instrument-carrying kernel (the one that ran Setup + SAFETIES), not
+# a fresh python3 kernel. Touches no instrument — namespace only.
+import os
+_need = ['magnet', 'heater', 'sr0', 'sr1', 'sr2', 'sr3', 'k_2400_tg', 'k_2400_bg',
+         'dc205', 'k_tg', 'k_bg', 'k_si', 'T_sample', 'T_vaporizer', 'meas_config',
+         'WIRING', 'state0', 'cal', 'B_SESSION_CAP', 'T_SESSION_CAP', 'tg_lims', 'bg_lims']
+_missing = [n for n in _need if n not in globals()]
+print(f"pid {os.getpid()} | main_dir {main_dir if 'main_dir' in globals() else '<unset>'}")
+print(f"present: {len(_need) - len(_missing)}/{len(_need)} | missing: {_missing}")
+print("KERNEL PROBE:", "BOUND" if not _missing else "UNBOUND")
+```
+--- out 0 ---
+[stream:stdout]
+pid 37460 | main_dir C:\Users\DGG\VTI_local_data\zack\20260822-vti-02
+present: 22/22 | missing: []
+KERNEL PROBE: BOUND
+
+============================================================
+cell 32  [code]
+============================================================
+```python
+# === VERIFY — session-start checks (read-only by construction) ===
+# Every call below is a get/read; nothing is set. Last printed line is the
+# machine-readable verdict the E1 grant keys on.
+import time as _time
+_fails = []
+
+def _check(name, ok, detail):
+    print(f"[{'OK  ' if ok else 'FAIL'}] {name}: {detail}")
+    if not ok:
+        _fails.append(name)
+
+def _vr(vals):  # qcodes validators.Numbers -> (min, max)
+    return (float(vals._min_value), float(vals._max_value))
+
+# --- 1. Magnet at 0 T (measured readback, both read paths) + output/PS state
+_B = magnet.field()
+_st = magnet._status()
+_check("magnet_zero", abs(_B) < 0.02 and abs(_st['field']) < 0.02,
+       f"field()={_B:+.4f} T, _status()['field']={_st['field']:+.4f} T (tol 20 mT)")
+_check("magnet_output", _st['output_enabled'] and _st['persistent_switch_on'],
+       f"output_enabled={_st['output_enabled']}, persistent_switch_on={_st['persistent_switch_on']}")
+
+# --- 2. SAFETIES committed == device card (numbers compared, not eyeballed)
+_card = {"tg": (-0.3, 1.0), "bg": (-1.3, 2.0), "si": (-25.0, 25.0),
+         "B": (-10.0, 10.0), "T": (0.0, 100.0)}
+_live = {"tg": _vr(k_2400_tg.volt.vals), "bg": _vr(k_2400_bg.volt.vals),
+         "si": _vr(dc205.smart_voltage.vals), "si_raw": _vr(dc205.voltage.vals),
+         "B": _vr(magnet.field.vals),
+         "T": _vr(heater.sample_setpoint.vals), "T_vap": _vr(heater.vaporizer_setpoint.vals)}
+for _k, _ref in (("tg", "tg"), ("bg", "bg"), ("si", "si"), ("si_raw", "si"),
+                 ("B", "B"), ("T", "T"), ("T_vap", "T")):
+    _check(f"validator_{_k}", _live[_k] == _card[_ref], f"committed {_live[_k]} vs card {_card[_ref]}")
+_check("session_caps", B_SESSION_CAP == 10.0 and T_SESSION_CAP == 100.0,
+       f"B_SESSION_CAP={B_SESSION_CAP}, T_SESSION_CAP={T_SESSION_CAP}")
+_check("gate_aliases", (k_tg is k_2400_tg) and (k_bg is k_2400_bg) and (k_si is dc205.smart_voltage),
+       "k_tg->k_2400_tg, k_bg->k_2400_bg, k_si->dc205.smart_voltage")
+
+# --- 3. Base T holding, thermometry logfiles live (freshness >= 2-3 write periods)
+try:
+    assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+    assert_thermometry_live("T_vaporizer", VTI.temp_logfile_candidates["T_vaporizer"], max_age=15, max_period=12)
+    _live_ok = True
+except Exception as _e:
+    print("   thermometry liveness error:", _e)
+    _live_ok = False
+_check("thermometry_live", _live_ok, "worker logfiles advancing (max_age 15 s, max_period 12 s)")
+_Ts = T_sample(); _Tv = T_vaporizer()
+_check("base_T", 1.0 <= _Ts <= 1.4, f"T_sample={_Ts:.3f} K (expect 1.2-1.3 K; accept 1.0-1.4)")
+
+# --- 4. Heaters off (both ranges 0); vaporizer tracking base
+_sr, _vrg = heater.sample_range(), heater.vaporizer_range()
+_check("heaters_off", _sr == 0 and _vrg == 0, f"sample_range={_sr}, vaporizer_range={_vrg}")
+_check("vaporizer_tracks_base", _Tv < 1.6 and abs(_Tv - _Ts) < 0.6,
+       f"T_vaporizer={_Tv:.3f} K vs T_sample={_Ts:.3f} K")
+
+# --- 5. Contacts hardwired (no mux) — notebook WIRING == device-card provided configuration
+_card_wiring = {"source": "T_0", "drain": "B_3", "sr1+": "B_1", "sr1-": "B_2",
+                "sr2+": "n.c.", "sr2-": "n.c.", "sr3+": "n.c.", "sr3-": "n.c."}
+_check("contacts_hardwired", WIRING == _card_wiring and 'mux' not in globals(),
+       f"WIRING={WIRING}; no ContactMux instance in kernel")
+_check("meas_config_channels", meas_config["sr0_gain"] == -1e6 and meas_config["bias_channel"] == "sr1"
+       and meas_config["bias_resistor"] == 100e6,
+       f"sr0_gain={meas_config['sr0_gain']}, bias_channel={meas_config['bias_channel']}, R_bias={meas_config['bias_resistor']:.0e}")
+
+# --- 6. DC205 (Si gate): +/-100 V range (RNGE 2), output on, reading 0 V, ramp pacing as set
+_rng, _out, _vsi = dc205.voltage_range(), dc205.output(), dc205.voltage()
+_check("dc205_state", _rng == 2 and _out == 1 and abs(_vsi) < 0.01,
+       f"range code={_rng} (need 2), output={_out}, V={_vsi:+.4f} V")
+_check("dc205_ramp_rate", abs(dc205.ramp_rate - 0.5) < 1e-9, f"ramp_rate={dc205.ramp_rate} V/s (consent-gated)")
+
+# --- 7. Gates parked at 0, Keithley step pacing in place, lock-ins answering
+_vtg, _vbg = k_tg.volt(), k_bg.volt()
+_check("gates_zero", abs(_vtg) < 1e-3 and abs(_vbg) < 1e-3, f"V_tg={_vtg:+.4f} V, V_bg={_vbg:+.4f} V")
+_check("keithley_step", k_2400_tg.volt.step == 0.005 and k_2400_bg.volt.step == 0.005,
+       f"volt.step tg={k_2400_tg.volt.step}, bg={k_2400_bg.volt.step} V")
+_f, _a = sr1.frequency(), sr1.amplitude()
+_check("lockin_drive", abs(_f - 13.777) < 0.01 and 0 < _a <= 1.0,
+       f"sr1 f={_f:.3f} Hz, amp={_a} V -> I_bias={_a/100e6*1e9:.2f} nA; sr0 sens={sr0.sensitivity()}, sr1 sens={sr1.sensitivity()}, tau={sr1.time_constant()} s")
+
+# --- He budget: not readable from this kernel (AMI 1700 not connected here) — operator attests in the grant.
+print("[INFO] He level: operator-attested (not readable from this kernel)")
+
+print("VERIFY: ALL GREEN" if not _fails else f"VERIFY: FAIL {','.join(_fails)}")
+```
+--- out 0 ---
+[stream:stdout]
+[OK  ] magnet_zero: field()=+0.0063 T, _status()['field']=+0.0063 T (tol 20 mT)
+[OK  ] magnet_output: output_enabled=True, persistent_switch_on=True
+[OK  ] validator_tg: committed (-0.3, 1.0) vs card (-0.3, 1.0)
+[OK  ] validator_bg: committed (-1.3, 2.0) vs card (-1.3, 2.0)
+[OK  ] validator_si: committed (-25.0, 25.0) vs card (-25.0, 25.0)
+[OK  ] validator_si_raw: committed (-25.0, 25.0) vs card (-25.0, 25.0)
+[OK  ] validator_B: committed (-10.0, 10.0) vs card (-10.0, 10.0)
+[OK  ] validator_T: committed (0.0, 100.0) vs card (0.0, 100.0)
+[OK  ] validator_T_vap: committed (0.0, 100.0) vs card (0.0, 100.0)
+[OK  ] session_caps: B_SESSION_CAP=10.0, T_SESSION_CAP=100.0
+[OK  ] gate_aliases: k_tg->k_2400_tg, k_bg->k_2400_bg, k_si->dc205.smart_voltage
+T_sample: VTI_sample.txt live — age 1s, period 5s
+T_vaporizer: VTI_vaporizer.txt live — age 1s, period 5s
+[OK  ] thermometry_live: worker logfiles advancing (max_age 15 s, max_period 12 s)
+[OK  ] base_T: T_sample=1.166 K (expect 1.2-1.3 K; accept 1.0-1.4)
+[OK  ] heaters_off: sample_range=0, vaporizer_range=0
+[OK  ] vaporizer_tracks_base: T_vaporizer=0.945 K vs T_sample=1.166 K
+[OK  ] contacts_hardwired: WIRING={'source': 'T_0', 'drain': 'B_3', 'sr1+': 'B_1', 'sr1-': 'B_2', 'sr2+': 'n.c.', 'sr2-': 'n.c.', 'sr3+': 'n.c.', 'sr3-': 'n.c.'}; no ContactMux instance in kernel
+[OK  ] meas_config_channels: sr0_gain=-1000000.0, bias_channel=sr1, R_bias=1e+08
+[OK  ] dc205_state: range code=2 (need 2), output=1, V=+0.0000 V
+[OK  ] dc205_ramp_rate: ramp_rate=0.5 V/s (consent-gated)
+[OK  ] gates_zero: V_tg=+0.0000 V, V_bg=+0.0000 V
+[OK  ] keithley_step: volt.step tg=0.005, bg=0.005 V
+--- out 1 ---
+[stream:stdout]
+[OK  ] lockin_drive: sr1 f=13.777 Hz, amp=1.0 V -> I_bias=10.00 nA; sr0 sens=0.02, sr1 sens=2e-06, tau=0.3 s
+[INFO] He level: operator-attested (not readable from this kernel)
+VERIFY: ALL GREEN
+
+============================================================
+cell 33  [markdown]
+============================================================
+## HERA — Gate C: liveness + gross gate safety (`gate-current-sanity-check`)
+
+> **23:46** · gate-current-sanity-check: TG 0->+1.0/-0.3 V, BG 0->+2.0/-1.3 V, 101 pts/leg, delay 1 s, nplci 10, Si 0, B 0; 1 nA auto-abort · **ETA ~00:06 (+1d)** (≈20 min)
+
+First session of this cooldown, no designated references — gate C is the liveness branch: the device passes a measurable current on the provided contacts (source T_0 → drain B_3 on `sr0`, Rxx on `sr1` = B_1−B_2) and every gate stays at the pA capacitive floor out to its card limit. Four legs, other gate parked at 0, Si at 0, B = 0 (read, +6 mT residual): TG 0→+1.0, 0→−0.3; BG 0→+2.0, 0→−1.3 V; 101 pts/leg (10 / 3 / 20 / 13 mV steps), delay 1 s + nplci 10 readback ≈ 2.2 s/pt �
+
+============================================================
+cell 34  [code]
+============================================================
+```python
+# === Gate C — liveness + gross gate safety: gate-current-sanity-check (first-session branch) ===
+# Four legs, each gate 0 -> each card limit with the other parked at 0, 101 pts, delay 1 s,
+# nplci=10 on the gate-current channels (pA floor). Lock-in X on sr1 (B_1-B_2) + sr0 (drain)
+# answer "is the device alive on the provided contacts"; gate currents answer "is it safe".
+# Automatic abort: |I_gate| > 1 nA on either Keithley trips the sweep (no operator eyes in E1).
+from sharpelab_nb.autorange import autorange_sr830s
+
+# --- preconditions (state this cell assumes but does not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0 = T_sample(); _B0 = magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (expect 1.0-1.5), B = {_B0:+.4f} T (expect |B|<0.02), "
+      f"V_tg = {k_tg.volt():+.3f}, V_bg = {k_bg.volt():+.3f}, V_si = {k_si():+.3f} V (expect 0)")
+assert 1.0 <= _T0 <= 1.5, f"T_sample {_T0} K off base"
+assert abs(_B0) < 0.02, f"magnet not at zero: {_B0} T"
+assert abs(k_si()) < 0.01, "Si gate not at 0"
+
+legs = [(k_tg, TG_MAX), (k_tg, TG_MIN), (k_bg, BG_MAX), (k_bg, BG_MIN)]
+n_pts, delay = 101, 1.0
+I_TRIP = 1e-9   # A — hard abort threshold on either gate current
+
+# pA-floor readback on the gate-current channels (reset at the end if no leg tripped)
+k_tg.nplci(10); k_bg.nplci(10)
+
+# sr1 sensitivity sized for an unknown Rxx: 500 uV = 50 kOhm full scale at I_bias = 10 nA
+# (drive 1 V / 100 MOhm, as the operator set it); autorange hook tracks from there.
+sr1.sensitivity(500e-6)
+print(f"drive {sr1.amplitude()} V @ {sr1.frequency()} Hz -> I_bias ~ {sr1.amplitude()/100e6*1e9:.1f} nA; "
+      f"sr0 sens {sr0.sensitivity()} V, sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s")
+
+tripped = []
+for gate, v_end in legs:
+    other = k_bg if gate is k_tg else k_tg
+    mc = dict(meas_config); mc["comments"] = f"gate-current-sanity-check: {gate.name} 0 -> {v_end:+g} V, other gate 0, Si 0, B 0"
+    s = sweep.AsyncStation(mc)
+    s.add_comment('gate-current-sanity-check')
+    s.add_comment(f'gate: {gate.name}; leg: 0 -> {v_end:+g} V (card limit); {other.name} parked 0; Vsi = 0; B = 0')
+    s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)
+    xp = gate.volt
+    # row layout: [time, setpoint, other.volt, gate.curr, other.curr, T_sample, sr0.X, sr0.P, sr1.X, sr1.P]
+    s.fp(other.volt).fp(gate.curr).fp(other.curr).fp(T_sample)
+    s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+    s.plot(xp, k_tg.curr); s.plot(xp, k_bg.curr)
+    s.plot(xp, sr1.X); s.plot(xp, sr0.X)
+    s.register_run_before(autorange_sr830s, (sr0, [sr1]))
+
+    def leak_guard(station, data, _gate=gate):
+        i_g, i_o = abs(float(data[3])), abs(float(data[4]))
+        if i_g > I_TRIP or i_o > I_TRIP:
+            print(f"LEAK TRIP on {_gate.name} leg at V = {float(data[1]):+.3f} V: |I_swept| = {i_g:.3e}, |I_other| = {i_o:.3e} A")
+            tripped.append((_gate.name, float(data[1]), i_g, i_o))
+            station.interrupt_requested = True
+    s.register_run_after(leak_guard, ())
+
+    try:
+        s.sweep(gate.volt, np.linspace(0, v_end, n_pts), delay=delay)
+    finally:
+        s.ramp(gate.volt, 0)
+    if tripped:
+        break
+
+if tripped:
+    print("STOP — a leg tripped the leakage guard; nplci left at 10, gates parked at 0:", tripped)
+else:
+    k_tg.nplci(1); k_bg.nplci(1)
+    print("all four legs ran without a leakage trip; nplci reset to 1")
+    print("k_tg.volt validator:", k_tg.volt.vals, "| k_bg.volt validator:", k_bg.volt.vals)
+```
+--- out 0 ---
+[stream:stdout]
+T_sample: VTI_sample.txt live — age 0s, period 5s
+precondition T_sample = 1.166 K (expect 1.0-1.5), B = +0.0063 T (expect |B|<0.02), V_tg = +0.000, V_bg = +0.000, V_si = +0.000 V (expect 0)
+--- out 1 ---
+[stream:stdout]
+drive 1.0 V @ 13.777 Hz -> I_bias ~ 10.0 nA; sr0 sens 0.02 V, sr1 sens 0.0005 V, tau 0.3 s
+--- out 2 ---
+[stream:stdout]
+2026-08-22 23:46:29,467 [INFO] Ramping k_2400_tg_volt: 0.0 -> 0
+--- out 3 ---
+[stream:stdout]
+2026-08-22 23:46:29,983 [INFO] Ramping k_2400_bg_volt: 0.0 -> 0
+--- out 4 ---
+[stream:stdout]
+2026-08-22 23:46:30,000 [INFO] Starting sweep with ID 0
+--- out 5 ---
+[stream:stdout]
+2026-08-22 23:46:30,001 [INFO] Minimum duration 0h 1m 41s
+--- out 6 ---
+[image: cell 34 out 6  image/png  85487 bytes  1600×400]
+--- out 7 ---
+[stream:stdout]
+2026-08-22 23:50:19,711 [INFO] Completed in 0h 3m 49s
+--- out 8 ---
+[stream:stdout]
+2026-08-22 23:50:19,712 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\0\data.tsv.gz
+--- out 9 ---
+[stream:stdout]
+2026-08-22 23:50:20,232 [INFO] Ramping k_2400_tg_volt: 1.0 -> 0
+--- out 10 ---
+[stream:stdout]
+2026-08-22 23:50:22,006 [INFO] Ramping k_2400_tg_volt: 0.0 -> 0
+--- out 11 ---
+[stream:stdout]
+2026-08-22 23:50:22,522 [INFO] Ramping k_2400_bg_volt: 0.0 -> 0
+--- out 12 ---
+[stream:stdout]
+2026-08-22 23:50:22,537 [INFO] Starting sweep with ID 1
+--- out 13 ---
+[stream:stdout]
+2026-08-22 23:50:22,537 [INFO] Minimum duration 0h 1m 41s
+--- out 14 ---
+[image: cell 34 out 14  image/png  106003 bytes  1600×400]
+--- out 15 ---
+[stream:stdout]
+2026-08-22 23:53:53,498 [INFO] Completed in 0h 3m 30s
+--- out 16 ---
+[stream:stdout]
+2026-08-22 23:53:53,499 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\1\data.tsv.gz
+--- out 17 ---
+[stream:stdout]
+2026-08-22 23:53:54,018 [INFO] Ramping k_2400_tg_volt: -0.3 -> 0
+--- out 18 ---
+[stream:stdout]
+2026-08-22 23:53:54,915 [INFO] Ramping k_2400_tg_volt: 0.0 -> 0
+--- out 19 ---
+[stream:stdout]
+2026-08-22 23:53:55,437 [INFO] Ramping k_2400_bg_volt: 0.0 -> 0
+--- out 20 ---
+[stream:stdout]
+2026-08-22 23:53:55,442 [INFO] Starting sweep with ID 2
+--- out 21 ---
+[stream:stdout]
+2026-08-22 23:53:55,442 [INFO] Minimum duration 0h 1m 41s
+--- out 22 ---
+[image: cell 34 out 22  image/png  99604 bytes  1600×400]
+--- out 23 ---
+[stream:stdout]
+2026-08-22 23:57:29,006 [INFO] Completed in 0h 3m 33s
+--- out 24 ---
+[stream:stdout]
+2026-08-22 23:57:29,007 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\2\data.tsv.gz
+--- out 25 ---
+[stream:stdout]
+2026-08-22 23:57:29,519 [INFO] Ramping k_2400_bg_volt: 2.0 -> 0
+--- out 26 ---
+[stream:stdout]
+2026-08-22 23:57:32,557 [INFO] Ramping k_2400_tg_volt: 0.0 -> 0
+--- out 27 ---
+[stream:stdout]
+2026-08-22 23:57:33,077 [INFO] Ramping k_2400_bg_volt: 0.0 -> 0
+--- out 28 ---
+[stream:stdout]
+2026-08-22 23:57:33,087 [INFO] Starting sweep with ID 3
+--- out 29 ---
+[stream:stdout]
+2026-08-22 23:57:33,088 [INFO] Minimum duration 0h 1m 41s
+--- out 30 ---
+[image: cell 34 out 30  image/png  105692 bytes  1600×400]
+--- out 31 ---
+[stream:stdout]
+2026-08-23 00:01:05,982 [INFO] Completed in 0h 3m 32s
+--- out 32 ---
+[stream:stdout]
+2026-08-23 00:01:05,982 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\3\data.tsv.gz
+--- out 33 ---
+[stream:stdout]
+2026-08-23 00:01:06,494 [INFO] Ramping k_2400_bg_volt: -1.3 -> 0
+--- out 34 ---
+[stream:stdout]
+all four legs ran without a leakage trip; nplci reset to 1
+k_tg.volt validator: <Numbers -0.3<=v<=1.0> | k_bg.volt validator: <Numbers -1.3<=v<=2.0>
+
+============================================================
+cell 35  [markdown]
+============================================================
+## HERA — Step 1: first 0 T gatemap (`gatemap`) → CNP line + (n, D) calibration
+
+> **00:04** · gatemap: TG fast [-0.3,+1.0] V 66 pts x BG slow [-1.3,+1.2] V 63 rows, B 0, Vsi 0, sr1 20 uV, fast\_delay 1 s · **ETA ~01:44** (≈1h40m)
+
+Gate C passed (runs 0–3: alive, no leakage, Rxx 60–330 Ω). The 1D legs show **two** resistance maxima through each gate (TG −0.21 / +0.11 V; BG −0.26 / +0.14 V, position ratio ≈ 0.8 ≈ c_bg/c_tg prior) — two series regions of different intrinsic doping. The map settles whether they are parallel CNP ridges (two flake domains, same lever arms) or not, fits the ridge slope for the capacitance ratio (`cnp-and-dline-calibration`), and locates the D = 0 line. Window: TG fast over its ful
+
+============================================================
+cell 36  [code]
+============================================================
+```python
+# === 0 T gatemap (`gatemap`): TG fast [-0.3, +1.0] V x BG slow [-1.3, +1.2] V, 20 x 40 mV ===
+# --- preconditions (assumed, not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0, _B0 = T_sample(), magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.02), V_si = {k_si():+.3f} V (0), "
+      f"nplci tg/bg = {k_tg.nplci()}/{k_bg.nplci()} (1/1)")
+assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.02 and abs(k_si()) < 0.01
+assert k_tg.nplci() == 1 and k_bg.nplci() == 1, "gate-current nplci not reset to 1"
+
+Vtg_vec = np.linspace(-0.3, 1.0, 66)    # fast, 20 mV
+Vbg_vec = np.linspace(-1.3, 1.2, 63)    # slow, 40 mV
+assert Vtg_vec.min() >= TG_MIN and Vtg_vec.max() <= TG_MAX and Vbg_vec.min() >= BG_MIN and Vbg_vec.max() <= BG_MAX
+FAST_DELAY, SLOW_DELAY = 1.0, 3.0
+I_TRIP = 1e-9
+
+# Fixed sensitivity for the whole map (no autorange mid-row): 20 uV = 2 kOhm full scale at 10 nA.
+sr1.sensitivity(20e-6)
+print(f"drive {sr1.amplitude()} V -> 10 nA; sr1 sens {sr1.sensitivity()} V (2 kOhm FS); sr0 sens {sr0.sensitivity()} V; tau {sr1.time_constant()} s")
+
+mc = dict(meas_config); mc["Si (V)"] = k_si(); mc["sample_temperature:"] = _T0
+mc["comments"] = "gatemap: TG fast -0.3..+1.0 V (66), BG slow -1.3..+1.2 V (63), B = 0, Vsi = 0, sr1 sens 20 uV"
+s = sweep.AsyncStation(mc)
+s.add_comment('gatemap')
+s.add_comment('TG fast [-0.3, +1.0] V 66 pts (20 mV); BG slow [-1.3, +1.2] V 63 rows (40 mV); B = 0; Vsi = 0; first map of cooldown')
+s.ramp(k_bg.volt, Vbg_vec[0]); s.ramp(k_tg.volt, Vtg_vec[0])
+interruptible_sleep(10)
+
+# row layout: [time, Vbg(slow), Vtg(fast), T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]
+s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)
+s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+s.plot(k_tg.volt, sr1.X); s.plot(k_tg.volt, sr0.X)
+s.plot(k_bg.volt, k_bg.curr); s.plot('time', k_tg.curr)
+
+def leak_guard(station, data):
+    i_tg, i_bg = abs(float(data[4])), abs(float(data[5]))
+    if i_tg > I_TRIP or i_bg > I_TRIP:
+        print(f"LEAK TRIP at Vbg={float(data[1]):+.3f}, Vtg={float(data[2]):+.3f}: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A")
+        station.interrupt_requested = True
+s.register_run_after(leak_guard, ())
+
+try:
+    s.megasweep(k_bg.volt, Vbg_vec, k_tg.volt, Vtg_vec, slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)
+finally:
+    s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)
+```
+--- out 0 ---
+[stream:stdout]
+T_sample: VTI_sample.txt live — age 3s, period 5s
+precondition T_sample = 1.166 K (1.0-1.5), B = +0.0063 T (|B|<0.02), V_si = +0.000 V (0), nplci tg/bg = 1.0/1.0 (1/1)
+--- out 1 ---
+[stream:stdout]
+drive 1.0 V -> 10 nA; sr1 sens 2e-05 V (2 kOhm FS); sr0 sens 0.02 V; tau 0.3 s
+2026-08-23 00:05:01,643 [INFO] Ramping k_2400_bg_volt: 0.0 -> -1.3
+--- out 2 ---
+[stream:stdout]
+2026-08-23 00:05:03,362 [INFO] Ramping k_2400_tg_volt: 0.0 -> -0.3
+--- out 3 ---
+[stream:stdout]
+2026-08-23 00:05:13,742 [INFO] Starting megasweep with ID 4
+--- out 4 ---
+[stream:stdout]
+2026-08-23 00:05:13,744 [INFO] Minimum duration 1h 12m 27s
+--- out 5 ---
+[stream:stdout]
+2026-08-23 00:08:30,008 [WARNING] ID 4 INTERRUPTED
+--- out 6 ---
+[stream:stdout]
+2026-08-23 00:08:30,008 [WARNING] ID 4 INTERRUPTED
+--- out 7 ---
+[image: cell 36 out 7  image/png  93046 bytes  1600×400]
+--- out 8 ---
+[stream:stdout]
+2026-08-23 00:08:30,583 [INFO] Completed in 0h 3m 16s
+--- out 9 ---
+[stream:stdout]
+2026-08-23 00:08:30,584 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\4\data.tsv.gz
+--- out 10 ---
+[stream:stdout]
+2026-08-23 00:08:30,647 [INFO] Ramping k_2400_tg_volt: 0.38 -> 0
+--- out 11 ---
+[stream:stdout]
+2026-08-23 00:08:31,197 [INFO] Ramping k_2400_bg_volt: -1.2195 -> 0
+--- out 12 ---
+[error] KeyboardInterrupt: sweep interrupted - stopping enclosing cell
+---------------------------------------------------------------------------
+KeyboardInterrupt                         Traceback (most recent call last)
+Cell In[19], line 42
+     39 s.register_run_after(leak_guard, ())
+     41 try:
+---> 42     s.megasweep(k_bg.volt, Vbg_vec, k_tg.volt, Vtg_vec, slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)
+     43 finally:
+     44     s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)
+
+File ~\measurement_env\lib\measureme\sweep\sweep.py:254, in _interruptible.<locals>.wrapper(*args, **kwargs)
+    249     raise InterruptedError(
+    250         "graceful shutdown requested - stopping enclosing cell"
+    251     )
+    253 if args[0].interrupt_requested:
+--> 254     raise KeyboardInterrupt("sweep interrupted - stopping enclosing cell")
+    256 return result
+
+KeyboardInterrupt: sweep interrupted - stopping enclosing cell
+
+============================================================
+cell 37  [markdown]
+============================================================
+## HERA — gatemap re-run at 100 µV (run 4 aborted at the first-rows checkpoint)
+
+> **00:09** · gatemap re-run: TG fast [-0.3,+1.0] V 66 x BG slow [-1.3,+1.2] V 63, B 0, Vsi 0, sr1 100 uV (10 kOhm FS) · **ETA ~01:44** (≈1h35m)
+
+Run 4 railed `sr1` (2.18 kΩ, fs 1.09) along the CNP ridge on its first two rows (V_bg = −1.3, D ≈ +0.3 V/nm): the gapped CNP at large |D| already exceeds the 2 kΩ full scale chosen from the D ≈ 0 peaks, so the ridge rows the slope fit needs most would be flat-topped. Aborted at 3 min (interrupted, gates parked at 0). Same map at **100 µV = 10 kΩ full scale** — the expert rule: lose low-R resolution (60 Ω = 0.6 % of range, readable per runs 0–3 at 0.4 %) rather than saturate. Every
+
+============================================================
+cell 38  [code]
+============================================================
+```python
+# === 0 T gatemap (`gatemap`): TG fast [-0.3, +1.0] V x BG slow [-1.3, +1.2] V, 20 x 40 mV ===
+# --- preconditions (assumed, not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0, _B0 = T_sample(), magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.02), V_si = {k_si():+.3f} V (0), "
+      f"nplci tg/bg = {k_tg.nplci()}/{k_bg.nplci()} (1/1)")
+assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.02 and abs(k_si()) < 0.01
+assert k_tg.nplci() == 1 and k_bg.nplci() == 1, "gate-current nplci not reset to 1"
+
+Vtg_vec = np.linspace(-0.3, 1.0, 66)    # fast, 20 mV
+Vbg_vec = np.linspace(-1.3, 1.2, 63)    # slow, 40 mV
+assert Vtg_vec.min() >= TG_MIN and Vtg_vec.max() <= TG_MAX and Vbg_vec.min() >= BG_MIN and Vbg_vec.max() <= BG_MAX
+FAST_DELAY, SLOW_DELAY = 1.0, 3.0
+I_TRIP = 1e-9
+
+# Fixed sensitivity for the whole map (no autorange mid-row): 100 uV = 10 kOhm full scale at 10 nA.
+sr1.sensitivity(100e-6)
+print(f"drive {sr1.amplitude()} V -> 10 nA; sr1 sens {sr1.sensitivity()} V (10 kOhm FS); sr0 sens {sr0.sensitivity()} V; tau {sr1.time_constant()} s")
+
+mc = dict(meas_config); mc["Si (V)"] = k_si(); mc["sample_temperature:"] = _T0
+mc["comments"] = "gatemap: TG fast -0.3..+1.0 V (66), BG slow -1.3..+1.2 V (63), B = 0, Vsi = 0, sr1 sens 100 uV; re-run of run 4 (railed at 2 kOhm)"
+s = sweep.AsyncStation(mc)
+s.add_comment('gatemap')
+s.add_comment('TG fast [-0.3, +1.0] V 66 pts (20 mV); BG slow [-1.3, +1.2] V 63 rows (40 mV); B = 0; Vsi = 0; first map of cooldown')
+s.ramp(k_bg.volt, Vbg_vec[0]); s.ramp(k_tg.volt, Vtg_vec[0])
+interruptible_sleep(10)
+
+# row layout: [time, Vbg(slow), Vtg(fast), T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]
+s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)
+s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+s.plot(k_tg.volt, sr1.X); s.plot(k_tg.volt, sr0.X)
+s.plot(k_bg.volt, k_bg.curr); s.plot('time', k_tg.curr)
+
+def leak_guard(station, data):
+    i_tg, i_bg = abs(float(data[4])), abs(float(data[5]))
+    if i_tg > I_TRIP or i_bg > I_TRIP:
+        print(f"LEAK TRIP at Vbg={float(data[1]):+.3f}, Vtg={float(data[2]):+.3f}: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A")
+        station.interrupt_requested = True
+s.register_run_after(leak_guard, ())
+
+try:
+    s.megasweep(k_bg.volt, Vbg_vec, k_tg.volt, Vtg_vec, slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)
+finally:
+    s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)
+```
+--- out 0 ---
+[stream:stdout]
+T_sample: VTI_sample.txt live — age 4s, period 5s
+precondition T_sample = 1.166 K (1.0-1.5), B = +0.0063 T (|B|<0.02), V_si = +0.000 V (0), nplci tg/bg = 1.0/1.0 (1/1)
+--- out 1 ---
+[stream:stdout]
+drive 1.0 V -> 10 nA; sr1 sens 0.0001 V (10 kOhm FS); sr0 sens 0.02 V; tau 0.3 s
+2026-08-23 00:09:25,281 [INFO] Ramping k_2400_bg_volt: 0.0 -> -1.3
+--- out 2 ---
+[stream:stdout]
+2026-08-23 00:09:27,006 [INFO] Ramping k_2400_tg_volt: 0.0 -> -0.3
+--- out 3 ---
+[stream:stdout]
+2026-08-23 00:09:37,382 [INFO] Starting megasweep with ID 5
+--- out 4 ---
+[stream:stdout]
+2026-08-23 00:09:37,383 [INFO] Minimum duration 1h 12m 27s
+--- out 5 ---
+[image: cell 38 out 5  image/png  117426 bytes  1600×400]
+--- out 6 ---
+[stream:stdout]
+2026-08-23 01:30:51,166 [INFO] Completed in 1h 21m 13s
+--- out 7 ---
+[stream:stdout]
+2026-08-23 01:30:51,167 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\5\data.tsv.gz
+--- out 8 ---
+[stream:stdout]
+2026-08-23 01:30:51,229 [INFO] Ramping k_2400_tg_volt: 1.0 -> 0
+--- out 9 ---
+[stream:stdout]
+2026-08-23 01:30:52,556 [INFO] Ramping k_2400_bg_volt: 1.2 -> 0
+
+============================================================
+cell 39  [markdown]
+============================================================
+## HERA — Step 3: SdH spot check, electron side (`sdh-spot-check`), n = +3.2×10¹² at D = 0, B 0 → 10 T
+
+> **01:33** · sdh-spot-check e-side: n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0->10 T, 50 mT to 1 T then 10 mT, delay 0 (3 s settle), sr1 50 uV; ends at 10 T · **ETA ~03:48** (≈2h15m)
+
+Calibration from run 5 (ana): c_bg/c_tg = 0.773 (data), c_tg = 2.796 mF/m² (9.5 nm prior), n_offset −0.089×10¹², D_offset −0.013 V/nm (R_CNP(D) symmetry). The D = 0 line inside the validators spans n = −1.27 … +3.27×10¹², so the electron side is the high-|n| side: spot at **n = +3.2×10¹²** → (V_tg, V_bg) = (+0.984, +1.166) V, 16 mV under the TG limit. **Feasibility (Step 2, model table):** F_L = 33.1 T; ABAB pair ≈ 7.5 / 25.6 T (m* 0.028 / 0.061 mₑ), ABCA singleton 33.1 T
+
+============================================================
+cell 40  [code]
+============================================================
+```python
+# === SdH spot check, electron side (`sdh-spot-check`): n = +3.2e12 at D = 0 (region-A calibration), B 0 -> 10 T ===
+from sharpelab_nb.gates import calc_gate_voltages, calc_nD
+
+# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---
+CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)
+n_spot, D_spot = 3.2, 0.0                       # 1e12 cm^-2, V/nm
+Vtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL["c_tg"], CAL["c_bg"], CAL["n_offset"], CAL["D_offset"])
+assert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)
+print(f"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; "
+      f"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}")
+
+# --- preconditions (assumed, not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0, _B0 = T_sample(), magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.05: sweep starts at 0), V_si = {k_si():+.3f} V (0), "
+      f"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}")
+assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.05 and abs(k_si()) < 0.01
+assert magnet.persistent_switch_on() and magnet.output_enabled()
+
+# --- field grid: uniform in B (blocking rate-limited magnet). 50 mT to 1 T (background only), 10 mT 1 -> 10 T:
+B_vec = np.unique(np.round(np.hstack((np.arange(0.0, 1.0, 0.05), np.arange(1.0, 10.0001, 0.01))), 4))
+assert B_vec.max() <= B_SESSION_CAP
+I_TRIP = 1e-9
+# Fixed sensitivity: 50 uV = 5 kOhm full scale at 10 nA (R(B=0) ~ 70 Ohm = 1.4 % FS; MR + SdH maxima at high B size the headroom).
+sr1.sensitivity(50e-6)
+print(f"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)")
+
+mc = dict(meas_config); mc["Si (V)"] = k_si(); mc["sample_temperature:"] = _T0
+mc["comments"] = f"sdh-spot-check electron: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 0 -> 10 T, 10 mT above 1 T, sr1 50 uV"
+s = sweep.AsyncStation(mc)
+s.add_comment('sdh-spot-check')
+s.add_comment(f'electron side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '
+              f'B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio {CAL["c_bg"]/CAL["c_tg"]:.3f}, n_offset {CAL["n_offset"]:+.3f}e12, D_offset {CAL["D_offset"]:+.3f}')
+s.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)
+interruptible_sleep(10)
+
+# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]
+s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)
+s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+s.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)
+
+def leak_guard(station, data):
+    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))
+    if i_tg > I_TRIP or i_bg > I_TRIP:
+        print(f"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A")
+        station.interrupt_requested = True
+s.register_run_after(leak_guard, ())
+
+s.sweep(magnet.field, B_vec, delay=0)
+# gates stay at the spot; field stays at 10 T (the hole-side spot check rides it down) — no park here.
+print(f"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})")
+```
+--- out 0 ---
+[stream:stdout]
+spot: n = +3.20e12, D = +0.00 V/nm -> (Vtg, Vbg) = (+0.9836, +1.1661) V; roundtrip n,D = (3.2, -1.734723475976807e-18)
+T_sample: VTI_sample.txt live — age 1s, period 5s
+precondition T_sample = 1.166 K (1.0-1.5), B = +0.0063 T (|B|<0.05: sweep starts at 0), V_si = +0.000 V (0), PS heater True, output True
+--- out 1 ---
+[stream:stdout]
+B grid: 921 pts, 0.0 -> 10.0 T; sr1 sens 5e-05 V, tau 0.3 s (settle_s 3.0 s = dwell)
+2026-08-23 01:33:34,864 [INFO] Ramping k_2400_bg_volt: 0.0 -> 1.1661246961468763
+--- out 2 ---
+[stream:stdout]
+2026-08-23 01:33:36,400 [INFO] Ramping k_2400_tg_volt: 0.0 -> 0.9836210126989271
+--- out 3 ---
+[stream:stdout]
+2026-08-23 01:33:47,646 [INFO] Starting sweep with ID 6
+--- out 4 ---
+[stream:stdout]
+2026-08-23 01:33:47,646 [INFO] Minimum duration 0h 0m 0s
+--- out 5 ---
+[image: cell 40 out 5  image/png  85237 bytes  1600×400]
+--- out 6 ---
+[stream:stdout]
+2026-08-23 03:34:09,902 [INFO] Completed in 2h 0m 21s
+--- out 7 ---
+[stream:stdout]
+2026-08-23 03:34:09,903 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\6\data.tsv.gz
+--- out 8 ---
+[stream:stdout]
+done: B = +10.008 T, (Vtg, Vbg) = (+0.9835, +1.1660)
+
+============================================================
+cell 41  [markdown]
+============================================================
+## HERA — Step 3b: SdH spot check, hole side (`sdh-spot-check`), n = −1.2×10¹² at D = 0, riding the magnet 10 → 0.3 T
+
+> **03:34** · sdh-spot-check h-side: n=-1.2e12 D=0 (Vtg -0.280, Vbg -0.463), B 10->0.3 T, 20 mT, delay 0, sr1 50 uV; ends at 0.3 T · **ETA ~05:19** (≈1h45m)
+
+Run 6 (electron, n = +3.2×10¹²) ends at 10 T with the gates at the spot. The investigation takes both signs (no side prior); the hole side of the D = 0 line reaches only n = −1.27×10¹² (TG −0.3 V limit), so the spot sits at **n = −1.2×10¹²** → (V_tg, V_bg) = (−0.280, −0.463) V. Feasibility (model): F_L = 12.4 T; ABAB pair ≈ 5.3 / 7.1 T (the near-CNP semimetal regime, tones close and balanced — the recipe's stated low-|n| exception), ABCA 12.4 T with m* ≈ 1 mₑ — LK-
+
+============================================================
+cell 42  [code]
+============================================================
+```python
+# === SdH spot check, hole side (`sdh-spot-check`): n = -1.2e12 at D = 0 (region-A calibration), rides the magnet 10 -> 0.3 T ===
+from sharpelab_nb.gates import calc_gate_voltages, calc_nD
+
+# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---
+CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)
+n_spot, D_spot = -1.2, 0.0                      # 1e12 cm^-2, V/nm (D = 0 line reaches -1.27 on this side)
+Vtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL["c_tg"], CAL["c_bg"], CAL["n_offset"], CAL["D_offset"])
+assert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)
+print(f"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; "
+      f"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}")
+
+# --- preconditions (assumed, not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0, _B0 = T_sample(), magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (expect 10 T: the electron spot check ended there), V_si = {k_si():+.3f} V (0), "
+      f"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}")
+assert 1.0 <= _T0 <= 1.5 and abs(_B0 - 10.0) < 0.05 and abs(k_si()) < 0.01
+assert magnet.persistent_switch_on() and magnet.output_enabled()
+
+# --- field grid: uniform in B, descending (blocking magnet; start where it sits). F_L(1.2e12) = 12.4 T.
+B_vec = np.unique(np.round(np.arange(10.0, 0.2999, -0.02), 4))[::-1]   # 10 -> 0.3 T, 20 mT
+assert B_vec.max() <= B_SESSION_CAP
+I_TRIP = 1e-9
+# Fixed sensitivity: 50 uV = 5 kOhm FS at 10 nA (R(B=0) ~ 250-300 Ohm near the CNP side; MR + SdH maxima at 10 T size the headroom).
+sr1.sensitivity(50e-6)
+print(f"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)")
+
+mc = dict(meas_config); mc["Si (V)"] = k_si(); mc["sample_temperature:"] = _T0
+mc["comments"] = f"sdh-spot-check hole: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 10 -> 0.3 T, 20 mT, sr1 50 uV"
+s = sweep.AsyncStation(mc)
+s.add_comment('sdh-spot-check')
+s.add_comment(f'hole side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '
+              f'B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio {CAL["c_bg"]/CAL["c_tg"]:.3f}, n_offset {CAL["n_offset"]:+.3f}e12, D_offset {CAL["D_offset"]:+.3f}')
+s.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)
+interruptible_sleep(10)
+
+# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]
+s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)
+s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+s.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)
+
+def leak_guard(station, data):
+    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))
+    if i_tg > I_TRIP or i_bg > I_TRIP:
+        print(f"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A")
+        station.interrupt_requested = True
+s.register_run_after(leak_guard, ())
+
+s.sweep(magnet.field, B_vec, delay=0)
+# gates stay at the spot; field ends at 0.3 T — no park here.
+print(f"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})")
+```
+--- out 0 ---
+[stream:stdout]
+spot: n = -1.20e12, D = +0.00 V/nm -> (Vtg, Vbg) = (-0.2770, -0.4650) V; roundtrip n,D = (-1.2000000000000002, 3.469446951953614e-18)
+T_sample: VTI_sample.txt live — age 2s, period 5s
+precondition T_sample = 1.291 K (1.0-1.5), B = +10.0063 T (expect 10 T: the electron spot check ended there), V_si = +0.000 V (0), PS heater True, output True
+--- out 1 ---
+[stream:stdout]
+B grid: 486 pts, 10.0 -> 0.3 T; sr1 sens 5e-05 V, tau 0.3 s (settle_s 3.0 s = dwell)
+2026-08-23 03:35:04,125 [INFO] Ramping k_2400_bg_volt: 1.166 -> -0.46496674059537246
+--- out 2 ---
+[stream:stdout]
+2026-08-23 03:35:06,258 [INFO] Ramping k_2400_tg_volt: 0.9835 -> -0.2770329911637339
+--- out 3 ---
+[stream:stdout]
+2026-08-23 03:35:17,854 [INFO] Starting sweep with ID 7
+--- out 4 ---
+[stream:stdout]
+2026-08-23 03:35:17,855 [INFO] Minimum duration 0h 0m 0s
+--- out 5 ---
+[image: cell 42 out 5  image/png  105837 bytes  1600×400]
+--- out 6 ---
+[stream:stdout]
+2026-08-23 05:10:59,262 [INFO] Completed in 1h 35m 40s
+--- out 7 ---
+[stream:stdout]
+2026-08-23 05:10:59,263 [INFO] Data saved in C:\Users\DGG\VTI_local_data\zack\20260822-vti-02\data\7\data.tsv.gz
+--- out 8 ---
+[stream:stdout]
+done: B = +0.303 T, (Vtg, Vbg) = (-0.2770, -0.4650)
+
+============================================================
+cell 43  [markdown]
+============================================================
+## Operator — handoff
+
+Returned the rig to its bring-up state before restarting the agent instance: state0 replayed, gates 0 V, field 0 T. Readback below.
+
+============================================================
+cell 44  [code]
+============================================================
+```python
+# Operator — handoff: return to the bring-up state (state0) with the field at 0 T. Blocks ~3 min from 0.3 T.
+from sharpelab_nb.closeout import close_out
+close_out(
+    (magnet.field, 0.0),
+    restore=state0,
+    gates=[(k_tg.volt, 0.0), (k_bg.volt, 0.0), (k_si, 0.0)],
+    extra_readback={"T_sample": T_sample, "T_vaporizer": T_vaporizer,
+                    "sample_range": heater.sample_range, "vaporizer_range": heater.vaporizer_range,
+                    "PS_on": magnet.persistent_switch_on, "output_enabled": magnet.output_enabled,
+                    "Si_V": dc205.voltage, "dc205_range": dc205.voltage_range, "dc205_output": dc205.output},
+)
+```
+--- out 0 ---
+[stream:stdout]
+-- restore (19 params)
+-- gates
+-- field -> 0.0
+
+--- close-out readback ---
+drive_V : 1.0  <Numbers 0.004<=v<=5.0>
+drive_Hz : 13.777  <Numbers 0.001<=v<=102000.0>
+sr0_sens : 0.02  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+sr0_tau : 0.3  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+sr0_slope : 24  <Enum: {24, 18, 12, 6}>
+sr1_sens : 2e-06  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+sr1_tau : 0.3  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+sr1_slope : 24  <Enum: {24, 18, 12, 6}>
+sr2_sens : 0.0001  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+sr2_tau : 0.1  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+sr2_slope : 24  <Enum: {24, 18, 12, 6}>
+sr3_sens : 0.005  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+sr3_tau : 0.1  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+sr3_slope : 24  <Enum: {24, 18, 12, 6}>
+tg_nplci : 1.0
+bg_nplci : 1.0
+V_tg : 0.0  <Numbers -0.3<=v<=1.0>
+V_bg : 0.0  <Numbers -1.3<=v<=2.0>
+V_si : 0.0  <Numbers -25.0<=v<=25.0>
+field : 0.002724123287671233 T  <Numbers -10.0<=v<=10.0>
+T_sample : 1.176
+T_vaporizer : 0.949
+sample_range : 0
+vaporizer_range : 0
+PS_on : True
+output_enabled : True
+Si_V : 0.0  <Numbers -25.0<=v<=25.0>
+dc205_range : 2
+dc205_output : 1
+
+============================================================
+cell 45  [markdown]
+============================================================
+## Operator — kernel-binding probe, re-run after the handoff
+
+Same kernel, nothing restarted. HERA's probe cell ([16], `KERNEL PROBE: BOUND`) re-run here so the incoming instance sees the binding confirmed; the [VERIFY] record in `session_notes.md` stands.
+
+============================================================
+cell 46  [code]
+============================================================
+```python
+# === Kernel-binding probe (read-only) ===
+# First E1 act after the grant: confirms the nb-collab execute path lands on the
+# operator's instrument-carrying kernel (the one that ran Setup + SAFETIES), not
+# a fresh python3 kernel. Touches no instrument — namespace only.
+import os
+_need = ['magnet', 'heater', 'sr0', 'sr1', 'sr2', 'sr3', 'k_2400_tg', 'k_2400_bg',
+         'dc205', 'k_tg', 'k_bg', 'k_si', 'T_sample', 'T_vaporizer', 'meas_config',
+         'WIRING', 'state0', 'cal', 'B_SESSION_CAP', 'T_SESSION_CAP', 'tg_lims', 'bg_lims']
+_missing = [n for n in _need if n not in globals()]
+print(f"pid {os.getpid()} | main_dir {main_dir if 'main_dir' in globals() else '<unset>'}")
+print(f"present: {len(_need) - len(_missing)}/{len(_need)} | missing: {_missing}")
+print("KERNEL PROBE:", "BOUND" if not _missing else "UNBOUND")
+```
+--- out 0 ---
+[stream:stdout]
+pid 37460 | main_dir C:\Users\DGG\VTI_local_data\zack\20260822-vti-02
+present: 22/22 | missing: []
+KERNEL PROBE: BOUND

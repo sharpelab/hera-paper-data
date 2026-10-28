@@ -1,0 +1,9 @@
+## HERA — Step 1 · 0 T gate map (CNP / (n,D) calibration source)
+
+First real measurement of the investigation ladder (`trilayer-stacking-fs-count` Step 1 → `cnp-and-dline-calibration`). Nothing on disk to mine (strict isolation), so we measure the CNP fresh. At gates = 0 the device read ~1.3 kΩ (metallic) → CNP is offset; its (V_tg, V_bg) intercept is **unknown**, so this first map sweeps the **full validated gate ranges** to guarantee the CNP ridge is captured.
+
+**Design.** BG (graphite, `k_bg`) **slow** × TG (DC205, `dc205_volt`/`DC_bias`) **fast** — TG is the fast gate on this rig (device card). `bg ∈ [−4.5, 4.5]`×37 (ΔBG 0.25 V), `tg ∈ [−6, 7]`×105 (ΔTG 0.125 V). B = 0, Si = 0 V (contact-doping gate, screened from channel). `fast_delay = 1.2 s` (= 4τ floor, τ = 0.3 s / 24 dB/oct), `slow_delay = 3 s`. Follow: `sr0–sr3 .X` (raw; gains in meas_config) + `k_2400/k_2410 .curr` (BG/Si leakage). **No per-point Lakeshore poll** (rig-card Grafana/VISA contention quirk) — T read at start/end.
+
+**Coverage trade.** Geometry prior gives CNP slope ≈ −1.3, so the ridge traverses ~11.7 V of TG diagonally across the BG range — extreme rows may clip at the TG window edges and get dropped from the line fit (recipe guard). Full range is the right *first* map; a re-centered/denser map follows once the intercept is known.
+
+**Wall-clock ≈ 1.6 h** (per-pt ≈ fast_delay + ~0.15 s concurrent reads; row turnaround ≈ DC205 reset 6.5 s + slow_delay). **Checkpoint at row ~10 (~26 min)** via backgrounded `hera-watch`: (a) ridge visible & traversing within the TG window → continue; (b) ridge pinned at TG edge every row → intercept out of frame, abort & re-center (~26 min sunk); (c) BG/Si leakage approaching 1 nA → abort immediately. First run → `data/0`.

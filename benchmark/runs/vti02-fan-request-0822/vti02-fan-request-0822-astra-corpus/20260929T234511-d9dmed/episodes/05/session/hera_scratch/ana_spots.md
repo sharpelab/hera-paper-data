@@ -1,0 +1,5 @@
+## Runs 6–7 — SdH spot-check handoff read, B_1–B_2
+
+Raw signed resistance uses measured drain current and the metadata gains. Both spot checks completed without clipping; electron run 6 is at n = +3.2×10¹² cm⁻², hole run 7 at −1.2×10¹² cm⁻², both nominal D = 0 with the run-5 ratio calibration and geometry-prior absolute scale. The default onset helper reports a censored electron boundary; the coarse 50 mT grid below 1 T cannot Nyquist the 33.1 T Luttinger line at that boundary, so it cannot set a classification fan's low-field edge.
+
+The stable electron frequency comb near 7.3/14.7/22.2/29.5 T needs a density trajectory to distinguish independent pockets, harmonics, and the run-5 secondary-ridge confound. The hole trace's close tones change with analysis window and its accessible density falls in the investigation's low-density exception. **Next:** a short electron onset check, then one electron fan sized from the measured onset, model partner period count, and both-axis Nyquist. This advances the design; B_1–B_2 remains **uninformative** for a stacking verdict pending those checks (`tetralayer-stacking-fs-count`, Steps 2–5).

@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+"""hera-notify stand-in for replay episodes: there is no operator to reach.
+
+Records the message in <episode>/notifications.jsonl and answers like the
+real shim so the agent's flow is unchanged.
+"""
+
+import json
+import os
+import sys
+from datetime import datetime, timezone
+
+root = os.environ.get("HERA_EPISODE_DIR") or os.getcwd()
+with open(os.path.join(root, "notifications.jsonl"), "a", encoding="utf-8") as fh:
+    fh.write(json.dumps({"timestamp": datetime.now(timezone.utc).isoformat(), "argv": sys.argv[1:]}) + "\n")
+print("✅ Slack DM: sent")

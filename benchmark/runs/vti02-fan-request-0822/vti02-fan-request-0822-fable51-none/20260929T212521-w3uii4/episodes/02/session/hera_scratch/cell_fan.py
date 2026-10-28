@@ -1,0 +1,71 @@
+# === Landau fan at D = 0 (`landau-fan`): B slow 1 -> 10 T (50 mT to 5 T, 100 mT above), n fast -1.24 -> +3.23e12 along D = 0 (150 pts) ===
+from sharpelab_nb.gates import calc_gate_voltages, calc_nD
+
+# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, absolute scale = geometry prior; the fan's nu-lines re-check it) ---
+CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)
+n_vec = np.round(np.arange(-1.24, 3.23 + 1e-9, 0.03), 4)                      # 1e12 cm^-2, 150 pts
+Vtg_vec, Vbg_vec = calc_gate_voltages(n_vec, np.zeros_like(n_vec), CAL["c_tg"], CAL["c_bg"], CAL["n_offset"], CAL["D_offset"])
+Vtg_vec, Vbg_vec = np.asarray(Vtg_vec, float), np.asarray(Vbg_vec, float)
+assert Vtg_vec.min() >= TG_MIN and Vtg_vec.max() <= TG_MAX and Vbg_vec.min() >= BG_MIN and Vbg_vec.max() <= BG_MAX, \
+    (Vtg_vec.min(), Vtg_vec.max(), Vbg_vec.min(), Vbg_vec.max())
+_nchk, _Dchk = calc_nD(Vtg_vec, Vbg_vec, CAL["c_tg"], CAL["c_bg"], CAL["n_offset"], CAL["D_offset"])
+assert np.allclose(_nchk, n_vec, atol=1e-6) and np.abs(_Dchk).max() < 1e-6, "roundtrip n/D mismatch"
+print(f"fast axis: n = {n_vec[0]:+.2f} .. {n_vec[-1]:+.2f}e12 ({len(n_vec)} pts, {n_vec[1]-n_vec[0]:.3f}e12 step) along D = 0; "
+      f"Vtg {Vtg_vec.min():+.4f}..{Vtg_vec.max():+.4f} V, Vbg {Vbg_vec.min():+.4f}..{Vbg_vec.max():+.4f} V")
+
+# --- field grid (slow): 50 mT from 1.0 to 5.0 T, 100 mT from 5.1 to 10.0 T; ascending from where the magnet sits (0 T) ---
+B_vec = np.unique(np.round(np.hstack((np.arange(1.0, 5.0001, 0.05), np.arange(5.1, 10.0001, 0.1))), 4))
+assert B_vec.max() <= B_SESSION_CAP and B_vec.min() > 0
+print(f"slow axis: B = {B_vec[0]} -> {B_vec[-1]} T, {len(B_vec)} rows")
+
+# --- preconditions (assumed, not set) ---
+assert_thermometry_live("T_sample", VTI.temp_logfile_candidates["T_sample"], max_age=15, max_period=12)
+_T0, _B0 = T_sample(), magnet.field()
+print(f"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B| < 0.05: fan ramps up from 0), V_si = {k_si():+.3f} V (0), "
+      f"nplci tg/bg = {k_tg.nplci()}/{k_bg.nplci()} (1/1), PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}, "
+      f"volt.step tg/bg = {k_2400_tg.volt.step}/{k_2400_bg.volt.step} V")
+assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.05 and abs(k_si()) < 0.01
+assert k_tg.nplci() == 1 and k_bg.nplci() == 1, "gate-current nplci not 1"
+assert magnet.persistent_switch_on() and magnet.output_enabled()
+
+FAST_DELAY, SLOW_DELAY = 1.0, 3.0   # run-5 pacing (1.10 s/pt measured); tau 0.3 s / 24 dB -> ~1-pt uniform lag along n, slopes untouched
+I_TRIP = 1e-9
+# Fixed sensitivity for the whole fan (no autorange mid-row): 200 uV = 20 kOhm FS at 10 nA.
+# Trade: the nu = 0 insulator at the highest B may exceed it (narrow rail around n = 0 in the top rows, itself a read); low-B SdH (10-50 Ohm) stays resolved.
+sr1.sensitivity(200e-6)
+print(f"drive {sr1.amplitude()} V -> 10 nA; sr1 sens {sr1.sensitivity()} V (20 kOhm FS); sr0 sens {sr0.sensitivity()} V; "
+      f"tau {sr1.time_constant()} s / {sr1.filter_slope()} dB")
+
+mc = dict(meas_config); mc["Si (V)"] = k_si(); mc["sample_temperature:"] = _T0
+mc["comments"] = (f"landau-fan D = 0: B slow {B_vec[0]}->{B_vec[-1]} T ({len(B_vec)} rows; 50 mT to 5 T, 100 mT above), "
+                  f"n fast {n_vec[0]:+.2f}->{n_vec[-1]:+.2f}e12 ({len(n_vec)} pts) co-swept (Vtg, Vbg) along D = 0 (run-5 cal), sr1 200 uV, base T")
+s = sweep.AsyncStation(mc)
+s.add_comment('landau-fan')
+s.add_comment(f'D = 0 fan: slow magnet.field {B_vec[0]} -> {B_vec[-1]} T, {len(B_vec)} rows (50 mT <= 5 T, 100 mT > 5 T); '
+              f'fast n = {n_vec[0]:+.2f} .. {n_vec[-1]:+.2f}e12 cm^-2 in {n_vec[1]-n_vec[0]:.3f}e12 steps ({len(n_vec)} pts), '
+              f'(Vtg, Vbg) co-swept from ({Vtg_vec[0]:+.4f}, {Vbg_vec[0]:+.4f}) to ({Vtg_vec[-1]:+.4f}, {Vbg_vec[-1]:+.4f}) V; '
+              f'cal run 5: c_tg {CAL["c_tg"]:.3e}, c_bg {CAL["c_bg"]:.3e} F/m^2, n_offset {CAL["n_offset"]:+.4f}e12, D_offset {CAL["D_offset"]:+.3f} V/nm; '
+              f'fast_delay {FAST_DELAY} s, slow_delay {SLOW_DELAY} s, sr1 200 uV, Vsi = 0, T_sample {_T0:.3f} K at start')
+s.ramp(k_bg.volt, float(Vbg_vec[0])); s.ramp(k_tg.volt, float(Vtg_vec[0]))
+interruptible_sleep(10)
+
+# row layout: [time, B(slow), Vtg(fast), Vbg(fast), T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]
+s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)
+s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)
+s.plot(k_tg.volt, sr1.X); s.plot(k_tg.volt, sr0.X)
+s.plot(k_tg.volt, magnet.field, sr1.X)
+s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)
+
+def leak_guard(station, data):
+    i_tg, i_bg = abs(float(data[5])), abs(float(data[6]))
+    if i_tg > I_TRIP or i_bg > I_TRIP:
+        print(f"LEAK TRIP at B={float(data[1]):+.3f} T, Vtg={float(data[2]):+.4f}, Vbg={float(data[3]):+.4f}: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A")
+        station.interrupt_requested = True
+s.register_run_after(leak_guard, ())
+
+try:
+    s.multimegasweep([magnet.field], [B_vec], [k_tg.volt, k_bg.volt], [Vtg_vec, Vbg_vec], slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)
+finally:
+    # gates parked at 0 V; the field stays where the fan ends (10 T) - the next step rides it down, never re-traverses
+    s.ramp(k_tg.volt, 0.0); s.ramp(k_bg.volt, 0.0)
+    print(f"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f}), T_sample = {T_sample():.3f} K")

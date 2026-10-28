@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.45,
+  "B_max_T": 10.0,
+  "n_B": 256,
+  "spacing": "invB",
+  "n_min_cm2": -1.273e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 66,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 7.5,
+  "flags": [],
+  "notes": "Cell 48 (trailing code, with md cell 47): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.0); B_vec = round(1/linspace(1/0.45,1/10.0,256),4) (uniform in 1/B, ascending); fast axis n from calc_gate_voltages on the run-5 committed CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) clipped to the validator window with 2 mV margin, reproduced in a scratch script: n = -1.273 .. +3.250e12 cm^-2, 66 cols, D = 0. sr1 sensitivity set to 100 uV in the cell; sr1 tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s, drive 1.0 V and nplci 1/1 all inherited from the cell-44 close_out(restore=state0) readback. bias_resistor 100e6 from meas_config (cell 23). Stated ETA ~7h30m in cell 47."
+}

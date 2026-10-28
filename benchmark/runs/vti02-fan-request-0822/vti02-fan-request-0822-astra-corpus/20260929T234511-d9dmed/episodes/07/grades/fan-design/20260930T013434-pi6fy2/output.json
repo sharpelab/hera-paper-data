@@ -1,0 +1,34 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.9,
+  "B_max_T": 5.2,
+  "n_B": 167,
+  "spacing": "invB",
+  "n_min_cm2": 2.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 13,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.15,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[field_invB(0.90,5.20,167)],[k_tg.volt,k_bg.volt],[Vtgs_fan,Vbgs_fan],slow_delay=1,fast_delay=3); densities ns_fan=np.linspace(3.2,2.8,13) (1e12 cm^-2) at D=0 via calc_gate_voltages with the run-5 rounded calibration c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013 (TG 0.8690-0.9836 V, BG 1.0178-1.1661 V, inside validators). sr1 sensitivity set to 50 uV in the cell (inherited value was 2e-6 from the cell-44 close_out restore readback); sr0 sens 0.02 V and both taus 0.3 s inherited from that same restore, as are the Keithley nplci=1 values. Drive 1 V through the 100 MOhm bias resistor (10 nA); stated budget ~189 min (header ETA ~3h10m).",
+  "_stated_wall_clock_note": "markdown cell 47: realistic budget ~189 min"
+}

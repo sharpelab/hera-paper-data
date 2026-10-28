@@ -1,0 +1,5 @@
+## HERA — Tc ladder: controlled re-heat to pin the Ic collapse (run AFTER cooldown reaches base)
+
+The cooldown trace gives the **lower branch** I_c(T) (34–95 mK, I_c climbing to ~30 nA). The **collapse** (I_c→0 = Tc) sits above ~95 mK and was missed (we started below it). This is the controlled complement: with Probe1 now live, warm to ~250 mK (above the extrapolated Tc≈120–150 mK) and step the heater **down** through the transition, a bias sweep + real T at each rung. Top rung should show **I_c=0** (normal); descending rungs catch I_c reappearing → Tc from the onset.
+
+**Discipline:** ≤1 V heater steps, 5 min/1 V equilibration, `heater.curr` checked nonzero, **real T read from Probe1** each rung (staleness-guarded). Ladder heater V = [4.5, 3.0, 2.5, 2.0, 1.5] (≈250→~100 mK; I read T back — if 4.5 V isn't above Tc, I extend up). ~30–35 min + recool after. **Precondition: sample at base (Probe1 < 50 mK)** — so run this only once the cooldown cell has finished and the sample is cold. Combined with the cooldown's lower branch, this gives the full I_c(T) and Tc → the decisive call.

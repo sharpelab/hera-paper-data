@@ -1,0 +1,7 @@
+## HERA — ABORT T-ladder: park heater + diagnose stale thermometry
+
+**Stop reason:** at heater = 5 V the heater drew 0.46 mA (2.3 mW) and the supercurrent was killed (dV/dI flat 39 Ω), yet `temperature()` read **33.7 mK — exactly base, unchanged**, the same value it has reported in *every* run this session. That is the `temperature-dependence` Verify signature of a **stale/frozen T logfile** (dead thermometry worker, or a format/column change, or `temperature` pointed at a sensor that doesn't see the sample). Tc is not extractable until this is fixed, and heating blind (my `assert T<0.1` is defeated by the frozen value) is unsafe. The device wasn't endangered (heater ≤5 V ≪ the 6.5 V ceiling, and the cold base-T physics is genuine), but the ladder data is not Tc-usable.
+
+**This cell:** (1) parks the heater to 0 to recool; (2) diagnoses — samples `temperature()` repeatedly (frozen?), checks the probe-MC logfile's modification time + last line (is the worker still writing?), and reads `fridge_temperature` / `mag_temperature` (are the *other* sensors live, or all frozen?). That separates dead-worker (all stale, file not updating) from wrong-sensor/format (file fresh but value pinned).
+
+**Operator:** please also glance at the launcher **health panel** for the AVS probe-bridge worker, and confirm the loaded probe / sample-thermometer logfile is the right one (the setup cell carried a `# <-- verify probe` on `Probe2_MixingCh_low.txt`). I'm holding all measurement until T reads true — once it does, the Ic(T) ladder is a quick redo.

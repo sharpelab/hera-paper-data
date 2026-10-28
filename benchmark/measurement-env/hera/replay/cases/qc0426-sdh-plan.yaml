@@ -1,0 +1,16 @@
+# The SdH spot-check plan point on QC0426 (06-19 session 3): the cut sits after the
+# (n, D) calibration is on the ana notebook and written back to the device card,
+# before anything in context names a spot-check density, field window or B-step.
+# The agent picks all three from the calibration, the brief and the recipes.
+case: qc0426-sdh-plan
+source: ../../docs/notes/2026-06-19-QC0426-session-3
+cut:
+  transcript: 226a2e70-8449-42b4-800c-7fee0e907e29.jsonl
+  at: 30d5b569-7e40-41d4-9ad2-4eb2bc498291
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Calibration written back to the device card. Step 1 is closed."
+  prompt: "Carry on."
+grader: sdh-field-resolution

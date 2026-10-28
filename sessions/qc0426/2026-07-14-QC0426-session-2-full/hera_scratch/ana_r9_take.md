@@ -1,0 +1,8 @@
+**Read — redesign validated; adopt uniform-B for spot checks on this rig.**
+
+- **Physics reproduces under a different sampling grid**: f_B = 52.8 T (vs 54.4), f_top = 67.1 T (vs 66.8), low tone ≈ 9.6 T — same peak set. This is itself new evidence: **an alias moves when the sampling grid changes; f_top did not** (66.8 → 67.1 across two schemes) — the F_L tone is not a sampling artifact. Call hedge (3) tightens accordingly: the f_top fork is now {magnetic breakdown | ABC domain | (intermod, further disfavored)}.
+- **Cleaner spectra at equal cost**: run 9 (1.7 h vs run 6's 1.8 h) suppresses run 6's wandering mid-band content on sr1 (19/29 T lobes gone), smoother baseline on both channels; usable FFT band now extends past 100 T (weak 100.7 T feature ≈ 2f_B, near the noise floor — noted only).
+- **The low tone remains the least-pinned number**: 9.6 T here, ~15 T in run 6's extractions, ~11 T in fan columns — vs the partition prediction F_L − f_B ≈ 13.8 T. All within ~2·δF of each other but extraction-sensitive (background leakage pulls sub-15 T peaks). The fork discipline stands: f_s's *existence* is solid (partition holds, 2f harmonic seen on hole side), its *precise value* at any single density is ±3–4 T.
+- **sr1's high-n low-tone doublet (fan) did not reproduce** in this cleaner record — downgraded to likely graininess artifact.
+
+**Recipe consequence** (logged for triage): `sdh-spot-check` VTI delta — collect uniform in B with ΔB = Δ(1/B)_Nyq·B_lo²; resample in analysis (`sdh_fft` native). Same wall-clock, ~30× per-period averaging at high B, no blind multi-minute ramps, live trace legible. Uniform-1/B collection on a blocking rate-limited magnet is retired.

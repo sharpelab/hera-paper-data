@@ -1,0 +1,37 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:35: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  o=sdh_onset(R,B,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:35: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.6 vs 5 across 3 windows))
+  o=sdh_onset(R,B,r_full_scale=5000)
+run 6: 921 points, interrupted False, B 0.000->10.000, elapsed 120.36 min
+R range [-32.9474563   54.03974671 529.63191608] I nA [9.84293 9.90206 9.93544] T [1.165 1.249 1.292]
+gate-current pA [('k_2400_tg_curr', [-123.39, -1.04, 121.93]), ('k_2400_bg_curr', [-66.79, 26.38, 117.3])]
+point dt [ 7.45098879  7.46350455  7.48796303 25.03365016] nominal full-density F 33.08534157539087
+FFT (1, 4) [(np.float64(6.67), np.float64(5425.7)), (np.float64(22.66), np.float64(3798.88)), (np.float64(14.66), np.float64(3421.94)), (np.float64(29.33), np.float64(3083.03)), (np.float64(58.65), np.float64(1212.3)), (np.float64(35.99), np.float64(997.77))]
+FFT (2, 6) [(np.float64(6.0), np.float64(29605.47)), (np.float64(15.0), np.float64(15238.83)), (np.float64(29.99), np.float64(11161.22)), (np.float64(23.99), np.float64(10403.75)), (np.float64(59.99), np.float64(1996.67)), (np.float64(41.99), np.float64(1632.41))]
+FFT (3, 10) [(np.float64(4.28), np.float64(65113.27)), (np.float64(29.99), np.float64(34190.68)), (np.float64(21.42), np.float64(16932.5)), (np.float64(59.99), np.float64(6815.87))]
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.1  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.9  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.7  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.7  [censored@edge]
+run 7: 486 points, interrupted False, B 10.000->0.300, elapsed 95.68 min
+R range [-3.75457187e-01  1.96983835e+02  5.86867553e+02] I nA [9.8086  9.87822 9.93067] T [1.175 1.249 1.291]
+gate-current pA [('k_2400_tg_curr', [-215.83, -102.39, 11.14]), ('k_2400_bg_curr', [-68.07, 24.75, 120.1])]
+point dt [11.81514454 11.82755518 11.85131087 11.8843143 ] nominal full-density F 12.407003090771576
+FFT (1, 4) [(np.float64(8.0), np.float64(39973.9)), (np.float64(14.66), np.float64(10942.02)), (np.float64(12.0), np.float64(6684.56)), (np.float64(18.66), np.float64(4973.82)), (np.float64(25.33), np.float64(1608.63)), (np.float64(49.32), np.float64(843.42))]
+FFT (2, 6) [(np.float64(6.0), np.float64(110043.04)), (np.float64(12.0), np.float64(63933.8)), (np.float64(20.99), np.float64(15718.55)), (np.float64(29.99), np.float64(3307.6)), (np.float64(35.99), np.float64(2722.3)), (np.float64(41.99), np.float64(1569.98))]
+FFT (3, 10) [(np.float64(8.57), np.float64(90886.12)), (np.float64(38.56), np.float64(12191.86)), (np.float64(51.42), np.float64(6325.31)), (np.float64(64.27), np.float64(2110.21))]
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.9  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)
+run 5 within-row seconds [1.09145734 1.09836173 1.11954439] turnarounds [5.7550113  5.77415597 5.80451069]

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.0,
+  "B_max_T": 10.0,
+  "n_B": 101,
+  "spacing": "B",
+  "n_cm2": [0.0],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-3, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 1.4167,
+  "flags": [],
+  "notes": "Appended cells are 47 (markdown) + 48 (code): a 1D `s.sweep(magnet.field, np.round(np.arange(0.0, 10.0001, 0.1), 4), delay=0)` = 101 pts, 0 -> 10 T uniform in B, at n = 0, D = 0 (calc_gate_voltages with the run-5 CAL committed in the cell: c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013 -> Vtg +0.0668, Vbg -0.0201 V, verified in a scratch run). No fan cell is appended: hera_scratch/plan.md step 4b describes the Landau fan (91 rows uniform in 1/B, 10 -> 1.0 T, n -1.22...+3.18e12, ~4 h) as the *next* step, and no further density is named for this same cnp-vs-field sweep, so form is probe_only. sr1 sensitivity 1e-3 set in cell 48; tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s, nplci 1.0 on both Keithleys and drive 1.0 V all inherited from the cell-44 close_out(restore=state0) printed readback (latest state record before the appended cells); 100 MOhm bias resistor from the cell-34/48 comments (1 V / 100 MOhm = 10 nA). Stated run time 1 h 25 m from the cell-47 summary line."
+}

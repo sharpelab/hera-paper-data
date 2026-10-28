@@ -1,0 +1,11 @@
+## HERA — Step 5 Verify: LK mass ladder (temperature-dependence-vti, Flavor B)
+
+Recipes: `temperature-dependence.md` Flavor B + the **mandatory VTI guard set** (`temperature-dependence-vti`): hover acceptance (stable-not-proximate: spread < 0.1 K over 90 s within [T−0.5, T+3]), logfile-freshness guard on every settle poll (fault at age > 15 s ≈ 3 write periods), direction-aware runaway guard (fault only if T_vap rises > 2 K above both rung-start and target), alternating B-sweep direction derived from the live field. `ratio = 0.95` per the card (deviation consent-gated); all targets ≪ the 100 K cap.
+
+**What it decides (the investigation's decisive cross-check):** per-tone LK masses at the characterized point. Model: ML ≈ 0.02–0.05, BL ≈ 0.065–0.07, ABC ≈ 0.043–0.05; a **breakdown/mixing tone damps with the parents' summed mass ≈ 0.09** — so the F_L tone's fitted mass separates ABC-pocket from breakdown outright (beat exclusion: a coexisting tone *lighter* than the main branch cannot be a beat). Two distinct masses on {ML, BL} confirm two genuine bands (ABA); the F_L tone's mass makes the sr1-region call.
+
+**Design:** fixed point n_label = 6.0×10¹², D = 0, electron side (Vtg +2.848, Vbg +2.216). B window 2.8→6.0 T, ΔB 36 mT uniform-B (1.5× Nyquist at 2.8 T for F_max 72), 90 pts/leg — δF ≈ 5.3 T, all pairwise tone separations ≥ 13 T ≈ 2.5·δF ✓. Ladder **ascending** {base, 10, 13, 16, 20, 25 K} — deviation from base-recipe warm-first, stated: VTI up-legs catch in 2.5–4 min (rig card) while any descent is passive-cooling-limited; T is fp'd per point and rungs are accepted on stability, so labels are nominal. Sweep direction alternates from live field (leg 1: 2.8→6.0; leg 2: 6.0→2.8; …) — never re-traverses. e-temp floor ≈ 8 K makes lattice rungs below ~9 K redundant — the ladder concentrates its lever above the floor with the base rung as anchor.
+
+**Price:** per rung ≈ hover (3–10 min) + sweep (23 min traverse floor + 6 min reads ≈ 29 min) → 6 rungs ≈ **3.7 h nominal, 4–4.5 h realistic**. Ends: heaters off, passive return to base. Sens unchanged from run 6 (R(T) drift at 25 K is modest; first-rows check per rung watches fs).
+
+**Checkpoints:** per-rung first rows (fs, T stability on the fp'd trace) via the armed watches; rung-completion digest reads. Runs land as one file per rung (expected ids 10–15).

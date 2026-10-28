@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.5,
+  "n_B": 321,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-06, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Cell 48 is a 1D field sweep s.sweep(magnet.field, field_invB(0.3, 1.5, 321), delay=0) at a single point n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages(3.2, 0.0, **CAL) with the cell's own run-5 constants c_tg=.002796, c_bg=.002161, n_offset=-.0894, D_offset=-.013 -> V_tg=0.984, V_bg=1.166, both inside validators). No further densities are named anywhere (no hera_scratch/plan.md; md_onset_extension.md names only this repeat of the run-6 point), so form is probe_only. The appended cells issue exactly this one field sweep and no Landau fan at all (cell 47 states the fan is designed after this result); n_fans is reported as 1 for the single landed field sweep because the schema requires >= 1. sr1 sensitivity 5e-6 set in the cell; sr0 0.02 and both tau=0.3 inherited from the close_out(restore=state0) readback in cell 44; NPLC=1 likewise (asserted in cell 48, readback in cell 44). Drive 1 V / 100 Mohm from meas_config assertion. Stated time from cell 47's ETA (~30 min: 10.95 min ramp + 16.6 min acquisition)."
+}

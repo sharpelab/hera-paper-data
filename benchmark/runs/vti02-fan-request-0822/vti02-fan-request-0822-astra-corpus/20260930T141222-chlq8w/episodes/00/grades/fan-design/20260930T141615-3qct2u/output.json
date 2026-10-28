@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 2.0,
+  "n_B": 356,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.67,
+  "flags": [],
+  "notes": "Trailing cells 47-48: one 1D sweep s.sweep(magnet.field, field_invB(0.3, 2.0, 356), delay=0) at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages(3.2, 0., CAL) = (0.984, 1.166) V using the run-5 calibration constants committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013). No fan is issued and no further density is named (the markdown only says the 2 T endpoint will be used for a later fan), so form is probe_only; this density repeats run 6's electron spot with a valid inverse-B grid. sr0.X/P, sr1.X/P and k_tg.curr/k_bg.curr are recorded per point; sr1 sensitivity 50 uV is set in cell 48, while sr0 sens 0.02 V, both tau 0.3 s and nplci 1.0 are inherited from the cell-44 close_out(restore=state0) readback. Drive 1 V through the 100 MOhm bias resistor (cell 32 prints amp/100e6 -> 10 nA). Stated ETA in the cell-47 markdown is about 40 min."
+}

@@ -1,0 +1,7 @@
+## HERA — DO NOT run cell 74. First: does it actually settle? (fixed-6 V hold)
+
+You're right — my back-to-back ladder never waited for each step to settle before the next, so the high-V "settle times" are confounded by accumulated drift (run 37→4 V ended still rising 2.6 mK/min, run 38→5 V at 3.2 mK/min — each high step started on a drifting baseline). And live Probe1 shows 6 V is **still climbing ~5 mK/min ~20 min after the step** — not settled.
+
+**This cell isolates one level:** heater **held at 6 V (no step)**, record T(t) until it plateaus — to answer "does it settle at all, and by when," cleanly. Watch the live `time` vs `temperature` plot; **interrupt when it's visibly flat** (or it runs ~30 min). If T plateaus → the fridge does settle, just slowly (real settle time); if it keeps drifting indefinitely → something else is going on (base drift / heat leak), which changes the whole picture.
+
+**Then I redo the calibration properly:** apply a step → **wait until |dT/dt| < ~1 mK/min (genuinely settled)** → only then the next step. That gives clean per-step settle-vs-V (and a fair up/down asymmetry test). **Skip cell 74** (it has the same back-to-back flaw, just a longer window). Run this (cell 76) instead.

@@ -1,0 +1,53 @@
+# === Step 4 — T-dependence: Ic(T) ladder (HEAT UP last). Flavor B, heater stepped DOWN. ===
+# Fixed point: SC optimum (Vtg=-5.39, Vbg=+4.00), B~0. Bias sweep dV/dI vs Idc at each T.
+
+_T = temperature(); _B = magnet.field()
+print(f"start: T {_T:.4f} K  B {_B:.3e} T  heater {heater.volt()} V curr {heater.curr():.2e} A")
+assert _T < 0.1, "not at base at start — let it cool first"
+assert abs(_B) < 5e-3, "magnet not ~0"
+
+VTG_OP, VBG_OP = -5.39, +4.00
+Vdc = np.linspace(-5.0, 5.0, 25)          # +/-50 nA (brackets Ic~30nA; Ic only shrinks with T)
+ladder = [5.0, 4.0, 3.0, 2.0, 1.0, 0.0]   # heater V, DESCENDING (measure while cooling)
+
+sr830_1.amplitude(0.1); sr830_3.sensitivity(20e-6); k_tg.nplci(1); k_bg.nplci(1)
+
+def heater_to(v_target):
+    """Ramp heater in <=1V steps with a 5min/1V equilibration hold (rig-card discipline)."""
+    v0 = float(heater.volt())
+    if abs(v_target - v0) < 1e-6:
+        return
+    d = np.sign(v_target - v0); v = v0
+    while abs(v - v_target) > 1e-6:
+        dv = d * min(1.0, abs(v_target - v)); v = round(v + dv, 4)
+        heater.volt(v); time.sleep(1)
+        cur = heater.curr()
+        assert abs(cur) > 1e-9 or v == 0.0, f"heater drawing ~0 A at {v} V — open line?"
+        time.sleep(5*60 * abs(dv)/1.0)     # 5 min per 1 V, proportional
+
+# fixed point (B left at nominal 0 ~ effective-zero within the mT remanence)
+k_tg.volt(VTG_OP); k_bg.volt(VBG_OP)
+
+for hv in ladder:
+    heater_to(hv)
+    Tnow = temperature(); cur = heater.curr()
+    print(f"heater {hv} V -> T {Tnow*1e3:.0f} mK, heater.curr {cur:.3e} A")
+
+    meas_config["comment"] = f"Ic(T) rung: heater {hv}V, T~{Tnow*1e3:.0f}mK, Idc+/-50nA, opt, B~0"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('temperature-dependence')
+    s.add_comment(f'Ic(T): heater {hv}V T~{Tnow*1e3:.0f}mK; Idc+/-50nA; opt Vtg-5.39 Vbg+4.00; B~0')
+    s.ramp(dc205_1.volt, Vdc[0])
+    s.fp(temperature); s.fp(fridge_temperature); s.fp(magnet.field)
+    s.fp(heater.volt); s.fp(heater.curr)
+    s.fp(k_tg.volt).fp(k_tg.curr); s.fp(k_bg.volt).fp(k_bg.curr); s.fp(dc205_1.volt)
+    for lia in (sr830_1, sr830_2, sr830_3):
+        s.fp(lia.X).fp(lia.P)
+    s.plot(dc205_1.volt, sr830_3.X)
+    s.sweep(dc205_1.volt, Vdc, delay=1)
+    dc205_1.volt(0)
+
+# heater off; cool to base (~1 h). Park gates. Next cell must assert T back near base.
+heater.volt(0)
+k_tg.volt(0); k_bg.volt(0)
+print("ladder done; heater OFF — allow ~1 h to recool to base before base-T work.")

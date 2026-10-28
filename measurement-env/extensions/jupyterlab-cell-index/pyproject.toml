@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling>=1.5.0", "jupyterlab>=4.5.0,<4.6.0", "hatch-nodejs-version>=0.3.2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyterlab_cell_index"
+version = "0.2.0"
+description = "Show each cell's stable 0-based model index and landing time in the JupyterLab notebook gutter."
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+requires-python = ">=3.9"
+authors = [{ name = "Sharpe Lab" }]
+keywords = ["Jupyter", "JupyterLab", "JupyterLab4"]
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 4",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "Programming Language :: Python :: 3",
+]
+dependencies = []
+
+[tool.hatch.build.targets.sdist]
+artifacts = ["jupyterlab_cell_index/labextension"]
+exclude = [".github", "binder", "node_modules"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyterlab_cell_index/labextension" = "share/jupyter/labextensions/jupyterlab-cell-index"
+"install.json" = "share/jupyter/labextensions/jupyterlab-cell-index/install.json"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = [
+    "jupyterlab_cell_index/labextension/static/style.js",
+    "jupyterlab_cell_index/labextension/package.json",
+]
+skip-if-exists = ["jupyterlab_cell_index/labextension/static/style.js"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+build_cmd = "build:prod"
+npm = ["jlpm"]
+
+[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
+build_cmd = "install:extension"
+npm = ["jlpm"]
+source_dir = "src"
+build_dir = "jupyterlab_cell_index/labextension"

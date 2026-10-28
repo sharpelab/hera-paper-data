@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.4,
+  "B_max_T": 2.0,
+  "n_B": 241,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.75,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell) is a 1D field sweep s.sweep(magnet.field, field_invB(0.4, 2.0, 241), delay=3.0) at one density: calc_gate_voltages(3.2, 0., c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) = (V_tg, V_bg) = (+0.9836, +1.1661) V, i.e. n = +3.2e12 cm^-2, D = 0 (run-5 calibration committed in the cell). No further densities are named as a ladder — the markdown (cell 47) explicitly excludes the hole side and high fields already covered by run 6 — so form is probe_only; it is framed as a prerequisite for a later Landau fan, but no fan cell is issued. Cell 48 sets sr1 sensitivity to 50 uV; sr0 sensitivity 0.02 V and both taus 0.3 s are inherited from the cell-44 close_out(restore=state0) readback; nplci = 1.0 on both Keithleys from the same restore (asserted in cell 48). Drive 1 V at 13.777 Hz through the 100 MOhm bias resistor (device_card.md line 64). Stated ETA 'approx 45 min' in cell 47."
+}

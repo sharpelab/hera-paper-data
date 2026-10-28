@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# hera-watch — wrapper around the measurement-env's `hera-watch` tool (live
+# run-dir digest: one line per landed sweep row, gain-divided, with ETA).
+# Exec'd via uv with --no-sync so running it never mutates site-packages
+# under a live kernel (the menv/nb convention).
+exec uv run --no-sync --project "${HOME}/measurement_env" hera-watch "$@"

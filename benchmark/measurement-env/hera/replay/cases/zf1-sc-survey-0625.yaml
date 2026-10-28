@@ -1,0 +1,14 @@
+# The sc-survey decision point on zf1 (06-25): gate C green, the gate-C figure landed in ana
+# (line 160), before the agent reads the gatemap recipe, so the episode reads the image's recipe.
+case: zf1-sc-survey-0625
+source: ../../docs/notes/2026-06-25-zf1-session
+cut:
+  transcript: 24fe0462-e899-4e97-a4af-ff05736bcf5b.jsonl
+  at: ee647de8-70ec-4ff5-93ad-fffa565b087a
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Gate-C figure is on the ana page; VERIFY is fully green. Reading the gatemap recipe, then designing the survey map."
+  prompt: "Carry on."
+grader: sc-survey

@@ -1,0 +1,46 @@
+# === Step 1 "map it tight" — (n,D) zoom on the SC candidate (nD-map) ===
+# Rasterized polygon around the D=-0.6 dip. B=0 (magnet untouched, pristine).
+from sweep import raster
+from sharpelab_nb.gates import stack_capacitance, calc_gate_voltages, calc_nD
+
+# --- silent-precondition reads ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T : {_T:.4f} K     (expect base, mK)")
+print(f"magnet B   : {_B:.3e} T   (expect ~0 — NOT energised; pristine)")
+print(f"gates: k_tg {k_tg.volt()} V  k_bg {k_bg.volt()} V   (parked ~0 after linecuts)")
+assert _T < 0.1, "probe not at base"
+assert abs(_B) < 5e-3, "magnet not near zero — keep pristine"
+
+# Session calibration (run-4 CNP fit: c_bg/c_tg=1.189, intercept b=+0.0895 V).
+c_tg = stack_capacitance([(23.6, 3.0)]); c_bg = 1.189 * c_tg
+n_offset = -calc_nD(0.0, 0.0895, c_tg, c_bg)[0]; D_offset = 0.0
+
+# Zoom polygon in (n,D): n[-0.60,-0.35] (1e12 cm^-2), D[-0.68,-0.45] V/nm.
+verts = np.array([[-0.60,-0.68],[-0.35,-0.68],[-0.35,-0.45],[-0.60,-0.45],[-0.60,-0.68]])
+nx, ny = 31, 14                       # n fast, D slow
+xs, ys = raster.rasterize(verts, nx, ny, 0)
+vtg, vbg = calc_gate_voltages(xs, ys, c_tg, c_bg, n_offset=n_offset, D_offset=D_offset)
+vtg, vbg = sanitize_tg_bg(vtg, vbg, tg_lims, bg_lims)
+print(f"zoom: {len(vtg)}/{nx*ny} pts in validators  Vtg[{vtg.min():+.2f},{vtg.max():+.2f}] Vbg[{vbg.min():+.2f},{vbg.max():+.2f}]")
+
+# Resolve R->0 at the dip: raise 4T sensitivity (was ~200uV/rail2.18k -> 20uV/full-scale~200 Ohm).
+sr830_3.sensitivity(20e-6)
+sr830_1.amplitude(0.1)                # 1 nA AC (SC-safe)
+k_tg.nplci(1); k_bg.nplci(1)
+
+meas_config["comment"] = "nD-map zoom on SC candidate: n[-6,-3.5]e11 D[-0.68,-0.45], B=0, sr3 sens 20uV"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('nD-map')
+s.add_comment('SC-candidate zoom: n[-6,-3.5]e11, D[-0.68,-0.45] V/nm; c_bg/c_tg=1.189; B=0; sr3 sens 20uV')
+
+s.ramp(k_tg.volt, vtg[0]); s.ramp(k_bg.volt, vbg[0]); time.sleep(10)
+s.fp(temperature)
+s.fp(k_tg.volt).fp(k_tg.curr)
+s.fp(k_bg.volt).fp(k_bg.curr)
+for lia in (sr830_1, sr830_2, sr830_3):
+    s.fp(lia.X).fp(lia.P)
+s.plot(k_bg.volt, k_tg.curr)
+s.plot(k_bg.volt, sr830_3.X)
+s.multisweep([k_tg.volt, k_bg.volt], [vtg, vbg], delay=1.2)
+
+s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)

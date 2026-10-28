@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.8, 0.8136, 0.8277, 0.8423, 0.8573, 0.873, 0.8892, 0.9061, 0.9236, 0.9417, 0.9606, 0.9803, 1.0008, 1.0222, 1.0445, 1.0679, 1.0922, 1.1178, 1.1445, 1.1725, 1.202, 1.233, 1.2656, 1.3, 1.3125, 1.3253, 1.3384, 1.3517, 1.3653, 1.3791, 1.3932, 1.4077, 1.4224, 1.4374, 1.4528, 1.4685, 1.4845, 1.5009, 1.5176, 1.5348, 1.5523, 1.5702, 1.5886, 1.6073, 1.6266, 1.6463, 1.6664, 1.6871, 1.7083, 1.73, 1.7523, 1.7752, 1.7987, 1.8228, 1.8476, 1.873, 1.8992, 1.9261, 1.9538, 1.9822, 2.0116, 2.0418, 2.0729, 2.105, 2.1381, 2.1722, 2.2075, 2.2439, 2.2816, 2.3205, 2.3608, 2.4025, 2.4457, 2.4905, 2.537, 2.5852, 2.6353, 2.6874, 2.7416, 2.798, 2.8568, 2.9181, 2.9821, 3.049, 3.1189, 3.1921, 3.2689, 3.3494, 3.434, 3.5229, 3.6166, 3.7155, 3.8198, 3.9302, 4.0472, 4.1714, 4.3034, 4.444, 4.5942, 4.7548, 4.9271, 5.1124, 5.3121, 5.528, 5.7623, 6.0173, 6.2959, 6.6016, 6.9384, 7.3115, 7.727, 8.1925, 8.7178, 9.315, 10.0],
+  "n_min_cm2": 1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 51,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.5,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=1.0, fast_delay=2.1): B slow axis, gates fast. B_vec is two uniform-1/B legs joined (1/B linspace 1/0.8..1/1.3 in 24 pts and 1/1.3..1/10 in 92 pts, np.unique-deduplicated then reversed) = 115 rows, 0.8 -> 10.0 T, reproduced in a scratch script. Densities are stated by the cell: np.linspace(1.2, 3.2, 51) x 1e12 cm^-2 at D = 0, converted via calc_gate_voltages with the session's run-5 calibration CAL committed in the same cell. sr1 sensitivity 50 uV is set in the appended cell; sr1 tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s, both gate NPLCi = 1.0, and drive 1.0 V come from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells; 100 MOhm bias resistor from device_card.md line 64. Stated ETA ~5h30m in the cell-47 markdown."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 46,
+  "spacing": "B",
+  "n_min_cm2": -1.275e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 182,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.33,
+  "flags": [],
+  "notes": "Cell 48 (appended, unexecuted): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0); B_vec = np.round(np.arange(1.0,10.0001,0.2),4) -> 46 rows uniform in B; fast axis from calc_gate_voltages over n = arange(-1.3,3.5001,0.025) at D=0 with the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013), then sanitize_tg_bg to the TG/BG box, which I reproduced in a scratch run: 182 pts, n = -1.275 .. +3.250e12 cm^-2 (Vtg -0.2985..+0.9979, Vbg -0.4928..+1.1847 V). Cell 48 sets sr1 sensitivity 200 uV; sr1/sr0 tau 0.3 s, sr0 sens 20 mV, drive 1.0 V and nplci 1/1 are inherited from the cell-44 close_out(restore=state0) readback (the latest state record before the appended cells); bias resistor 100 MOhm from meas_config (cell 23). Markdown cell 47 states ETA ~4 h 20 m and notes the density scale still rests on the 9.5 nm geometry prior (run 6 implies ~11 % scale gap); values reported unscaled."
+}

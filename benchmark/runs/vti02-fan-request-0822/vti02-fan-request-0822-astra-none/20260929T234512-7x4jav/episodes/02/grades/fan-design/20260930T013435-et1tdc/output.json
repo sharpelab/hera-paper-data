@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 0.75, 1.5, 1.516109, 1.532567, 1.549387, 1.56658, 1.584158, 1.602136, 1.620527, 1.639344, 1.658604, 1.678322, 1.698514, 1.719198, 1.740392, 1.762115, 1.784387, 1.807229, 1.830664, 1.854714, 1.879405, 1.904762, 1.930813, 1.957586, 1.985112, 2.013423, 2.042553, 2.072539, 2.103418, 2.135231, 2.168022, 2.201835, 2.236719, 2.272727, 2.309913, 2.348337, 2.38806, 2.42915, 2.471679, 2.515723, 2.561366, 2.608696, 2.657807, 2.708804, 2.761795, 2.816901, 2.874251, 2.933985, 2.996255, 3.061224, 3.129074, 3.2, 3.274216, 3.351955, 3.433476, 3.519062, 3.609023, 3.703704, 3.803487, 3.908795, 4.020101, 4.137931, 4.262877, 4.395604, 4.536862, 4.6875, 4.848485, 5.020921, 5.206074, 5.405405, 5.620609, 5.853659, 6.10687, 6.382979, 6.685237, 7.017544, 7.384615, 7.792208, 8.247423, 8.759124, 9.338521, 10.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 111,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 11.0,
+  "flags": [],
+  "notes": "Cell 48 is the answer: s.multimegasweep([magnet.field],[B_fan],[k_tg.volt,k_bg.volt],[Vt_fan,Vb_fan], slow_delay=3., fast_delay=3.). B_fan = np.r_[0., .75, field_invB(1.5,10.,81)] — 83 rows, a stitched vector (two standalone rows plus an 81-point uniform-in-1/B leg), reproduced above in the venv. Density is the cell's own nominal axis n_nom = np.linspace(-1.2, 3.2, 111) in 1e12 cm^-2 at working D = 0 V/nm, converted to gates with the run-5 FAN_CAL constants committed in the cell (c_tg, c_bg, n_offset -0.089e12, D_offset -0.013); the cell flags the absolute scale as geometry-anchored/provisional, values left unscaled. Sweep records sr0.X/P and sr1.X/P plus k_tg.curr/k_bg.curr; sr1 sensitivity 100 uV is set in cell 48, while sr0 sens 0.02, both tau 0.3 s and both nplci 1.0 are inherited from the cell-44 close_out(restore=state0) readback (the latest state record before the appended cells; it also reset sr1 to 2 uV). Drive 1 V through the 100 MOhm bias resistor (meas_config, asserted in cell 48); stated ETA 11 h from the cell's own print and the markdown header."
+}

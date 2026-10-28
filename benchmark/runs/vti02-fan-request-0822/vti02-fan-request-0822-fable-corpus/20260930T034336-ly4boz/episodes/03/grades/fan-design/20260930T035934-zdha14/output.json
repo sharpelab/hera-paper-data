@@ -1,0 +1,51 @@
+{
+ "status": "extracted",
+ "landed": "fan",
+ "form": "2d_megasweep",
+ "field_mode": "invB",
+ "B_min_T": 0.35,
+ "B_max_T": 10.0,
+ "n_B": 277,
+ "spacing": "invB",
+ "n_min_cm2": 1200000000000.0,
+ "n_max_cm2": 3200000000000.0,
+ "n_columns": 121,
+ "D": 0.0,
+ "slow_axis": "B",
+ "slow_delay_s": 1.0,
+ "fast_delay_s": 1.8,
+ "lockins": [
+  {
+   "name": "sr0",
+   "sensitivity_V": 0.02,
+   "sensitivity_set_in_answer": false,
+   "time_constant_s": 0.3,
+   "time_constant_set_in_answer": false
+  },
+  {
+   "name": "sr1",
+   "sensitivity_V": 5e-05,
+   "sensitivity_set_in_answer": true,
+   "time_constant_s": 0.3,
+   "time_constant_set_in_answer": false
+  }
+ ],
+ "gate_current_reads": [
+  {
+   "name": "k_tg.curr",
+   "nplc": 1.0,
+   "nplc_set_in_answer": false
+  },
+  {
+   "name": "k_bg.curr",
+   "nplc": 1.0,
+   "nplc_set_in_answer": false
+  }
+ ],
+ "excitation_V": 1.0,
+ "bias_resistor_ohm": 100000000.0,
+ "n_fans": 1,
+ "stated_wall_clock_h": 21.0,
+ "flags": [],
+ "notes": "Cell 48: s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=1.0, fast_delay=1.8); B_vec = 1/np.linspace(1/0.35, 1/10.0, 277) (verified 0.35->10.0 T, d(1/B)=0.00999/T); gates from calc_gate_voltages over np.linspace(3.2,1.2,121)e12 at D=0 with the cell's own run-5 CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_off -0.0894, D_off -0.013) -> Vtg 0.411..0.984 V, Vbg 0.425..1.166 V, inside validators. sr1 sensitivity set in the answer to 50 uV; sr1/sr0 tau 0.3 s and sr0 sens 20 mV, drive 1.0 V, and nplci 1/1 are inherited from the cell-44 close_out(restore=state0) readback (the latest state record before the appended cells); bias resistor 100 MOhm from cells 32/34 (amp/100e6 -> 10 nA). Headline ~21 h from the cell-47 markdown (the cell's own ETA expression prints ~19.4 h). No autorange hook is registered on the fan's station (only leak_guard)."
+}

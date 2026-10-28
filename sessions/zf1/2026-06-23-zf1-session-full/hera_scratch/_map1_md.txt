@@ -1,0 +1,15 @@
+## HERA — Step 1: pristine-field gate map (coarse reconnaissance + cap-ratio)
+
+**Bring-up done** — Gate C green (4 legs, all clean: device passes 1.01 nA, sr3 4T R_xx live, gate currents tens-of-pA both gates/polarities). This is the first science cell.
+
+**What / why** (`gatemap`, investigation `sc-characterization.md` Step 1). An **axis-aligned raw (V_tg, V_bg)** megasweep at **pristine field** — taken *before the magnet is energised*, because any remanence (~10 mT on this rig once energised) can erase a fragile SC. Double duty: the CNP ridge slope gives the cap ratio `c_bg/c_tg` (`cnp-and-dline-calibration`), which the device card flags as an unverified prior (geometry → 1.18). All downstream (n, D) coordinates depend on pinning it. This is a **coarse reconnaissance**: it locates the CNP + the broad metallic/insulating landscape to aim the next step; it is *not* expected to resolve the narrow candidate SC arc (~5×10¹⁰ cm⁻²) — linecuts do that.
+
+**Geometry.** 41 (TG slow) × 61 (BG fast) = 2501 pts. TG ∈ [−6.8, +5.8], BG ∈ [−3.8, +4.0] — full validator envelope inset 0.2 V. slow_delay=3, fast_delay=1 (fast_delay=1 validated by the legs' clean smooth data). Starts at the negative co-polarized (cool) corner; the **first fast row sweeps BG to +4.0, crossing the maximum-|ΔV| (10.8 V) opposed corner** — the leakage stress test happens in the first minutes.
+
+**Leakage protection.** Limits are isaac's known-safe operating envelope (range-finding blocklisted = already established), and I leave the proven Keithley config untouched. Both gate currents are fp'd and live-plotted — **if either gate current departs its pA baseline (turns up off the flat charging level), interrupt.** This is the abort path; no software guard (the leakage-survey `LeakageDetector` is DRAFT/beta — not deploying it on a long run).
+
+**Checkpoints** (I'm arming a background monitor):
+- **First row (~3 min):** (1) both gate currents stay pA across the opposed corner; (2) sr2/sr3 X not railing at the CNP nor buried in noise in the metallic regions — if either, interrupt and I'll reset sensitivity; (3) data smooth = settled.
+- **~Every 30 min:** CNP ridge forming with a sane slope (~−1.2 expected); landscape taking shape.
+
+**Cost** ~1.8–2 h (per-point ~2.3 s incl. 5 mV-step gate ramps; +~10 min row ramp-backs, megasweep doesn't serpentine). **Coverage note:** this covers the full (n, D) envelope at *coarse* resolution — the eventual not-SC coverage gate and candidate confirmation need the finer follow-ups. Run when ready; I'll read first-row leakage/sensitivity off disk and call continue/adjust.

@@ -1,0 +1,33 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/ana_spots.py:13: UserWarning: sdh_onset: tone 7.3 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.00 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=blo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/ana_spots.py:13: UserWarning: sdh_onset: tone 7.0 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.72 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=blo,r_full_scale=5000)
+Run 6, n=3.2e12, D=0
+sdh_onset: onset_b = 1.00 T (tone 7.3 T) over B [1.00, 10.00] T
+  tone    7.3 T: onset  1.00 T  dF  1.11 T  snr_max   96.2  [censored@edge, near-residual, 2x->14.8T, 3x->22.3T, 4x->29.4T, 6x->43.7T, 8x->58.6T, 12x->88.4T, 18x->130.0T]
+  tone   22.3 T: onset  1.40 T  dF  1.63 T  snr_max   46.1  [~3x7.3T]
+  tone   14.8 T: onset  1.76 T  dF  2.13 T  snr_max   61.5  [~2x7.3T]
+  tone   29.4 T: onset  1.76 T  dF  2.14 T  snr_max  115.7  [~4x7.3T]
+  tone   88.4 T: onset  5.28 T  dF 11.21 T  snr_max   51.9  [revives-below-gap, ~12x7.3T]
+  tone   58.6 T: onset  3.76 T  dF  6.02 T  snr_max   65.8  [~8x7.3T]
+  tone  130.0 T: onset  5.58 T  dF 12.64 T  snr_max   21.3  [revives-below-gap, ~18x7.3T]
+  tone   43.7 T: onset  2.91 T  dF  4.10 T  snr_max   39.8  [~6x7.3T]
+R=-32.95..529.63 Ohm; I=9.843..9.935 nA; T=1.165..1.292 K
+degree 3 candidate peaks [(7.76, 0.55), (14.42, 0.36), (22.18, 0.34), (29.94, 0.28), (33.27, 0.07), (36.6, 0.06)]
+degree 5 candidate peaks [(7.76, 0.24), (14.42, 0.15), (22.18, 0.15), (29.94, 0.12), (33.27, 0.03), (36.6, 0.03)]
+degree 7 candidate peaks [(6.65, 0.31), (14.42, 0.2), (22.18, 0.2), (29.94, 0.16), (33.27, 0.04), (36.6, 0.03)]
+Run 7, n=-1.2e12, D=0
+sdh_onset: onset_b = 0.72 T (tone 7.0 T) over B [0.72, 10.00] T
+  tone    7.0 T: onset  0.72 T  dF  0.78 T  snr_max   66.7  [censored@edge, 5x->35.2T, 7x->49.7T, 11x->76.2T]
+  tone   12.3 T: onset  1.63 T  dF  1.95 T  snr_max   51.3  [2x->24.6T]
+  tone    5.0 T: onset  0.72 T  dF  0.78 T  snr_max   66.3  [censored@edge, near-residual, 4x->19.2T]
+  tone   19.2 T: onset  1.79 T  dF  2.18 T  snr_max   23.3  [~4x5.0T]
+  tone   24.6 T: onset  2.39 T  dF  3.14 T  snr_max   30.9  [revives-below-gap, ~2x12.3T]
+  tone   35.2 T: onset  4.73 T  dF  8.99 T  snr_max   26.1  [~5x7.0T]
+  tone   76.2 T: onset  5.06 T  dF 10.23 T  snr_max   13.0  [revives-below-gap, ~11x7.0T]
+  tone   49.7 T: onset  4.89 T  dF  9.57 T  snr_max   38.7  [revives-below-gap, ~7x7.0T]
+R=-0.38..586.87 Ohm; I=9.809..9.931 nA; T=1.175..1.291 K
+degree 3 candidate peaks [(6.97, 0.62), (4.65, 0.31), (12.39, 0.15), (13.94, 0.14), (19.36, 0.06), (23.23, 0.02)]
+degree 5 candidate peaks [(6.97, 1.0), (3.87, 0.51), (12.39, 0.25), (13.94, 0.23), (19.36, 0.09), (23.23, 0.04)]
+degree 7 candidate peaks [(6.97, 1.0), (4.65, 0.51), (12.39, 0.25), (13.94, 0.23), (19.36, 0.09), (23.23, 0.04)]
+Interpretation: oscillations are present on both sides, but the low-edge carrying tone is censored on the Nyquist-valid record. Electron range reaches the discriminating high-density regime; hole range does not. No stacking verdict yet. Low-field electron extension is required before committing the fan. Positive-B-only records are not even-in-B; Hall/contact admixture remains a hedge. Harmonic flags alone cannot remove a candidate partition branch; density trajectories will decide.

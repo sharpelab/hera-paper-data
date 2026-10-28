@@ -1,0 +1,9 @@
+## HERA — Gate C: liveness / wiring sanity (first-session, no references)
+
+Bring-up is green (instruments connected & reading; SAFETIES exec [14] matches the device card; magnet 0.02 mT, probe MC 33.7 mK). Last open [VERIFY]: confirm the provided contact wiring reads cleanly and a four-terminal Rxx channel is live — **before** committing hours to the Step-1 gate map.
+
+**Wiring under test** (provided config, no mux): `sr1=5-4` current drive · `sr2=5-4` 2-terminal · **`sr3=30-31` the genuine 4-terminal Rxx** (off both current contacts) · `sr4=5-30` (shares drive contact 5). `sr3` and `sr4` both touch contact **30** — the b1c2 precedent on this rig hit a grounded-short on a shared contact 30 (all voltage channels locked to ground, a flat-nonzero *false* signal). A static read can't see that; a sweep can.
+
+**This cell** (slug `gate-current-sanity-check`): one cheap leg — `k_bg` swept across its full committed validator (−4 → +4.2 V) at `k_tg = 0`, all gates parked, `nplci=10` on the gate-current channels for pA-floor leakage readback (reset to 1 in `finally`). Confirms in one shot: (i) current channel ~1 nA → device passes current; (ii) `sr3` X varies smoothly with gate → 4T channel alive, not flat / grounded-short; (iii) gate currents stay in pA across the leg → no leakage inside the validators; (iv) first hint of where the CNP line crosses TG=0, to size the Step-1 gatemap box. **Pristine field preserved** — does not touch the magnet controller (Step-1 map-before-energise discipline intact).
+
+**Preconditions** (asserted in-cell): T at base (<100 mK), |B|<5 mT, gate setpoints printed. **Watch the live plot:** any voltage channel flat, or all channels pinned to one value → grounded-short, stop. Gate current rolling into nA → leakage, interrupt. **~3 min** (ramp to −4 V start + 83 pts × ~1.5 s with nplci=10).

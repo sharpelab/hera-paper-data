@@ -1,0 +1,49 @@
+# === Gate C liveness leg — k_bg 0 -> -2.0 V (gate-current-sanity-check) ===
+gate       = k_bg
+v_endpoint = -2.0          # INSIDE committed validators
+n_pts      = 51
+delay      = 1
+lockins    = [sr830_1, sr830_2, sr830_3]
+# ============================================================================
+
+# --- silent-precondition reads (expected vs actual) ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T : {_T:.4f} K     (expect base, mK)")
+print(f"magnet B   : {_B:.3e} T   (expect ~0, NOT energised)")
+print(f"k_tg.volt  : {k_tg.volt()} V      (expect 0)")
+print(f"k_bg.volt  : {k_bg.volt()} V      (expect 0)")
+assert _T < 0.1, "probe not at base — investigate before sweeping"
+assert abs(_B) < 5e-3, "magnet not near zero — Step 1 needs pristine field"
+
+# pA-floor gate-current readback
+k_tg.nplci(10)
+k_bg.nplci(10)
+
+# AC sense drive -> ~1 nA at the device
+sr830_1.amplitude(0.1)
+
+meas_config["comment"] = f"gate C liveness: {gate.name} 0 -> {v_endpoint:+g} V"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('gate-current-sanity-check')
+s.add_comment(f'leg: {gate.name} 0 -> {v_endpoint:+g} V (liveness)')
+
+# park non-swept gate at 0
+s.ramp(k_bg.volt, 0)
+s.ramp(k_tg.volt, 0)
+
+s.fp(temperature)
+s.fp(k_tg.volt).fp(k_tg.curr)
+s.fp(k_bg.volt).fp(k_bg.curr)
+for lia in lockins:
+    s.fp(lia.X).fp(lia.P)
+
+xp = gate.volt
+s.plot(xp, k_tg.curr)
+s.plot(xp, k_bg.curr)
+for lia in lockins:
+    s.plot(xp, lia.X)
+
+try:
+    s.sweep(gate.volt, np.linspace(0, v_endpoint, n_pts), delay=delay)
+finally:
+    s.ramp(gate.volt, 0)

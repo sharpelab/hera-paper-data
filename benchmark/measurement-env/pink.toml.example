@@ -1,0 +1,21 @@
+[influxdb]
+url = "https://metrics.aaronsharpe.science"
+token = ""
+org = "dgg"
+bucket = "016_pink"
+
+[hardware]
+lc_logs_folder = 'C:\avs-47'
+ami430_addr = "TCPIP0::192.168.0.185::7180::SOCKET"
+
+[health.lc_scrapper_fp]
+metrics = ["P1"]
+threshold = 90
+
+[health.lc_scrapper_tc]
+metrics = ["R0"]
+threshold = 300
+
+[health.magnet]
+metrics = ["magnetic field"]
+threshold = 90

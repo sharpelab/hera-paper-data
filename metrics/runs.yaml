@@ -1,0 +1,234 @@
+# Run manifest — hand-checked inventory of HERA runs (spec §0).
+# archive paths are relative to ~/sharpelab. DRAFT fields marked with comments.
+#
+# Scope: June 2026 QC0426 (VTI) + zf1/b1c2 (toploader) HERA runs only.
+# Excluded: May b1c2 sessions, IRIS sessions (incl. rig-side 20260623-QC0426),
+# qswitch investigation, 20260618-QC0426 stub (0 sweeps).
+
+runs:
+  # ---- QC0426 / VTI — ABA/ABC stacking-ID ladder -------------------------
+  - run_id: qc0426-r1
+    device: QC0426
+    rig: vti
+    date: 2026-06-10
+    mode: E0
+    archive: measurement-env/hera/docs/notes/2026-06-10-QC0426-session
+    rig_session_dir: zack/20260610-QC0426-hera-live
+    layout: root      # re-pull 2026-07-06 put fresh copies at root; artifacts/ is the stale dup
+    transcript: full
+    variability_set: false
+    caveats: [no-appended-at-stamps, data-repulled-2026-07-06, stale-artifacts-dup]
+
+  - run_id: qc0426-r2
+    device: QC0426
+    rig: vti
+    date: 2026-06-14
+    mode: E0          # DRAFT — confirm from artifacts/hera_session.md
+    archive: measurement-env/hera/docs/notes/2026-06-14-QC0426-session
+    rig_session_dir: zack/20260614-QC0426
+    layout: artifacts
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: qc0426-r3
+    device: QC0426
+    rig: vti
+    date: 2026-06-16
+    mode: E1          # first autonomous
+    archive: measurement-env/hera/docs/notes/2026-06-16-QC0426-session
+    rig_session_dir: zack/20260616-QC0426
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: qc0426-r4
+    device: QC0426
+    rig: vti
+    date: 2026-06-17
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-17-QC0426-session
+    rig_session_dir: zack/20260617-QC0426
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: qc0426-r5
+    device: QC0426
+    rig: vti
+    date: 2026-06-19
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-19-QC0426-session
+    rig_session_dir: zack/20260619-QC0426
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: qc0426-r6
+    device: QC0426
+    rig: vti
+    date: 2026-06-19
+    mode: E1
+    exclude: true     # 38-min false start (1 liveness sweep, abandoned; r7 is the rerun) — ruled out 2026-07-06
+    archive: measurement-env/hera/docs/notes/2026-06-19-QC0426-session-2
+    rig_session_dir: zack/20260619.2-QC0426
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: [archived-2026-07-06, false-start]
+
+  - run_id: qc0426-r7
+    device: QC0426
+    rig: vti
+    date: 2026-06-19
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-19-QC0426-session-3
+    rig_session_dir: zack/20260619.3-QC0426
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  # variability set: identical config x3 — DRAFT membership (last three
+  # chronologically: r8/r9/r10); confirm against the briefs.
+  - run_id: qc0426-r8
+    device: QC0426
+    rig: vti
+    date: 2026-06-20
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-20-QC0426-session
+    rig_session_dir: zack/20260620-QC0426
+    layout: root
+    transcript: full
+    variability_set: true
+    caveats: []
+
+  - run_id: qc0426-r9
+    device: QC0426
+    rig: vti
+    date: 2026-06-21
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-21-QC0426-session
+    rig_session_dir: zack/20260621-QC0426
+    layout: root
+    transcript: full
+    variability_set: true
+    caveats: []
+
+  - run_id: qc0426-r10
+    device: QC0426
+    rig: vti
+    date: 2026-06-21
+    mode: E1          # DRAFT — confirm
+    archive: measurement-env/hera/docs/notes/2026-06-21-QC0426-session-2
+    rig_session_dir: zack/20260621.2-QC0426
+    layout: root
+    transcript: full
+    variability_set: true
+    # Session ends at the deliverable-complete standby declaration (ruling
+    # 2026-07-06). The operator-initiated step-6 extension (19:59 onward) is
+    # post-session and counts as a STRONG intervention.
+    session_end_override: "2026-06-22T15:47:42+00:00"
+    caveats: [archived-2026-07-06, post-session-extension]
+
+  # ---- zf1 (chip b1c2) / toploader — SC characterization ------------------
+  - run_id: zf1-r1
+    device: zf1
+    rig: toploader
+    date: 2026-06-20
+    mode: E0
+    archive: measurement-env/hera/docs/notes/2026-06-20-zf1-session
+    rig_session_dir: aaron/zf1_toploader
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: zf1-r2
+    device: zf1
+    rig: toploader
+    date: 2026-06-21
+    mode: E0
+    archive: measurement-env/hera/docs/notes/2026-06-21-zf1-session
+    rig_session_dir: aaron/20260621-zf1
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: zf1-r3
+    device: zf1
+    rig: toploader
+    date: 2026-06-22
+    mode: E0
+    archive: measurement-env/hera/docs/notes/2026-06-22-zf1-session
+    rig_session_dir: aaron/20260622-zf1
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: []
+
+  - run_id: zf1-r4
+    device: zf1
+    rig: toploader
+    date: 2026-06-23
+    mode: E0
+    archive: measurement-env/hera/docs/notes/2026-06-23-zf1-session-full
+    rig_session_dir: aaron/20260623-zf1
+    layout: root
+    transcript: partial   # tactical jsonl lost (newclaude transcript-loss bug era); recovered/ holds file-history, task outputs, the harness's project record
+    # The two jsonl in transcripts/ are the hera-session setup agent's (cwd measurement_env); the cwd rule ignores them.
+    # Session envelope from the setup agent's newclaude launch (22:17:53Z) to the last HERA cell stamp = last task
+    # output of the tactical session on the rig (07:24:29Z); see transcripts/recovered/README.md.
+    session_start_override: "2026-06-23T22:17:53Z"
+    session_end_override: "2026-06-24T07:24:29Z"
+    variability_set: false
+    caveats: [transcript-lost, setup-agent-transcripts-only, tokens-null, harness-record-recovered]
+
+  - run_id: zf1-r5
+    device: zf1
+    rig: toploader
+    date: 2026-06-24
+    mode: E1          # marathon; first full autonomous toploader run
+    archive: measurement-env/hera/docs/notes/2026-06-24-zf1-session
+    rig_session_dir: aaron/20260624-3-zf1
+    layout: root
+    transcript: export-only   # jsonl lost; terminal export transcripts/9ceaffa3-marathon-export.md stands in
+    # The jsonl in transcripts/ is the hera-session setup agent's (cwd measurement_env); the cwd rule ignores it.
+    # Session envelope from the setup agent's newclaude launch (22:50:40Z) to the last HERA cell stamp (03:24:08Z,
+    # the pause/verdict cell; the operator's abort followed); see transcripts/recovered/README.md.
+    session_start_override: "2026-06-24T22:50:40Z"
+    session_end_override: "2026-06-25T03:24:08Z"
+    variability_set: false
+    caveats: [transcript-export-only, setup-agent-transcripts-only, tokens-null, harness-record-recovered]
+
+  - run_id: zf1-r6
+    device: zf1
+    rig: toploader
+    date: 2026-06-25
+    mode: E1
+    archive: measurement-env/hera/docs/notes/2026-06-25-zf1-session
+    rig_session_dir: aaron/20260624-4-zf1
+    layout: root
+    transcript: full
+    variability_set: false
+    caveats: [notebook-named-20260624]
+
+  - run_id: zf1-ref
+    device: zf1
+    rig: toploader
+    date: 2026-06-25
+    mode: E0          # collaborative figure-data campaign (hera_session.md "Mode: E0"); not scored, the paper's reference session
+    archive: measurement-env/hera/docs/notes/2026-06-25-zf1-reference-session
+    rig_session_dir: aaron/20260625-zf1
+    layout: root
+    transcript: export-only   # jsonl lost (the session's own hera-archive failed: cannot ssh to itself); transcripts/6cdb1c49-reference-export.txt is the terminal scrollback
+    # Session envelope from hera_session.md's write (19:29Z on 06-25; first HERA cell 19:32Z) to the last HERA cell stamp
+    # (11:11:20Z on 06-29, the final results in 20260625_ana.ipynb); the window stayed open to 22:51Z (harness record 99.3 h).
+    session_start_override: "2026-06-25T19:29:00Z"
+    session_end_override: "2026-06-29T11:11:20Z"
+    variability_set: false
+    caveats: [transcript-lost, export-only, tokens-null, harness-record-recovered, not-scored]

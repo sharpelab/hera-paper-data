@@ -1,0 +1,14 @@
+# The sdh_analysis decision point on vti-01 (08-18): run 8, hole spot check n = −1.8e12
+# D = 0, B 0.8→9 T, just landed (line 823). The live read: onset 1.7 T, tones ~8 and ~17 T.
+case: vti01-sdh-analysis-r8
+source: ../../docs/notes/2026-08-18-vti-01-session
+cut:
+  transcript: 18ed1c71-d971-4290-b0c2-752d15437e88.jsonl
+  at: eb24236b-72c2-44ee-bf32-cdb353c5cc39
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 8 is down, 746 rows, no clipping. Reading the hole side now: onset, FFT, then the ana entry."
+  prompt: "Carry on."
+grader: null

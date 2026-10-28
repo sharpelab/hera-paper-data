@@ -1,0 +1,188 @@
+{
+ "run_id": "qc0426-r7",
+ "manifest": {
+  "run_id": "qc0426-r7",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-19",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-19-QC0426-session-3",
+  "rig_session_dir": "zack/20260619.3-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-20T03:29:36+00:00",
+  "t_transcript_last": "2026-06-20T16:51:56+00:00",
+  "transcript_span_h": 13.372371666630109,
+  "session_h": 13.372371666630109,
+  "t_final_decision": "2026-06-20T16:32:40.877585+00:00",
+  "t_final_decision_source": "heuristic:measure-nb",
+  "decision_h": 13.05124655134148,
+  "t_first_sweep": "2026-06-20T03:42:52+00:00",
+  "t_last_sweep_end": "2026-06-20T15:06:12+00:00",
+  "sweep_span_h": 11.388901886807547,
+  "measuring_h": 10.792767245835728,
+  "longest_sweep_h": 7.6625194867451984
+ },
+ "sweeps": {
+  "n_sweeps": 5,
+  "by_recipe": {
+   "cnp-and-dline-calibration": {
+    "n": 1,
+    "hours": 0.036
+   },
+   "gatemap": {
+    "n": 1,
+    "hours": 0.644
+   },
+   "landau-fan-vti": {
+    "n": 1,
+    "hours": 7.663
+   },
+   "sdh-spot-check": {
+    "n": 2,
+    "hours": 2.451
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.9476565302874056,
+  "hil": 0.959607095504102,
+  "frac_measuring": 0.9476565302874056,
+  "frac_hera_court": 0.0398898673239851,
+  "frac_human_court": 0.012453602388609259,
+  "hera_court_h": 0.4543017852306366,
+  "human_court_h": 0.14183285574118296,
+  "n_lands": 22,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 469.657906293869,
+    "hera_s": 214.56270551681519,
+    "human_s": 255.09520077705383,
+    "land": 1781927316.195841,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 794.2571091651917,
+    "hera_s": 770.6089839935303,
+    "human_s": 23.648125171661377,
+    "land": 1781930659.015446,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 328.647846698761,
+    "hera_s": 300.53311467170715,
+    "human_s": 28.114732027053833,
+    "land": 1781935394.544207,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 553.5218453407288,
+    "hera_s": 349.78162264823914,
+    "human_s": 203.74022269248962,
+    "land": 1781940184.091685,
+    "next_slug": "landau-fan-vti"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 3,
+  "n_assistant_entries": 504,
+  "n_api_requests": 230,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 246,
+  "message_counts": {
+   "human": 3,
+   "loop_tick": 16,
+   "task_notification": 7,
+   "admin": 1,
+   "interrupt": 2
+  },
+  "n_tool_calls": 217,
+  "tool_calls": {
+   "Bash": 67,
+   "Write": 34,
+   "Bash[nb-collab]": 33,
+   "ScheduleWakeup": 21,
+   "Read": 19,
+   "Bash[hera-watch]": 14,
+   "Edit": 12,
+   "Bash[nb]": 11,
+   "Bash[hera-notify]": 5,
+   "Grep": 1
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 27539,
+    "out": 277196,
+    "cr": 53532895,
+    "cw5": 0,
+    "cw1h": 2639849,
+    "n_requests": 230
+   }
+  },
+  "cost_usd_est": 60.23,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-19-QC0426-session-3/20260619_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-19-QC0426-session-3/20260619_ana.ipynb",
+  "n_cells": 50,
+  "n_hera_cells": 22,
+  "n_slot_cells": 5,
+  "n_human_cells": 23,
+  "n_hera_executed": 11,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 26,
+  "n_ana_figures": 7
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-20T07:24:02.542758+00:00",
+   "excerpt": "### Take \u2014 Step 3 verdict: SdH spot checks (runs 2 hole, 3 electron)\n\n**Two coexisting Fermi-surface frequencies on both density sides and both Rxx channels \u2014 a"
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-20T15:13:04.096233+00:00",
+   "excerpt": "## STACKING CALL \u2014 QC0426 trilayer graphene: **ABA (Bernal)** \u2014 strong, hedged\n\nPer `investigations/trilayer-stacking-fs-count.md` Step 7 output contract. Regio"
+  },
+  {
+   "source": "measure-nb",
+   "t": "2026-06-20T16:32:40.877585+00:00",
+   "excerpt": "## HERA \u2014 closeout: restore session-start instrument settings (operator request)\nBias drive back to 0.5 V / 5 nA (was 2 V / 20 nA for high-|n| SdH); lock-in sen"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 45,
+  "scratch_by_ext": {
+   ".md": 11,
+   ".png": 9,
+   ".py": 25
+  },
+  "scratch_loc": 984,
+  "n_scratch_figures": 9,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 3,
+  "n_interrupts": 2,
+  "longest_unattended_h": 12.928864166670376,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

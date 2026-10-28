@@ -1,0 +1,9 @@
+## Runs 6–7 — SdH spot checks at D = 0 (`sdh-spot-check`): electron n = +3.2×10¹², hole n = −1.2×10¹²
+
+**Raw first, then the FFT/onset read.** Both runs complete, no clipping (sr1 max 12 % FS at 10 T, run 7). Model tone markers from `fs_count_b0` (semi-quantitative — trust topology/partition, not absolute F).
+
+**Read (run 6, electron, F_L = 33.1 T):** oscillations persist to the record's low edge — onset **censored ≤ 0.30 T** (good quantum mobility; 0.30 T is a valid fan B_lo lower bound). Dominant tone **7.1 T** ≈ the model's ABAB light pocket at n = 3.2 (7.31 T, global scale 0.97); tracked content at **22.1 / 29.5 T** is flagged as ≈3×/4× harmonics of 7.1 — but the ABAB heavy tone is expected at 25.8 T and F_L at 33.1, and a single-density record cannot separate "harmonic comb of the light tone" from "real heavy pocket" (the investigation's ratio-screen trap: the ABAB pair ratio drifts through 3× with density — here 3.11). **The fan's n-trajectories decide**: harmonics track k·f_light(n) exactly (10.7 T at n = 2.0), a real heavy pocket follows its own Onsager curve (17.1 T at n = 2.0).
+
+**Read (run 7, hole, F_L = 12.4 T):** onset 0.71 T; tones at ~4.7 / 6.6 / 9.4 T with harmonic cross-flags — the near-CNP close-balanced-pair regime the investigation names as the low-|n| exception, and the hole side is capped at |n| ≤ 1.27×10¹² by the TG −0.3 V validator, below the |n| ≳ 2–3×10¹² design band. **Verdict: the fan goes on the electron side** (higher density reach, censored-low onset, model templates separated). Hole record kept as the h-side consistency point for the final call.
+
+**Handoff to the fan:** B_lo = 0.30 T (censored lower bound), sr1 50 µV / τ = 0.3 s proven (SNR up to ~125), Δ(1/B) ≤ 1/(3·F_L(n_max)) = 0.0101 T⁻¹, uniform-B vs uniform-1/B grid-change reproduction available against these records.

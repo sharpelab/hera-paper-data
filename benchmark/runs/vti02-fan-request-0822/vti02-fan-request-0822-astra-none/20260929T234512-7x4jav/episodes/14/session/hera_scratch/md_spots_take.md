@@ -1,0 +1,7 @@
+### Read and fan decision — plan steps 3 → 4
+
+Data/6: 921/921 points in 120.36 min, signed R=-32.95..529.63 Ohm, drain current 9.843..9.935 nA. Data/7: 486/486 in 95.68 min, R=-0.38..586.87 Ohm, current 9.809..9.931 nA. Neither interrupted nor clipped; maximum |TG/BG current| was 123/117 pA (6), 216/120 pA (7); sample T stayed 1.165–1.292 K. The negative electron excursions are retained; without field reversal there is no Hall-admixture separation.
+
+Electron FFT component near 30 T persists across 1.5–10, 2–10 and 3–10 T windows (intrinsic resolution 1.76, 2.50 and 4.29 T). Hole component near 12–13 T likewise persists. Lower-frequency peaks and automatic onset classifications are window dependent; the electron 0.30 T censored onset is driven by low-frequency background structure, not convincing evidence that all observed tones survive there. The ~29.5 T electron component tracks to about 1.91 T; this motivates dense fan coverage from 2 T with sparse lower-field reference rows. Harmonic flags are heuristic, not band assignments.
+
+These runs advance feasibility, not a stacking verdict. Run 5's two neutrality ridges can yield multiple frequency families without multiple occupied bands in a homogeneous region, and its absolute capacitance is still prior anchored. The next fan follows density evolution and family intercepts on both signs to test these alternatives. Existing B_1–B_2 stacking call remains **cannot tell (weak)** pending that evidence; no separately wired region is available.

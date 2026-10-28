@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# hera-key — print the Console API key for a HERA workspace role, for a
+# launcher to hand to Claude Code as ANTHROPIC_API_KEY. One file per role,
+# outside the repo. A missing file is an error: a HERA run bills the AI for
+# Science award's workspace, never whichever subscription is logged in.
+#
+# Usage: hera-key <rig|offline|dev>
+#   reads ${HERA_KEYS_DIR:-$HOME/.config/hera/keys}/<role>  (chmod 600)
+#
+# Workspaces: rig = live cryostat sessions (hera-session, hera-tactical, iris);
+# offline = replay benchmark and ablations; dev = harness development, chiron.
+set -euo pipefail
+
+role="${1:?usage: hera-key <rig|offline|dev>}"
+case "$role" in
+    rig|offline|dev) ;;
+    *) echo "hera-key: unknown role '$role' (rig|offline|dev)" >&2; exit 2 ;;
+esac
+
+file="${HERA_KEYS_DIR:-$HOME/.config/hera/keys}/$role"
+if [[ ! -r "$file" ]]; then
+    echo "hera-key: no key for '$role' at $file — paste the '$role' workspace key there (chmod 600)" >&2
+    exit 1
+fi
+
+key="$(tr -d '[:space:]' < "$file")"
+if [[ -z "$key" ]]; then
+    echo "hera-key: $file is empty" >&2
+    exit 1
+fi
+printf '%s\n' "$key"

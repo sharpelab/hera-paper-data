@@ -1,0 +1,250 @@
+diff --git a/hera/docs/brief-vti-02.md b/hera/docs/brief-vti-02.md
+deleted file mode 100644
+index c933bd8..0000000
+--- a/hera/docs/brief-vti-02.md
++++ /dev/null
+@@ -1,134 +0,0 @@
+-# vti-02 / VTI — session brief
+-
+-*Session context for the agent-driven measurement session on the VTI. This file is
+-the `hera-tactical` agent's first message — it names the goal, activates the recipes,
+-and carries the session-specific facts. Protocol, gates, and boundaries live in your
+-agent prompt; the physics method lives in the recipes; this brief does not restate
+-either.*
+-
+-## Contract — autonomous
+-
+-This session runs **autonomous (E1)**. After the operator gives the grant (below)
+-**you execute measure cells yourself**; you are not waiting for a keystroke per cell.
+-The operator supervises, is reachable on Slack, and can stop any running cell or
+-withdraw the grant at any time. The deployed measure-notebook policy (`append_exec`)
+-is the hard gate on execution; the grant is the protocol gate on top.
+-
+-## Autonomy — this session's parameters
+-
+-- **Mode:** E1 (autonomous).
+-- **Grant (conditional on VERIFY):** after setup (gate A) and SAFETIES (gate B)
+-  are operator-run and green, you author and land the VERIFY cell; the operator
+-  may then say **"go for autonomy"** without running it. Your first E1 acts are
+-  the read-only kernel-binding probe, then executing VERIFY yourself. The cell's
+-  last output line is the verdict — `VERIFY: ALL GREEN` or `VERIFY: FAIL <item>`
+-  — and the grant keys on that printed line, not your reading of the cell. On
+-  ALL GREEN, record grant + verdict in `session_notes.md` and engage. On any
+-  FAIL, or a missing verdict line, the grant is void: drop to E0, notify the
+-  operator, resume only on explicit re-grant. No measure cell executes before
+-  the green verdict. Until the grant you are in E0 (you propose, the operator
+-  runs).
+-- **Operator + notify:** `Zack — hera-notify --user ZACKG`.
+-- **Auto:** in-envelope measure cells (sweeps, gate sets) that stay inside the
+-  committed validators and pass their precondition reads; D-fans; field moves within
+-  the device-card field cap; temperature moves via `heater.set_both(T, ratio=0.95)`
+-  within the device-card T cap, under the temperature-dependence-vti guard set
+-  (hover acceptance, descend-catch, direction-aware runaway, freshness guards).
+-- **Consent-gated:** any deviation from `ratio = 0.95` in `set_both`.
+-- **Consent-gated (Si):** the Si (DC205) ramp — keep the gate-safe pacing;
+-  `dc205.ramp_rate` is consent-gated (never raise without operator consent).
+-- **Session-banned** (never, regardless of grant): any change to a safety surface —
+-  the SAFETIES validators, the gate operating limits, the field cap, or the
+-  T-setpoint cap; and the blocklisted recipes below.
+-- **Withdraw / drop:** the operator can withdraw the grant → you revert to E0. You are
+-  free to stop, notify, and drop to E0 on any device- or rig-safety concern. After any
+-  stop/E0 drop, resume autonomous execution **only on an explicit E1 re-grant**.
+-
+-## Campaign goal
+-
+-**Determine the stacking order of vti-02 (tetralayer graphene): ABAB (Bernal) vs
+-ABCA (rhombohedral) vs ABCB (mixed)** — an independent, evidence-cited,
+-region-resolved call (or a calibrated "cannot tell"), per the governing
+-investigation's output contract.
+-
+-## Recommended recipes
+-
+-The expected arc:
+-
+-- `investigations/tetralayer-stacking-fs-count.md` — the **governing investigation**
+-  (Fermi-surface counting at D ≈ 0): the decision procedure, the Verify suite, and the
+-  output contract. It orchestrates the measurement recipes below.
+-- `device-init/cnp-and-dline-calibration.md` — the CNP location and (n, D) calibration,
+-  **found fresh this session** (the device card carries no CNP).
+-- `measurements/sdh-spot-check.md` — the cheap fixed-(n, D) SdH frequency-content check
+-  that precedes the fan: it pins the onset, the tone frequencies, the B-step, and which
+-  side (hole/electron) gives cleaner SdH.
+-- `measurements/landau-fan.md` (the VTI variant takes precedence).
+-- `measurements/gatemap.md`.
+-- `measurements/temperature-dependence.md` (the VTI variant takes precedence — its
+-  guard set is mandatory for every elevated-T segment). The investigation's LK
+-  mass split (Verify) is in-arc, not a detour.
+-
+-The rest of the corpus is available, not forbidden; off-arc composition with stated
+-rationale is encouraged under your scope rules (> ~30 min off-arc gets the detour
+-flag). The **contact configuration is provided and hardwired** (device card) — no
+-contact survey is in the arc, and there is no mux to reroute with: a dead provided
+-contact is an operator rewiring problem — flag it, don't detour.
+-
+-**Tool:** the FS-count forward model (`hera/models/tetralayer_fs_count/fs_count_b0.py`)
+-is the primary arc-reader, per the investigation's Verify.
+-
+-## Blocklist
+-
+-- `device-init/gate-leakage-survey.md`
+-- `device-init/gate-range-finding.md` (+ `-vti` variant)
+-- `device-init/silicon-backgate-survey.md`
+-
+-"Range-finding" here is the leakage / gate-range **survey** class — it does **not**
+-restrict `cnp-and-dline-calibration` or CNP / (n, D) location.
+-
+-## Data isolation — strict
+-
+-**No prior measurement data exists for you.** Do not read other campaign or session
+-directories. Your only inputs: this brief, the device card, the rig card, the
+-recipes/corpus they name, and the data this session produces in `./data/`. The
+-recipes' first-session branches apply. Provided up front (device card): the gate
+-operating limits and the hardwired contact configuration. **Not** provided —
+-established in-session: the CNP location and the (n, D) calibration.
+-
+-## Session arc
+-
+-1. **Bring-up.** The operator runs the setup section (instrument connect — gate A) and
+-   the SAFETIES cell (gate B). You author and land the VERIFY cell (below).
+-2. **Grant.** Operator's **"go for autonomy"** → conditional E1: kernel probe +
+-   VERIFY execute first; E1 engages on the green verdict.
+-3. **Autonomous.** Gate C (a cheap liveness check on the provided contact configuration
+-   — first-session branch, no designated references), then the investigation ladder per
+-   the governing investigation (Recommended recipes), to the call in the ana notebook.
+-4. **Close-out.** Ask: `return-to-initial` — per
+-   `recipes/utils/session-closeout.md` (+ VTI variant).
+-
+-## [VERIFY] at session start
+-
+-- [ ] Magnet at 0 T (read): `print(magnet.field(), magnet._status()['field'])`.
+-- [ ] SAFETIES committed = the device card's gate operating limits; field cap on
+-      the `magnet.field` validator and the T-setpoint typo-guard cap per the
+-      device card.
+-- [ ] Base (sample) T holding ≈ 1.2–1.3 K; He budget for the session.
+-- [ ] Heaters off (both ranges 0); `T_vaporizer` tracking base.
+-- [ ] Contacts hardwired (no mux this cooldown) per the device card.
+-- [ ] DC205 (Si gate) on its ±100 V range (RNGE 2), output on, reading 0 V.
+-- [ ] Kernel-binding: the first E1 execute is a read-only namespace probe that confirms
+-      it is bound to the operator's instrument-carrying kernel.
+-
+-The checks above are the VERIFY cell's content — you author it, read-only by
+-construction, ending with the machine-readable verdict line (`VERIFY: ALL
+-GREEN` / `VERIFY: FAIL <item>`). The operator's **"go for autonomy"** may
+-arrive as soon as the cell is landed; execution of VERIFY is your first E1 act
+-after the kernel probe, and the grant engages on the printed green verdict
+-(Autonomy — Grant, above).
+-
+-## Session notes
+-
+-Maintain `session_notes.md` per your agent prompt (RECIPE FIX / TOOLING / PROTOCOL /
+-FEEDBACK).
+diff --git a/hera/templates/vti-02/device_card.md b/hera/templates/vti-02/device_card.md
+deleted file mode 100644
+index 11ed2e6..0000000
+--- a/hera/templates/vti-02/device_card.md
++++ /dev/null
+@@ -1,104 +0,0 @@
+-# Device card — vti-02 (tetralayer graphene)
+-
+-*Session device card for vti-02 on the **VTI** cryostat. Deployed into the
+-measurement directory alongside the working notebooks. This card carries
+-**physical truth**: what is wired, the hardware, the outer safety box,
+-the provided gate operating limits, and the provided contact
+-configuration. The CNP location and (n, D) calibration are established
+-in-session (see the session brief).*
+-
+-## Identity
+-- **Device id**: `vti-02`
+-- **Material**: tetralayer graphene (`4LGr`).
+-- **Owner**: Aaron
+-- **Fridge**: VTI (variable-temperature insert). Base (sample)
+-  temperature ≈ 1.2–1.3 K.
+-- **Status**: cold, wired — hardwired breakout, no contact mux; no CNP
+-  location on record.
+-
+-## Gate stack
+-- **Top gate** (`k_tg`): hBN dielectric. **Driven by a Keithley 2400**
+-  (`k_2400_tg`) — sweeps use `k_tg.volt` (5 mV step pacing; the measure
+-  notebook's setup cells bind `k_tg`).
+-- **Back gate** (`k_bg`): graphite on hBN, driven by the second
+-  **Keithley 2400** (`k_2400_bg`).
+-- **Si global back gate** (`k_si`): doped-Si gate through **SiO₂**,
+-  driven by the **SRS DC205** — bound directly to the driver's ramped
+-  parameter **`dc205.smart_voltage`** (set ramps at `ramp_rate = 0.5`
+-  V/s, get reads back `VOLT?`; data column **`dc205_smart_voltage`**).
+-  The DC205 has **no current readback** — gate-leakage monitoring lives
+-  on the Keithley `curr` channels (TG/BG) only. `ramp_voltage` steps
+-  span/50: a full ±50 V traverse moves in ~1 V steps, paced by
+-  `ramp_rate`. The graphite back gate screens Si from the channel — Si
+-  couples only to the contacts (contact-doping gate). Operating limit
+-  provided (below).
+-- **Gate-stack geometry** (fabrication facts; **geometry prior only** —
+-  the capacitance *calibration* is the session's to establish via
+-  `cnp-and-dline-calibration`):
+-  ```python
+-  from sharpelab_nb.gates import stack_capacitance, calc_nD, calc_gate_voltages
+-  c_tg = stack_capacitance([(9.5, 3)])           # 9.5 nm hBN
+-  c_bg = stack_capacitance([(11, 3), (0, 3.9)])   # 11 nm hBN, no SiO2 term
+-  ```
+-  Treat anything derived from these (lever arms, n/D scales, CNP-line
+-  slope) as uncalibrated until the session's own gate map confirms it.
+-
+-## Gate operating limits — gate B contract
+-
+-Gate operating limits for the session:
+-
+-| Parameter | Operating limit | Notes |
+-|---|---|---|
+-| `k_tg.volt` | **[−0.3, +1.0] V** | provided; geometry ceiling is the hard fence behind it |
+-| `k_bg.volt` | **[−1.3, +2.0] V** | provided |
+-| `dc205.smart_voltage` / `dc205.voltage` (Si) | **[−25, +25] V** | provided; DC205 must be on its ±100 V range (RNGE 2) |
+-| **B field (session cap)** | **\|B\| ≤ 10.0 T** | committed on the `magnet.field` validator (SAFETIES); driver `max_field_T = 14.0` T is the hard backstop |
+-| **T setpoint (session cap)** | **`set_both` target ≤ 100 K** | provided; committed as a SAFETIES setpoint typo-guard cap. `ratio = 0.95` per the rig card — deviations consent-gated |
+-
+-## Measurement setup (rig instruments wired this cooldown)
+-- **Gates**: top via **k_2400_tg** (GPIB0::1), back via **k_2400_bg**
+-  (GPIB0::24), hardwired to their sources.
+-- **Si gate**: **DC205** (`dc205.smart_voltage`, ASRL7, ±100 V
+-  range), hardwired to its source.
+-- **AC excitation / lock-ins**: SR830 family (`sr0` GPIB0::22, `sr1` GPIB0::14, `sr2` GPIB0::19, `sr3` GPIB0::18).
+-  Current-bias drive through a **100 MOhm** bias resistor, lock-in
+-  frequency **13.777 Hz**.
+-- **Current channel**: **`sr0`** = drain current, **`sr0_gain = −1E6`**
+-  (preamp gain). Per-channel sensitivities are recorded per run in
+-  `measurement_config`.
+-- **Drive / bias channel**: **`sr1`** — the lock-in whose
+-  oscillator provides the current-bias drive; `I_bias` = its live amplitude
+-  / the bias resistor. `hera-watch` reads the drive here.
+-- **Contacts — hardwired, no mux this cooldown**: device pads bond to
+-  two Fischer cables and land on the breakout; instrument leads connect
+-  directly there. Contact roles are **fixed** — rerouting a pair is
+-  operator work at the breakout, not software.
+-  - **Contact map**:
+-
+-    Bonded pads (label = position, T = top arc L→R, B = left side then
+-    bottom L→R). Only the provided configuration below is wired to
+-    instruments this cooldown:
+-
+-    | Label | Pad | | Label | Pad |
+-    |---|---|---|---|---|
+-    |  -  | -  | | T_0 | 29 |
+-    | B_1 | 12 | | T_1 | 41 |
+-    | B_2 | 04 | | T_2 | 01 |
+-    | B_3 | 27 | | T_3 | 42 |
+-    |  -  | -  | | T_4 | 43 |
+-
+-    Alive: T_0, B_1, B_2, B_3. Dead: T_1, T_2, T_3, T_4. Liveness on the provided configuration is
+-    re-confirmed at Gate C.
+-- **Provided contact configuration** (hardwired):
+-
+-  | role | label |
+-  |---|---|
+-  | source        | T_0 |
+-  | drain (`sr0`) | B_3 |
+-  | `sr1` (Rxx)   | B_1 - B_2 |
+-  | `sr2` (Rxx)   | n.c. |
+-  | `sr3` (Rxx)   | n.c. |
+-
+-## Notes
+-
+-Lock-in gains: `sr1` 1 (unity); `sr2`, `sr3` n.c.

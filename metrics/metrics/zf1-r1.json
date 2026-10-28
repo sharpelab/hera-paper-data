@@ -1,0 +1,215 @@
+{
+ "run_id": "zf1-r1",
+ "manifest": {
+  "run_id": "zf1-r1",
+  "device": "zf1",
+  "rig": "toploader",
+  "date": "2026-06-20",
+  "mode": "E0",
+  "archive": "measurement-env/hera/docs/notes/2026-06-20-zf1-session",
+  "rig_session_dir": "Isaac/b1c2_toploader",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-20T20:55:19+00:00",
+  "t_transcript_last": "2026-06-21T19:38:27+00:00",
+  "transcript_span_h": 22.718807777762414,
+  "session_h": 22.718807777762414,
+  "t_final_decision": "2026-06-21T14:52:10.849528+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 17.947578202221127,
+  "t_first_sweep": "2026-06-20T21:01:43+00:00",
+  "t_last_sweep_end": "2026-06-21T14:47:19+00:00",
+  "sweep_span_h": 17.75997570567661,
+  "measuring_h": 10.900162092381054,
+  "longest_sweep_h": 7.726965115798844
+ },
+ "sweeps": {
+  "n_sweeps": 8,
+  "by_recipe": {
+   "gate-current-sanity-check": {
+    "n": 2,
+    "hours": 0.093
+   },
+   "gatemap": {
+    "n": 2,
+    "hours": 3.018
+   },
+   "nD-map": {
+    "n": 1,
+    "hours": 7.727
+   },
+   "perp-density-at-Bzero": {
+    "n": 3,
+    "hours": 0.062
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.6137487051233433,
+  "hil": 0.8569891507327082,
+  "frac_measuring": 0.6137487051233433,
+  "frac_hera_court": 0.10241987717271113,
+  "frac_human_court": 0.2838314177039456,
+  "hera_court_h": 1.818974530365732,
+  "human_court_h": 5.040839082929823,
+  "n_lands": 31,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 689.0957329273224,
+    "hera_s": 586.9502248764038,
+    "human_s": 102.14550805091858,
+    "land": 1781990069.985395,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 7616.792429447174,
+    "hera_s": 240.38199305534363,
+    "human_s": 7376.41043639183,
+    "land": 1781990565.772007,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 10615.38470864296,
+    "hera_s": 383.2331078052521,
+    "human_s": 10232.151600837708,
+    "land": 1782000883.633969,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 3908.272503376007,
+    "hera_s": 3908.272503376007,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "perp-density-at-Bzero"
+   },
+   {
+    "after_sweep": 5,
+    "idle_s": 436.0803120136261,
+    "hera_s": 436.0803120136261,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "perp-density-at-Bzero"
+   },
+   {
+    "after_sweep": 6,
+    "idle_s": 43.16840648651123,
+    "hera_s": 43.16840648651123,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "perp-density-at-Bzero"
+   },
+   {
+    "after_sweep": 7,
+    "idle_s": 1386.534914970398,
+    "hera_s": 950.2217617034912,
+    "human_s": 436.31315326690674,
+    "land": 1782024985.696154,
+    "next_slug": "nD-map"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 529,
+  "n_api_requests": 239,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 268,
+  "message_counts": {
+   "human": 11,
+   "loop_tick": 0,
+   "task_notification": 18,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 238,
+  "tool_calls": {
+   "Write": 65,
+   "Bash": 52,
+   "Read": 37,
+   "Bash[nb-collab]": 34,
+   "Bash[hera-watch]": 19,
+   "Edit": 14,
+   "Bash[nb]": 10,
+   "Bash[hera-notify]": 7
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 9455,
+    "out": 454152,
+    "cr": 77811268,
+    "cw5": 0,
+    "cw1h": 3442896,
+    "n_requests": 239
+   }
+  },
+  "cost_usd_est": 84.74,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-20-zf1-session/20260620_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-20-zf1-session/20260620_ana.ipynb",
+  "n_cells": 69,
+  "n_hera_cells": 31,
+  "n_slot_cells": 3,
+  "n_human_cells": 35,
+  "n_hera_executed": 9,
+  "n_hera_unexecuted": 6,
+  "n_ana_cells": 28,
+  "n_ana_figures": 7
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T01:39:02.834257+00:00",
+   "excerpt": "## CORRECTION (2026-06-20) \u2014 4T Rxx is `sr830_2`, not sr3 \u2014 Step-1 map & verdict redone\n\nOperator: the 4-terminal Rxx is **`sr830_2`** (the `sr2=\"5-4\"` config l"
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T01:39:02.834257+00:00",
+   "excerpt": "**Read (corrected, sr2 = 4T Rxx) \u2014 NO superconducting candidate; cleaner than the sr3 view.**\n\n- **4T Rxx is k\u03a9-scale everywhere:** 3.1\u201344 k\u03a9, metallic backgrou"
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T05:25:47.589187+00:00",
+   "excerpt": "**Read \u2014 no SC candidate in the large-D quadrant, even at 2\u00d7 resolution.**\n\n- 4T Rxx (sr2) spans 3.4\u201344 k\u03a9 (metal + CNP ridge); **zero points below 3 k\u03a9** anywh"
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T14:52:10.849528+00:00",
+   "excerpt": "## Run 8 \u2014 8 h rasterized nD-map: the candidate's extent, and a verdict on it\n\n20,572-pt `nD-map` (sweep.raster, 240\u00d7100 \u2248 0.0025 e12 \u00d7 0.0025 V/nm) over n \u2208 [\u2212"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 79,
+  "scratch_by_ext": {
+   ".md": 31,
+   ".png": 12,
+   ".py": 36
+  },
+  "scratch_loc": 1248,
+  "n_scratch_figures": 12,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E0",
+  "n_human_msgs": 11,
+  "n_interrupts": 0,
+  "longest_unattended_h": 11.065911944442325,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

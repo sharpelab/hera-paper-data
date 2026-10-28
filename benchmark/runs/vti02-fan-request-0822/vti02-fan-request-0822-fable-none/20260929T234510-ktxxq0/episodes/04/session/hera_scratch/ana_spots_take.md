@@ -1,0 +1,6 @@
+**Read (runs 6–7):** Clean SdH on both carrier signs, onsets 0.3–0.7 T — the device resolves Landau structure from well below 1 T at base T.
+
+- **Run 6** (electron, n = +3.2×10¹², `data/6`): the 4–10 T window is dominated by **F ≈ 33.3 T ≈ F_full(4-fold) = 33.1 T** — at high B the full density is carried by what counts as a single 4-fold Fermi surface. Below ~2 T the spectrum is instead a ladder at **≈ 7.1–7.5 T with 2×/3×/4× partials** (matched-filter tones 7.1 / 14.1 / 22.2 / 29.5 T, the 7.1 T tone alive to the 0.3 T record edge). One trace cannot distinguish "harmonics of one 7.5 T pocket" from "two bands (light ~7 T + heavy ~26 T) merging by magnetic breakdown into 33 T".
+- **Run 7** (hole, n = −1.2×10¹², `data/7`): dominant high-B tone **F ≈ 20 T > F_full = 12.4 T** — a frequency exceeding the total density is only possible with **compensated electron+hole pockets** (or breakdown orbits): with the observed ~6.6 T counter-tone, F_h − F_e ≈ 13.4 T ≈ F_full within resolution. Multi-pocket/semimetallic structure at low |n|, D = 0.
+
+Both reads point at multi-band low-energy structure whose n-dependence — the branch slopes dF/dn and the Landau-level filling sequence — is the stacking discriminant (ABAB: two bilayer-like bands sharing n; ABCA: one heavy 4-fold band carrying all of n; ABCB: monolayer-like + heavy mix). That is the Landau fan's job — next.

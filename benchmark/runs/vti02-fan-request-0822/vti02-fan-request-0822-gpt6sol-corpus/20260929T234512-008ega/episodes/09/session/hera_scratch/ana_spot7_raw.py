@@ -1,0 +1,15 @@
+g7 = run(7)
+assert g7.complete and not g7.interrupted
+B7 = g7.col('magnet_field')
+R7 = g7.col('sr1_X') / (1.0 * (1.0 / 100e6))
+fig, ax = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
+ax[0].plot(B7, R7, lw=0.7); ax[0].set_ylabel('Rxx (ohm)')
+ax[1].plot(B7, g7.col('k_2400_tg_curr')*1e12, label='TG')
+ax[1].plot(B7, g7.col('k_2400_bg_curr')*1e12, label='BG')
+ax[1].set_ylabel('gate I (pA)'); ax[1].legend()
+ax[2].plot(B7, g7.col('T_sample')); ax[2].set(xlabel='B (T)', ylabel='sample T (K)')
+fig.suptitle('Run 7 raw: hole spot, n=-1.2e12 cm^-2, D=0')
+fig.tight_layout(); plt.show()
+print(summarize_run(g7))
+print('R range', np.min(R7), np.max(R7), 'ohm; max |gate I|',
+      max(np.max(np.abs(g7.col('k_2400_tg_curr'))), np.max(np.abs(g7.col('k_2400_bg_curr'))))*1e12, 'pA')

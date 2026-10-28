@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.0,
+  "B_max_T": 0.549,
+  "n_B": 367,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) is a 1D field sweep s.sweep(magnet.field, np.round(np.arange(0.0, 0.5501, 0.0015), 5), delay=0) = 367 uniform-B points 0 -> 0.549 T at n = +3.2e12 cm^-2, D = 0 from calc_gate_voltages with the run-5 calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), giving (V_tg, V_bg) = (+0.984, +1.166) V. Cell 48 sets sr1 sensitivity 50 uV; sr1 tau 0.3 s, sr0 sens 20 mV / tau 0.3 s and nplci 1/1 are inherited from the executed close_out(restore=state0) readback in cell 44; drive 1.0 V through the 100 MOhm bias resistor (cell 32). No fan is issued and no further densities are named - markdown 47 frames this leg as pinning the later fan's B_lo; stated ETA ~30 min."
+}

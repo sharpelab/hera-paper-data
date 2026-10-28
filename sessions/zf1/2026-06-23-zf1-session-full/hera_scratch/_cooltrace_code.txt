@@ -1,0 +1,35 @@
+# === Ic(T) measure-while-cooling: dV/dI vs Idc as the sample cools (real T=Probe1) ===
+import os, time as _t
+# staleness guard: Probe1 logfile must be advancing (the check that was missing)
+_lf = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+_age = _t.time() - os.path.getmtime(_lf)
+assert _age < 120, f"Probe1 logfile stale ({_age:.0f}s old) — thermometry worker down"
+print(f"heater {heater.volt()} V (OFF) ; Probe1 T {temperature()*1e3:.1f} mK (age {_age:.0f}s)")
+assert heater.volt() == 0, "heater not parked"
+
+VTG_OP, VBG_OP = -5.39, +4.00
+Vdc = np.linspace(-5.0, 5.0, 25)          # +/-50 nA
+sr830_1.amplitude(0.1); sr830_3.sensitivity(20e-6); k_tg.nplci(1); k_bg.nplci(1)
+k_tg.volt(VTG_OP); k_bg.volt(VBG_OP)
+
+for i in range(24):
+    Tnow = float(temperature())
+    print(f"[{i}] T = {Tnow*1e3:.1f} mK")
+    meas_config["comment"] = f"Ic(T) cooldown #{i}: T~{Tnow*1e3:.1f}mK, Idc+/-50nA, opt, B~0, heater OFF"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('temperature-dependence')
+    s.add_comment(f'Ic(T) cooldown trace #{i}: T~{Tnow*1e3:.1f}mK (Probe1); Idc+/-50nA; opt; B~0')
+    s.ramp(dc205_1.volt, Vdc[0])
+    s.fp(temperature); s.fp(magnet.field)
+    s.fp(k_tg.volt).fp(k_tg.curr); s.fp(k_bg.volt).fp(k_bg.curr); s.fp(dc205_1.volt)
+    for lia in (sr830_1, sr830_2, sr830_3):
+        s.fp(lia.X).fp(lia.P)
+    s.plot(dc205_1.volt, sr830_3.X)
+    s.sweep(dc205_1.volt, Vdc, delay=1)
+    dc205_1.volt(0)
+    if Tnow < 0.040:                       # reached base — stop
+        print("reached base; stopping cooldown trace.")
+        break
+
+k_tg.volt(0); k_bg.volt(0)
+print("done. temperature() now:", temperature()*1e3, "mK")

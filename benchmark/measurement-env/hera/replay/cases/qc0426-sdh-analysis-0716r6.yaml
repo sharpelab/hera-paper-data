@@ -1,0 +1,15 @@
+# The sdh_analysis decision point on QC0426 (07-16): SC1, run 6, hole −6.2e12, just
+# landed (line 668). Input quality MIDDLE: pristine tones, onset censored at the 1 T
+# edge, sum tone sr1-only. The cut result already carries the sdh_read.py printout.
+case: qc0426-sdh-analysis-0716r6
+source: ../../docs/notes/2026-07-16-QC0426-session-3
+cut:
+  transcript: 54b22e3a-9b66-48c5-a535-075cffd076b5.jsonl
+  at: c6857677-09fd-4a94-afce-2df3af7e3cf7
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "SC1 is down, 1303 rows clean. Reading the full record now: onset, FFT with the stability sweep, then the ana entry."
+  prompt: "Carry on."
+grader: null

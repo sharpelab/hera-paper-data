@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.30,
+  "B_max_T": 1.00,
+  "n_B": 233,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-6, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.42,
+  "flags": [],
+  "notes": "Cell 48 (appended, unexecuted) is a 1D field sweep s.sweep(magnet.field, field_invB(0.30, 1.00, 233), delay=0) at the run-6 electron spot n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the run-5 CAL dict in the cell -> (Vtg, Vbg) = (+0.9836, +1.1661); verified in scratch, and the cell states n itself). No further densities are named -- the cell and its markdown (cell 47) present it solely as a low-field extension of run 6 to pin the onset that will set a future fan's B_lo; hera_scratch/fan_design.py prices that fan but the appended cells issue no fan at all -- n_fans = 1 counts this single landed field sweep. Inherited instrument state comes from cell 44's close_out(restore=state0) readback (sr0 sens 0.02 V / tau 0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0, drive_V = sr1.amplitude = 1.0 V); cell 48 sets sr1 sensitivity to 5e-6 V and only asserts tau. Bias resistor 100 MOhm from device_card.md line 64 (consistent with the cell's '505 Ohm FS at 9.9 nA'). stated_wall_clock_h from cell 47's time banner (ETA ~05:57, ~25 min); the Design/Checkpoints paragraph instead quotes 'Price ~ 20 min'."
+}

@@ -1,0 +1,3 @@
+### Cell B v2 — LK ladder re-run (bug fix; the v1 cell above aborted safely)
+
+v1's vaporizer-overshoot assert (`Tv < 1.3·target + 2`) was an up-leg guard: descending 50 → 25 K, T_vap legitimately starts at ~49.5 K → assert fired on the first poll; the `finally` put heaters off + gates parked (failsafe validated, no hardware consequence). **Fix**: the guard is now directional — fault only if T_vap rises more than 2 K above *both* its value at rung start and the target (true runaway heating), never while cooling toward setpoint. Ladder design otherwise identical (8 rungs 25 → base, [4, 8] T uniform 9.5 mT per rung, alternating direction, fixed sensitivities). T is currently drifting down from 50 K with heaters off — rung 1's `set_both(25)` catches it on the way.

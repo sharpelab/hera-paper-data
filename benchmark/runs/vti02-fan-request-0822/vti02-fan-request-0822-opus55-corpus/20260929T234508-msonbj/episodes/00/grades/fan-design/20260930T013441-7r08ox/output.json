@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 8.0,
+  "n_B": 89,
+  "spacing": "invB",
+  "n_min_cm2": 1.5e12,
+  "n_max_cm2": 3.24e12,
+  "n_columns": 37,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.083,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep with magnet.field slow over field_invB(1.0, 8.0, 89) and k_tg.volt/k_bg.volt fast from calc_gate_voltages over np.linspace(1.50, 3.24, 37)e12 at D = 0, using the run-5 calibration constants committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894); slow_delay=3.0 s, fast_delay=1.8 s. sr1 sensitivity 50 uV is set in the appended cell; sr0 sensitivity 0.02 V and both taus 0.3 s are inherited from the cell-44 close_out(restore=state0) readback, which also prints tg/bg nplci = 1.0 (the answer asserts, does not set, these). Drive 1.0 V (asserted) through the device card's 100 MOhm bias resistor; cell-47 markdown states about 2 h 55 m, 3 h 05 m with the usual overrun."
+}

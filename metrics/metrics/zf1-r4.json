@@ -1,0 +1,493 @@
+{
+ "run_id": "zf1-r4",
+ "manifest": {
+  "run_id": "zf1-r4",
+  "device": "zf1",
+  "rig": "toploader",
+  "date": "2026-06-23",
+  "mode": "E0",
+  "archive": "measurement-env/hera/docs/notes/2026-06-23-zf1-session-full",
+  "rig_session_dir": "aaron/20260623-zf1",
+  "layout": "root",
+  "transcript": "partial",
+  "session_start_override": "2026-06-23T22:17:53Z",
+  "session_end_override": "2026-06-24T07:24:29Z",
+  "variability_set": false,
+  "caveats": [
+   "transcript-lost",
+   "setup-agent-transcripts-only",
+   "tokens-null",
+   "harness-record-recovered"
+  ]
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-23T22:17:53+00:00",
+  "t_transcript_last": null,
+  "transcript_span_h": null,
+  "session_h": 9.11,
+  "t_final_decision": "2026-06-24T03:53:13.290095+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 5.588969470858574,
+  "t_first_sweep": "2026-06-23T22:22:56+00:00",
+  "t_last_sweep_end": "2026-06-24T05:51:07+00:00",
+  "sweep_span_h": 7.469837682512072,
+  "measuring_h": 3.674392016530037,
+  "longest_sweep_h": 1.0682025808095932
+ },
+ "sweeps": {
+  "n_sweeps": 41,
+  "by_recipe": {
+   "bias-spectroscopy": {
+    "n": 1,
+    "hours": 0.101
+   },
+   "cnp-and-dline-calibration": {
+    "n": 3,
+    "hours": 0.081
+   },
+   "field-sweep-1d": {
+    "n": 1,
+    "hours": 0.246
+   },
+   "fraunhofer": {
+    "n": 2,
+    "hours": 0.366
+   },
+   "gate-current-sanity-check": {
+    "n": 4,
+    "hours": 0.118
+   },
+   "gatemap": {
+    "n": 1,
+    "hours": 1.068
+   },
+   "heater-settle-calibration": {
+    "n": 7,
+    "hours": 1.361
+   },
+   "nD-map": {
+    "n": 1,
+    "hours": 0.148
+   },
+   "temperature-dependence": {
+    "n": 21,
+    "hours": 0.185
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.4918971700191424,
+  "hil": 0.5748076805908233,
+  "frac_measuring": 0.4918971700191424,
+  "frac_hera_court": 0.36386239379451385,
+  "frac_human_court": 0.14424043618634375,
+  "hera_court_h": 2.717993020415306,
+  "human_court_h": 1.0774526455667284,
+  "n_lands": 43,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 271.0836560726166,
+    "hera_s": 258.69845724105835,
+    "human_s": 12.385198831558228,
+    "land": 1782253741.751212,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 6.306803941726685,
+    "hera_s": 6.306803941726685,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 6.149637460708618,
+    "hera_s": 6.149637460708618,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 692.6964535713196,
+    "hera_s": 419.1923580169678,
+    "human_s": 273.5040955543518,
+    "land": 1782254504.875531,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 837.4371769428253,
+    "hera_s": 724.1607744693756,
+    "human_s": 113.2764024734497,
+    "land": 1782259348.069692,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 5,
+    "idle_s": 7.440565824508667,
+    "hera_s": 7.440565824508667,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 6,
+    "idle_s": 7.43525505065918,
+    "hera_s": 7.43525505065918,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 7,
+    "idle_s": 529.6702523231506,
+    "hera_s": 224.95195293426514,
+    "human_s": 304.7182993888855,
+    "land": 1782259991.564867,
+    "next_slug": "nD-map"
+   },
+   {
+    "after_sweep": 8,
+    "idle_s": 356.95688796043396,
+    "hera_s": 283.39454460144043,
+    "human_s": 73.56234335899353,
+    "land": 1782261110.996358,
+    "next_slug": "bias-spectroscopy"
+   },
+   {
+    "after_sweep": 9,
+    "idle_s": 507.25597763061523,
+    "hera_s": 350.52071499824524,
+    "human_s": 156.73526263237,
+    "land": 1782261898.307335,
+    "next_slug": "field-sweep-1d"
+   },
+   {
+    "after_sweep": 10,
+    "idle_s": 558.1671669483185,
+    "hera_s": 353.24162006378174,
+    "human_s": 204.92554688453674,
+    "land": 1782263294.730273,
+    "next_slug": "fraunhofer"
+   },
+   {
+    "after_sweep": 11,
+    "idle_s": 48.185466289520264,
+    "hera_s": 48.185466289520264,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "fraunhofer"
+   },
+   {
+    "after_sweep": 12,
+    "idle_s": 1902.1129882335663,
+    "hera_s": 322.4395182132721,
+    "human_s": 1579.6734700202942,
+    "land": 1782265188.734321,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 13,
+    "idle_s": 878.7496936321259,
+    "hera_s": 185.7704849243164,
+    "human_s": 692.9792087078094,
+    "land": 1782266986.084313,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 14,
+    "idle_s": 3.3157830238342285,
+    "hera_s": 3.3157830238342285,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 15,
+    "idle_s": 3.508721113204956,
+    "hera_s": 3.508721113204956,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 16,
+    "idle_s": 3.385195732116699,
+    "hera_s": 3.385195732116699,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 17,
+    "idle_s": 3.3682031631469727,
+    "hera_s": 3.3682031631469727,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 18,
+    "idle_s": 3.391221046447754,
+    "hera_s": 3.391221046447754,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 19,
+    "idle_s": 3.3691248893737793,
+    "hera_s": 3.3691248893737793,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 20,
+    "idle_s": 3.392505645751953,
+    "hera_s": 3.392505645751953,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 21,
+    "idle_s": 3.3399739265441895,
+    "hera_s": 3.3399739265441895,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 22,
+    "idle_s": 3.325662851333618,
+    "hera_s": 0.0,
+    "human_s": 3.325662851333618,
+    "land": 1782267975.458455,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 23,
+    "idle_s": 1683.7412838935852,
+    "hera_s": 1683.7412838935852,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 24,
+    "idle_s": 457.4772615432739,
+    "hera_s": 457.4772615432739,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 25,
+    "idle_s": 155.13152146339417,
+    "hera_s": 155.13152146339417,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 26,
+    "idle_s": 155.01920914649963,
+    "hera_s": 40.353819847106934,
+    "human_s": 114.6653892993927,
+    "land": 1782270456.141994,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 27,
+    "idle_s": 155.11052179336548,
+    "hera_s": 155.11052179336548,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 28,
+    "idle_s": 1693.246176958084,
+    "hera_s": 1693.246176958084,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 29,
+    "idle_s": 79.83314442634583,
+    "hera_s": 79.83314442634583,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 30,
+    "idle_s": 79.91545486450195,
+    "hera_s": 79.91545486450195,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 31,
+    "idle_s": 79.78553462028503,
+    "hera_s": 79.78553462028503,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 32,
+    "idle_s": 79.80489134788513,
+    "hera_s": 79.80489134788513,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 33,
+    "idle_s": 2065.43762755394,
+    "hera_s": 2041.8516459465027,
+    "human_s": 23.585981607437134,
+    "land": 1782275004.291459,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 34,
+    "idle_s": 2.7262325286865234,
+    "hera_s": 2.7262325286865234,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 35,
+    "idle_s": 2.7152206897735596,
+    "hera_s": 2.7152206897735596,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 36,
+    "idle_s": 2.6829466819763184,
+    "hera_s": 2.6829466819763184,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 37,
+    "idle_s": 2.736478328704834,
+    "hera_s": 2.736478328704834,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 38,
+    "idle_s": 2.7038559913635254,
+    "hera_s": 2.7038559913635254,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "heater-settle-calibration"
+   },
+   {
+    "after_sweep": 39,
+    "idle_s": 325.49266242980957,
+    "hera_s": 0.0,
+    "human_s": 325.49266242980957,
+    "land": 1782278090.356304,
+    "next_slug": "heater-settle-calibration"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 0,
+  "n_extraneous_transcripts": 2,
+  "n_assistant_entries": 0,
+  "n_api_requests": 0,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 0,
+  "message_counts": {
+   "human": 0,
+   "loop_tick": 0,
+   "task_notification": 0,
+   "admin": 0,
+   "interrupt": 0
+  },
+  "n_tool_calls": 0,
+  "tool_calls": {},
+  "tokens_by_model": {},
+  "cost_usd_est": null,
+  "cost_complete": true,
+  "harness_session_totals": {
+   "source": "claude-project-entry.json",
+   "project_dir": "C:/Users/toploader/measurements/aaron/20260623-zf1",
+   "session_id": "6327fc0f-1a59-4102-8a62-fa1677f8b34a",
+   "harness_version": "2.1.187",
+   "graceful_shutdown": true,
+   "window_open_h": 20.019053055555556,
+   "api_time_h": 1.8807994444444445,
+   "tokens_by_model": {
+    "claude-opus-4-8[1m]": {
+     "in": 22466,
+     "out": 456851,
+     "cr": 90541209,
+     "cw": 1994463,
+     "cost_usd": 76.7488395
+    }
+   },
+   "cost_usd": 76.7488395
+  }
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/hera/docs/notes/2026-06-23-zf1-session-full/20260623_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/hera/docs/notes/2026-06-23-zf1-session-full/20260623_ana.ipynb",
+  "n_cells": 83,
+  "n_hera_cells": 43,
+  "n_slot_cells": 3,
+  "n_human_cells": 37,
+  "n_hera_executed": 19,
+  "n_hera_unexecuted": 3,
+  "n_ana_cells": 34,
+  "n_ana_figures": 8
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-24T03:53:13.290095+00:00",
+   "excerpt": "# \u2605 THE CALL \u2014 zf1 (bottom device): SUPERCONDUCTOR (strong)\n\nGate-tuned proximity superconductivity in Bernal bilayer graphene / WSe\u2082, located and characterised"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 102,
+  "scratch_by_ext": {
+   ".npz": 9,
+   ".png": 12,
+   ".py": 14,
+   ".txt": 67
+  },
+  "scratch_loc": 561,
+  "n_scratch_figures": 12,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E0",
+  "n_human_msgs": 0,
+  "n_interrupts": 0,
+  "longest_unattended_h": null,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-10-27T02:34:55+00:00"
+}

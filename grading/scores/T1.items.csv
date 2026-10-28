@@ -1,0 +1,562 @@
+card,item,run,type,verdict,value,hidden,text
+T1-001,1,T1D,inference,partial,0.5,0,Fit the two lower-frequency spectral branches' amplitude-vs-temperature decay to the expected thermal-damping form.
+T1-001,2,T1D,inference,wrong,0.0,0,Lighter branch effective mass = 0.039 +- 0.002 electron masses.
+T1-001,3,T1D,inference,correct,1.0,0,Lighter branch per-window fits scattered between 0.032 and 0.049 electron masses.
+T1-001,4,T1D,inference,correct,1.0,0,Heavier branch effective mass = 0.048 +- 0.003 electron masses.
+T1-001,5,T1D,inference,correct,1.0,0,Heavier branch per-window fits were stable at 0.048-0.049 electron masses across field windows.
+T1-002,1,T1A,decision,correct,1.0,0,Aborted the first gatemap attempt after its opening rows because the lock-in railed (~2.2 kOhm) against a 2 kOhm full-scale along the charge-neutrality ridge at large displacement field.
+T1-002,2,T1A,decision,correct,1.0,0,Re-ran the identical map at a five-times-larger full-scale (100 microV instead of 20 microV).
+T1-002,3,T1A,decision,correct,1.0,0,This re-run choice explicitly traded away low-resistance readout resolution to avoid saturating the higher-resistance ridge region.
+T1-004,1,T1D,inference,wrong,0.0,0,"A second, nearly vertical resistance ridge appears in the full gate map that depends only on the top gate, independent of back-gate voltage."
+T1-004,2,T1D,inference,wrong,0.0,0,This second ridge is interpreted as a top-gate-only-gated segment of the current path lying outside the back gate's footprint.
+T1-004,3,T1D,inference,wrong,0.0,0,This second ridge is distinct from the true dual-gated channel neutrality point.
+T1-004,4,T1D,inference,wrong,0.0,0,"Concluded the earlier single-gate liveness-leg peaks had actually been reading this segment's own neutrality point, not the channel's."
+T1-005,1,T1D,decision,correct,1.0,0,Chose to pursue the electron-doped side of the zero-displacement-field line for subsequent field-dependence work.
+T1-005,2,T1D,decision,correct,1.0,0,Reasoned the hole side is confined to a low-density exception regime because of the top-gate voltage limit.
+T1-005,3,T1D,decision,wrong,0.0,0,Reasoned the hole side is also confined by the top-gate-only series segment approaching its own neutrality there.
+T1-006,1,T1A,inference,correct,1.0,0,Spacing of integer quantum-Hall ladder minima above 4.5 T in the hole-side spot check gives an independently derived density scale of roughly 0.80-0.92 relative to the geometry-prior calibration.
+T1-006,2,T1A,inference,correct,1.0,0,This 0.80-0.92 range brackets the 0.886 scale independently obtained from the electron-side Luttinger-sum analysis.
+T1-008,1,T1A,inference,unverifiable,,0,Fitting the dominant ridge's slope in the gatemap's operating window gives a data-calibrated back-gate/top-gate capacitance ratio of 0.773.
+T1-008,2,T1A,inference,correct,1.0,0,This is about 11% below the geometry-prior value (~0.864).
+T1-008,3,T1A,inference,correct,1.0,0,The discrepancy was judged most likely to reflect an hBN-thickness error in the prior rather than a wiring/contact-role transposition.
+T1-009,1,T1A,inference,correct,1.0,0,The fourfold-degeneracy density scale (0.886) from electron-side fan/spot-check data is consistent with the independent scale (0.80-0.92) from the hole-side integer-quantum-Hall ladder spacing.
+T1-009,2,T1A,inference,correct,1.0,0,"Taken together, this consistency is read as evidence of no spin/valley (flavor) polarization at this gate/field operating point."
+T1-010,1,T1D,inference,partial,0.5,0,"Formally located the oscillation onset at 2.4 T, carried by the stronger of two candidate tones."
+T1-010,2,T1D,inference,unverifiable,,0,"A second, weaker candidate onset track was called marginal."
+T1-010,3,T1D,inference,partial,0.5,0,"FFT spectrum shows peaks at 6.2, 21.8, 28.1, and 15.6 T."
+T1-010,4,T1D,inference,partial,0.5,0,A weaker peak at 37.4 T is also present.
+T1-010,5,T1D,inference,wrong,0.0,0,The three strongest peaks were checked as stable across two different background-subtraction/window choices.
+T1-011,1,T1A,inference,correct,1.0,0,The mass fitted for the combined (sum-frequency) tone (0.051-0.069) is heavier than the heavy branch.
+T1-011,2,T1A,inference,partial,0.5,0,"In the upper field window, the sum-tone mass approaches the sum of the light and heavy branch masses."
+T1-011,3,T1A,inference,correct,1.0,0,"Because the sum-tone mass is heavier than the light branch alone, a simple 'beat' interpretation (two closely spaced frequencies from a single pocket) was excluded."
+T1-011,4,T1A,inference,partial,0.5,0,"This exclusion is read as a decisive indicator of two genuinely distinct Fermi pockets plus a combination orbit, rather than a separate third pocket."
+T1-012,1,T1B,decision,partial,0.5,0,Planned a cheapest-first discriminator sequence given the density-map result left the two-scenario question unresolved.
+T1-012,2,T1B,decision,partial,0.5,0,"First step: a short, low-field spot check targeting the predicted frequency band of the light pocket at fine field resolution."
+T1-012,3,T1B,decision,correct,1.0,0,This was chosen to precede committing several hours to a temperature-dependence (effective-mass) measurement.
+T1-012,4,T1B,decision,partial,0.5,0,"Reasoning: a sufficiently light pocket should still be visible at the achieved electron temperature down at sub-tesla fields, so a clean null result there would be informative."
+T1-013,1,T1A,decision,correct,1.0,0,Designed the first zero-field gatemap: full top-gate range at 20 mV steps (66 points).
+T1-013,2,T1A,decision,correct,1.0,0,Back-gate range from its negative limit up to +1.2 V (not the full +2.0 V limit) at 40 mV steps (63 rows).
+T1-013,3,T1A,decision,correct,1.0,0,Back-gate coverage was deliberately truncated because the geometry prior predicted that region would be metallic and uninformative for the charge-neutrality line or fan.
+T1-013,4,T1A,decision,unverifiable,,0,This truncation saved roughly 35 minutes.
+T1-013,5,T1A,decision,unverifiable,,0,"Sensitivity set to 20 microV, fast delay 1 s, slow delay 3 s, leak guard active."
+T1-014,1,T1B,decision,correct,1.0,0,Committed a corrected displacement-field zero-point offset for all subsequent 'true zero displacement field' sweeps.
+T1-014,2,T1B,decision,correct,1.0,0,Offset derived from where the charge-neutrality-point ridge resistance reaches a symmetric minimum versus displacement field.
+T1-014,3,T1B,decision,correct,1.0,0,This corrected offset replaces the nominal (as-designed) zero point.
+T1-015,1,T1B,inference,partial,0.5,0,"All three resistance channels agree on the same two oscillation-frequency peaks (~7-8 T and ~17-18 T), stable against changes to background-subtraction settings."
+T1-015,2,T1B,inference,wrong,0.0,0,"This resolves the earlier concern that the weakest channel showed different content; the earlier divergence is now attributed to insufficient signal in a partial record, not a real cross-channel discrepancy."
+T1-015,3,T1B,inference,wrong,0.0,0,A weak line near the sum of the two frequencies is also noted.
+T1-015,4,T1B,inference,partial,0.5,0,A sub-threshold lower frequency is also noted.
+T1-015,5,T1B,inference,correct,1.0,0,"Reading 1: the two main frequencies as a bound pair of pockets, at a relative-amplitude split the agent calls strained against a specific model's prediction."
+T1-015,6,T1B,inference,partial,0.5,0,"Reading 2: the higher frequency alone as a single Fermi surface, with the lower frequency left unexplained."
+T1-015,7,T1B,inference,correct,1.0,0,"Reading 3: the higher frequency as a second harmonic of the lower, disfavored because expected thermal damping at the achieved electron temperature should suppress a harmonic well below its fundamental, yet the two measured amplitudes are comparable."
+T1-017,1,T1B,decision,correct,1.0,0,Designed and launched the first field-dependent oscillation spot check at a single fixed density near one edge of the zero-displacement-field window.
+T1-017,2,T1B,decision,correct,1.0,0,Swept magnetic field from just below a heuristic onset estimate up toward the field cap.
+T1-017,3,T1B,decision,correct,1.0,0,Used uniform field steps sized from the calibrated density's expected oscillation frequency.
+T1-018,1,T1A,inference,correct,1.0,0,"The heavier SdH tone's fitted mass depends on which part of the field window is used: ~0.038 (lower half), ~0.057 (upper half), 0.041 (full window)."
+T1-018,2,T1A,inference,correct,1.0,0,This field-window dependence is reported as an unresolved fork rather than a single value.
+T1-018,3,T1A,inference,correct,1.0,0,The resulting light-to-heavy mass ratio (1.4-2.0) falls short of the ABAB model's predicted ratio of about 2.2 at this density.
+T1-019,1,T1B,inference,correct,1.0,0,Fitting the neutrality-point line across the 2D map gives a gate-capacitance ratio ~3.7% larger than the value predicted from the stacked-dielectric geometry.
+T1-019,2,T1B,inference,correct,1.0,0,This 3.7% difference is called a pass of a geometry sanity check.
+T1-019,3,T1B,inference,correct,1.0,0,The two more sensitive channels agree on this ratio to about 0.4%.
+T1-019,4,T1B,inference,correct,1.0,0,"The absolute density scale is left anchored to the geometry-derived single-gate capacitance, pending an independent (quantum-Hall) cross-check."
+T1-019,5,T1B,inference,correct,1.0,0,This combination (ratio + anchored scale) is used to compute a zero-displacement-field density window and the expected oscillation-frequency scale at its edges.
+T1-020,1,T1B,inference,correct,1.0,0,"A faint, gate-voltage-only feature (not displacement-field-dependent) appears in the 2D map at a fixed value of the fast-axis gate, present across every slow-axis value, located away from the density corridor of interest."
+T1-020,2,T1B,inference,correct,1.0,0,"Interpreted as a spatially localized region of the device gated by only one of the two gates (e.g., an arm not covered by one gate layer), rather than a bulk electronic feature."
+T1-020,3,T1B,inference,correct,1.0,0,Flagged as a device-inhomogeneity note without further investigation this session.
+T1-021,1,T1D,inference,correct,1.0,0,Judged the six-rung temperature ladder to have adequately covered its intended range.
+T1-021,2,T1D,inference,unverifiable,,0,Each rung's realized sample temperature met the stability-acceptance criterion and stayed within 0.05 K of that value during its field sweep.
+T1-021,3,T1D,inference,correct,1.0,0,"By the top rung, all three tracked spectral amplitudes had fallen onto the declining side of the expected thermal-damping curve."
+T1-021,4,T1D,inference,correct,1.0,0,"The lowest-mass branch's amplitude only just reached the design threshold judged necessary for a reliable mass fit at the top rung, flagged as the weakest link in the coverage."
+T1-022,1,T1C,decision,correct,1.0,0,"Designed a coarse 2D gate map across the full accessible gate box (back gate slow axis, top gate fast axis at finer resolution) to trace the displacement-field dependence of the resistance peak."
+T1-022,2,T1C,decision,correct,1.0,0,Reasoning: an exponential rise with |D| would indicate one candidate stacking order.
+T1-022,3,T1C,decision,partial,0.5,0,Reasoning: a modest field-symmetric rise would indicate a second candidate stacking order.
+T1-022,4,T1C,decision,correct,1.0,0,Reasoning: a field-asymmetric rise would indicate a third candidate stacking order.
+T1-022,5,T1C,decision,correct,1.0,0,This map was designed as the session's first stacking-order discriminator.
+T1-023,1,T1C,decision,partial,0.5,0,"Chose to use the necessary field descent from the cap to measure a second field-dependent sweep, rather than ramping back to zero field and re-ramping at a different gate setting."
+T1-023,2,T1C,decision,correct,1.0,0,The descent sweep was taken along a gate line at a finite displacement field corresponding to the knee of the field-independent resistance plateau identified earlier.
+T1-023,3,T1C,decision,partial,0.5,0,Reasoning: this would test the Landau-level structure of the gapped state.
+T1-023,4,T1C,decision,partial,0.5,0,Reasoning: this would also test whether the zero-field plateau was carrying its own parallel conduction path.
+T1-024,1,T1B,inference,unverifiable,,0,"On the opposite-carrier-sign spot check, oscillation onset occurs at a somewhat higher field than the first side."
+T1-024,2,T1B,inference,correct,1.0,0,A dominant low frequency and a weaker higher frequency (~38% of the dominant peak's amplitude) are found.
+T1-024,3,T1B,inference,wrong,0.0,0,The higher frequency scales with density between the two sides consistent with a real Fermi surface tracking the expected area-density relation (density ratio matches frequency ratio to within a few percent).
+T1-024,4,T1B,inference,partial,0.5,0,"The lower frequency survives and dominates on this side, where the bound-pair model predicts it should nearly vanish."
+T1-024,5,T1B,inference,correct,1.0,0,Confirmed the lower frequency is not a harmonic of the higher frequency (no longer an exact half/double relationship once measured independently on this side).
+T1-024,6,T1B,inference,partial,0.5,0,"Both findings actively strain, rather than resolve, the three-way structural fork carried from the first spot check."
+T1-026,1,T1A,inference,unverifiable,,0,"From the device-card gate-stack geometry alone (pre-measurement), the D=0 line's density window was predicted to reach ~+3.5e12 cm^-2 on the electron side."
+T1-026,2,T1A,inference,unverifiable,,0,"And only ~-1.0e12 cm^-2 magnitude on the hole side, given the gate-voltage limits."
+T1-026,3,T1A,inference,unverifiable,,0,"Therefore the investigation was expected to end up electron-side-biased, unless the charge-neutrality point sat well off zero gate voltage."
+T1-027,1,T1B,inference,correct,1.0,0,"Fitting oscillation-amplitude decay across temperature rungs on the resolved branch gives an effective mass ~18% below one candidate model value, with small statistical uncertainty."
+T1-027,2,T1B,inference,correct,1.0,0,"This is called consistent with that model value, within the model's own parameter uncertainty."
+T1-027,3,T1B,inference,correct,1.0,0,"The fit strongly excludes a second, much heavier candidate model value, since it would predict a residual amplitude at the highest rung roughly 50x smaller than what is actually measured."
+T1-027,4,T1B,inference,correct,1.0,0,The half-frequency modulation component's independently fit effective mass is statistically identical to the main branch's.
+T1-027,5,T1B,inference,correct,1.0,0,"This supports identifying the half-frequency component as an amplitude-modulation feature of the same Landau-level ladder, rather than a separate carrier pocket."
+T1-027,6,T1B,inference,partial,0.5,0,Second- and third-harmonic frequency combs of the main branch are identified in the spectra and screened out rather than mistaken for independent oscillation content.
+T1-028,1,T1B,inference,correct,1.0,0,"Across the whole density range on both sensitive channels, the map shows only one real, density-linear (through-origin) oscillation branch, running at ~87-90% of the frequency scale implied by the calibrated density."
+T1-028,2,T1B,inference,partial,0.5,0,"A second, lower frequency seen in the single-density checks sits locked at exactly half that branch's frequency at every density where it can be measured, rather than tracing its own curve."
+T1-028,3,T1B,inference,partial,0.5,0,"This locked half-frequency feature is interpreted as a modulation feature of the same Landau-level ladder, rather than an independent pocket."
+T1-028,4,T1B,inference,correct,1.0,0,The one branch alone accounts for the full expected carrier density at a single overall scale factor.
+T1-028,5,T1B,inference,correct,1.0,0,"Two competing structural readings remain indistinguishable at this resolution: a specific fractional pocket at that same scale, versus a single full surface at a very similar rescaled amplitude."
+T1-028,6,T1B,inference,correct,1.0,0,"This indistinguishability is because the specific lighter, small pocket that would discriminate between them could show at most about one oscillation period in this map's field window."
+T1-028,7,T1B,inference,correct,1.0,0,"The agent explicitly frames this as 'searched but not resolvable,' not as evidence of absence."
+T1-029,1,T1A,verdict,wrong,0.0,0,"The fainter, more lightly doped secondary region (probed only in series with the dominant region through the same voltage-probe pair) was judged uninformative on its own for the stacking call."
+T1-029,2,T1A,verdict,wrong,0.0,0,Reason: no tone set attributable solely to it was resolved.
+T1-029,3,T1A,verdict,wrong,0.0,0,"Its predicted tones (shifted to somewhat higher frequency than the dominant region's) were judged to fall within the frequency resolution of the dominant region's tones, at low relative weight."
+T1-030,1,T1B,inference,correct,1.0,0,Direct comparison of the two spot checks at the same field value shows the second side is substantially more resistive than the first (~14-15 kOhm vs ~5 kOhm).
+T1-030,2,T1B,inference,correct,1.0,0,"This is read as indicating a genuine carrier-sign asymmetry in this device's transport, beyond the sign difference expected from the oscillation pattern alone."
+T1-032,1,T1C,verdict,correct,1.0,0,"Final call for the one measured contact pair: Bernal (ABAB) stacking, stated as a strong determination."
+T1-032,2,T1C,verdict,wrong,0.0,0,"Based on a saturating, meV-scale, field-symmetric neutrality-point gap."
+T1-032,3,T1C,verdict,partial,0.5,0,Based on a four-fold degenerate Landau-level sequence with zero-state crossings at zero displacement field.
+T1-032,4,T1C,verdict,wrong,0.0,0,Based on a displacement-field-split two-fold sequence with a monotonic zero-state at finite displacement field.
+T1-032,5,T1C,verdict,partial,0.5,0,Based on the temperature-activation results.
+T1-032,6,T1C,verdict,unverifiable,,0,All evaluated on the session's own in-session density and displacement-field calibration.
+T1-032,7,T1C,verdict,unverifiable,,0,"No other region of the device was measurable this session, since every other spare contact pair was dead or unconnected as provided."
+T1-032,8,T1C,verdict,unverifiable,,0,The call is explicitly scoped to the single measured region.
+T1-033,1,T1B,decision,correct,1.0,0,Designed and launched an ascending temperature-dependence measurement (oscillation-amplitude-vs-temperature ladder) on the single resolved density-linear branch at a fixed density.
+T1-033,2,T1B,decision,correct,1.0,0,Chose rung temperatures spanning the range needed to separate two specific candidate effective-mass values by their predicted amplitude damping.
+T1-033,3,T1B,decision,correct,1.0,0,Included a stability-based equilibration check before each rung's field sweep.
+T1-033,4,T1B,decision,correct,1.0,0,Included a rule to extend to a higher temperature live if the highest planned rung still showed unexpectedly large oscillation amplitude.
+T1-034,1,T1B,inference,correct,1.0,0,The dedicated high-quality descent sweep at the extreme density directly confirms the light branch at a specific frequency.
+T1-034,2,T1B,inference,unverifiable,,0,This is used to exclude an alternative explanation in which the low- and high-frequency peaks are actually a magnetic-breakdown sum/difference pair rather than two independent branches.
+T1-034,3,T1B,inference,partial,0.5,0,"Reasoning: a breakdown orbit's amplitude should damp with the combined effective mass of its parent orbits, but the shared high-frequency tone here is measured to be lighter, not heavier, than such a parent would require."
+T1-034,4,T1B,inference,partial,0.5,0,"A nearby weaker peak sits at exactly the arithmetic difference (not sum) of the two main frequencies, consistent with a mixing artifact rather than a genuine third branch."
+T1-034,5,T1B,inference,correct,1.0,0,"The half-frequency modulation component's mass still matches its parent branch, distinguishing it from what a genuine second harmonic of the new light branch would show."
+T1-035,1,T1A,decision,correct,1.0,0,Designed and ran an SdH spot check on the electron side at fixed density +3.2e12 cm^-2 (D=0).
+T1-035,2,T1A,decision,partial,0.5,0,"Field swept from 0 to 10 T: 50 mT steps to 1 T, then 10 mT steps above (921 points total)."
+T1-035,3,T1A,decision,partial,0.5,0,"Lock-in sensitivity fixed at 50 microV; delay set to zero, relying only on the magnet driver's built-in settle."
+T1-035,4,T1A,decision,unverifiable,,0,Priced at about 2 h 15 m.
+T1-035,5,T1A,decision,correct,1.0,0,Deliberately left the gates parked at the spot and field at 10 T at the end so the hole-side check could ride the magnet back down without re-traversing the range.
+T1-036,1,T1D,inference,unverifiable,,0,The top-gate-only series-segment resistance maximum is unchanged between the two auxiliary-gate settings at three sampled top-gate voltages.
+T1-036,2,T1D,inference,unverifiable,,0,The true dual-gated neutrality point responded strongly to the auxiliary gate.
+T1-036,3,T1D,inference,unverifiable,,0,The high-density flank also responded strongly to the auxiliary gate.
+T1-036,4,T1D,inference,unverifiable,,0,Concluded the series segment is not part of the auxiliary-gate-coupled contact regions and so cannot be gated away by it.
+T1-037,1,T1C,inference,correct,1.0,0,A single scale factor fit to ~257 resistance-minima positions gave a carrier-density calibration about 18% below the geometry-based estimate.
+T1-037,2,T1C,inference,correct,1.0,0,This is consistent with the gate-capacitance-ratio discrepancy found earlier.
+T1-037,3,T1C,inference,wrong,0.0,0,"On that scale the minima cluster in steps of four, with the +/-4 levels tracked down to the lowest resolvable fields."
+T1-037,4,T1C,inference,wrong,0.0,0,This is read as the single-particle degenerate Landau-level sequence of one candidate stacking order.
+T1-037,5,T1C,inference,wrong,0.0,0,"Rather than the alternative candidate's expected pattern, which would instead show its lowest robust levels only at higher filling factor."
+T1-038,1,T1A,decision,unverifiable,,0,"Based on the ABAB stacking call, recommended deprioritizing further correlated/flat-band-physics investigation of this device."
+T1-038,2,T1A,decision,unverifiable,,0,Recommended redirecting future campaign value toward conventional quantum-Hall degeneracy-lifting physics instead.
+T1-038,3,T1A,decision,correct,1.0,0,Noted the device already showed full quantum-Hall symmetry breaking by 5 T at low density on the hole side.
+T1-039,1,T1C,inference,correct,1.0,0,"Across the full temperature ladder, the neutrality-point resistance stayed flat with temperature below ~7 K at every displacement-field point."
+T1-039,2,T1C,inference,unverifiable,,0,Resistance then fell gently at the two most-gapped points.
+T1-039,3,T1C,inference,unverifiable,,0,Arrhenius activation energies of roughly 1.8 meV and 1.2 meV at those two points.
+T1-039,4,T1C,inference,correct,1.0,0,Essentially no activation (flat or slightly rising resistance) at the reference point and the two more weakly gapped points.
+T1-039,5,T1C,inference,wrong,0.0,0,Gap scale was read as meV-sized and only weakly dependent on displacement field.
+T1-039,6,T1C,inference,partial,0.5,0,"Large non-vanishing resistance extrapolated to infinite temperature, consistent with thermally assisted conduction over a small, saturating gap."
+T1-039,7,T1C,inference,wrong,0.0,0,This specifically excludes the tens-of-meV activation energy and order-of-magnitude resistance collapse expected for one candidate stacking order (a roughly threefold change was observed instead).
+T1-040,1,T1B,verdict,unverifiable,,0,"Campaign call upgraded from 'strong' to 'strong, two-branch' for the same channel and stacking-order assignment."
+T1-040,2,T1B,verdict,correct,1.0,0,Both the originally-called branch and the newly resolved light branch are now treated as directly observed evidence for the same order.
+T1-040,3,T1B,verdict,unverifiable,,0,This retires the earlier hedge that the light pocket was unresolved.
+T1-040,4,T1B,verdict,correct,1.0,0,The competing single-rescaled-surface reading is now stated to be fully dissolved under the revised scale.
+T1-040,5,T1B,verdict,unverifiable,,0,"Attributed to the light branch having been unresolved at the time, rather than to a genuine single-surface degeneracy."
+T1-040,6,T1B,verdict,unverifiable,,0,Remaining softness: the light branch's own effective mass is still unmeasured.
+T1-040,7,T1B,verdict,unverifiable,,0,Remaining softness: the absolute density-scale calibration is still pending an independent cross-check.
+T1-041,1,T1D,inference,correct,1.0,0,Judged the device alive on the wired current path from the four single-gate liveness legs.
+T1-041,2,T1D,inference,correct,1.0,0,Drain current stayed at 9.8-9.97 nA (full bias reaching the drain) on every leg.
+T1-041,3,T1D,inference,correct,1.0,0,"Pickup channel read 60-320 ohms, smooth and structured, on all four legs."
+T1-042,1,T1C,inference,partial,0.5,0,The contact pair was judged alive and ohmic over a full top-gate sweep at zero back-gate voltage.
+T1-042,2,T1C,inference,partial,0.5,0,Longitudinal resistance ran only about 40-370 ohm with no charge-neutrality peak in that cut.
+T1-042,3,T1C,inference,partial,0.5,0,The monotonic resistance trend was read as the device being electron-doped at zero back-gate voltage.
+T1-042,4,T1C,inference,partial,0.5,0,The neutrality point was inferred to lie outside the swept top-gate window.
+T1-043,1,T1D,decision,correct,1.0,0,"Committed to an approximately eight-hour, six-rung temperature ladder at the fixed electron-side gate point (ascending nominal setpoints, alternating field-sweep direction each rung)."
+T1-043,2,T1D,decision,correct,1.0,0,"Included automatic stability and thermal-runaway guards, with heaters forced off on any early exit."
+T1-043,3,T1D,decision,unverifiable,,0,"Chose to proceed without a confirmed remaining-cryogen figure from the operator, after asking for it and not receiving an answer."
+T1-043,4,T1D,decision,unverifiable,,0,Relied on the standing autonomy grant and the operator's ability to halt any individual rung.
+T1-044,1,T1B,inference,correct,1.0,0,Ramping the silicon gate from zero toward one polarity of its card limit does not open the source-drain contact.
+T1-044,2,T1B,inference,correct,1.0,0,Drain current stays pinned near its zero-gate baseline (~88 pA) across the entire sweep.
+T1-045,1,T1D,inference,correct,1.0,0,Sum-frequency tone's fitted mass is strongly field-window-dependent: 0.051 +- 0.003 electron masses (low-field window) vs 0.100 +- 0.010 electron masses (mid-field window).
+T1-045,2,T1D,inference,correct,1.0,0,Jointly reported as 0.065 +- 0.004 electron masses.
+T1-045,3,T1D,inference,wrong,0.0,0,Attributed the discrepancy to the low-field window's peak being contaminated by the nearby heavier fundamental.
+T1-045,4,T1D,inference,partial,0.5,0,Treated the mid-field value as the clean read because it approximately equals the sum of the two fundamental branch masses.
+T1-046,1,T1B,decision,correct,1.0,0,"Designed and launched a 2D density-versus-field oscillation map on the first (cleaner-signal, lower-onset) carrier-sign side."
+T1-046,2,T1B,decision,correct,1.0,0,Explicitly intended to distinguish a real second Fermi pocket (which should trace its own density-dependent frequency curve) from a harmonic (which would track an exact multiple of another branch) or an algebraic sum/mixing artifact.
+T1-046,3,T1B,decision,correct,1.0,0,"The top of the originally planned density range had to be trimmed after applying the newly committed displacement-field correction, because the original edge would have driven the swept gate outside its validated range."
+T1-046,4,T1B,decision,unverifiable,,0,This was caught by a design-time check before any hardware moved.
+T1-047,1,T1C,inference,correct,1.0,0,"The fine map refit the neutrality-ridge slope, giving an updated gate-capacitance ratio that supersedes the coarse-map estimate."
+T1-047,2,T1C,inference,correct,1.0,0,"Located the true resistance minimum, adopted as the session's displacement-field-zero reference point."
+T1-047,3,T1C,inference,correct,1.0,0,"Referenced to that point, the negative-to-positive field resistance ratio was about 0.85-0.90 over the reachable overlapping range."
+T1-047,4,T1C,inference,wrong,0.0,0,This ratio was read as no sign of a strong field-sign asymmetry.
+T1-047,5,T1C,inference,correct,1.0,0,The positive side climbed about fourteenfold to roughly 3.4 kOhm before saturating flat to the edge of the sweep.
+T1-047,6,T1C,inference,partial,0.5,0,The peak narrowed from a broad ~150-220 mV window near the reference point to a sharp ~45 mV once gapped.
+T1-048,1,T1D,decision,correct,1.0,0,"Ran two short top-gate linecuts at fixed back-gate voltage and 10 T field: one with the auxiliary gate at 0 V, one at its positive limit."
+T1-048,2,T1D,decision,correct,1.0,0,Specifically to test whether the top-gate-only series segment identified in the gate map is coupled to the auxiliary gate.
+T1-048,3,T1D,decision,unverifiable,,0,Done before committing further field-sweep time to a full density fan.
+T1-049,1,T1A,decision,correct,1.0,0,"Designed and ran a second SdH spot check on the hole side, at the most negative density reachable on the D=0 line within the gate limits (about -1.2e12 cm^-2)."
+T1-049,2,T1A,decision,correct,1.0,0,"Rode the magnet down from 10 T to 0.3 T at 20 mT steps (486 points), sensitivity 50 microV."
+T1-049,3,T1A,decision,correct,1.0,0,"Explicitly framed as a cheap, non-decisive preview rather than a decisive test."
+T1-049,4,T1A,decision,correct,1.0,0,Reason: a null result there would be resolution- and mass-limited rather than genuine evidence against the alternative stacking.
+T1-050,1,T1D,inference,correct,1.0,0,Attempted an independent cross-check of the pinned frequency scale by reading the spacing of resistance minima on the partially completed density fan as a Landau-level index ladder.
+T1-050,2,T1D,inference,wrong,0.0,0,Found the result inconclusive: the admixed transverse component shifts the minima so that integer-index assignment is ambiguous.
+T1-050,3,T1D,inference,partial,0.5,0,"The spacing found was only consistent with, not an independent confirmation of, the frequency-derived scale."
+T1-051,1,T1D,inference,correct,1.0,0,Found a tone at the sum frequency present and dominant in every fan column.
+T1-051,2,T1D,inference,correct,1.0,0,Combined it with the two fundamental branches across the whole swept density range to pin a single global density/lever-arm scale of 0.93 +- 0.03.
+T1-051,3,T1D,inference,correct,1.0,0,This refines an earlier single-density estimate of 0.90.
+T1-051,4,T1D,inference,correct,1.0,0,No sign of the pinned scale being off by a factor of two or four.
+T1-052,1,T1D,inference,wrong,0.0,0,Inferred the measured pickup signal on this contact pair carries an admixture of a Hall-like component on top of the longitudinal resistance (estimated admixture fraction ~0.2).
+T1-052,2,T1D,inference,correct,1.0,0,Based on the raw trace going negative near 2-4 T and climbing in a staircase up to about 600 ohm by 10 T.
+T1-052,3,T1D,inference,wrong,0.0,0,Used this to argue that filling-factor assignment and low-field oscillation-spacing checks on this pair cannot serve as an independent calibration cross-check.
+T1-053,1,T1B,inference,correct,1.0,0,"On the completed higher-quality map, a third oscillation branch resolves directly across roughly ten densities."
+T1-053,2,T1B,inference,correct,1.0,0,"This branch traces its own shallow density-dependent frequency trend, distinct from the half-frequency modulation component identified earlier."
+T1-053,3,T1B,inference,partial,0.5,0,"The previously ambiguous, polynomial-degree-sensitive low-frequency reading is now attributed to a magnetoresistance background component contaminating the sub-1-tesla region."
+T1-053,4,T1B,inference,correct,1.0,0,"This attribution follows once that region is explicitly excluded from the fit, rather than relying on polynomial degree alone."
+T1-053,5,T1B,inference,correct,1.0,0,The two branches (original main branch plus newly resolved light branch) together close the expected total carrier density at one shared overall scale.
+T1-053,6,T1B,inference,correct,1.0,0,"This shared scale sits at the edge of, but still inside, the previously established scale range."
+T1-054,1,T1A,verdict,correct,1.0,0,"Final campaign call for the device's wired voltage-probe pair (probing the two series-connected doping regions together): the stacking is ABAB (Bernal), rated 'strong.'"
+T1-054,2,T1A,verdict,correct,1.0,0,Based on the closing Luttinger frequency sum.
+T1-054,3,T1A,verdict,correct,1.0,0,Based on both SdH branches tracking the ABAB model's density dependence across the fan.
+T1-054,4,T1A,verdict,correct,1.0,0,Based on the combination-tone origin of the summed frequency.
+T1-054,5,T1A,verdict,correct,1.0,0,"Based on the Lifshitz-Kosevich mass split (light mass matching the model exactly, with a decisive beat exclusion)."
+T1-054,6,T1A,verdict,partial,0.5,0,Hedge: the heavy-branch mass remains an unresolved extraction-window fork.
+T1-054,7,T1A,verdict,partial,0.5,0,"Hedge: only a single voltage-probe pair was available, so a different stacking confined to the weakly-doped secondary region cannot be excluded."
+T1-055,1,T1D,inference,correct,1.0,0,Measured heavy-to-light mass ratio (about 1.2-1.4) falls well short of the favored stacking model's predicted ratio (~2.2) at this density.
+T1-055,2,T1D,inference,correct,1.0,0,Flagged explicitly as not matching the model's specific mass-ratio prediction.
+T1-055,3,T1D,inference,correct,1.0,0,Treated as a hedge on the stacking call rather than evidence for a different stacking order.
+T1-055,4,T1D,inference,correct,1.0,0,"Reason: the lighter branch's mass rests on a short, low-resolution frequency record, called the softest number in the analysis."
+T1-055,5,T1D,inference,correct,1.0,0,"Reason: no competing model was judged able to reproduce the full observed pattern of frequencies, partition, and masses together."
+T1-056,1,T1B,decision,correct,1.0,0,Decided to proceed to the physics sweeps at zero silicon-gate voltage rather than pursue further contact-doping attempts.
+T1-056,2,T1B,decision,correct,1.0,0,Treated the fixed source contact resistance as a normalization problem rather than a blocking failure.
+T1-056,3,T1B,decision,wrong,0.0,0,"For the remainder of the campaign, longitudinal resistance channels are computed by dividing each channel's voltage by the measured drain current at that point, rather than by assuming the nominal bias-resistor current."
+T1-057,1,T1B,inference,correct,1.0,0,The charge-neutrality point is located near the middle of the swept gate's range on the two more sensitive longitudinal-resistance channels.
+T1-057,2,T1B,inference,correct,1.0,0,It shows a clear peak roughly 3-5x the flanking resistance on those two channels.
+T1-057,3,T1B,inference,partial,0.5,0,"A third, weaker channel shows the same peak shape at about 15% of the amplitude and at a measurably offset gate voltage."
+T1-057,4,T1B,inference,correct,1.0,0,The drain current stays near its target value throughout.
+T1-058,1,T1D,inference,partial,0.5,0,"Resolved a spectral branch present in every fan column, rising monotonically from ~3.2 T to 6.9 T across the swept density range."
+T1-058,2,T1D,inference,correct,1.0,0,This branch sits at a roughly constant fraction (0.21-0.22) of the sum-frequency tone.
+T1-058,3,T1D,inference,correct,1.0,0,It matches a candidate stacking model's predicted low-frequency branch.
+T1-058,4,T1D,inference,correct,1.0,0,Its density slope (~3.3 T per 10^12 cm^-2) was judged far steeper than a competing bilayer-plus-monolayer model's predicted low-frequency-branch slope (~1 T per 10^12 cm^-2).
+T1-058,5,T1D,inference,correct,1.0,0,This disfavors the competing bilayer-plus-monolayer assignment for this branch.
+T1-059,1,T1D,inference,correct,1.0,0,Interpreted the two lower oscillation frequencies as fundamentals of two distinct Fermi-surface pockets.
+T1-059,2,T1D,inference,correct,1.0,0,Their sum (6.2+21.8=28.0 T) matches the observed higher-frequency peak (28.1 T).
+T1-059,3,T1D,inference,correct,1.0,0,Their difference (21.8-6.2=15.6 T) matches the observed lowest-frequency peak (15.6 T).
+T1-059,4,T1D,inference,partial,0.5,0,"This sum-and-difference intermodulation set is read as consistent with inter-pocket magnetic breakdown, rather than an artifact of two separate, non-interacting current paths."
+T1-060,1,T1D,inference,correct,1.0,0,"Resolved a second, higher-frequency spectral branch only above roughly half the design density range (about 20.8-25.2 T, roughly 0.77 of the sum-frequency tone)."
+T1-060,2,T1D,inference,correct,1.0,0,This matches the same stacking model's predicted high-frequency branch (~0.79).
+T1-060,3,T1D,inference,correct,1.0,0,"Below that density range, this branch could not be separated from the sum-frequency tone given the achieved frequency resolution."
+T1-060,4,T1D,inference,correct,1.0,0,Stated as unresolved rather than absent below that density range.
+T1-061,1,T1D,inference,correct,1.0,0,Converted the session's pinned overall frequency/lever-arm scale into an absolute top-gate capacitance corresponding to roughly a 10.2 nm hBN-equivalent dielectric thickness.
+T1-061,2,T1D,inference,correct,1.0,0,Offered this as an updated calibration figure alongside the corresponding back-gate capacitance.
+T1-062,1,T1B,decision,correct,1.0,0,"The lowest newly-added temperature rung equilibrated stably just below the fixed lower edge of the acceptance band, and the guard timed out into a safe fault (heaters switched off, no hardware risk)."
+T1-062,2,T1B,decision,correct,1.0,0,"Redefined the rung-acceptance rule from a fixed absolute-temperature target to a stability/monotonicity criterion (bounded drift over a hold window, minimum monotonic step from previous rung, wide sanity fence)."
+T1-062,3,T1B,decision,correct,1.0,0,Purpose: so a genuinely stable but off-nominal rung is accepted and logged rather than faulted.
+T1-062,4,T1B,decision,correct,1.0,0,Resumed the ladder from the next rung without repeating the already-completed base point.
+T1-063,1,T1C,inference,correct,1.0,0,Temperature ladder shows non-activated behavior at the reference and weakly-gapped points.
+T1-063,2,T1C,inference,correct,1.0,0,"Temperature ladder shows only modest, saturating activation at the two most-gapped points."
+T1-063,3,T1C,inference,wrong,0.0,0,"This is read as confirming the zero-field resistance plateau is a property of the small-gap channel itself (finite, thermally assisted sub-gap conduction), rather than an external parallel-conduction path."
+T1-064,1,T1D,inference,partial,0.5,0,Argued the sum-frequency tone is a magnetic-breakdown/intermodulation feature rather than a sampling artifact.
+T1-064,2,T1D,inference,wrong,0.0,0,Its strength relative to the higher fundamental branch grows across field windows in the earlier single-density sweep.
+T1-064,3,T1D,inference,wrong,0.0,0,Its strength relative to the higher fundamental branch also grows across field windows in a matching fan column.
+T1-064,4,T1D,inference,correct,1.0,0,The same three-tone pattern reproduces under two different field-sampling grids.
+T1-064,5,T1D,inference,partial,0.5,0,"Flagged the field-window test as only weakly informative below about half the design density range, where the two peaks merge."
+T1-065,1,T1B,inference,correct,1.0,0,"Charge-neutrality-point resistance grows substantially with displacement field along the fitted ridge, roughly doubling from the field-symmetric point to the most extreme field sampled on the map."
+T1-065,2,T1B,inference,partial,0.5,0,This pattern is flagged as consistent with a displacement-field-tunable gap of the kind expected for one specific stacking order.
+T1-065,3,T1B,inference,partial,0.5,0,Explicitly noted the achieved electron temperature is too high for this alone to diagnose a gap.
+T1-065,4,T1B,inference,correct,1.0,0,"The observation is carried forward only as a supporting/domain caveat, referenced again after the electron-side spot check and in the final call's hedge list."
+T1-066,1,T1D,decision,correct,1.0,0,Designed a density-versus-field map riding the field down from 10 T to 2.4 T at uniform steps in inverse field (36 rows).
+T1-066,2,T1D,decision,correct,1.0,0,Stepped the gate point along the zero-displacement-field line from a design density of about 3.4 down to 1.5x10^12 cm^-2 (41 points per row).
+T1-066,3,T1D,decision,correct,1.0,0,Used a fixed (not autoranged) pickup sensitivity.
+T1-066,4,T1D,decision,unverifiable,,0,Chose to end the sweep parked at 2.4 T rather than retraverse back to 10 T.
+T1-067,1,T1B,decision,correct,1.0,0,Chose to run a cheap 1D gate-voltage cut through the charge-neutrality point (other gate parked at zero) before committing to the full 2D gate map.
+T1-067,2,T1B,decision,correct,1.0,0,Purpose: to check whether the neutrality ridge resolves at all.
+T1-067,3,T1B,decision,correct,1.0,0,Purpose: to measure the achievable point rate.
+T1-068,1,T1C,inference,wrong,0.0,0,"Using the density calibration from the first field-ramp sweep with no free parameters, the second sweep's roughly 204 resistance minima fell in steps of two rather than four."
+T1-068,2,T1C,inference,wrong,0.0,0,This is read as the displacement field lifting a two-fold degeneracy of the Landau levels.
+T1-068,3,T1C,inference,wrong,0.0,0,"The zero-filling-factor state grew monotonically with field, with no crossings."
+T1-068,4,T1C,inference,wrong,0.0,0,"This is consistent with the field having polarized the zero-energy manifold, rather than leaving it in the crossing regime seen at zero displacement field."
+T1-069,1,T1B,inference,correct,1.0,0,The device is inert to silicon-gate doping across the full bipolar card-limit range: drain current stays pinned near its baseline with no hysteresis on the overlapping segment.
+T1-069,2,T1B,inference,unverifiable,,0,"Phase readback on one channel (~172 deg +/- 4 deg) is consistent with a resistive, in-phase signal through an inverting stage."
+T1-069,3,T1B,inference,partial,0.5,0,"Current scaling across three drive frequencies is consistent with a genuine resistive, non-capacitive, non-barrier-like path."
+T1-069,4,T1B,inference,correct,1.0,0,"Linearity across three drive amplitudes is also consistent with a genuine resistive, non-capacitive, non-barrier-like path."
+T1-069,5,T1B,inference,partial,0.5,0,"Current is confirmed to reach the downstream voltage probes, which read drive-proportional signals."
+T1-069,6,T1B,inference,correct,1.0,0,"This means the fixed resistance is a real contact element, not an open/blocked device."
+T1-070,1,T1A,inference,correct,1.0,0,The physical zero of displacement field was located from the symmetry vertex of the dominant ridge's resistance minimum plotted against raw displacement field (vertex at roughly +0.012-0.013 V/nm raw).
+T1-070,2,T1A,inference,correct,1.0,0,"This offset was adopted as the D=0 reference for all subsequent gate-voltage-to-(n,D) conversions."
+T1-071,1,T1C,decision,correct,1.0,0,"Designed a temperature ladder from base temperature up to 50 K, at five displacement-field points spanning the reference point and both gapped and near-neutral settings identified by the fine map."
+T1-071,2,T1C,decision,partial,0.5,0,Purpose: to measure the thermal activation of the field-induced gap and settle whether it matches the meV scale expected for one candidate stacking order or the much larger scale expected for another.
+T1-071,3,T1C,decision,partial,0.5,0,"Purpose: separately, to determine whether the zero-field plateau's resistance is thermally activated (a real gap) or temperature-independent (a residual/parallel conduction path)."
+T1-072,1,T1B,decision,correct,1.0,0,"Launched the first zero-field 2D gate map, sweeping one gate over its full card-limit range on the fast axis."
+T1-072,2,T1B,decision,correct,1.0,0,Swept the other gate over a reduced window (about half its card-limit range) on the slow axis.
+T1-072,3,T1B,decision,correct,1.0,0,This traded full coverage of the second gate (which would add roughly three more hours) for keeping the neutrality line inside the fast-axis window over the density range the campaign actually needs.
+T1-073,1,T1D,decision,correct,1.0,0,Decided the hole side of the zero-displacement-field line would not be pursued further this session.
+T1-073,2,T1D,decision,correct,1.0,0,Reported as geometry-limited on this contact pair rather than as a null measurement.
+T1-073,3,T1D,decision,correct,1.0,0,Reason: the auxiliary gate could not remove the series-segment confound.
+T1-073,4,T1D,decision,unverifiable,,0,Held the auxiliary gate at 0 V for the remainder of the session.
+T1-074,1,T1C,decision,unverifiable,,0,The first attempt at the field-ramp sweep failed on a data-writer bug after the ramp had already been started.
+T1-074,2,T1C,decision,correct,1.0,0,"Chose to relaunch the same measurement riding the ramp in progress from its current field (about 0.7 T), rather than returning the magnet to zero field first."
+T1-074,3,T1C,decision,correct,1.0,0,Accepted the loss of the lowest-field portion of the sweep.
+T1-074,4,T1C,decision,partial,0.5,0,Judgment: the lost interval (0-0.7 T) was below where the Landau levels of interest would be resolvable.
+T1-075,1,T1C,decision,correct,1.0,0,"Because the neutrality point was not found in the top-gate cut, chose to sweep the back gate next (at zero top-gate voltage) rather than go straight to a full 2D map."
+T1-075,2,T1C,decision,partial,0.5,0,Reasoning: a geometry-based lever-arm estimate indicated the back gate reaches further into the hole side.
+T1-075,3,T1C,decision,correct,1.0,0,This made it the cheaper way to locate the neutrality point.
+T1-076,1,T1D,verdict,correct,1.0,0,Delivered the campaign's final stacking determination for the measured contact pair as one particular stacking order.
+T1-076,2,T1D,verdict,correct,1.0,0,"Stated strength: 'strong, not decisive.'"
+T1-077,1,T1D,inference,correct,1.0,0,Read a resistance minimum at 7.3 T as a high-field quantum-Hall filling factor of about 16 on the pinned frequency scale.
+T1-077,2,T1D,inference,partial,0.5,0,Described this as consistent with a Landau-level ladder member for a four-layer stack.
+T1-077,3,T1D,inference,wrong,0.0,0,Judged minima below filling factor 12 on this pair unreadable because of the admixed transverse component.
+T1-077,4,T1D,inference,correct,1.0,0,Called this evidence weak at most.
+T1-078,1,T1B,decision,correct,1.0,0,Chose to sweep the silicon gate through zero to the opposite polarity's card limit.
+T1-078,2,T1B,decision,correct,1.0,0,"Reasoning: if the contact metal dopes the leads one way, the opposite gate polarity might open them where the first polarity did not."
+T1-078,3,T1B,decision,correct,1.0,0,The sweep overlaps the first leg's range as an in-situ hysteresis check.
+T1-079,1,T1C,decision,wrong,0.0,0,Chose to measure the field-dependent Landau structure near the displacement-field reference point by ramping the magnet continuously to a chosen field cap.
+T1-079,2,T1C,decision,partial,0.5,0,Co-swept the gates along the fixed-displacement-field line through the reference point every row.
+T1-079,3,T1C,decision,wrong,0.0,0,"Binned on the field value recorded at each point during analysis, rather than stepping the field and holding for each row."
+T1-079,4,T1C,decision,wrong,0.0,0,This traded field-per-row resolution for finishing within the bare ramp time.
+T1-080,1,T1B,decision,correct,1.0,0,"Staged a dedicated, high-quality descent field sweep at the extreme density of the map's range, at the same long time constant."
+T1-080,2,T1B,decision,correct,1.0,0,"Timed to fire immediately when the density map completed, so as to ride the magnet down from its held field rather than re-ramping."
+T1-080,3,T1B,decision,correct,1.0,0,Purpose: to give the sharpest single-density record of the light-pocket band in the campaign.
+T1-081,1,T1C,inference,partial,0.5,0,"A weak, field-flat secondary resistance ridge is seen offset from the main neutrality line in the back-gate sweep and the coarse map."
+T1-081,2,T1C,inference,partial,0.5,0,This secondary ridge showed no Landau-level signature of its own in either field-dependent sweep.
+T1-081,3,T1C,inference,wrong,0.0,0,It was read as most consistent with a contact-doped strip near a voltage probe rather than a second stacking domain in the measured region.
+T1-081,4,T1C,inference,correct,1.0,0,This attribution was not directly imaged and could not be confirmed.
+T1-082,1,T1A,inference,correct,1.0,0,The completed gatemap shows one dominant charge-neutrality ridge running diagonally across the map.
+T1-082,2,T1A,inference,correct,1.0,0,"Plus a fainter, parallel ridge offset about 0.19 V lower in top-gate voltage."
+T1-082,3,T1A,inference,correct,1.0,0,This fainter ridge is identified as the second peak seen in the earlier 1D liveness legs.
+T1-082,4,T1A,inference,wrong,0.0,0,"The two parallel ridges are read as consistent with two distinct regions of the flake in series, rather than a single contact-adjacent artifact."
+T1-083,1,T1A,decision,correct,1.0,0,"Designed and ran a Lifshitz-Kosevich mass-ladder measurement at the same electron-side spot (density +3.2e12 cm^-2, D=0)."
+T1-083,2,T1A,decision,correct,1.0,0,"Six temperature rungs: base ~1.2 K plus 6, 10, 15, 22, and 30 K, set via the heater's authorized dual-loop method with a hover-acceptance criterion."
+T1-083,3,T1A,decision,correct,1.0,0,"Field swept back and forth over a fixed 2-7 T window at 25 mT per rung, sensitivity 50 microV."
+T1-083,4,T1A,decision,unverifiable,,0,Priced at about 5 h 10 m.
+T1-083,5,T1A,decision,correct,1.0,0,Decided the mass fits would rely on the heated rungs and treat the base-temperature point only as a free cross-check rather than a fit input.
+T1-083,6,T1A,decision,correct,1.0,0,Reasoning: the rig's nominal base electron temperature (per the rig card) is expected to exceed the thermometer reading.
+T1-084,1,T1A,inference,correct,1.0,0,"Hole-side spot check shows broad, non-sinusoidal low-field features giving way to a fully symmetry-broken integer quantum-Hall ladder above about 5 T."
+T1-084,2,T1A,inference,correct,1.0,0,Its FFT content sits at and below the expected total frequency at this density (about 11.0 T).
+T1-084,3,T1A,inference,correct,1.0,0,"Candidate component frequencies near 4.4 T and 6.8 T would sum close to that total, matching the ABAB near-charge-neutrality-point 'semimetal' template."
+T1-084,4,T1A,inference,correct,1.0,0,The record could not cleanly separate the two component tones.
+T1-084,5,T1A,inference,partial,0.5,0,Weighted as consistent with ABAB stacking but uninformative against the alternative (ABCA) stacking.
+T1-084,6,T1A,inference,partial,0.5,0,Reason: the alternative's predicted heavy-mass pocket would not be resolvable at this measurement's electron temperature regardless of which stacking is actually present.
+T1-085,1,T1A,inference,correct,1.0,0,A third tracked tone equals the sum of the light and heavy branch frequencies at essentially every fan column.
+T1-085,2,T1A,inference,correct,1.0,0,This total matches the expected fourfold-degenerate frequency across the whole density range.
+T1-085,3,T1A,inference,partial,0.5,0,"A fourth, nearly density-independent tone equals the difference of the light and heavy branch frequencies at every column."
+T1-085,4,T1A,inference,partial,0.5,0,"The flat, non-Onsager trajectory of this difference tone was read as establishing that the sum tone is a combination/intermodulation orbit of the two real Fermi pockets, allowed by symmetry under ABAB stacking."
+T1-085,5,T1A,inference,correct,1.0,0,Rather than a separate pocket belonging to an alternative (ABCA) stacking domain.
+T1-086,1,T1B,decision,correct,1.0,0,"Designed and launched a contact-doping sweep on the silicon back gate, ramping from zero to the card limit."
+T1-086,2,T1B,decision,correct,1.0,0,Both other gates held at zero during the sweep.
+T1-086,3,T1B,decision,correct,1.0,0,Watched the drain current for any recovery toward the drive target.
+T1-087,1,T1D,inference,partial,0.5,0,Sum-frequency tone's mass exceeds both fundamental masses.
+T1-087,2,T1D,inference,wrong,0.0,0,Sum-frequency tone's mass increases between field windows.
+T1-087,3,T1D,inference,partial,0.5,0,"This is read as consistent with an additive magnetic-breakdown-orbit mass (an orbit traversing both underlying pockets), rather than a single Fermi pocket of fixed mass."
+T1-088,1,T1D,decision,correct,1.0,0,Committed to a full 2D gate map spanning the whole validator box: 66 fast-axis points at 20 mV steps by 67 slow-axis points at 50 mV steps.
+T1-088,2,T1D,decision,correct,1.0,0,Fixed the pickup sensitivity so that only the highest-resistance corners of the map would be allowed to saturate.
+T1-089,1,T1A,decision,correct,1.0,0,Designed and ran a Landau fan on the electron side at D=0: density swept from about 1.60 to 3.25e12 cm^-2 (61 points).
+T1-089,2,T1A,decision,correct,1.0,0,At each of 101 field rows spaced uniformly in 1/B from 1 to 10 T.
+T1-089,3,T1A,decision,correct,1.0,0,"Sensitivity fixed at 100 microV, fast-axis delay 1.2 s."
+T1-089,4,T1A,decision,unverifiable,,0,Priced at about 3 h 55 m.
+T1-089,5,T1A,decision,correct,1.0,0,The lower field bound (1.0 T) and lower density bound (~1.6e12) were both set from the electron-side spot check's observed tone-onset behavior.
+T1-090,1,T1A,inference,correct,1.0,0,The unheated base-temperature rung's tone amplitudes fall on or near the mass-fit curves extrapolated from the heated rungs.
+T1-090,2,T1A,inference,partial,0.5,0,This implies an effective electron temperature at base of roughly 4 K or below at this operating point.
+T1-090,3,T1A,inference,correct,1.0,0,This is colder than the rig card's stated typical base electron temperature of about 8 K.
+T1-091,1,T1D,inference,wrong,0.0,0,"Concluded the lighter of the two fundamental branches is measurably lighter than the heavier one, about 2.4 standard deviations apart."
+T1-091,2,T1D,inference,partial,0.5,0,Took this as ruling out the possibility that the lighter branch is merely a beat pattern of the heavier tone.
+T1-091,3,T1D,inference,partial,0.5,0,"Concluded instead it is an independent, genuine second electronic band."
+T1-092,1,T1B,decision,unverifiable,,0,"On operator direction to improve the data for a publication-quality figure, redesigned essentially the same density-versus-field map on the same carrier-sign side."
+T1-092,2,T1B,decision,unverifiable,,0,Used a roughly 3x longer lock-in time constant on all channels.
+T1-092,3,T1B,decision,unverifiable,,0,"Extended the field window down below the previously measured oscillation onset, because that sub-onset region is where the candidate light pocket's oscillations should be visible."
+T1-092,4,T1B,decision,unverifiable,,0,Roughly doubled the number of field rows for finer per-column frequency resolution.
+T1-092,5,T1B,decision,unverifiable,,0,This redesigned map cost roughly 2.5x the wall-clock cost of the original map.
+T1-093,1,T1A,inference,correct,1.0,0,Tracking two SdH branches column-by-column across the fan's 61 densities shows both following the ABAB-stacking model's predicted frequency-vs-density curves under the single 0.886 density scale.
+T1-093,2,T1A,inference,correct,1.0,0,Light branch spans roughly 3.0-7.5 T against a model curve of 1.8-6.3 T.
+T1-093,3,T1A,inference,correct,1.0,0,Heavy branch spans roughly 13.9-22.1 T against a model curve of 13-22.9 T.
+T1-093,4,T1A,inference,correct,1.0,0,An alternative trilayer (monolayer+bilayer) stacking model was excluded because its predicted partner-branch trajectory (near 1-2 T) did not match either observed branch.
+T1-094,1,T1A,inference,correct,1.0,0,"No supra-linear, Dirac-like third branch (the signature expected under an alternative ABCB stacking) was seen anywhere in the fan."
+T1-094,2,T1A,inference,correct,1.0,0,This exclusion was flagged as weak at low density.
+T1-094,3,T1A,inference,correct,1.0,0,Reason: such a branch's predicted amplitude there would fall below the fan's frequency-resolution floor regardless of whether it were actually present.
+T1-095,1,T1B,inference,unverifiable,,0,The drain current passes a stable ~92 pA through the device at zero gate voltages.
+T1-095,2,T1B,inference,unverifiable,,0,This current is completely unmodulated by sweeping either gate to the card limits.
+T1-095,3,T1B,inference,unverifiable,,0,The ~109 MOhm source-drain resistance is judged to sit outside the gated channel (in the silicon-gated lead/contact regions).
+T1-095,4,T1B,inference,correct,1.0,0,Four-terminal liveness is called partial/unresolved rather than failed.
+T1-096,1,T1C,inference,correct,1.0,0,The zero-filling-factor state's resistance grew with field but non-monotonically.
+T1-096,2,T1C,inference,partial,0.5,0,It dipped rather than rose in two field windows: ~2.2-2.5 T and ~6.7-7.3 T.
+T1-096,3,T1C,inference,partial,0.5,0,These dips were read as Landau-level crossings within the zero-energy manifold characteristic of the favored candidate stacking order.
+T1-096,4,T1C,inference,wrong,0.0,0,This contrasts with the alternative candidate's expectation of monotonic growth.
+T1-097,1,T1A,inference,correct,1.0,0,Fitting the lightest SdH tone's amplitude versus temperature over the heated ladder rungs gives an effective mass of 0.028 +/- 0.002 electron masses.
+T1-097,2,T1A,inference,correct,1.0,0,This matches the ABAB-stacking model's predicted light-pocket mass at this density essentially exactly.
+T1-098,1,T1B,decision,correct,1.0,0,Designed and launched a mirror-density spot check on the opposite carrier-sign side of the neutrality point.
+T1-098,2,T1B,decision,correct,1.0,0,"Rode the field back down from the first check's endpoint, rather than re-traversing back through zero field."
+T1-098,3,T1B,decision,correct,1.0,0,"Inherited the same field grid and lock-in sensitivities as the first check, for a same-scale comparison."
+T1-099,1,T1D,decision,correct,1.0,0,Chose an electron-side operating point at a target density of about +3.0x10^12 cm^-2 at zero displacement field.
+T1-099,2,T1D,decision,correct,1.0,0,Field sweep from 0 to 10 T at uniform field steps (417 points).
+T1-099,3,T1D,decision,correct,1.0,0,Pickup channel left in autorange rather than fixed.
+T1-099,4,T1D,decision,unverifiable,,0,Elected to leave the magnet parked at 10 T afterward rather than ramp back down.
+T1-100,1,T1A,inference,correct,1.0,0,"The wired voltage-probe pair's raw resistance drops sharply, from about 52 to 12 ohms, within the first 0.5 T of field."
+T1-100,2,T1A,inference,wrong,0.0,0,"Interpreted as a Hall-voltage (rho_xy) admixture from the pair straddling a corner of the flake, rather than being a clean longitudinal probe pair."
+T1-100,3,T1A,inference,correct,1.0,0,Judged harmless for extracting SdH oscillation frequencies.
+T1-100,4,T1A,inference,correct,1.0,0,But relevant to any quantitative use of the raw resistance as rho_xx.
+T1-101,1,T1A,inference,correct,1.0,0,The dominant charge-neutrality ridge's resistance grows from about 240 ohms near zero displacement field to about 2.4 kOhm (saturating) at raw D~+0.25 V/nm.
+T1-101,2,T1A,inference,correct,1.0,0,This indicates a displacement-field-tunable gap at the charge-neutrality point.
+T1-101,3,T1A,inference,correct,1.0,0,"Explicitly flagged as not itself diagnostic of stacking order, since more than one candidate stacking could produce such a gap."
+T1-102,1,T1D,inference,correct,1.0,0,"Fit the charge-neutrality ridge in the full gate map to a line, deriving a data-calibrated back-gate/top-gate capacitance ratio of 0.727."
+T1-102,2,T1D,inference,correct,1.0,0,This is a 16% disagreement versus the geometry-prior ratio of 0.864.
+T1-102,3,T1D,inference,correct,1.0,0,Set the zero-displacement-field point at the ridge's resistance minimum.
+T1-102,4,T1D,inference,correct,1.0,0,This ridge-minimum point coincided closely with the geometry-prior displacement-field zero.
+T1-103,1,T1C,inference,partial,0.5,0,The running stacking read after the second field-dependent sweep remained the same Bernal-like candidate.
+T1-103,2,T1C,inference,wrong,0.0,0,"Now additionally supported by the displacement-field-split, two-fold Landau-level sequence."
+T1-103,3,T1C,inference,wrong,0.0,0,"And by the monotonic, field-polarized zero-filling-factor state."
+T1-104,1,T1C,decision,correct,1.0,0,"Designed a finer raster (narrower top-gate window at higher resolution, co-swept with a moderate back-gate step) following the ridge fitted from the coarse map."
+T1-104,2,T1C,decision,correct,1.0,0,Spanned most of the back-gate range on both carrier signs.
+T1-104,3,T1C,decision,correct,1.0,0,Purpose: to resolve the peak resistance and width versus displacement field.
+T1-104,4,T1C,decision,correct,1.0,0,Purpose: to get a cleaner positive/negative field comparison than the coarse map's edge-pinned negative side allowed.
+T1-106,1,T1E,inference,correct,1.0,0,"On the higher-resolution field sweep, the partner frequency component reproduced in all 18 of 18 tested extraction settings, versus 3-9 of 18 previously."
+T1-106,2,T1E,inference,correct,1.0,0,The frequency-sum relationship closed to within about 8% in 39 of 57 density columns (about two-thirds).
+T1-106,3,T1E,inference,unverifiable,,0,This is a marked improvement over the prior sweep's two-of-four-density closure.
+T1-107,1,T1F,inference,correct,1.0,0,Judged the measured activation gap's magnitude (1.36 meV at D/eps0~0.25 V/nm) to be one to two orders of magnitude below what a clean single-particle band gap should give at that displacement field.
+T1-107,2,T1F,inference,correct,1.0,0,"Concluded, together with the gate map's resistance plateau, that transport is limited by disorder or a parallel conduction channel."
+T1-107,3,T1F,inference,correct,1.0,0,Therefore this measurement establishes the gap's existence and D-dependence but not its true size.
+T1-108,1,T1E,inference,wrong,0.0,0,"A roughly 1% admixture of the transverse (Hall) resistance into the longitudinal signal was present throughout the session, because only one magnetic-field polarity was measured."
+T1-108,2,T1E,inference,partial,0.5,0,This admixture was judged to distort harmonic frequency content.
+T1-108,3,T1E,inference,correct,1.0,0,But not the position of the fundamental frequency components or the sum-partition used for the stacking call.
+T1-108,4,T1E,inference,correct,1.0,0,Therefore no part of the final call rests on harmonic-frequency features.
+T1-109,1,T1E,decision,correct,1.0,0,"The second field-based calibration sweep (for the other gate) was designed to ride the field ramp back down from the first sweep's endpoint, rather than requiring a fresh traverse."
+T1-109,2,T1E,decision,correct,1.0,0,The first gate was fixed at its just-measured charge-neutrality value.
+T1-109,3,T1E,decision,correct,1.0,0,This was done so that neutrality would sit at zero volts on the swept gate.
+T1-110,1,T1F,inference,wrong,0.0,0,The first attempt at testing the activation gap for inversion symmetry extrapolated a straight-line fit of the positive-displacement-field flank back to zero field.
+T1-110,2,T1F,inference,correct,1.0,0,This gave an intercept of about -1.12 meV.
+T1-110,3,T1F,inference,correct,1.0,0,This intercept did not correspond to a physically meaningful zero-field gap.
+T1-111,1,T1F,inference,wrong,0.0,0,Judged the displacement-field-driven crossover from metallic to insulating behavior at the neutrality point as the cleanest disqualification in the session of the band-overlapped semimetallic (Bernal-type) stacking.
+T1-111,2,T1F,inference,wrong,0.0,0,Reasoning: such a stacking's overlapping bands should keep the neutrality point metallic at every displacement field.
+T1-112,1,T1E,decision,correct,1.0,0,Designed the oscillation spot-check sweep at five fixed density points along the measured zero-displacement-field line.
+T1-112,2,T1E,decision,correct,1.0,0,Four points on the electron side spanning toward the discrimination window.
+T1-112,3,T1E,decision,correct,1.0,0,"One point on the hole side, deliberately included despite being known to fall in the models' non-discriminating range."
+T1-112,4,T1E,decision,correct,1.0,0,Sampled on a single field traverse at a resolution set by three times the Nyquist rate of the expected highest oscillation frequency.
+T1-113,1,T1E,inference,wrong,0.0,0,"Second gate's lever arm, measured from Landau-ray slopes, gave a capacitance ratio of 0.832."
+T1-113,2,T1E,inference,wrong,0.0,0,This is close to the geometry-based prior of 0.864.
+T1-113,3,T1E,inference,partial,0.5,0,And far from the 0.58-0.67 ratio implied by the zero-field ridges.
+T1-113,4,T1E,inference,partial,0.5,0,"This provides an independent confirmation, via a completely different observable, that the zero-field ridges were never true constant-density contours."
+T1-114,1,T1F,verdict,wrong,0.0,0,"Final stacking-order call for the only wired four-terminal region: rhombohedral-type, at moderate (not strong) confidence."
+T1-114,2,T1F,verdict,correct,1.0,0,Based on a 10.4x displacement-field-driven gap at neutrality.
+T1-114,3,T1F,verdict,correct,1.0,0,Based on a gap minimum centered on zero displacement field.
+T1-114,4,T1F,verdict,wrong,0.0,0,Based on a displacement-field-driven metal-to-insulator crossover at neutrality.
+T1-114,5,T1F,verdict,wrong,0.0,0,Based on a single Fermi pocket.
+T1-115,1,T1E,inference,correct,1.0,0,"Applied a single global density-scale correction of about 5%, well within the estimated lever-arm measurement uncertainty."
+T1-115,2,T1E,inference,correct,1.0,0,This brought the entire set of observed frequency components (not just one tone) into close alignment with the primary candidate stacking model's predicted frequency partition.
+T1-116,1,T1E,inference,correct,1.0,0,The fraction of the reference frequency carried by the smaller (partner) component was found to rise with density.
+T1-116,2,T1E,inference,correct,1.0,0,This trend matches the campaign's primary candidate stacking model's prediction.
+T1-116,3,T1E,inference,correct,1.0,0,It excludes an alternative fewer-layer stacking model by roughly five-fold at the same densities.
+T1-117,1,T1F,decision,correct,1.0,0,Left the third (silicon) gate untouched at 0.000 V for the entire session.
+T1-117,2,T1F,decision,correct,1.0,0,"At close-out, chose only to read and report it rather than ramp it."
+T1-117,3,T1F,decision,wrong,0.0,0,"Reasoning: the graphite back gate already screens it from the channel, so it carried no needed information this session."
+T1-118,1,T1F,decision,correct,1.0,0,"For the coarse gate map, swept the back gate across its full negative range."
+T1-118,2,T1F,decision,partial,0.5,0,"Stopped the positive side at +0.40 V, well short of the card limit."
+T1-118,3,T1F,decision,correct,1.0,0,Reason: determined the charge-neutrality line exits the accessible top-gate window there.
+T1-118,4,T1F,decision,correct,1.0,0,Put the freed sweep budget into finer step resolution instead.
+T1-119,1,T1F,decision,correct,1.0,0,"For the Landau fan, swept field from 0.75 T up to a 6 T ceiling, well under the session's field cap, upward once without retracing."
+T1-119,2,T1F,decision,correct,1.0,0,Density axis co-swept along the just-measured charge-neutrality line from n = -1.04e12 to +2.10e12 cm^-2.
+T1-119,3,T1F,decision,correct,1.0,0,This range was centered on neutrality so both carrier signs were covered.
+T1-120,1,T1F,decision,correct,1.0,0,"While the Landau fan was running, the neutrality-column resistance was climbing fast enough to be about to exceed the lock-in's range."
+T1-120,2,T1F,decision,correct,1.0,0,Chose not to re-range the sensitivity.
+T1-120,3,T1F,decision,unverifiable,,0,Judgment: the loss of the neutrality column's magnitude was cheaper than losing the finite-density quantum-oscillation minima the current sensitivity was tuned for.
+T1-121,1,T1E,inference,wrong,0.0,0,"Top-gate lever arm measured at dn/dV_tg = 1.570x10^12 cm^-2/V, about 0.90x a geometry-based prior."
+T1-121,2,T1E,inference,wrong,0.0,0,Derived from seven Landau-ray slopes whose ratio matched an exact 4:8:12:16:20:24 filling-factor progression to 1.4% consistency.
+T1-121,3,T1E,inference,wrong,0.0,0,This independently supports the assumed four-fold (spin x valley) degeneracy used elsewhere in the density-scale reference.
+T1-121,4,T1E,inference,correct,1.0,0,An alternative fundamental-minima-spacing estimator was discarded because it gave a much larger fit residual.
+T1-121,5,T1E,inference,correct,1.0,0,And because it was corrupted by an irregular (skipping) filling-factor ladder.
+T1-122,1,T1F,inference,wrong,0.0,0,The down-sweep's one-tone-per-density result needs no absolute density calibration to interpret.
+T1-122,2,T1F,inference,wrong,0.0,0,This confirms the single-Fermi-pocket picture from the fan.
+T1-122,3,T1F,inference,wrong,0.0,0,"It further disfavors the semimetallic (Bernal-type) stacking, whose two bilayer-like bands should each contribute a density-scaling tone."
+T1-123,1,T1F,decision,partial,0.5,0,"For the field down-sweep, deliberately left the lock-in sensitivity at the same 1 mV setting used in the fan."
+T1-123,2,T1F,decision,correct,1.0,0,Accepted that the n=+0.50e12 cm^-2 density trace would likely clip near its resistance peaks.
+T1-123,3,T1F,decision,correct,1.0,0,Rather than coarsen the range and destroy the oscillation minima that carry the pocket-count signal.
+T1-124,1,T1F,inference,correct,1.0,0,Retracted the earlier claim of reproducible structure.
+T1-124,2,T1F,inference,correct,1.0,0,"Found, after comparing the run-to-run difference against the noise-only prediction, that the wiggle is essentially all lock-in noise."
+T1-124,3,T1F,inference,unverifiable,,0,Only a small residual (about two per cent) remained unexplained.
+T1-126,1,T1E,inference,partial,0.5,0,"The true charge-neutrality point was found to sit between the two zero-field resistance ridges, at a local resistance minimum."
+T1-126,2,T1E,inference,correct,1.0,0,Flanked by the two ridges as maxima.
+T1-126,3,T1E,inference,wrong,0.0,0,"This shape is consistent with (but not diagnostic of) a semimetal with overlapping electron and hole pockets, which the campaign's target stacking order is predicted to be."
+T1-126,4,T1E,inference,partial,0.5,0,Logged explicitly as a consistent-with observation rather than evidence for stacking.
+T1-127,1,T1E,decision,correct,1.0,0,"Designed a follow-up, higher-resolution field sweep with a shorter time constant, for roughly 2.5x better per-point signal-to-noise."
+T1-127,2,T1E,decision,correct,1.0,0,"Used a field-sampling grid spaced uniformly in inverse field, so splitting the record in half gives both halves equal frequency resolution."
+T1-127,3,T1E,decision,correct,1.0,0,"Used 57 density columns, reduced from a planned 81 to fit the added field-row and ramp-in time budget."
+T1-127,4,T1E,decision,correct,1.0,0,Purpose: so the frequency-sum check becomes a trend test across many densities instead of a two-point coincidence.
+T1-129,1,T1E,inference,partial,0.5,0,Six of seven independently tracked Landau rays converged to a single zero-field intercept to within about +/-9 mV.
+T1-129,2,T1E,inference,wrong,0.0,0,This indicates a single charge-neutrality point rather than two.
+T1-129,3,T1E,inference,wrong,0.0,0,This excludes the earlier two-doping-domain interpretation.
+T1-129,4,T1E,inference,partial,0.5,0,"And with it, the specific risk that two density domains could produce two spurious oscillation frequencies mimicking the two-Fermi-surface signature the campaign is designed to detect."
+T1-130,1,T1F,inference,correct,1.0,0,Noted a tension between two independent estimates of the gap-minimum location: 0.000+/-0.008 V/nm (base-temperature resistance) vs. +0.016+/-0.004 V/nm (activation).
+T1-130,2,T1F,inference,correct,1.0,0,This difference is several times the smaller estimate's own fit uncertainty.
+T1-130,3,T1F,inference,correct,1.0,0,Concluded this should not be read as evidence for a stacking lacking inversion symmetry.
+T1-130,4,T1F,inference,partial,0.5,0,Reason: both estimates sit within a few per cent of the accessible displacement-field range from zero.
+T1-131,1,T1E,inference,partial,0.5,0,"With both gate lever arms and the charge-neutrality point fixed, the reachable density range at zero displacement field was calculated as roughly -0.97x10^12 to +3.11x10^12 cm^-2."
+T1-131,2,T1E,inference,correct,1.0,0,The electron side was judged to reach the density window needed to distinguish the campaign's two candidate stacking models.
+T1-131,3,T1E,inference,correct,1.0,0,The hole side falls inside a range the models explicitly warn cannot discriminate between them.
+T1-131,4,T1E,inference,correct,1.0,0,Therefore any hole-side measurement would need to be reported as range-limited rather than as a null result.
+T1-132,1,T1F,inference,partial,0.5,0,"Inferred that two-terminal contact resistance, not the channel, dominates the drain-current dip seen near neutrality."
+T1-132,2,T1F,inference,wrong,0.0,0,Estimated roughly 0.4 MOhm of resistance per contact.
+T1-132,3,T1F,inference,unverifiable,,0,This contact resistance roughly doubles through the neutrality point.
+T1-133,1,T1F,inference,wrong,0.0,0,"Claimed a rhombohedral four-layer stack's Landau-level degeneracy (single 16-fold-degenerate zero-energy level, giving first flanking gaps at filling factor +/-8) would look visibly different from a Bernal-stacked four-layer's Landau-level sequence."
+T1-133,2,T1F,inference,wrong,0.0,0,Claimed that counting filling factors alone would settle the stacking order.
+T1-134,1,T1F,inference,correct,1.0,0,Noted the down-sweep's pocket-count result cannot exclude a small second Fermi pocket carrying under roughly ten per cent of the carriers.
+T1-134,2,T1F,inference,correct,1.0,0,Reason: a tone from such a pocket would fall at a low frequency (below ~1.5 T) that the polynomial background-removal step used before the spectral fit would remove along with the background.
+T1-136,1,T1E,inference,correct,1.0,0,"Across the higher-resolution sweep's full density range, the observed partner-component fraction tracked the primary candidate stacking model's predicted trend (rising with density) far more closely than the alternative fewer-layer model."
+T1-136,2,T1E,inference,correct,1.0,0,The average deviation from the primary model was about seven-fold smaller than the deviation from the alternative.
+T1-136,3,T1E,inference,correct,1.0,0,Judged a decisive discrimination between the two models.
+T1-137,1,T1E,verdict,correct,1.0,0,Final campaign-goal call for the measured channel: a strong determination of the primary candidate stacking order.
+T1-137,2,T1E,verdict,correct,1.0,0,"The frequency component at the reference frequency identified specifically as a symmetry-allowed inter-block composite (breakdown) orbit, rather than a signature of the alternative stacking order."
+T1-137,3,T1E,verdict,correct,1.0,0,The call was stated to be limited to the one measurable region.
+T1-137,4,T1E,verdict,correct,1.0,0,And to the electron carrier side only.
+T1-138,1,T1E,decision,partial,0.5,0,"The first field-based calibration sweep was designed as a coarse, wide-field-step fan at zero back-gate voltage, sweeping the top gate over its full committed range."
+T1-138,2,T1E,decision,correct,1.0,0,Deliberately chosen so both candidate ridges from the zero-field map would fall inside a single fast-axis sweep.
+T1-138,3,T1E,decision,correct,1.0,0,So any second Landau-fan origin would appear in the same data.
+T1-139,1,T1E,inference,correct,1.0,0,The absolute density scale used throughout the calibration and the final stacking call depends on assigning a specific filling-factor step to the lowest resolved Landau-level ray.
+T1-139,2,T1E,inference,correct,1.0,0,This assignment was cross-checked only by the self-consistency of the resulting implied gate-dielectric thickness against the device card's specified value.
+T1-139,3,T1E,inference,wrong,0.0,0,Alternative assignments would imply a dielectric thickness far from that value.
+T1-139,4,T1E,inference,correct,1.0,0,This was not an independent measurement-based cross-check.
+T1-141,1,T1E,decision,wrong,0.0,0,Chose to take the density-scale lever arm from the second calibration sweep.
+T1-141,2,T1E,decision,wrong,0.0,0,"Chose to take the charge-neutrality location from the first sweep, rather than averaging the two sweeps' results."
+T1-141,3,T1E,decision,wrong,0.0,0,"Reason: the second sweep's ray slopes were robust (6% scatter) while its ray intercepts converged poorly (only 3 of 7 within tolerance, versus much tighter convergence in the first sweep)."
+T1-142,1,T1E,decision,unverifiable,,0,"Partway through the first field-based calibration sweep, one lock-in channel began clipping near the charge-neutrality feature at higher field."
+T1-142,2,T1E,decision,correct,1.0,0,Chose to let the sweep continue rather than interrupt and re-range.
+T1-142,3,T1E,decision,correct,1.0,0,"Judgment: the calibration only needed the Landau-level spacing on the metallic flanks, unaffected by the clipped peak."
+T1-142,4,T1E,decision,partial,0.5,0,Judgment: an interruption would cost roughly 80 minutes to redo versus no loss of needed information.
+T1-143,1,T1F,inference,correct,1.0,0,"Flagged a double-peaked structure near neutrality, seen in one of the two back-gate cuts, as ambiguous."
+T1-143,2,T1F,inference,correct,1.0,0,"Proposed it reflects either two slightly differently doped regions between the voltage probes, or genuine multi-band structure at neutrality."
+T1-143,3,T1F,inference,correct,1.0,0,Deferred judgment to the upcoming gate map's many neutrality crossings.
+T1-144,1,T1E,decision,correct,1.0,0,The zero-field gate map was designed to sweep the top gate across its full committed range.
+T1-144,2,T1E,decision,correct,1.0,0,"And the back gate over most of its committed range, excluding a high-displacement-field slice found featureless in the prior sweep."
+T1-144,3,T1E,decision,unverifiable,,0,"This was despite an observed voltage-dependent excess current on the top gate at bring-up, judged to sit safely below the abort threshold."
+T1-144,4,T1E,decision,unverifiable,,0,The full top-gate range was kept because a reduced range was calculated to drop the reachable D=0 electron density below the level needed to separate the campaign's competing stacking models.
+T1-145,1,T1F,inference,correct,1.0,0,Corrected its own summary: the n=+1.99x10^12 cm^-2 trace actually returned no unflagged tone at all (all candidates flagged marginal or harmonic).
+T1-145,2,T1F,inference,wrong,0.0,0,"Therefore the true result is four of five densities gave a single clean tone, not all five."
+T1-146,1,T1F,inference,partial,0.5,0,"Concluded that under this high-impedance current bias, the drain current cannot serve as a charge-neutrality locator."
+T1-146,2,T1F,inference,partial,0.5,0,Reason: a ~100 MOhm bias resistor makes the current only weakly sensitive to channel resistance until the channel resistance approaches the bias resistor's own value.
+T1-147,1,T1F,inference,correct,1.0,0,"Inferred that the neutrality-resistance minimum sits at zero displacement field, with the two field-sign branches folding onto each other."
+T1-147,2,T1F,inference,partial,0.5,0,This demonstrates inversion symmetry of the stack.
+T1-147,3,T1F,inference,partial,0.5,0,"This disfavors a stacking that lacks inversion symmetry, whose built-in gap would displace the minimum to finite field."
+T1-150,1,T1F,inference,partial,0.5,0,Recognized the activation gap is visibly curved (parabolic) near its minimum rather than linear.
+T1-150,2,T1F,inference,correct,1.0,0,Fit a parabola to the ~29 points around the minimum.
+T1-150,3,T1F,inference,partial,0.5,0,Located the gap's zero-crossing displacement field at D = +0.016 +/- 0.004 V/nm.
+T1-151,1,T1F,inference,wrong,0.0,0,"Concluded the ~10x, displacement-field-driven rise in neutrality-point resistance (296 ohm to 3074 ohm) rules out a band-overlapped semimetallic (Bernal-type) stacking."
+T1-151,2,T1F,inference,wrong,0.0,0,Reasoning: such a stacking's overlapping bands should keep the neutrality point conducting under displacement field.
+T1-152,1,T1E,decision,correct,1.0,0,"Chose to move directly to a field-based (Landau-level) calibration approach, rather than attempting a further zero-field analysis to identify the charge-neutrality line."
+T1-152,2,T1E,decision,correct,1.0,0,Reasoning: only the exact Landau degeneracy relation could fix the absolute density scale and unambiguously identify the charge-neutrality point without relying on any assumed capacitance ratio.
+T1-153,1,T1E,decision,correct,1.0,0,"The session's working acquisition configuration was set to a 5 V lock-in drive (about 49 nA bias current), 0.1 s time constant at 24 dB/octave, 0.70 s dwell per point."
+T1-153,2,T1E,decision,correct,1.0,0,"This was chosen over the inherited lower-drive, longer time-constant configuration."
+T1-153,3,T1E,decision,correct,1.0,0,Chosen after measuring both linearity and point-to-point noise.
+T1-154,1,T1F,decision,correct,1.0,0,"Set the campaign's measurement order as a coarse gate map first, as the cheapest stacking discriminator."
+T1-154,2,T1F,decision,correct,1.0,0,Then a Landau fan as an independent band-structure/pocket-count check.
+T1-154,3,T1F,decision,correct,1.0,0,"With the temperature ladder run last, because the cooldown after it is passive and slow."
+T1-155,1,T1F,decision,correct,1.0,0,"For the activation ladder, chose seven temperature setpoints ascending from base (~1.2 K) through 8, 12, 17, 23, 30, and 40 K."
+T1-155,2,T1F,decision,correct,1.0,0,"Each measured with a co-swept multisweep tracing five parallel offsets (0, +/-0.05, +/-0.10 V) around the fitted charge-neutrality line."
+T1-155,3,T1F,decision,correct,1.0,0,"Accepted each temperature once it had stabilized, rather than once it was merely close to setpoint."
+T1-157,1,T1F,inference,partial,0.5,0,"From the Landau fan's minima, found a uniform filling-factor spacing consistent with the standard four-fold spin-valley degeneracy."
+T1-157,2,T1F,inference,correct,1.0,0,Adopted that degeneracy over two-fold or eight-fold alternatives.
+T1-157,3,T1F,inference,correct,1.0,0,"Reason: it gives the most physically plausible top-gate dielectric thickness (11.1 nm vs. ~9.5 nm stated for the stack), versus ~22 nm (two-fold, implausible) and ~5.5 nm (eight-fold, unlikely)."
+T1-157,4,T1F,inference,correct,1.0,0,Noted this assumption is not needed for the stacking call itself.
+T1-158,1,T1F,inference,unverifiable,,0,"Initially concluded that a several-percent, point-to-point wiggle common to the two back-gate cuts was reproducible physical structure, rather than instrument noise."
+T1-160,1,T1E,inference,partial,0.5,0,A test for whether the dominant frequency component is a field-dependent composite (breakdown) orbit rather than an independent oscillation was completed decisively on the higher-resolution sweep.
+T1-160,2,T1E,inference,correct,1.0,0,"Compared the component's amplitude in the low- versus high-field half of the record, now at equal frequency resolution in both halves."
+T1-160,3,T1E,inference,correct,1.0,0,10 of 13 testable density columns behaved as expected for a composite orbit.
+T1-160,4,T1E,inference,correct,1.0,0,Zero columns behaved like an independent oscillation (3 inconclusive).
+T1-160,5,T1E,inference,correct,1.0,0,The amplitude ratio between halves grew by roughly five- to thirty-fold.
+T1-161,1,T1F,decision,correct,1.0,0,"Rather than a bare ramp back to zero field after the fan, measured through the mandatory ramp-down as a second field sweep from 6 T down to 0.5 T over 100 points."
+T1-161,2,T1F,decision,correct,1.0,0,"At five fixed densities (n = -0.8, +0.5, +1.0, +1.5, +2.0 x10^12 cm^-2) along the neutrality line."
+T1-161,3,T1F,decision,correct,1.0,0,This extended the field baseline to raise the frequency resolution to 0.55 T.
+T1-161,4,T1F,decision,correct,1.0,0,And raise the Nyquist limit to 27.3 T for counting Fermi-surface tones.
+T1-162,1,T1E,inference,correct,1.0,0,"On the completed oscillation spot-check record, a single dominant frequency component was found at a constant 0.965 of the local reference frequency at all four electron densities, to within 0.2%."
+T1-162,2,T1E,inference,correct,1.0,0,"At the highest density, that dominant component's value equals the sum of two smaller, independently resolved components (near 8.0 and 22.0 reference units, summing to about 29.9-30.0), to within about 0.1 of the reference-frequency unit."
+T1-163,1,T1F,inference,correct,1.0,0,Retracted the earlier Landau-level-degeneracy argument.
+T1-163,2,T1F,inference,partial,0.5,0,"Concluded instead that the zero-energy Landau level's degeneracy scales with the number of layers regardless of stacking order (4N, i.e. 16 states for either tetralayer candidate)."
+T1-163,3,T1F,inference,correct,1.0,0,Therefore filling-factor counting alone cannot distinguish the two stackings.
+T1-164,1,T1F,decision,correct,1.0,0,"Decided, as a standing contingency, that if session time grew tight it would shorten the planned field down-sweep rather than the temperature ladder."
+T1-164,2,T1F,decision,correct,1.0,0,Judgment: the activation measurement is the higher-value use of remaining time.
+T1-165,1,T1E,decision,unverifiable,,0,"After rendering the strong stacking call, declared the session's measurement deliverable complete and proceeded to instrument restoration."
+T1-165,2,T1E,decision,unverifiable,,0,"Did not attempt the additionally recommended mass-comparison measurement, described as the single most decisive remaining test."
+T1-165,3,T1E,decision,unverifiable,,0,Did not symmetrize over both magnetic-field polarities to remove the residual Hall admixture.
+T1-165,4,T1E,decision,unverifiable,,0,Did not measure the hole-carrier side at all.

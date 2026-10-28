@@ -1,0 +1,41 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/analyze_spots.py:30: UserWarning: sdh_onset: tone 7.2 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.50 T is the record edge, not a measured die-off
+  onset=sdh_onset(R,B,b_hi=10,b_lo=.5,r_full_scale=5000,bg_degree=3)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/analyze_spots.py:30: UserWarning: sdh_onset: tone 6.8 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.50 T is the record edge, not a measured die-off
+  onset=sdh_onset(R,B,b_hi=10,b_lo=.5,r_full_scale=5000,bg_degree=3)
+RUN 6 rows 921 wall min 120.36051776806514 R range -32.947456304556134 529.6319160820163 I nA 9.84293 9.93544 T 1.165 1.292
+median overhead after bare ramp 3.0833128643034877 dt [7.45405524 7.46350455 7.48344011]
+k_2400_tg_curr pA range -123.3946 121.9286
+k_2400_bg_curr pA range -66.78831000000001 117.2982
+FFT 1.5 peaks [(7.06, 17316.36), (14.11, 11864.33), (29.99, 10377.38), (22.94, 9096.99), (58.22, 1846.86)] resolution 1.7647058823529411
+FFT 2.0 peaks [(7.5, 27393.24), (29.99, 16521.58), (15.0, 16320.76), (22.49, 12449.83), (59.99, 3127.07)] resolution 2.5
+FFT 3.0 peaks [(4.28, 65113.27), (29.99, 34190.68), (21.42, 16932.5), (59.99, 6815.87)] resolution 4.2857142857142865
+sdh_onset: onset_b = 0.50 T (tone 7.2 T) over B [0.50, 10.00] T
+  tone    7.2 T: onset  0.50 T  dF  0.53 T  snr_max   24.9  [censored@edge, 2x->14.1T, 3x->22.2T, 4x->29.5T, 8x->58.6T]
+  tone   22.2 T: onset  1.42 T  dF  1.65 T  snr_max   56.5  [~3x7.2T]
+  tone   14.1 T: onset  1.86 T  dF  2.29 T  snr_max   36.6  [revives-below-gap, ~2x7.2T]
+  tone   31.4 T: onset  1.89 T  dF  2.33 T  snr_max  137.2  [revives-below-gap, ~10x3.3T]
+  tone   29.5 T: onset  1.85 T  dF  2.27 T  snr_max  192.3  [~4x7.2T]
+  tone   58.6 T: onset  3.84 T  dF  6.22 T  snr_max   44.8  [~8x7.2T]
+  tone    3.3 T: onset  0.50 T  dF  0.53 T  snr_max   23.6  [censored@edge, near-residual, 10x->31.4T]
+  tone    5.0 T: onset  0.96 T  dF  1.07 T  snr_max    5.1  [marginal]
+RUN 7 rows 486 wall min 95.6802542567253 R range -0.3754571869434766 586.8675532668536 I nA 9.8086 9.930670000000001 T 1.175 1.291
+median overhead after bare ramp 3.0675551795959386 dt [11.81689205 11.82755518 11.84562864]
+k_2400_tg_curr pA range -215.8295 11.13763
+k_2400_bg_curr pA range -68.07326 120.0978
+FFT 1.5 peaks [(5.29, 93323.28), (12.35, 46407.42), (21.17, 12715.58), (28.23, 3154.7), (33.52, 1992.34)] resolution 1.7647058823529411
+FFT 2.0 peaks [(5.0, 90239.97), (12.5, 67334.19), (22.49, 19231.71), (37.49, 3907.29), (32.49, 2896.51)] resolution 2.5
+FFT 3.0 peaks [(8.57, 90886.12), (38.56, 12191.86), (51.42, 6325.31), (64.27, 2110.21)] resolution 4.2857142857142865
+sdh_onset: onset_b = 0.50 T (tone 6.8 T) over B [0.50, 10.00] T
+  tone    6.8 T: onset  0.50 T  dF  0.53 T  snr_max  125.8  [censored@edge, ~2x3.5T]
+  tone   12.3 T: onset  1.19 T  dF  1.36 T  snr_max   75.3  [revives-below-gap]
+  tone    3.5 T: onset  0.50 T  dF  0.53 T  snr_max   25.0  [censored@edge, near-residual, 2x->6.8T, 6x->21.8T, 9x->31.4T]
+  tone    4.6 T: onset  1.03 T  dF  1.15 T  snr_max   27.2
+  tone   15.8 T: onset  1.45 T  dF  1.69 T  snr_max   40.2  [revives-below-gap]
+  tone   21.8 T: onset  2.15 T  dF  2.74 T  snr_max   29.1  [~6x3.5T]
+  tone    8.5 T: onset  1.44 T  dF  1.68 T  snr_max   43.0
+  tone   31.4 T: onset  4.44 T  dF  7.97 T  snr_max   22.2  [revives-below-gap, ~9x3.5T]
+TIMING 0 rows 101 wall min 3.8182311336199444 delay 1.0 dt quantiles [2.09056766 2.09631085 2.10661147]
+TIMING 1 rows 101 wall min 3.506926353772481 delay 1.0 dt quantiles [2.07586827 2.08268726 2.09248526]
+TIMING 2 rows 101 wall min 3.5500532269477842 delay 1.0 dt quantiles [2.10139008 2.10850728 2.1167824 ]
+TIMING 3 rows 101 wall min 3.538853879769643 delay 1.0 dt quantiles [2.09411669 2.10187614 2.11341484]
+TIMING 5 rows 4158 wall min 81.2182798465093 delay 1.0 dt quantiles [1.09279084 1.09848475 1.11677394]

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# hera-session — launch the HERA session-init agent (the front door) in a new
+# terminal, kicking off with an initial "begin" message so the agent starts
+# phase 1 immediately. Rooted at the measurement-env repo so the templates,
+# rig cards, device cards, and briefs are at hand; the agent builds the session
+# dir under the rig's path convention and hands off to tactical rooted there.
+# Bills the award's hera-rig workspace (see hera-key); a missing key aborts.
+key="$(hera-key rig)" || exit 1
+exec newclaude "${MEASUREMENT_ENV:-$HOME/measurement_env}" \
+    --model "${HERA_MODEL:-opus}" \
+    --env "ANTHROPIC_API_KEY=$key" \
+    --agent hera-session "Begin session setup."

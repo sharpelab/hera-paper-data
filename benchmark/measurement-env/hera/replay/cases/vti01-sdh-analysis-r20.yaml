@@ -1,0 +1,15 @@
+# The sdh_analysis decision point on vti-01 (08-18): run 20, the τ = 300 ms ML descent at
+# n = −1.74e12 (B 5→0.5 T at 4 mT), just landed (line 1701); the cut result already carries a
+# first FFT printout. Quality fan (run 19) read on the page.
+case: vti01-sdh-analysis-r20
+source: ../../docs/notes/2026-08-18-vti-01-session
+cut:
+  transcript: 18ed1c71-d971-4290-b0c2-752d15437e88.jsonl
+  at: d701ee54-8b3b-44f7-8162-65569d5f092b
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 20 is down, 1126 rows. Reading the descent now: FFT over the ML band, then the ana entry."
+  prompt: "Carry on."
+grader: null

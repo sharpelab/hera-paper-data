@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# hera-utilization — fridge-utilization scoring for a HERA session dir
+# (raw + HIL court split; see hera/docs/hera-utilization-design.md).
+# Exec'd via uv so the project env is loaded without the caller needing to
+# know the project path.
+exec uv run --no-sync --project "${HOME}/measurement_env" hera-utilization "$@"

@@ -1,0 +1,5 @@
+## Runs 6–7 — SdH spot checks on both density sides (`sdh-spot-check`)
+
+Raw Rxx(B) is shown before the B-detrended FFT. Both 1D runs completed at D ≈ 0 with a stable ≈9.9 nA drain current, no clipping, and sample temperature 1.165–1.292 K. Run 6 (electron, n = +3.2×10¹² cm⁻²) has usable oscillations: a ≈7 T feature and peaks around 15, 22, and 30 T, many close to its harmonics. The ≈30 T peak is below the geometry-prior F_L = 33.1 T but cannot yet be assigned a distinct pocket; the peak set changes relative amplitude with the FFT cutoff. Run 7 (hole, n = −1.2×10¹²) shows ≈5 and ≈12.4 T content, but the accessible hole density is too low for the investigation's reliable separation regime. The electron side therefore carries the fan. This is a decision to measure F(n), not a stacking verdict.
+
+`sdh_onset` on run 6 is censored at the low edge for the slow ≈7 T component; higher-frequency content appears by ≈1.4–1.9 T. The fan will include lower field for the small tone while using FFT cutoffs that exclude background-dominated rows. Detrending/window sensitivity and a global density-scale fit remain analysis tasks after the fan.

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.65,
+  "B_max_T": 10.0,
+  "n_B": 191,
+  "spacing": "invB",
+  "n_min_cm2": 1.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 53,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 8.0,
+  "flags": [],
+  "notes": "Cell 48 (appended, with markdown cell 47): s.multimegasweep([magnet.field], [B_vec], [k_tg.volt, k_bg.volt], [Vtgs, Vbgs], slow_delay=1.0, fast_delay=DWELL=2.1); B_vec = np.round(1/np.linspace(1/0.65, 1/10.0, 191), 4) (uniform in 1/B, d(1/B)=0.00754); fast axis ns = np.linspace(3.2, 1.6, 53)e12 cm^-2 at D = 0 V/nm via calc_gate_voltages with the in-cell run-5 CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013), giving V_tg 0.9836..0.5252, V_bg 1.1661..0.5730 (inside the SAFETIES rails). Records sr0.X/P and sr1.X/P plus k_tg.curr and k_bg.curr. sr1 sensitivity set in-cell to 50 uV; sr1 tau 0.3 s only asserted, and sr0 sens 0.02 V / tau 0.3 s plus tg/bg nplci 1.0 and drive_V 1.0 are inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells. Bias resistor 100 MOhm from device_card.md. ETA 8 h from the cell-47 markdown header."
+}

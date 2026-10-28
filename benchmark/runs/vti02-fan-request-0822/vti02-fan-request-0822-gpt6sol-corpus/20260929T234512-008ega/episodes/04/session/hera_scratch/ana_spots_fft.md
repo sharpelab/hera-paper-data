@@ -1,0 +1,3 @@
+## Runs 6–7 — frequency read and fan decision
+
+The electron trace has a robust high-frequency component near 30 T at n = +3.2×10¹² cm⁻² (geometry-prior F_L = 33.1 T). Low-frequency peaks around 5–9 T depend strongly on the low-B FFT cutoff and may include background or harmonics; they are **unresolved**, not a claimed ABAB partner. `sdh_onset` flags a ~7 T component at the lowest 0.3 T record edge as censored, while the ~30 T component emerges around 1.8 T. The hole trace contains low-frequency structure but its reachable |n| ≤ 1.27×10¹² is the recipe's near-CNP exception regime. The next fan therefore targets the electron side at D = 0, with enough inverse-field span and density resolution to test whether a low-frequency branch follows its own F(n) curve.

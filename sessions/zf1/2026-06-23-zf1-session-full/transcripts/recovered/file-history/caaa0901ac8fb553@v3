@@ -1,0 +1,83 @@
+# Session notes — zf1 / toploader
+
+Operational log (not a science notebook).
+
+FEEDBACK — Step-1 gatemap extent: I inset the gate box 0.2 V inside the
+validators (TG[-6.8,5.8], BG[-3.8,4.0]) out of unjustified leakage caution.
+Aaron overrode: the device-card validators ARE isaac's known-safe operating
+envelope (range-finding blocklisted precisely because it's already
+established), so the map must use the FULL range TG[-7,+6], BG[-4,+4.2].
+Corrected cell 35 supersedes cell 33. Lesson: don't second-guess committed
+validators with ad-hoc margins; the validators are the safe envelope.
+
+TOOLING — hera-watch digest shows only the measurement-config lock-in
+channels (sr1/2/3), NOT the gate-current fp columns. For gatemap / liveness
+runs the leakage check (k_tg_curr/k_bg_curr vs pA) is the live-watch's
+*other* half, and it's invisible in the digest — had to open_run the TSV
+each time to confirm leakage. Consider a hera-watch flag to surface fp'd
+gate-current channels (max|I| per row) when present.
+
+RECIPE FIX — cnp-and-dline-calibration / gatemap CNP extraction: per-row
+argmax on the 2T channel fails badly here (contact features + V_bg~0 stripe
+pull the peak off the CNP -> garbage slope/residual). The 4T channel works
+even though it rails at its sensitivity ceiling along the gapped CNP, IF the
+fit uses iterative 2-sigma outlier rejection (railed-plateau argmax + the
+V_tg~0 glitch row are rejected). Gave c_bg/c_tg=1.189 vs prior 1.18, rms
+0.000 V over 26/41 rows. Worth stating in the recipe: prefer 4T + robust
+fit; never 2T argmax for CNP.
+
+RECIPE FIX — bias-spectroscopy (new surface, worked well): the rig card's
+DC205 "fixed ~1s ramp + mandatory 10s settle when dV>0.1V" applies ONLY to
+the `smart_voltage`/`ramp_voltage` path, NOT to `dc205_1.volt` (= the direct
+`voltage` SCPI set, qcodes-substepped by volt.step, no 10s settle). The
+toploader template wires `dc205_1.volt = dc205_1.voltage`, so a bias sweep
+`s.sweep(dc205_1.volt, Vdc_vec)` is fast (no per-point 10s penalty). Worth a
+line in bias-spectroscopy / the rig card so nobody sizes a +/-15V bias sweep
+as a ~1hr run. Run 9: 302pt round-trip in 6 min. Clean supercurrent, Ic~30nA.
+
+PROGRESS (science -> ana, not here): bring-up + Step1 (cap ratio 1.19,
+candidate dome at n=-5.2e11 D=-0.645) + Step2 (supercurrent Ic~30nA) done in
+runs 0-9. SC(strong) at base T/B=0. Step3 field-kill = first energisation
+(cell 47).
+
+PROTOCOL/TOOLING — STALE THERMOMETRY went undetected for the whole session.
+`temperature()` (Probe2_MixingCh_low logfile) read EXACTLY 33.7 mK in every
+run 0-13 (~4 h), including run 13 where heater=5V drew 0.46mA and dV/dI showed
+the SC killed (sample clearly heated) yet T stayed 33.7. Frozen logfile / dead
+AVS probe worker (or wrong sensor / column-(-3) format break, per rig-card
+quirk). Impact: only blocks Tc (T-dependence); all base-T results stand (device
+WAS cold - it superconducts). GAP: the precondition `assert temperature()<0.1`
+canNOT catch a frozen-but-plausible base value - a stale reading sails through.
+FIX IDEAS: (a) preflight staleness check - logfile mtime age, or assert T has
+*changed* across recent runs; (b) HERA should flag "T identical to 5 decimal
+places across N runs" as suspicious. Aborted ladder at run 13, interrupted,
+parked heater (cell 56). Hold until thermometry confirmed live.
+
+FEEDBACK — Aaron: the live sample thermometer is Probe1, not Probe2. I trusted
+the toploader template's `# <-- verify probe` Probe2 default (device card said
+"rotator probe loaded" -> template comment "Probe2 = rotator") instead of
+checking which probe logfile was actually advancing. Aaron: "check both probes
+by default for which is not stale." Fix: cell 59 re-points `temperature` to
+Probe1_MixingCh_low and verifies both. RULE for the template/recipe: thermometry
+bring-up should READ BOTH probe logfiles and auto-select the fresh/advancing one
+(or at least assert the chosen one's logfile mtime is advancing), not hard-code a
+probe from a prior assumption. This is the root cause of the "stale T" abort.
+
+TOOLING — nb-collab interrupt did NOT stop the descending Tc ladder (cell 65):
+sent "interrupt-sent" (kernel busy), but runs 26 (2.5V) and 27 (2.0V) completed
+afterward = the cell continued through 2+ more rungs. Possible the KeyboardInterrupt
+was deferred/swallowed during instrument I/O (bias sweep / heater I/O) or didn't
+reach the kernel. No harm here (ladder self-completes), but interrupt reliability
+during long instrument-bound loops is suspect - worth verifying the abort lever
+on this rig. Workaround: design long loops to check an abort flag, or keep loops
+short so the operator can stop by hand between cells.
+
+SESSION OUTCOME (complete) — zf1 bottom device: SUPERCONDUCTOR (strong).
+Located + characterized a gate-tuned proximity SC dome in one base-T session
+(runs 0-33). n=-5.2e11 cm^-2, D=-0.645 V/nm (hole side, favorable D<0);
+Rxx->0 (0.09 ohm), Ic~30nA, B_c_perp~2.5-3mT, xi~0.3um, uniform-2D (no
+Fraunhofer), onset Tc~0.30K (broad 2D). Cap ratio 1.19 confirmed prior.
+Five-part call in ana cell 33. Rig parked safe. Open items for decisive:
+R_xy/QAH discriminator (needs transverse pair wired), clean Tc/T_BKT ladder
+(thermometry was on dead Probe2 most of session - fixed to Probe1), 2nd-contact
+reproduction, higher |D| for true optimum, normal-state fan (Tesla round).

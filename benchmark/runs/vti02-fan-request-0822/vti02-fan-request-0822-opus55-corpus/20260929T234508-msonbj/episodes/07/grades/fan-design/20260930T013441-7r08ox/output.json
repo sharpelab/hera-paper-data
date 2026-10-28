@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 6.0,
+  "n_B": 85,
+  "spacing": "invB",
+  "n_min_cm2": 1.5e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 35,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 2.4,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.17,
+  "flags": [],
+  "notes": "Cell 48 is the answer: s.multimegasweep([magnet.field], [field_invB(1.0, 6.0, 85)] (slow, uniform in 1/B), [k_tg.volt, k_bg.volt], [Vtgs, Vbgs] fast) with slow_delay=3.0, fast_delay=2.4; columns are np.round(np.arange(1.50, 3.2001, 0.05), 4) = 35 pts in 1e12 cm^-2 at D = 0, converted via calc_gate_voltages with the cell's run-5 CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) -> Vtg +0.4966..+0.9836, Vbg +0.5359..+1.1661; values are the cal (n_cal) frame, the cell quotes a measured QH scale n_true/n_cal ~ 0.906 which I left unapplied. Lock-in/NPLC state inherited from the executed close_out(restore=state0) in cell 44 (readback sr0_sens 0.02 V, sr0/sr1 tau 0.3 s, nplci 1/1); cell 48 itself only sets sr1.sensitivity(50e-6) and asserts the rest. Drive 1.0 V through the 100 MOhm bias resistor (cell 32, meas_config) = 10 nA; stated ETA ≈3h10m in cell 47's markdown."
+}

@@ -1,0 +1,38 @@
+# === Adaptive DOWN ladder (6->0 V): each step waits for genuine settle. ===
+import os
+SCR = r"C:\Users\toploader\measurements\aaron\20260623-zf1\hera_scratch"
+LF  = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+assert time.time() - os.path.getmtime(LF) < 120, "Probe1 logfile stale — thermometry worker down"
+assert abs(heater.volt() - 6.0) < 0.01, "expected settled 6 V start (run 40)"
+print(f"start: heater {heater.volt()} V, T {temperature()*1e3:.1f} mK (settled 6 V baseline)")
+
+def step_settle(target, max_min=35, samp=20, thresh=1.0, sustain=90, win=150, t_min=180):
+    """Step heater to target, record T(t), return when |dT/dt|<thresh mK/min sustained."""
+    heater.volt(float(target))                      # the down-step (sub-stepped, blocks until there)
+    t0 = time.time(); ts = []; Ts = []; settle_t = None; below = None
+    while (time.time() - t0) < max_min*60:
+        now = time.time() - t0; T = float(temperature())*1e3
+        ts.append(now); Ts.append(T)
+        if len(ts) >= 6:
+            tw = np.array(ts); Tw = np.array(Ts); m = tw > now - win
+            if m.sum() >= 4:
+                slope = abs(np.polyfit(tw[m], Tw[m], 1)[0]*60)   # mK/min
+                if slope < thresh:
+                    if below is None: below = now
+                    elif (now - below) >= sustain and now > t_min:
+                        settle_t = below; break
+                else:
+                    below = None
+        time.sleep(samp)
+    np.savez(os.path.join(SCR, f"settle_down_{int(target)}.npz"),
+             t=np.array(ts), T=np.array(Ts),
+             settle_t=(settle_t if settle_t is not None else -1.0), target=float(target))
+    msg = f"settled {settle_t:.0f}s ({settle_t/60:.1f} min)" if settle_t is not None else f"NOT settled in {max_min} min"
+    print(f"  ->{target} V: T {Ts[0]:.0f}->{Ts[-1]:.0f} mK ; {msg}")
+    return settle_t
+
+for tgt in [5, 4, 3, 2, 1, 0]:
+    print(f"step ->{tgt} V ...")
+    step_settle(tgt)
+
+print(f"DOWN ladder done. heater {heater.volt()} V (parked) ; T {temperature()*1e3:.1f} mK")

@@ -1,0 +1,252 @@
+{
+  "device": "vti-02",
+  "channel": "sr1 = B_1-B_2 (the only four-terminal pair wired this cooldown)",
+  "transport_quoted": {
+    "R_CNP_min_ohm": 296.0,
+    "R_CNP_max_ohm": 3074.0,
+    "R_CNP_rise": 10.4,
+    "D_lo": -0.0798,
+    "D_hi": 0.3068,
+    "ctg_over_cbg_meas": 1.2737,
+    "ctg_over_cbg_err": 0.047,
+    "ctg_over_cbg_prior": 1.1579,
+    "Dmin_R_CNP": 0.0,
+    "Dmin_R_CNP_err": 0.008,
+    "Dmin_gap": 0.016,
+    "Dmin_gap_err": 0.004,
+    "fold_dD": [
+      0.02,
+      0.04,
+      0.06,
+      0.08
+    ],
+    "fold_ratio": [
+      1.07,
+      1.01,
+      1.03,
+      0.96
+    ],
+    "noise_floor_frac": 0.03,
+    "Delta_D0_meV": -0.621,
+    "Delta_D0_err": 0.166,
+    "Delta_max_meV": 1.359,
+    "Delta_max_err": 0.144,
+    "Delta_max_at_D": 0.238,
+    "dRdT_sign_change_D": 0.126,
+    "flank_meV_per_Vnm": 7.9,
+    "sdh_ratio_hi_contrast": [
+      0.835,
+      0.834
+    ],
+    "alpha_sdh": 1.199,
+    "alpha_ladder": 1.166,
+    "double_peak_rows_Vbg": [
+      -0.15,
+      -0.1,
+      -0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25
+    ],
+    "n_map_rows": 35,
+    "electron_T_K": 8.0
+  },
+  "transport_derived_checks": {
+    "D_span_Vnm": 0.3866,
+    "neg_D_lever_arm_frac": 0.2601043024771838,
+    "Dmin_gap_as_frac_of_D_span": 0.04138644593895499,
+    "Dmin_discrepancy_Vnm": 0.016,
+    "Dmin_discrepancy_sigma_joint": 1.7888543819998317,
+    "Dmin_discrepancy_sigma_activation_only": 4.0,
+    "fold_max_abs_dev": 0.07000000000000006,
+    "fold_dev_in_noise_floors": 1.6499158227686124,
+    "alpha_route_agreement_pct": 2.8301886792452935,
+    "ctg_ratio_prior_tension_sigma": 2.463829787234045,
+    "double_peak_row_fraction": 0.2,
+    "shunt_upper_bound_ohm": 3074.0,
+    "shunt_vs_D0_channel": 10.385135135135135
+  },
+  "evidence_inventory": {
+    "raman": {
+      "file": "raman.md",
+      "chars": 1112,
+      "quantities_with_units": 0,
+      "quoted_uncertainties": 0,
+      "iso_dates": 0,
+      "acquisition_date_stated": false,
+      "instrument_stated": false,
+      "wavelength_spot_size_stated": false,
+      "spectra_or_map_files_in_hand": false,
+      "positions_or_coordinates_stated": false,
+      "layer_count_established_by_this_leg": false,
+      "domain_area_or_fraction_stated": false,
+      "build_stage_stated": true,
+      "build_stage_internally_consistent": false,
+      "post_stacking_read_exists": false,
+      "self_declared_strength": "strong"
+    },
+    "transport_call": {
+      "file": "transport-call.md",
+      "chars": 7753,
+      "quantities_with_units": 33,
+      "quoted_uncertainties": 10,
+      "iso_dates": 2,
+      "acquisition_date_stated": true,
+      "instrument_stated": true,
+      "raw_runs_reanalysable": true,
+      "positions_or_coordinates_stated": false,
+      "layer_count_established_by_this_leg": false,
+      "self_declared_strength": "moderate"
+    }
+  },
+  "odds_model": {
+    "note": "explicit judgement, not measurement; LRs are stated so they can be moved by a reader",
+    "hypotheses": [
+      "ABCA",
+      "ABCB",
+      "ABAB"
+    ],
+    "prior": {
+      "ABCA": 0.3333333333333333,
+      "ABCB": 0.3333333333333333,
+      "ABAB": 0.3333333333333333
+    },
+    "transport_LR_vs_ABCA": {
+      "ABCA": 1.0,
+      "ABCB": 0.16666666666666666,
+      "ABAB": 0.0033333333333333335
+    },
+    "transport_LR_sweep": {
+      "ABCB": [
+        0.06666666666666667,
+        0.3333333333333333
+      ],
+      "ABAB": [
+        0.001,
+        0.02
+      ]
+    },
+    "raman_LR_form": "L(ABCA)=L(ABCB)=s, L(ABAB)=1-s",
+    "s_nominal": 0.6,
+    "posteriors": {
+      "prior": {
+        "ABCA": 0.3333333333333333,
+        "ABCB": 0.3333333333333333,
+        "ABAB": 0.3333333333333333
+      },
+      "raman_only": {
+        "ABCA": 0.375,
+        "ABCB": 0.375,
+        "ABAB": 0.25
+      },
+      "transport_only": {
+        "ABCA": 0.8547008547008548,
+        "ABCB": 0.14245014245014245,
+        "ABAB": 0.002849002849002849
+      },
+      "fused": {
+        "ABCA": 0.8555133079847909,
+        "ABCB": 0.14258555133079848,
+        "ABAB": 0.0019011406844106466
+      }
+    },
+    "odds_ABCA_over_ABCB": {
+      "prior": 1.0,
+      "raman_only": 1.0,
+      "transport_only": 6.0,
+      "fused": 6.0
+    },
+    "s_sensitivity": [
+      {
+        "s": 0.05,
+        "fused_ABCA": 0.8130081300813008,
+        "fused_ABCB": 0.13550135501355012,
+        "fused_ABAB": 0.051490514905149054,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.14999999999999997,
+        "fused_ABCA": 0.8434864104967198,
+        "fused_ABCB": 0.14058106841611998,
+        "fused_ABAB": 0.015932521087160267,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.24999999999999994,
+        "fused_ABCA": 0.8498583569405099,
+        "fused_ABCB": 0.14164305949008496,
+        "fused_ABAB": 0.008498583569405102,
+        "odds_ABCA_over_ABCB": 6.000000000000001
+      },
+      {
+        "s": 0.3499999999999999,
+        "fused_ABCA": 0.8526187576126675,
+        "fused_ABCB": 0.14210312626877789,
+        "fused_ABAB": 0.005278116118554611,
+        "odds_ABCA_over_ABCB": 6.000000000000001
+      },
+      {
+        "s": 0.4499999999999999,
+        "fused_ABCA": 0.85416007592534,
+        "fused_ABCB": 0.14236001265422335,
+        "fused_ABAB": 0.003479911420436572,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.5499999999999999,
+        "fused_ABCA": 0.8551438196423944,
+        "fused_ABCB": 0.14252396994039906,
+        "fused_ABAB": 0.002332210417206531,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.6499999999999999,
+        "fused_ABCA": 0.8558262014483213,
+        "fused_ABCB": 0.1426377002413869,
+        "fused_ABAB": 0.0015360983102918598,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.7499999999999999,
+        "fused_ABCA": 0.8563273073263558,
+        "fused_ABCB": 0.14272121788772596,
+        "fused_ABAB": 0.0009514747859181739,
+        "odds_ABCA_over_ABCB": 6.0
+      },
+      {
+        "s": 0.8499999999999999,
+        "fused_ABCA": 0.8567109020661852,
+        "fused_ABCB": 0.14278515034436418,
+        "fused_ABAB": 0.0005039475894506977,
+        "odds_ABCA_over_ABCB": 6.000000000000001
+      },
+      {
+        "s": 0.95,
+        "fused_ABCA": 0.8570139828597204,
+        "fused_ABCB": 0.14283566380995338,
+        "fused_ABAB": 0.0001503533303262669,
+        "odds_ABCA_over_ABCB": 6.000000000000001
+      }
+    ],
+    "transport_LR_sensitivity": [
+      {
+        "transport_LR": "optimistic",
+        "ABCA": 0.9369144284821986,
+        "ABCB": 0.06246096189881325,
+        "ABAB": 0.0006246096189881325
+      },
+      {
+        "transport_LR": "pessimistic",
+        "ABCA": 0.7425742574257426,
+        "ABCB": 0.2475247524752475,
+        "ABAB": 0.009900990099009901
+      }
+    ]
+  },
+  "figures": [
+    "artifacts/fig1-discrimination-matrix.png",
+    "artifacts/fig2-stage-timeline.png",
+    "artifacts/fig3-odds.png"
+  ]
+}

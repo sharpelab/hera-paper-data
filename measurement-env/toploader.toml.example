@@ -1,0 +1,52 @@
+[influxdb]
+url = "https://metrics.aaronsharpe.science"
+token = ""
+org = "dgg"
+bucket = "023_toploader"
+
+[hardware]
+avs_fridge_gpib = "GPIB11::21::INSTR"
+avs_probe_gpib = "GPIB10::20::INSTR"
+ami430_addr = "TCPIP0::192.168.0.101::7180::SOCKET"
+lc_logs_folder = 'C:\LC Data\Data'
+temperature_log_dir = 'C:\Users\toploader\temperature_logs'
+# Leiden QCS heater current source: MCC InstaCal board number (-1 = absent)
+# and per-channel current clamps in µA (driver-enforced).
+qcs_board_num = 0
+qcs_max_ua = { "3K" = 15000, "Still" = 15000, "MC" = 15000 }
+
+[health.lc_scrapper_fp]
+metric = "Pc"
+threshold = 90
+
+[health.lc_scrapper_pt]
+metric = "PT1.Status"
+threshold = 90
+
+[health.thorlabs_thermo]
+metric = "temp"
+threshold = 90
+
+[health.avs_probe]
+metric = "P1_MixingCh_low"
+threshold = 83
+
+[health.avs_fridge]
+metric = "MixingCh_low"
+threshold = 315
+
+[health.magnet]
+metric = "magnetic field"
+threshold = 90
+
+# Watch an _on metric: _current metrics are honestly absent until the first
+# operator setpoint (the DAC is not readable), _on is written every cycle.
+[health.qcs]
+metric = "MC_on"
+threshold = 90
+
+# Optional. Used by the HERA classifier (see hera/ on the hera branch).
+# Get a key at https://aistudio.google.com/apikey (free tier OK).
+[hera]
+gemini_api_key = ""
+classifier_model = "gemini-2.5-flash"
