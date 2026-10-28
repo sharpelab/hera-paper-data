@@ -1,0 +1,9 @@
+## Runs 6–7 — SdH spot checks at D = 0 (`sdh-spot-check`): electron n = +3.2×10¹², hole n = −1.2×10¹²
+
+Run 6 took B 0 → 10 T at (V_tg, V_bg) = (+0.984, +1.166); run 7 took B 10 → 0.3 T at (−0.277, −0.465). Both used sr1 at 50 µV (5 kΩ full scale) and T_sample 1.17–1.29 K. Neither railed (max 0.12 of full scale), there was no leakage (|I_gate| ≤ 0.22 nA), and the drain current held at 9.8–9.9 nA.
+
+**Read:** the device is clean. Rxx drops to ≈ 0 Ω in the minima by ~2 T on the electron side, so the quantum-Hall regime starts at a few tesla. Oscillations begin below 1 T.
+- **Electron side (run 6):** the strongest pair of FFT peaks is **7.1 T and 30.0 T** (1.5–10 T window). The onset tracker gives the same fundamentals (7.2 and 31 T); 14 and 22 T are its harmonics. The pair sums to 37 T, 12 % above F_L = 33.1 T from the run-5 calibration. Two things could explain that: (a) the absolute density scale, which is still the geometry prior for c_tg, is ~12 % low; (b) the tones come from region B, whose intrinsic density is 0.43×10¹² higher (n_B = 3.63 → F_L = 37.5 T). One spot cannot separate them.
+- **Hole side (run 7):** the spectrum is less clean. The dominant tone is 6.8 T (onset < 0.5 T) and 12.3 T (≈ F_L = 12.4 T) is also present. Weaker tones sit at 4.6 / 8.5 / 15.8 T.
+
+**Take:** the electron side looks like a light + heavy pair, the ABAB signature, rather than one Fermi surface at F_L (the ABCA expectation). **It is not a call yet.** A single density cannot tell a two-band tone pair from two series regions, or a density-scale error from a region offset. What separates them is F(n) across the gate range: tones from region A extrapolate to F = 0 at n_A = 0, tones from region B at n_A = −0.43×10¹². The slopes dF/dn also calibrate the density scale. That is the next step: the D = 0 Landau fan.

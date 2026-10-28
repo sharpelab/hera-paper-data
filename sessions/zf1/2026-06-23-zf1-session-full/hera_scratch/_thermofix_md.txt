@@ -1,0 +1,5 @@
+## HERA — Thermometry fix: re-point sample T to Probe1 (supersedes cell 8's Probe2)
+
+Operator: **Probe1** is the live sample thermometer; the setup cell pointed `temperature` at **Probe2_MixingCh_low** (stale — pinned 33.7 mK all session). My mistake was trusting the template's `# <-- verify probe` Probe2 default instead of checking which probe logfile was actually advancing. Lesson logged: **check both probe logfiles and pick the non-stale one** by default.
+
+This cell parks the heater (safety), reads **both** probe logfiles (value + file age) to show which is live, then **redefines `temperature` to Probe1** for all downstream cells. **Decisive confirmation built in:** the sample was just heated to ~5 V (SC killed) and is now cooling — the *live* sensor (Probe1) should read **elevated T (≫34 mK) and falling**, while the stale Probe2 still shows ~33.7 mK. If Probe1 shows that, we've found the real thermometer; I then wait for it to recool to base and re-run the Ic(T) ladder (a quick redo — we know the SC is gone by ~5 V).

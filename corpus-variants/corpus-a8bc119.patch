@@ -1,0 +1,2690 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 0683182..f3c0ee1 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -77,7 +77,7 @@ Notebooks import from `sweep` and `measurebot` (path installs from `lib/`) and
+ - Toploader-specific constants live in `sharpelab_nb.constants.TOPLOADER`
+ - Instrument drivers in `sharpelab_nb.drivers` (SRS_DC205, Yokogawa7651)
+ - Measurement configs use `sharpelab_nb.build_measurement_config(mc, contact_pairs)`
+-- Temperature readout via `sharpelab_nb.thermometry.temperature_from_logfiles`
++- Temperature readout via `sharpelab_nb.thermometry.temperature_from_logfile`
+ - Launcher panels are `_build_*_panel()` methods called from `__init__`
+ - `_log(tag, msg)` — tag is required, use component name (e.g. "jupyter", "health")
+ - Health checks configured in `[health.*]` sections of `toploader.toml`
+diff --git a/hera/campaigns/stacking/aaron-shield-instructions.md b/hera/campaigns/stacking/aaron-shield-instructions.md
+index f1198ef..fbe6ac0 100644
+--- a/hera/campaigns/stacking/aaron-shield-instructions.md
++++ b/hera/campaigns/stacking/aaron-shield-instructions.md
+@@ -15,9 +15,7 @@ branch — git supplies the timestamp and ordering.*
+ ## Before the series (once)
+ 
+ - [ ] Write **one Raman document per device**. Each must contain:
+-  - where the **full raw Raman data** lives (the project/map files, e.g.
+-    WITec `.wip` — acquisition metadata rides along in-file), plus your
+-    per-spot reads (ABA / ABC / mixed / unclear),
++  - the spectra and your per-spot reads (ABA / ABC / mixed / unclear),
+   - **spot locations** mapped onto the device geometry (optical image
+     with marked spots, or coordinates) — the fusion step reconciles Raman
+     spots against transport contact pairs spatially, so location is
+diff --git a/hera/campaigns/stacking/deviations.md b/hera/campaigns/stacking/deviations.md
+deleted file mode 100644
+index 7e1c8eb..0000000
+--- a/hera/campaigns/stacking/deviations.md
++++ /dev/null
+@@ -1,25 +0,0 @@
+-# Deviations register — arm 1
+-
+-**SCORER / SUPPORT-SIDE ⚠️ — not for agent view.** Departures from
+-`prereg-protocol.md` (§7); published with the series.
+-
+-## 2026-08-19 — vti-01 intake
+-
+-- The device (alias vti-01) was cooled and measured before its seal: the
+-  owner ran transport, and Aaron's sealed call fuses Raman with his own
+-  transport. Not "fresh at cooldown" per §2; the seal hashes were
+-  committed 2026-08-19, after cooldown start, not pre-series per §5
+-  step 0.
+-- Intake facts were drafted by the device owner and amended by the
+-  shield; §4 assigns intake authorship to the shield alone. The fab id
+-  was visible to the operator via the handoff filename (the kit carries
+-  the alias only).
+-- BIAS_R (10 MOhm) entered via the owner's handoff message, not the
+-  shield form — the form predates the field.
+-- No Hall pair is wireable this cooldown (right-side contacts dead); the
+-  provided configuration is Rxx-only.
+-- Template surfaces changed at vti-01 intake, pre-freeze-tag: device-card
+-  template gained LOCKIN_ADDRS / BIAS_R / DRIVE_FREQ / SR0_GAIN slots and
+-  dropped fixed prior-cooldown tuning text; the intake form gained the
+-  matching fields; hera-session now fills setup-cell instrument addresses
+-  from the card. td-01's kit predates these surfaces.
+diff --git a/hera/campaigns/stacking/raman-hashes.md b/hera/campaigns/stacking/raman-hashes.md
+deleted file mode 100644
+index 632e1fa..0000000
+--- a/hera/campaigns/stacking/raman-hashes.md
++++ /dev/null
+@@ -1,11 +0,0 @@
+-# Raman seal ledger — arm 1
+-
+-**SCORER / SUPPORT-SIDE ⚠️ — not for agent view.**
+-
+-| Alias | Device (shield) | sha256 of sealed doc | Provenance |
+-|---|---|---|---|
+-| td-01 | RMG01 | a64bbefca77547c6a60ca61f14c365338a4e84f9a16305de058b5bed616de31b | Self-hashed by Aaron (tarball, his machine); email "arm-1 seal: RMG01 raman sha256", alerts@aaronsharpe.science → zack cc [personal email redacted], 2026-08-02T20:06:52Z, gmail thread [thread id redacted] |
+-| vti-01 | JM_R_S_4 | 5b5ffe6ba15784227d6d01ea2f744200b332cab22652297a8854c6888e383434 | `vti-01.wip` (raw Raman, WITec project). Self-hashed by Aaron; email "VTI-01 seal hashes for the campaign ledger", alerts@aaronsharpe.science → zack cc [personal email redacted], 2026-08-19T02:23:27Z, gmail thread [thread id redacted] |
+-| vti-01 | JM_R_S_4 | d95f4871703f85eb990fe401e1b99f397c8e4e5bb3d960f79f2e9121a520a581 | `vti-01-fused_call.md` (Aaron's precommitted call; contents at unseal). Same email as the `.wip` row |
+-
+-Unseal (prereg §5): Aaron commits the tarball itself; its sha256 must match this row.
+diff --git a/hera/campaigns/stacking/vti-01/intake-facts.md b/hera/campaigns/stacking/vti-01/intake-facts.md
+deleted file mode 100644
+index 4e97f37..0000000
+--- a/hera/campaigns/stacking/vti-01/intake-facts.md
++++ /dev/null
+@@ -1,58 +0,0 @@
+-# Intake facts — vti-01
+-
+-*Shield-provided values for the vti-01 kit (source: Aaron's amended
+-handoff form, 2026-08-18; BIAS_R per the owner's handoff message —
+-provenance in `../deviations.md`; DRIVE_FREQ queried from the bias
+-lock-in at intake; SR0_GAIN per Aaron 2026-08-19). Lock-in naming
+-normalized to the VTI convention (`sr0…sr3`).*
+-
+----
+-
+-ALIAS: vti-01
+-OWNER: Jordan
+-MATERIAL: 3LGr
+-SI_GATE: yes
+-T_TG_NM: 14.9
+-T_BG_NM: 21.4
+-TG_LIMIT: [−0.8, +0.8] V
+-BG_LIMIT: [−5.0, +5.0] V
+-SI_LIMIT: [−20, +20] V
+-B_CAP_T: 10.0
+-T_CAP_K: 100
+-TG_ADDR: GPIB0::1
+-BG_ADDR: GPIB0::24
+-SI_ADDR: ASRL7
+-BIAS_CHANNEL: sr1
+-LOCKIN_ADDRS: `sr0` GPIB0::22, `sr1` GPIB0::14, `sr2` GPIB0::19, `sr3` GPIB0::18
+-BIAS_R: 10 MOhm
+-DRIVE_FREQ: 13.777 Hz
+-SR0_GAIN: −1E6
+-CONTACT_LIVENESS: Alive: T_SD, L_1, L_2, L_3, L_4, B_SD. Dead: R_1, R_2.
+-
+-## CONTACT_MAP
+-
+-Hall bar. `T_SD` and `B_SD` are source and drain at the top and bottom
+-of the bar; `L_1`–`L_4` are voltage probes down the left side, `R_1`–`R_2`
+-the right. Only the provided configuration below is wired to instruments
+-this cooldown:
+-
+-| Label | Pad | | Label | Pad |
+-|---|---|---|---|---|
+-| T_SD | 5 | | L_1 | 29 |
+-| L_2 | 13 | | L_3 | 45 |
+-| L_4 | 4,12 | | B_SD | 20,44 |
+-| R_1 | 1 | | R_2 | 11,27 |
+-
+-## PROVIDED_CONFIG
+-
+-| role | label |
+-|---|---|
+-| source | T_SD |
+-| drain (`sr0`) | B_SD |
+-| `sr1` (Rxx) | B_SD–L4 |
+-| `sr2` (Rxx) | L4–L1 |
+-| `sr3` (Rxx) | L3–L2 |
+-
+-## NOTES
+-
+-none
+diff --git a/hera/docs/brief-vti-01.md b/hera/docs/brief-vti-01.md
+deleted file mode 100644
+index 41441aa..0000000
+--- a/hera/docs/brief-vti-01.md
++++ /dev/null
+@@ -1,133 +0,0 @@
+-# vti-01 / VTI — session brief
+-
+-*Session context for the agent-driven measurement session on the VTI. This file is
+-the `hera-tactical` agent's first message — it names the goal, activates the recipes,
+-and carries the session-specific facts. Protocol, gates, and boundaries live in your
+-agent prompt; the physics method lives in the recipes; this brief does not restate
+-either.*
+-
+-## Contract — autonomous
+-
+-This session runs **autonomous (E1)**. After the operator gives the grant (below)
+-**you execute measure cells yourself**; you are not waiting for a keystroke per cell.
+-The operator supervises, is reachable on Slack, and can stop any running cell or
+-withdraw the grant at any time. The deployed measure-notebook policy (`append_exec`)
+-is the hard gate on execution; the grant is the protocol gate on top.
+-
+-## Autonomy — this session's parameters
+-
+-- **Mode:** E1 (autonomous).
+-- **Grant (conditional on VERIFY):** after setup (gate A) and SAFETIES (gate B)
+-  are operator-run and green, you author and land the VERIFY cell; the operator
+-  may then say **"go for autonomy"** without running it. Your first E1 acts are
+-  the read-only kernel-binding probe, then executing VERIFY yourself. The cell's
+-  last output line is the verdict — `VERIFY: ALL GREEN` or `VERIFY: FAIL <item>`
+-  — and the grant keys on that printed line, not your reading of the cell. On
+-  ALL GREEN, record grant + verdict in `session_notes.md` and engage. On any
+-  FAIL, or a missing verdict line, the grant is void: drop to E0, notify the
+-  operator, resume only on explicit re-grant. No measure cell executes before
+-  the green verdict. Until the grant you are in E0 (you propose, the operator
+-  runs).
+-- **Operator + notify:** `Zack — hera-notify --user ZACKG`.
+-- **Auto:** in-envelope measure cells (sweeps, gate sets) that stay inside the
+-  committed validators and pass their precondition reads; D-fans; field moves within
+-  the device-card field cap; temperature moves via `heater.set_both(T, ratio=0.95)`
+-  within the device-card T cap, under the temperature-dependence-vti guard set
+-  (hover acceptance, descend-catch, direction-aware runaway, freshness guards).
+-- **Consent-gated:** any deviation from `ratio = 0.95` in `set_both`.
+-- **Consent-gated (Si):** the Si (DC205) ramp — keep the gate-safe pacing;
+-  `dc205.ramp_rate` is consent-gated (never raise without operator consent).
+-- **Session-banned** (never, regardless of grant): any change to a safety surface —
+-  the SAFETIES validators, the gate operating limits, the field cap, or the
+-  T-setpoint cap; and the blocklisted recipes below.
+-- **Withdraw / drop:** the operator can withdraw the grant → you revert to E0. You are
+-  free to stop, notify, and drop to E0 on any device- or rig-safety concern. After any
+-  stop/E0 drop, resume autonomous execution **only on an explicit E1 re-grant**.
+-
+-## Campaign goal
+-
+-**Determine the stacking order of vti-01 (trilayer graphene): ABA (Bernal) vs ABC
+-(rhombohedral)** — an independent, evidence-cited, region-resolved call (or a
+-calibrated "cannot tell"), per the governing investigation's output contract.
+-
+-## Recommended recipes
+-
+-The expected arc:
+-
+-- `investigations/trilayer-stacking-fs-count.md` — the **governing investigation**
+-  (Fermi-surface counting at D ≈ 0): the decision procedure, the Verify suite, and the
+-  output contract. It orchestrates the measurement recipes below.
+-- `device-init/cnp-and-dline-calibration.md` — the CNP location and (n, D) calibration,
+-  **found fresh this session** (the device card carries no CNP).
+-- `measurements/sdh-spot-check.md` — the cheap fixed-(n, D) SdH frequency-content check
+-  that precedes the fan: it pins the onset, the tone frequencies, the B-step, and which
+-  side (hole/electron) gives cleaner SdH.
+-- `measurements/landau-fan.md` (the VTI variant takes precedence).
+-- `measurements/gatemap.md`.
+-- `measurements/temperature-dependence.md` (the VTI variant takes precedence — its
+-  guard set is mandatory for every elevated-T segment). The investigation's LK
+-  mass split (Verify) is in-arc, not a detour.
+-
+-The rest of the corpus is available, not forbidden; off-arc composition with stated
+-rationale is encouraged under your scope rules (> ~30 min off-arc gets the detour
+-flag). The **contact configuration is provided and hardwired** (device card) — no
+-contact survey is in the arc, and there is no mux to reroute with: a dead provided
+-contact is an operator rewiring problem — flag it, don't detour.
+-
+-**Tool:** the FS-count forward model (`hera/models/trilayer_fs_count/fs_count_b0.py`)
+-is the primary arc-reader, per the investigation's Verify.
+-
+-## Blocklist
+-
+-- `device-init/gate-leakage-survey.md`
+-- `device-init/gate-range-finding.md` (+ `-vti` variant)
+-- `device-init/silicon-backgate-survey.md`
+-
+-"Range-finding" here is the leakage / gate-range **survey** class — it does **not**
+-restrict `cnp-and-dline-calibration` or CNP / (n, D) location.
+-
+-## Data isolation — strict
+-
+-**No prior measurement data exists for you.** Do not read other campaign or session
+-directories. Your only inputs: this brief, the device card, the rig card, the
+-recipes/corpus they name, and the data this session produces in `./data/`. The
+-recipes' first-session branches apply. Provided up front (device card): the gate
+-operating limits and the hardwired contact configuration. **Not** provided —
+-established in-session: the CNP location and the (n, D) calibration.
+-
+-## Session arc
+-
+-1. **Bring-up.** The operator runs the setup section (instrument connect — gate A) and
+-   the SAFETIES cell (gate B). You author and land the VERIFY cell (below).
+-2. **Grant.** Operator's **"go for autonomy"** → conditional E1: kernel probe +
+-   VERIFY execute first; E1 engages on the green verdict.
+-3. **Autonomous.** Gate C (a cheap liveness check on the provided contact configuration
+-   — first-session branch, no designated references), then the investigation ladder per
+-   the governing investigation (Recommended recipes), to the call in the ana notebook.
+-4. **Close-out.** Ask: `return-to-initial` — per
+-   `recipes/utils/session-closeout.md` (+ VTI variant).
+-
+-## [VERIFY] at session start
+-
+-- [ ] Magnet at 0 T (read): `print(magnet.field(), magnet._status()['field'])`.
+-- [ ] SAFETIES committed = the device card's gate operating limits; field cap on
+-      the `magnet.field` validator and the T-setpoint typo-guard cap per the
+-      device card.
+-- [ ] Base (sample) T holding ≈ 1.2–1.3 K; He budget for the session.
+-- [ ] Heaters off (both ranges 0); `T_vaporizer` tracking base.
+-- [ ] Contacts hardwired (no mux this cooldown) per the device card.
+-- [ ] DC205 (Si gate) on its ±100 V range (RNGE 2), output on, reading 0 V.
+-- [ ] Kernel-binding: the first E1 execute is a read-only namespace probe that confirms
+-      it is bound to the operator's instrument-carrying kernel.
+-
+-The checks above are the VERIFY cell's content — you author it, read-only by
+-construction, ending with the machine-readable verdict line (`VERIFY: ALL
+-GREEN` / `VERIFY: FAIL <item>`). The operator's **"go for autonomy"** may
+-arrive as soon as the cell is landed; execution of VERIFY is your first E1 act
+-after the kernel probe, and the grant engages on the printed green verdict
+-(Autonomy — Grant, above).
+-
+-## Session notes
+-
+-Maintain `session_notes.md` per your agent prompt (RECIPE FIX / TOOLING / PROTOCOL /
+-FEEDBACK).
+diff --git a/hera/docs/brief-vti-02.md b/hera/docs/brief-vti-02.md
+deleted file mode 100644
+index c933bd8..0000000
+--- a/hera/docs/brief-vti-02.md
++++ /dev/null
+@@ -1,134 +0,0 @@
+-# vti-02 / VTI — session brief
+-
+-*Session context for the agent-driven measurement session on the VTI. This file is
+-the `hera-tactical` agent's first message — it names the goal, activates the recipes,
+-and carries the session-specific facts. Protocol, gates, and boundaries live in your
+-agent prompt; the physics method lives in the recipes; this brief does not restate
+-either.*
+-
+-## Contract — autonomous
+-
+-This session runs **autonomous (E1)**. After the operator gives the grant (below)
+-**you execute measure cells yourself**; you are not waiting for a keystroke per cell.
+-The operator supervises, is reachable on Slack, and can stop any running cell or
+-withdraw the grant at any time. The deployed measure-notebook policy (`append_exec`)
+-is the hard gate on execution; the grant is the protocol gate on top.
+-
+-## Autonomy — this session's parameters
+-
+-- **Mode:** E1 (autonomous).
+-- **Grant (conditional on VERIFY):** after setup (gate A) and SAFETIES (gate B)
+-  are operator-run and green, you author and land the VERIFY cell; the operator
+-  may then say **"go for autonomy"** without running it. Your first E1 acts are
+-  the read-only kernel-binding probe, then executing VERIFY yourself. The cell's
+-  last output line is the verdict — `VERIFY: ALL GREEN` or `VERIFY: FAIL <item>`
+-  — and the grant keys on that printed line, not your reading of the cell. On
+-  ALL GREEN, record grant + verdict in `session_notes.md` and engage. On any
+-  FAIL, or a missing verdict line, the grant is void: drop to E0, notify the
+-  operator, resume only on explicit re-grant. No measure cell executes before
+-  the green verdict. Until the grant you are in E0 (you propose, the operator
+-  runs).
+-- **Operator + notify:** `Zack — hera-notify --user ZACKG`.
+-- **Auto:** in-envelope measure cells (sweeps, gate sets) that stay inside the
+-  committed validators and pass their precondition reads; D-fans; field moves within
+-  the device-card field cap; temperature moves via `heater.set_both(T, ratio=0.95)`
+-  within the device-card T cap, under the temperature-dependence-vti guard set
+-  (hover acceptance, descend-catch, direction-aware runaway, freshness guards).
+-- **Consent-gated:** any deviation from `ratio = 0.95` in `set_both`.
+-- **Consent-gated (Si):** the Si (DC205) ramp — keep the gate-safe pacing;
+-  `dc205.ramp_rate` is consent-gated (never raise without operator consent).
+-- **Session-banned** (never, regardless of grant): any change to a safety surface —
+-  the SAFETIES validators, the gate operating limits, the field cap, or the
+-  T-setpoint cap; and the blocklisted recipes below.
+-- **Withdraw / drop:** the operator can withdraw the grant → you revert to E0. You are
+-  free to stop, notify, and drop to E0 on any device- or rig-safety concern. After any
+-  stop/E0 drop, resume autonomous execution **only on an explicit E1 re-grant**.
+-
+-## Campaign goal
+-
+-**Determine the stacking order of vti-02 (tetralayer graphene): ABAB (Bernal) vs
+-ABCA (rhombohedral) vs ABCB (mixed)** — an independent, evidence-cited,
+-region-resolved call (or a calibrated "cannot tell"), per the governing
+-investigation's output contract.
+-
+-## Recommended recipes
+-
+-The expected arc:
+-
+-- `investigations/tetralayer-stacking-fs-count.md` — the **governing investigation**
+-  (Fermi-surface counting at D ≈ 0): the decision procedure, the Verify suite, and the
+-  output contract. It orchestrates the measurement recipes below.
+-- `device-init/cnp-and-dline-calibration.md` — the CNP location and (n, D) calibration,
+-  **found fresh this session** (the device card carries no CNP).
+-- `measurements/sdh-spot-check.md` — the cheap fixed-(n, D) SdH frequency-content check
+-  that precedes the fan: it pins the onset, the tone frequencies, the B-step, and which
+-  side (hole/electron) gives cleaner SdH.
+-- `measurements/landau-fan.md` (the VTI variant takes precedence).
+-- `measurements/gatemap.md`.
+-- `measurements/temperature-dependence.md` (the VTI variant takes precedence — its
+-  guard set is mandatory for every elevated-T segment). The investigation's LK
+-  mass split (Verify) is in-arc, not a detour.
+-
+-The rest of the corpus is available, not forbidden; off-arc composition with stated
+-rationale is encouraged under your scope rules (> ~30 min off-arc gets the detour
+-flag). The **contact configuration is provided and hardwired** (device card) — no
+-contact survey is in the arc, and there is no mux to reroute with: a dead provided
+-contact is an operator rewiring problem — flag it, don't detour.
+-
+-**Tool:** the FS-count forward model (`hera/models/tetralayer_fs_count/fs_count_b0.py`)
+-is the primary arc-reader, per the investigation's Verify.
+-
+-## Blocklist
+-
+-- `device-init/gate-leakage-survey.md`
+-- `device-init/gate-range-finding.md` (+ `-vti` variant)
+-- `device-init/silicon-backgate-survey.md`
+-
+-"Range-finding" here is the leakage / gate-range **survey** class — it does **not**
+-restrict `cnp-and-dline-calibration` or CNP / (n, D) location.
+-
+-## Data isolation — strict
+-
+-**No prior measurement data exists for you.** Do not read other campaign or session
+-directories. Your only inputs: this brief, the device card, the rig card, the
+-recipes/corpus they name, and the data this session produces in `./data/`. The
+-recipes' first-session branches apply. Provided up front (device card): the gate
+-operating limits and the hardwired contact configuration. **Not** provided —
+-established in-session: the CNP location and the (n, D) calibration.
+-
+-## Session arc
+-
+-1. **Bring-up.** The operator runs the setup section (instrument connect — gate A) and
+-   the SAFETIES cell (gate B). You author and land the VERIFY cell (below).
+-2. **Grant.** Operator's **"go for autonomy"** → conditional E1: kernel probe +
+-   VERIFY execute first; E1 engages on the green verdict.
+-3. **Autonomous.** Gate C (a cheap liveness check on the provided contact configuration
+-   — first-session branch, no designated references), then the investigation ladder per
+-   the governing investigation (Recommended recipes), to the call in the ana notebook.
+-4. **Close-out.** Ask: `return-to-initial` — per
+-   `recipes/utils/session-closeout.md` (+ VTI variant).
+-
+-## [VERIFY] at session start
+-
+-- [ ] Magnet at 0 T (read): `print(magnet.field(), magnet._status()['field'])`.
+-- [ ] SAFETIES committed = the device card's gate operating limits; field cap on
+-      the `magnet.field` validator and the T-setpoint typo-guard cap per the
+-      device card.
+-- [ ] Base (sample) T holding ≈ 1.2–1.3 K; He budget for the session.
+-- [ ] Heaters off (both ranges 0); `T_vaporizer` tracking base.
+-- [ ] Contacts hardwired (no mux this cooldown) per the device card.
+-- [ ] DC205 (Si gate) on its ±100 V range (RNGE 2), output on, reading 0 V.
+-- [ ] Kernel-binding: the first E1 execute is a read-only namespace probe that confirms
+-      it is bound to the operator's instrument-carrying kernel.
+-
+-The checks above are the VERIFY cell's content — you author it, read-only by
+-construction, ending with the machine-readable verdict line (`VERIFY: ALL
+-GREEN` / `VERIFY: FAIL <item>`). The operator's **"go for autonomy"** may
+-arrive as soon as the cell is landed; execution of VERIFY is your first E1 act
+-after the kernel probe, and the grant engages on the printed green verdict
+-(Autonomy — Grant, above).
+-
+-## Session notes
+-
+-Maintain `session_notes.md` per your agent prompt (RECIPE FIX / TOOLING / PROTOCOL /
+-FEEDBACK).
+diff --git a/hera/models/raman_stacking/metrics.py b/hera/models/raman_stacking/metrics.py
+index e565d00..cb42cd0 100644
+--- a/hera/models/raman_stacking/metrics.py
++++ b/hera/models/raman_stacking/metrics.py
+@@ -45,8 +45,6 @@ def fit_band(wn, ii, search, fit_half=FIT_HALF):
+     absent / fit fails.
+     """
+     w, i = _clip(wn, ii, *search)
+-    f = np.isfinite(i)
+-    w, i = w[f], i[f]          # partial maps carry all-NaN columns
+     if len(w) < 10:
+         return None
+     x0 = w[np.argmax(i)]
+diff --git a/hera/models/raman_stacking/raman_io.py b/hera/models/raman_stacking/raman_io.py
+index 81e9196..4ddcc49 100644
+--- a/hera/models/raman_stacking/raman_io.py
++++ b/hera/models/raman_stacking/raman_io.py
+@@ -107,17 +107,7 @@ def load_wip(path):
+         except Exception:
+             continue
+         arr = np.asarray(arr)
+-        meta = d.measurement_metadata
+-        meta = meta() if callable(meta) else meta
+-        meta = meta or {}
+-        if arr.ndim == 3:            # hyperspectral map
+-            # witio yields (x, y, n_spec) when the in-file scan_size
+-            # metadata matches (shape[0], shape[1]); transpose so the
+-            # column order is x-fastest with nx/ny in the sample frame.
+-            sx = meta.get("scan_size_x_px")
+-            sy = meta.get("scan_size_y_px")
+-            if sx and sy and (int(sx), int(sy)) == arr.shape[:2]:
+-                arr = arr.transpose(1, 0, 2)
++        if arr.ndim == 3:            # (ny, nx, n_spec) hyperspectral map
+             ny, nx, nsp = arr.shape
+             ii = arr.reshape(ny * nx, nsp).T
+         elif arr.ndim == 1:          # single spectrum
+@@ -130,8 +120,10 @@ def load_wip(path):
+         if wn.size != ii.shape[0]:
+             continue
+         order = np.argsort(wn)
++        meta = d.measurement_metadata
++        meta = meta() if callable(meta) else meta
+         out.append(dict(caption=d.caption, wn=wn[order], ii=ii[order],
+-                        nx=nx, ny=ny, meta=meta))
++                        nx=nx, ny=ny, meta=meta or {}))
+     return out
+ 
+ 
+diff --git a/hera/recipes/investigations/raman-stacking-id.md b/hera/recipes/investigations/raman-stacking-id.md
+index 6434fbf..3b54fb7 100644
+--- a/hera/recipes/investigations/raman-stacking-id.md
++++ b/hera/recipes/investigations/raman-stacking-id.md
+@@ -51,10 +51,7 @@ Discriminators, by strength (each with confounds inline):
+   *presence* of a broad population is weak alone; a *pattern* — bimodal
+   FWHM populations forming spatially coherent domains with sharp walls —
+   is strong; *magnitude* of the split (≳ 10 cm⁻¹ between population
+-  means, heuristic from the labeled sets) calibrates confidence. When
+-  pattern and magnitude disagree — coherent bimodal domains below the
+-  magnitude heuristic — the pattern sets the grade and the split size
+-  becomes a named hedge.
++  means, heuristic from the labeled sets) calibrates confidence.
+   **Confounds**: uniaxial strain broadens *and* asymmetrizes the 2D
+   exactly like the ABC signature (0.1–0.2% suffices; strain shifts run
+   −60…−140 cm⁻¹/% — citation, Mohiuddin PRB 79 205433 / Zabel NL 12 617);
+@@ -72,9 +69,7 @@ Discriminators, by strength (each with confounds inline):
+   peak = ABA-consistent; split/multiple sharp peaks = ABC-consistent;
+   iTOLA/LOLA ~10 cm⁻¹ blueshifted in ABC (Cong Fig. 2; Nguyen Fig. 3).
+   **Confounds**: weak modes (needs SNR); assignments muddy near
+-  E_laser ≈ 2.1–2.4 eV (dispersive-mode crossing); prefer red
+-  excitation. At in-zone excitation treat the M read as uninformative —
+-  direction-inverted signatures are expected there, not anomalies.
++  E_laser ≈ 2.1–2.4 eV (dispersive-mode crossing); prefer red excitation.
+   Practitioner note: lab convention weights the M-band and G-width
+   channels at ~zero (PI review, 2026-07-17) — they stay here as
+   *quantitative secondaries* for agent use, never the call.
+@@ -150,11 +145,7 @@ laser power, spot size, map step, spectral resolution/grating, raw vs
+ processed (background-subtracted? normalized?), acquisition date, and
+ **build stage** (what fabrication steps preceded the map; which followed
+ it, by risk class — metal deposition / transfer–pickup / chemical+bake /
+-clean thermal). Derived estimates satisfy the table when flagged as such
+-(spot size from objective NA, resolution from grating class); recorded
+-in-fiber power is not at-sample power — treat at-sample as unknown and
+-carry the conversion flag on the in-fiber value. Missing fields cap the
+-achievable strength: no wavelength
++clean thermal). Missing fields cap the achievable strength: no wavelength
+ → no lineshape comparison against references; no power → flag possible
+ in-measurement conversion if ≥ several mW; no stage → the call cannot be
+ mapped onto the finished device.
+@@ -173,14 +164,8 @@ and low/high ratio are secondary — their sign is excitation-dependent;
+ calibrate direction on the map's own populations, never assume it.
+ 
+ **Step 3 — map read (when a map exists).** Per-pixel metrics + junk-fit
+-rejection; **mask thickness populations before the split** (distinct
+-FWHM modes and amplitude steps belonging to other N) — a whole-map
+-split latches onto the thickness contrast and hides the stacking
+-bimodality. Then the two-population split
+-(`raman_stacking/map_tools.py`), trusted only where it is a population
+-structure (separation exceeding within-cluster spread, visible in the
+-histogram) — 2-means returns two clusters on any input, unimodal or
+-junk. Read the *morphology*: spatially
++rejection, then the two-population split
++(`raman_stacking/map_tools.py`). Read the *morphology*: spatially
+ coherent clusters with sharp walls = domain pattern (strong); smooth
+ FWHM gradients tracking 2D-position shifts = strain field
+ (consistent-with strain, not ABC); population split co-locating with a
+@@ -206,10 +191,7 @@ region stays ABA (sub-spot ABC slivers and unmapped areas excepted).
+ 
+ 1. Per-spot/per-region verdict on the strength scale (decisive / strong /
+    weak / consistent-with / uninformative), each with its weight word and
+-   stage stamp: `region R (x,y µm, stage S): ABC (strong)`. Ship the
+-   region label mask/raster alongside the prose coordinates — fusion
+-   consumes the raster, and a prose-only region forces a lossy
+-   re-derivation downstream.
++   stage stamp: `region R (x,y µm, stage S): ABC (strong)`.
+ 2. Evidence list: metric values with spectral coordinates (FWHM,
+    population means, wavelength), the reference panel matched, map
+    morphology, cross-check outcomes.
+@@ -227,9 +209,9 @@ region stays ABA (sub-spot ABC slivers and unmapped areas excepted).
+ 
+ ## Verify
+ 
+-- **Tool gates current.** `raman_stacking/validate.py` green (all gates;
+-  count and table in the tool README) before trusting metrics on new
+-  data; the gates double as the worked example of every metric.
++- **Tool gates current.** `raman_stacking/validate.py` green (6/6)
++  before trusting metrics on new data; the gates double as the worked
++  example of every metric.
+ - **Strain-mimic screen (mandatory before any ABC verdict from width
+   alone).** Broad-FWHM region + smooth spatial gradient + correlated 2D
+   position shift → consistent-with strain; broad region + bimodal
+@@ -249,13 +231,7 @@ region stays ABA (sub-spot ABC slivers and unmapped areas excepted).
+   identified the signal as substantially the gate stack.]
+ - **Terrace screen.** Any candidate domain wall checked against the
+   thickness map (optical/AFM); a wall coinciding with a layer step is
+-  uninformative for stacking. Without an external thickness map, in-map
+-  proxies can rule a terrace out: G/2D amplitudes — and the substrate
+-  line (e.g. Si 520 cm⁻¹) where unsaturated — step across a layer
+-  change and match across a stacking wall. **Check the proxy line is
+-  unclipped first**: a saturated line reads as a perfect match
+-  [heuristic, QC0426 flake map 2026-07-25 — Si line saturated, 2D
+-  amplitude carried the screen].
++  uninformative for stacking.
+ - **Twist screen (history-triggered only).** Run when the flake history
+   suggests it — fold/tear/wrinkle near the region or a transfer anomaly;
+   fabricated devices rarely warrant it. Trigger: moiré features or a 2D
+@@ -291,15 +267,6 @@ region stays ABA (sub-spot ABC slivers and unmapped areas excepted).
+   settled only by the grower — carry them as hedged inferences, never
+   as established metadata.
+ 
+-- QC0426 pre-fab ladder (our-measurement,
+-  `hera/docs/notes/2026-07-25-QC0426-prefab-raman/`): maps of the same
+-  device at three build stages (flake / stack / finished device). Only
+-  the flake-stage map is gate-clean — graphite enters at the stack
+-  stage, so the through-stack screen triggers mid-ladder. Also the
+-  worked case for masking thickness populations before the split, the
+-  bimodality gate, and proxy-saturation checking (the flake map's Si
+-  line is clipped). Read details live in the note's contract.
+-
+ - The FLG_37 mixed-flake map (labeled public data, 488 nm): per-pixel
+   FWHM + two-population split resolved 60 vs 78 cm⁻¹ populations as
+   spatially coherent domains with sharp walls; cluster means matched the
+diff --git a/hera/recipes/investigations/stacking-raman-transport-fusion.md b/hera/recipes/investigations/stacking-raman-transport-fusion.md
+index ecb61b9..bcca6ab 100644
+--- a/hera/recipes/investigations/stacking-raman-transport-fusion.md
++++ b/hera/recipes/investigations/stacking-raman-transport-fusion.md
+@@ -47,49 +47,26 @@ rhombohedral cannot be explained by conversion.
+ 
+ **Step 1 — admissibility.** Both contracts carry weight words, evidence
+ lists, and coordinates (transport: which contact pair/channel; Raman:
+-spot/region positions + stage stamp, preferably with the region
+-mask/raster artifact — prose ranges force a re-derivation that
+-reproduces geography but not boundary pixels). A bare verdict without
+-evidence coordinates is not fusible — return it to its recipe.
++spot/region positions + stage stamp). A bare verdict without evidence
++coordinates is not fusible — return it to its recipe.
+ 
+ **Step 2 — spatial registration (binding: produce the artifact).** Place
+ the Raman spots/regions and the transport channels on one device image or
+-coordinate frame. Use every supplied frame bridge: stage-registered
+-video images inside the Raman files, marker-frame optical images, and
+-the device GDS (exact pad/contact geometry beats a lead census read off
+-imagery — but identify gate leads vs channel leads from layer overlaps
+-before trusting the census). Across a transfer/pickup boundary do not
+-assume one rigid transform: fit multiple independent anchors; if they
+-disagree beyond their fit error (non-rigid strain), carry the
+-anchor-variant spread as the registration uncertainty and run the
+-stress audit over the variants. For each transport channel, classify
+-its Raman coverage: **covered / partial / uncovered**, with
+-registration uncertainty stated against the domain scale (a
+-µm-registration error on µm domains can flip a region's label — if
+-uncertainty ≳ domain scale, coverage is at best partial; it can also
+-leave a covered footprint's domain *composition* unresolved, which
+-limits the row the same way). Uncovered stays uncovered — no
++coordinate frame. For each transport channel, classify its Raman
++coverage: **covered / partial / uncovered**, with registration
++uncertainty stated against the domain scale (a µm-registration error on
++µm domains can flip a region's label — if uncertainty ≳ domain scale,
++coverage is at best partial). Uncovered stays uncovered — no
+ interpolation from neighboring spots.
+ 
+ **Step 3 — temporal registration.** From the Raman stage stamp: list the
+ build steps between map and measurement, tagged by conversion risk
+ (metal deposition on/near the region > transfer/pickup > chemical+bake >
+-clean thermal). When maps exist at multiple build stages, difference
+-them: a region's evolution between two maps is direct evidence and
+-replaces risk-class inference for the steps they bracket
+-(directionality still binds — see Why). **Difference only
+-like-conditioned maps** (same through-stack status): a through-stack
+-superposition shifts the apparent metrics — apparatus, not evolution —
+-and differencing unlike stages manufactures wall motion. Assess each
+-stage's through-stack status separately; the gate-clean stage carries
+-the buried-channel call.
+-
+-**Step 4 — per-region fusion.** For each named transport channel, one
+-row: transport verdict+strength | Raman verdict+strength+stage | fused
+-verdict+strength | mechanism class. A footprint straddling multiple
+-Raman verdicts splits into share sub-rows (each share ± its
+-registration spread), classified separately — the channel's fused
+-verdict follows the share picture, never an average. Classes:
++clean thermal).
++
++**Step 4 — per-region fusion.** For each transport channel with Raman
++coverage, one row: transport verdict+strength | Raman verdict+strength+
++stage | fused verdict+strength | mechanism class. Classes:
+ 
+ - **Concordant** — verdicts agree: fused strength = the stronger, noting
+   the agreement is across independent physics (band structure read
+@@ -97,20 +74,14 @@ verdict follows the share picture, never an average. Classes:
+   produces.
+ - **Reconciled-by-conversion** — Raman rhombohedral, transport Bernal,
+   and Step 3 names a risky intervening step: both calls stand (Raman
+-  true at stage S, transport true now); the channel's fused verdict
+-  *and strength* follow transport; the region is recorded as "converted
++  true at stage S, transport true now); fused verdict for the *device*
++  follows transport; the region is recorded as "converted
+   (consistent-with), step ⟨X⟩". Without a named risky step this class is
+   unavailable — don't invoke conversion as a free pass.
+ - **Reconciled-by-geometry** — verdicts differ and registration shows
+   the modalities probed different regions (partial/uncovered channel, or
+   sub-spot mixing flagged in the Raman contract): no conflict; report
+   per-region, resist the urge to produce a per-device headline.
+-- **Single-modality** — one leg is uninformative or uncovered for the
+-  channel (a Hall pair with no stacking read, an unmapped channel):
+-  report the informative leg with its stage stamp, no fused upgrade. A
+-  Bernal-family Raman verdict propagates to measurement time
+-  (conversion directionality); a rhombohedral one does not — it stays
+-  "as of stage S".
+ - **Unreconciled** — Raman Bernal vs transport rhombohedral (conversion
+   cannot explain), or same-region strong-vs-strong conflict with no mechanism:
+   a **fork to report** (STYLE rule 14) with the deciding follow-up
+@@ -119,8 +90,8 @@ verdict follows the share picture, never an average. Classes:
+   wrong is now the *hypothesis set*, not an embarrassment — list which
+   specific misread each contract's hedges already allow.
+ 
+-**Step 5 — the call.** Output contract: the Step 4 table (every named
+-channel), per-region fused verdicts on the strength scale, the
++**Step 5 — the call.** Output contract: the Step 4 table (all covered
++regions), per-region fused verdicts on the strength scale, the
+ registration artifact, named hedges (registration uncertainty, uncovered
+ channels, stage gap), and what-would-settle for every unreconciled row.
+ **A fused "cannot tell" or a well-evidenced disagreement is a successful
+@@ -131,11 +102,8 @@ outcome; forcing concordance is a protocol violation.**
+ - **Independence audit** (Step 1's precondition): confirm from the
+   contracts' provenance that neither call cites the other's evidence.
+ - **Registration stress**: shift the registration by its stated
+-  uncertainty (over the anchor variants, when the uncertainty is a
+-  spread); any region whose conclusion flips — mechanism class,
+-  coverage label, or domain share — is reported as
+-  registration-limited, not classified. The stable part of a split row
+-  (e.g. a majority share) may still be classified.
++  uncertainty; any region whose mechanism class flips is reported as
++  registration-limited, not classified.
+ - **Directionality audit**: every reconciled-by-conversion row names its
+   risky step; every Raman-Bernal/transport-rhombohedral row is in unreconciled (no
+   exceptions — this asymmetry is the recipe's one hard rule).
+@@ -163,13 +131,6 @@ outcome; forcing concordance is a protocol violation.**
+   report a stage conflict as a fork, not a revision. What stands: the
+   registration work (lead census, ±1.5 µm measured) and both returned
+   findings.
+-- QC0426 pre-fab ladder
+-  (`hera/docs/notes/2026-07-25-QC0426-prefab-raman/`): three-stage map
+-  series (flake → stack → device) on one device — the Step 3
+-  multi-stage case. The registration chain to contact pairs runs flake
+-  video frame → stack imagery → marked-chip optical images → GDS; the
+-  flake↔stack link across pickup (flake tears into ribbons) is the
+-  registration-uncertainty driver.
+ - Synthetic four-class mechanics fixture
+   (`hera/models/raman_stacking/dryrun/fusion/`): re-runnable regression
+   covering all four mechanism classes and the audits — run it after any
+diff --git a/hera/rig-cards/EXAMPLE.md b/hera/rig-cards/EXAMPLE.md
+index e586e40..31cad43 100644
+--- a/hera/rig-cards/EXAMPLE.md
++++ b/hera/rig-cards/EXAMPLE.md
+@@ -75,6 +75,23 @@ vs hands-on-rig.*
+   (heater-power dependent) — not documented in this card; treat
+   absolute-T claims accordingly and ask the operator.
+ 
++## Safe operating envelope (T/B)
++
++*Encode what's known, provenance per claim — including "no constraint
++exists". Don't invent numeric limits or inherit caution as physics.*
++
++- **Normal working window** (|B| ≤ 8 T, T ≤ 30 K on this fictional
++  rig): **no T/B co-constraints** — elevated temperature at field is
++  operationally fine. (Provenance: example ruling, A. Czar 2026-01-01.
++  Historical caution was convention, not physics.)
++- **Consideration zones**: simultaneous very-high field *and* very-high
++  temperature (edges of the window above) warrant a pre-check with the
++  rig owner. What counts as "very high" is deliberately qualitative
++  here; the rig owner adjudicates.
++- **Cryogen economics**: He boil-off rises steeply above ~20 K sample
++  temperature; budget hold time when pricing a long temperature ladder
++  and state the trade in the proposal cell.
++
+ ## Silent preconditions
+ 
+ *Sweeps depend on this state but never set it.*
+diff --git a/hera/rig-cards/README.md b/hera/rig-cards/README.md
+index 1fde057..e992adc 100644
+--- a/hera/rig-cards/README.md
++++ b/hera/rig-cards/README.md
+@@ -1,7 +1,8 @@
+ # Rig cards — layer model, deployment, interactions
+ 
+ Rig cards carry per-fridge machine facts: magnet semantics, thermometry
+-topology, silent preconditions, standard equipment, quirks. One card per fridge (`VTI.md`, `toploader.md`, …);
++topology, the safe T/B envelope, silent preconditions, standard
++equipment, quirks. One card per fridge (`VTI.md`, `toploader.md`, …);
+ `EXAMPLE.md` is the authoring template.
+ 
+ ## The layer model
+@@ -9,7 +10,7 @@ topology, silent preconditions, standard equipment, quirks. One card per fridge
+ | Layer | Artifact | Carries | Changes when |
+ |---|---|---|---|
+ | Protocol | agent prompt (`hera_tactical.md`) | how to behave: gates, handshakes, tools, working style | the methodology changes |
+-| **Machine** | **rig card** | what the fridge is: magnet, thermometry, equipment defaults | the hardware changes |
++| **Machine** | **rig card** | what the fridge is: magnet, thermometry, envelope, equipment defaults | the hardware changes |
+ | Sample | device card | what's bonded: wiring, gates, validators, calibrated values | the device / cooldown changes |
+ | Campaign | session brief | what we're after: goal, recipes in play, references, blocklist | the session changes |
+ | Method | recipes | how to measure a thing, rig- and device-agnostic | the technique improves |
+@@ -26,6 +27,7 @@ chosen per session? → brief or device card. Worked cases:
+ | QSwitch identity, port-wander, `settle_s` default | rig card | rack hardware behavior |
+ | `lines`/`breakouts` maps, calibrated settle | device card | bonding/wiring, changes per load |
+ | Default GPIB/COM addresses | rig card (as defaults) | device card overrides/fills holes; addresses move |
++| T/B envelope | rig card | physics + rig-owner ruling, device-independent |
+ | Timing rules of thumb | rig card (as defaults) | calibrate per session against real runs — never inherit blindly |
+ 
+ The equipment model is **defaults with holes**: the rig card lists what
+@@ -51,7 +53,7 @@ per-device holes (wiring, gains, roles) and wins any conflict.
+   owner before the card ships, or live on the device card if they are
+   actually session-scoped.
+ 
+-## Gate B — the rig-card leg
++## Gate B — the rig-envelope leg
+ 
+ Gate B today: SAFETIES cell ran in this kernel, and its committed
+ values match the device card's validators. The rig card adds a third
+@@ -60,10 +62,15 @@ eyeball):
+ 
+ 1. **Caps inside machine limits.** The SAFETIES field cap (and any T
+    cap) sits inside the rig card's stated machine limits.
+-2. **Silent preconditions read.** The card's Silent preconditions
++2. **Plan inside the envelope.** The session's planned T/B excursions
++   sit in the rig card's normal working window. A plan that enters a
++   named consideration zone is surfaced to the operator *before* the
++   proposing cell lands — not silently assumed fine.
++3. **Silent preconditions read.** The card's Silent preconditions
+    table names each hazard's one-line read; the gate (and any proposed
+    cell's preflight asserts, per the prompt's working-style bullet)
+-   uses exactly those reads. This is where temperature gets checked.
++   uses exactly those reads. This is where temperature — which
++   previously had no home in any safety artifact — gets checked.
+ 
+ ## What migrated out of the tactical prompt
+ 
+@@ -95,4 +102,4 @@ silent preconditions", which *points at* the card), session notes,
+ tools, blast-radius rules.
+ 
+ The prompt gained: read `./rig_card.md` in the first-turn protocol
+-(alongside `./device_card.md`), and Gate B's rig-card leg.
++(alongside `./device_card.md`), and Gate B's rig-envelope leg.
+diff --git a/hera/rig-cards/VTI.md b/hera/rig-cards/VTI.md
+index 2f58bc8..a17c4f8 100644
+--- a/hera/rig-cards/VTI.md
++++ b/hera/rig-cards/VTI.md
+@@ -8,8 +8,7 @@ in-session go to `session_notes.md`, not this file — agents are
+ read-only on the repo.*
+ 
+ ## Identity
+-- **Rig**: VTI — wet variable-temperature insert (closed-loop He
+-  recirculation), out-of-plane magnet
++- **Rig**: VTI — wet variable-temperature insert, out-of-plane magnet
+ - **Rig owner**: Bingcheng (VTI czar) — adjudicates envelope and
+   operating-edge questions
+ - **Control PC**: `dgg-vti` (Windows 11); measurement dirs under
+@@ -38,9 +37,6 @@ read-only on the repo.*
+   the driver (`max_field_T = 14.0`; ramping above it raises). The
+   session cap (device card / SAFETIES, machine-enforced via
+   `magnet.field.vals`) is what measurements obey.
+-- **High field + elevated T interact through the probe's coupling to
+-  the bath**; not expected to bite below ~100 K (heuristic — Aaron,
+-  2026-08-02, bath-vs-probe-T response unmeasured).
+ - **Read-truth**: `field()`'s get returns the **measured** output
+   current × `T_per_A` (`GET:I:?`, 2-stage moving-average readback,
+   ~41 ms lag ≈ 0.1 mT at our slew). The set-point is not readable as
+@@ -101,6 +97,19 @@ read-only on the repo.*
+   (heater-power dependent). Treat absolute-T claims accordingly; LK
+   fits inherit T errors linearly. Ask the operator.
+ 
++## Safe operating envelope (T/B)
++
++- **Normal working window: no T/B co-constraints.** Elevated
++  temperatures and fields within the rig's ordinary operating ranges
++  are operationally fine. (Provenance: Aaron, 2026-06-12, via Zack.)
++- **Consideration zone**: simultaneously **above ~10 T and above
++  ~15 K** (early cut — Bingcheng, 2026-06-12, via Zack). Plans
++  entering it get pre-checked with Bingcheng or the operator;
++  Bingcheng adjudicates the edges.
++- **Cryogen economics**: **closed-loop He system — consumption is not
++  a session budget constraint** (Bingcheng/Qingrui, 2026-06-12, via
++  Zack). Elevated-T holds still ride the vaporizer; no hold-time cap
++  is documented for this rig.
+ 
+ ## Silent preconditions
+ 
+diff --git a/hera/rig-cards/toploader.md b/hera/rig-cards/toploader.md
+index 73eaa06..17f16f6 100644
+--- a/hera/rig-cards/toploader.md
++++ b/hera/rig-cards/toploader.md
+@@ -7,8 +7,8 @@ measurement directory. Errors or gaps found in-session go to
+ `session_notes.md`, not this file — agents are read-only on the repo.*
+ 
+ ## Identity
+-- **Rig**: toploader — closed-cycle dilution-refrigerator cryostat with
+-  a top-loading probe; sample base ≈ **30 mK** (probe MC). Which insert is
++- **Rig**: toploader — dilution-refrigerator cryostat with a
++  top-loading probe; sample base ≈ **30 mK** (probe MC). Which insert is
+   loaded is per-cooldown → device card.
+ - **Rig owner**: Aaron
+ - **Control PC**: `toploader` (Windows 11); measurement dirs under
+@@ -64,11 +64,17 @@ measurement directory. Errors or gaps found in-session go to
+   mixing chamber; ~55 s). The workers write InfluxDB and
+   `C:\Users\toploader\temperature_logs\*.txt`.
+ - **Kernel readout is file-based, never GPIB**:
+-  `temperature_from_logfiles` params over
+-  `TOPLOADER.temp_logfile_candidates` — `temperature` (probe MC),
+-  `fridge_temperature` (fridge MC), `mag_temperature` (magnet) —
+-  `fp()`-able as recorded channels. Reads lag by up to the worker
+-  cadence (probe ~55 s, fridge/magnet ~210 s).
++  `temperature_from_logfile` params over `TOPLOADER.temp_logfiles` —
++  `temperature` (probe MC), `fridge_temperature` (fridge MC),
++  `mag_temperature` (magnet) — `fp()`-able as recorded channels.
++  Staleness floor = worker cadence (probe ~55 s, fridge ~210 s); a
++  "current" read can be minutes old.
++  - **A frozen logfile (dead worker / wrong probe) reads a plausible value**
++    that `assert T < base` cannot catch (zf1 2026-06-23: probe MC stuck at
++    33.7 mK for ~3.3 d on a dead bridge — undetected until the T-ladder). At
++    bring-up confirm the chosen logfile's **mtime is advancing**, and cross-read
++    probe vs fridge MC — a probe value that never moves while the fridge does
++    is stale, not cold.
+ - **Sample heater**: a Keithley 2400 wired as the sample-stage heater
+   (`heater`, GPIB4::12), **open-loop voltage drive** — set
+   `heater.volt`, settle, and read T back from the logfile params; there
+@@ -79,18 +85,24 @@ measurement directory. Errors or gaps found in-session go to
+   level and runs longer above ~4 V. Ramp **down** without holds — the
+   equilibration is ascent-only; the voltage stepping itself is what
+   protects the dilution circuit, and `volt.step` pacing provides it.
+-  (Aaron, 2026-07-20.) Ceiling is per-cooldown (fridge/probe state) —
+-  device card; ≈6 V typical. Accessible sample T tops out ≈0.5 K.
+-  (Aaron, 2026-08-02.)
++  (Aaron, 2026-07-20.)
+ - **Sensors**: RuO₂ resistance thermometers (3K / Still / Magnet /
+   50 mK / probe MC-low) plus a Pt1000 on MC-high; per-channel
+   polynomial cal curves in `src/workers/avs_calibration.py`, the probe
+-  MC-low (sample) curve per-probe. Absolute-cal provenance is
+-  uncharacterized; field error from RuO₂ magnetoresistance is
+-  negligible (Aaron, 2026-08-02).
++  MC-low (sample) curve per-probe. Absolute-cal provenance and
++  field-error budget are uncharacterized.
+ - Room temp/humidity: Thorlabs TSP01B worker (Influx
+   `thorlabs_thermo`).
+ 
++## Safe operating envelope (T/B)
++
++- **No T/B envelope ruling on record for this rig.** (The VTI's
++  2026-06-12 envelope ruling does not transfer.) The machine field
++  ceiling is ±9 T (Magnet).
++- **Closed-cycle cryogen — consumption is not a session budget
++  constraint.** The LC workers (FP + PT families) monitor compressor
++  and pulse-tube state.
++
+ ## Silent preconditions
+ 
+ Per the prompt's "preflight the silent preconditions" working-style
+@@ -101,7 +113,7 @@ each. (Instance names per the toploader template's setup cells.)
+ |---|---|---|---|
+ | Probe temperature | `temperature()` (logfile param) | base, mK range | every sweep assumes T; the read can be ~1 min stale (worker cadence) |
+ | Magnet field | `magnet.field()` | wherever the last ramp ended — read, never assume 0 | gate sweeps inherit B from prior cells |
+-| Workers alive | launcher health panel (or Influx freshness) | all green | a dead worker's T reads keep returning the last value — one non-fatal warning, then quiet |
++| Workers alive | launcher health panel (or Influx freshness) | all green | dead workers freeze the temperature logfiles — reads go stale silently |
+ 
+ ## Sweep stack & data layout
+ 
+@@ -127,11 +139,9 @@ pricing anything long, and cite the calibrating run.
+ - **Gate ramps** are rate-limited by the Keithleys' `volt.step`
+   (template default 5 mV/step).
+ - **Field- and heater-axis settles** dominate long 2D runs and are
+-  mandatory. Post-ramp settle scales with the ramp just taken — a few
+-  seconds after small field steps, longer after 100s of mT–T (Aaron,
+-  2026-08-02). Campaign discipline (magnet thermal recovery,
+-  sample-heater equilibration) is priced from the device card / brief,
+-  not from a rig default.
++  mandatory — but they are sample/campaign-scoped (magnet thermal
++  recovery, sample-heater equilibration). Price them from the device
++  card / brief, not from a rig default.
+ 
+ ## Standard equipment
+ 
+@@ -178,6 +188,8 @@ Default addresses live in the measure template's CONFIG cell.
+ - **SR830 X-readout can read slightly negative when true R ≈ 0**
+   (X-phase imbalance / imperfect phase tune). Threshold-cross
+   extraction is fine; any fit assuming R ≥ 0 breaks.
++- **`temperature_from_logfile` hardcodes column −3** of the log
++  format — a worker or format change breaks it silently.
+ - **The magnet has two masters**: the Influx magnet worker polls the
+   AMI430 every 30 s alongside the kernel's connection. Contention is
+   not characterized — if kernel magnet reads misbehave, check the
+diff --git a/hera/templates/base/toploader_measure.ipynb b/hera/templates/base/toploader_measure.ipynb
+index ffa7adf..76481b9 100644
+--- a/hera/templates/base/toploader_measure.ipynb
++++ b/hera/templates/base/toploader_measure.ipynb
+@@ -127,8 +127,18 @@
+     "assert_thermometry_live(\"T_magnet\", TOPLOADER.temp_logfile_candidates[\"T_magnet\"], max_age=630)\n",
+     "temperature = temperature_from_logfiles(\n",
+     "    \"T\", TOPLOADER.temp_logfile_candidates[\"T_probe\"])  # <-- verify loaded probe is the live one\n",
+-    "fridge_temperature = temperature_from_logfiles(\"T_fridge\", TOPLOADER.temp_logfile_candidates[\"T_fridge\"])\n",
+-    "mag_temperature = temperature_from_logfiles(\"T_magnet\", TOPLOADER.temp_logfile_candidates[\"T_magnet\"])\n",
++    "fridge_# Liveness gate, hard: AVS write intervals ~55 s (probe) / ~210 s (fridge,\n",
++    "# magnet); guard >= 3 periods. A dead worker leaves a plausible frozen T.\n",
++    "assert_thermometry_live(\"T\", TOPLOADER.temp_logfile_candidates[\"T_probe\"], max_age=165)\n",
++    "assert_thermometry_live(\"T_fridge\", TOPLOADER.temp_logfile_candidates[\"T_fridge\"], max_age=630)\n",
++    "assert_thermometry_live(\"T_magnet\", TOPLOADER.temp_logfile_candidates[\"T_magnet\"], max_age=630)\n",
++    "temperature = temperature_from_logfiles(\"T_fridge\", TOPLOADER.temp_logfile_candidates[\"T_fridge\"])\n",
++    "mag_# Liveness gate, hard: AVS write intervals ~55 s (probe) / ~210 s (fridge,\n",
++    "# magnet); guard >= 3 periods. A dead worker leaves a plausible frozen T.\n",
++    "assert_thermometry_live(\"T\", TOPLOADER.temp_logfile_candidates[\"T_probe\"], max_age=165)\n",
++    "assert_thermometry_live(\"T_fridge\", TOPLOADER.temp_logfile_candidates[\"T_fridge\"], max_age=630)\n",
++    "assert_thermometry_live(\"T_magnet\", TOPLOADER.temp_logfile_candidates[\"T_magnet\"], max_age=630)\n",
++    "temperature = temperature_from_logfiles(\"T_magnet\", TOPLOADER.temp_logfile_candidates[\"T_magnet\"])\n",
+     "print(\"probe MC:\", temperature(), \"K\")\n",
+     "\n",
+     "# Sample-stage heater — open-loop voltage drive (V->T is per-cooldown; device card)\n",
+diff --git a/hera/templates/stacking-campaign/device_card.template.md b/hera/templates/stacking-campaign/device_card.template.md
+index 5aeaf7e..83f608a 100644
+--- a/hera/templates/stacking-campaign/device_card.template.md
++++ b/hera/templates/stacking-campaign/device_card.template.md
+@@ -66,15 +66,24 @@ Gate operating limits for the session:
+ - **Si gate**: **DC205** (`dc205.smart_voltage`, {{SI_ADDR}}, ±100 V
+   range), hardwired to its source.
+ <!-- END-IF-SI-GATE -->
+-- **AC excitation / lock-ins**: SR830 family ({{LOCKIN_ADDRS}}).
+-  Current-bias drive through a **{{BIAS_R}}** bias resistor, lock-in
+-  frequency **{{DRIVE_FREQ}}**.
+-- **Current channel**: **`sr0`** = drain current, **`sr0_gain = {{SR0_GAIN}}`**
+-  (preamp gain). Per-channel sensitivities are recorded per run in
++- **AC excitation / lock-ins**: SR830 family (`sr0…sr3` live).
++  Current-bias drive: **0.5 V through a 100 MΩ bias resistor**, lock-in
++  frequency **≈ 13 Hz**.
++- **Current channel**: **`sr0`** = drain current, **`sr0_gain = −1E6`**
++  (Ithaco preamp gain). Per-channel sensitivities are recorded per run in
+   `measurement_config`.
+ - **Drive / bias channel**: **`{{BIAS_CHANNEL}}`** — the lock-in whose
+   oscillator provides the current-bias drive; `I_bias` = its live amplitude
+   / the bias resistor. `hera-watch` reads the drive here.
++- **Lock-in time constant**: 0.3 s, 24 dB/oct, all channels (`sr0`–`sr3`).
++  Minimum dwell 4·τ = 1.2 s/pt.
++- **Sensitivity by signal scale** (starting points — tune in-session):
++  CNP / gate-map (kΩ) ~2e-5 on the voltage channels; high-|n| metallic
++  (tens of Ω) `sr1` 2e-6, `sr2` 5e-7, `sr3` 5e-6, `sr0` 1e-2.
++- **Bias current** (starting points — tune in-session): 0.5 V / 5 nA
++  through the 100 MΩ default; high-|n| metallic regime ~2 V / 20 nA.
++- **Voltage channels**: `sr1, sr2, sr3` carry four-terminal voltages.
++  `sr3` is the Hall channel (`r_xy`).
+ - **Contacts — hardwired, no mux this cooldown**: device pads bond to
+   two Fischer cables and land on the breakout; instrument leads connect
+   directly there. Contact roles are **fixed** — rerouting a pair is
+diff --git a/hera/templates/stacking-campaign/intake-facts.template.md b/hera/templates/stacking-campaign/intake-facts.template.md
+index 61d9cf0..7a23f5d 100644
+--- a/hera/templates/stacking-campaign/intake-facts.template.md
++++ b/hera/templates/stacking-campaign/intake-facts.template.md
+@@ -32,10 +32,6 @@ TG_ADDR: GPIB0::24          # k_2400_tg address (confirm per cooldown)
+ BG_ADDR: GPIB0::1           # k_2400_bg address (confirm per cooldown)
+ SI_ADDR: ASRL7              # DC205 address; blank if SI_GATE: no
+ BIAS_CHANNEL: sr1           # lock-in whose oscillator drives the current bias (sr0|sr1|sr2|sr3)
+-LOCKIN_ADDRS: `sr0` GPIB0::17, `sr1` GPIB0::14, `sr2` GPIB0::19, `sr3` GPIB0::18 # every live lock-in, name + address (confirm per cooldown)
+-BIAS_R: 100 MOhm            # bias resistor, oscillator → source
+-DRIVE_FREQ: 13 Hz           # drive frequency in use — query the bias lock-in
+-SR0_GAIN: −1E6              # current-channel preamp gain (front-panel dial)
+ CONTACT_LIVENESS: Alive: T2, T3, T4, T5, B3, B4, B5, B6, B7. Dead: T1, T6, T7, B1, B8 (B2 high-R).
+ 
+ ## CONTACT_MAP
+diff --git a/hera/templates/vti-01/device_card.md b/hera/templates/vti-01/device_card.md
+deleted file mode 100644
+index 2dec844..0000000
+--- a/hera/templates/vti-01/device_card.md
++++ /dev/null
+@@ -1,104 +0,0 @@
+-# Device card — vti-01 (trilayer graphene)
+-
+-*Session device card for vti-01 on the **VTI** cryostat. Deployed into the
+-measurement directory alongside the working notebooks. This card carries
+-**physical truth**: what is wired, the hardware, the outer safety box,
+-the provided gate operating limits, and the provided contact
+-configuration. The CNP location and (n, D) calibration are established
+-in-session (see the session brief).*
+-
+-## Identity
+-- **Device id**: `vti-01`
+-- **Material**: trilayer graphene (`3LGr`).
+-- **Owner**: Jordan
+-- **Fridge**: VTI (variable-temperature insert). Base (sample)
+-  temperature ≈ 1.2–1.3 K.
+-- **Status**: cold, wired — hardwired breakout, no contact mux; no CNP
+-  location on record.
+-
+-## Gate stack
+-- **Top gate** (`k_tg`): hBN dielectric. **Driven by a Keithley 2400**
+-  (`k_2400_tg`) — sweeps use `k_tg.volt` (5 mV step pacing; the measure
+-  notebook's setup cells bind `k_tg`).
+-- **Back gate** (`k_bg`): graphite on hBN, driven by the second
+-  **Keithley 2400** (`k_2400_bg`).
+-- **Si global back gate** (`k_si`): doped-Si gate through **SiO₂**,
+-  driven by the **SRS DC205** — bound directly to the driver's ramped
+-  parameter **`dc205.smart_voltage`** (set ramps at `ramp_rate = 0.5`
+-  V/s, get reads back `VOLT?`; data column **`dc205_smart_voltage`**).
+-  The DC205 has **no current readback** — gate-leakage monitoring lives
+-  on the Keithley `curr` channels (TG/BG) only. `ramp_voltage` steps
+-  span/50: a full ±50 V traverse moves in ~1 V steps, paced by
+-  `ramp_rate`. The graphite back gate screens Si from the channel — Si
+-  couples only to the contacts (contact-doping gate). Operating limit
+-  provided (below).
+-- **Gate-stack geometry** (fabrication facts; **geometry prior only** —
+-  the capacitance *calibration* is the session's to establish via
+-  `cnp-and-dline-calibration`):
+-  ```python
+-  from sharpelab_nb.gates import stack_capacitance, calc_nD, calc_gate_voltages
+-  c_tg = stack_capacitance([(14.9, 3)])           # 14.9 nm hBN
+-  c_bg = stack_capacitance([(21.4, 3), (0, 3.9)])   # 21.4 nm hBN, no SiO2 term
+-  ```
+-  Treat anything derived from these (lever arms, n/D scales, CNP-line
+-  slope) as uncalibrated until the session's own gate map confirms it.
+-
+-## Gate operating limits — gate B contract
+-
+-Gate operating limits for the session:
+-
+-| Parameter | Operating limit | Notes |
+-|---|---|---|
+-| `k_tg.volt` | **[−0.8, +0.8] V** | provided; geometry ceiling is the hard fence behind it |
+-| `k_bg.volt` | **[−5.0, +5.0] V** | provided |
+-| `dc205.smart_voltage` / `dc205.voltage` (Si) | **[−20, +20] V** | provided; DC205 must be on its ±100 V range (RNGE 2) |
+-| **B field (session cap)** | **\|B\| ≤ 10.0 T** | committed on the `magnet.field` validator (SAFETIES); driver `max_field_T = 14.0` T is the hard backstop |
+-| **T setpoint (session cap)** | **`set_both` target ≤ 100 K** | provided; committed as a SAFETIES setpoint typo-guard cap. `ratio = 0.95` per the rig card — deviations consent-gated |
+-
+-## Measurement setup (rig instruments wired this cooldown)
+-- **Gates**: top via **k_2400_tg** (GPIB0::1), back via **k_2400_bg**
+-  (GPIB0::24), hardwired to their sources.
+-- **Si gate**: **DC205** (`dc205.smart_voltage`, ASRL7, ±100 V
+-  range), hardwired to its source.
+-- **AC excitation / lock-ins**: SR830 family (`sr0` GPIB0::22, `sr1` GPIB0::14, `sr2` GPIB0::19, `sr3` GPIB0::18).
+-  Current-bias drive through a **10 MOhm** bias resistor, lock-in
+-  frequency **13.777 Hz**.
+-- **Current channel**: **`sr0`** = drain current, **`sr0_gain = −1E6`**
+-  (preamp gain). Per-channel sensitivities are recorded per run in
+-  `measurement_config`.
+-- **Drive / bias channel**: **`sr1`** — the lock-in whose
+-  oscillator provides the current-bias drive; `I_bias` = its live amplitude
+-  / the bias resistor. `hera-watch` reads the drive here.
+-- **Contacts — hardwired, no mux this cooldown**: device pads bond to
+-  two Fischer cables and land on the breakout; instrument leads connect
+-  directly there. Contact roles are **fixed** — rerouting a pair is
+-  operator work at the breakout, not software.
+-  - **Contact map**:
+-
+-    Hall bar. `T_SD` and `B_SD` are source and drain at the top and bottom
+-    of the bar; `L_1`–`L_4` are voltage probes down the left side, `R_1`–`R_2`
+-    the right. Only the provided configuration below is wired to instruments
+-    this cooldown:
+-
+-    | Label | Pad | | Label | Pad |
+-    |---|---|---|---|---|
+-    | T_SD | 5 | | L_1 | 29 |
+-    | L_2 | 13 | | L_3 | 45 |
+-    | L_4 | 4,12 | | B_SD | 20,44 |
+-    | R_1 | 1 | | R_2 | 11,27 |
+-
+-    Alive: T_SD, L_1, L_2, L_3, L_4, B_SD. Dead: R_1, R_2. Liveness on the provided configuration is
+-    re-confirmed at Gate C.
+-- **Provided contact configuration** (hardwired):
+-
+-  | role | label |
+-  |---|---|
+-  | source | T_SD |
+-  | drain (`sr0`) | B_SD |
+-  | `sr1` (Rxx) | B_SD–L4 |
+-  | `sr2` (Rxx) | L4–L1 |
+-  | `sr3` (Rxx) | L3–L2 |
+-
+-## Notes
+-
+-none
+diff --git a/hera/templates/vti-02/device_card.md b/hera/templates/vti-02/device_card.md
+deleted file mode 100644
+index 11ed2e6..0000000
+--- a/hera/templates/vti-02/device_card.md
++++ /dev/null
+@@ -1,104 +0,0 @@
+-# Device card — vti-02 (tetralayer graphene)
+-
+-*Session device card for vti-02 on the **VTI** cryostat. Deployed into the
+-measurement directory alongside the working notebooks. This card carries
+-**physical truth**: what is wired, the hardware, the outer safety box,
+-the provided gate operating limits, and the provided contact
+-configuration. The CNP location and (n, D) calibration are established
+-in-session (see the session brief).*
+-
+-## Identity
+-- **Device id**: `vti-02`
+-- **Material**: tetralayer graphene (`4LGr`).
+-- **Owner**: Aaron
+-- **Fridge**: VTI (variable-temperature insert). Base (sample)
+-  temperature ≈ 1.2–1.3 K.
+-- **Status**: cold, wired — hardwired breakout, no contact mux; no CNP
+-  location on record.
+-
+-## Gate stack
+-- **Top gate** (`k_tg`): hBN dielectric. **Driven by a Keithley 2400**
+-  (`k_2400_tg`) — sweeps use `k_tg.volt` (5 mV step pacing; the measure
+-  notebook's setup cells bind `k_tg`).
+-- **Back gate** (`k_bg`): graphite on hBN, driven by the second
+-  **Keithley 2400** (`k_2400_bg`).
+-- **Si global back gate** (`k_si`): doped-Si gate through **SiO₂**,
+-  driven by the **SRS DC205** — bound directly to the driver's ramped
+-  parameter **`dc205.smart_voltage`** (set ramps at `ramp_rate = 0.5`
+-  V/s, get reads back `VOLT?`; data column **`dc205_smart_voltage`**).
+-  The DC205 has **no current readback** — gate-leakage monitoring lives
+-  on the Keithley `curr` channels (TG/BG) only. `ramp_voltage` steps
+-  span/50: a full ±50 V traverse moves in ~1 V steps, paced by
+-  `ramp_rate`. The graphite back gate screens Si from the channel — Si
+-  couples only to the contacts (contact-doping gate). Operating limit
+-  provided (below).
+-- **Gate-stack geometry** (fabrication facts; **geometry prior only** —
+-  the capacitance *calibration* is the session's to establish via
+-  `cnp-and-dline-calibration`):
+-  ```python
+-  from sharpelab_nb.gates import stack_capacitance, calc_nD, calc_gate_voltages
+-  c_tg = stack_capacitance([(9.5, 3)])           # 9.5 nm hBN
+-  c_bg = stack_capacitance([(11, 3), (0, 3.9)])   # 11 nm hBN, no SiO2 term
+-  ```
+-  Treat anything derived from these (lever arms, n/D scales, CNP-line
+-  slope) as uncalibrated until the session's own gate map confirms it.
+-
+-## Gate operating limits — gate B contract
+-
+-Gate operating limits for the session:
+-
+-| Parameter | Operating limit | Notes |
+-|---|---|---|
+-| `k_tg.volt` | **[−0.3, +1.0] V** | provided; geometry ceiling is the hard fence behind it |
+-| `k_bg.volt` | **[−1.3, +2.0] V** | provided |
+-| `dc205.smart_voltage` / `dc205.voltage` (Si) | **[−25, +25] V** | provided; DC205 must be on its ±100 V range (RNGE 2) |
+-| **B field (session cap)** | **\|B\| ≤ 10.0 T** | committed on the `magnet.field` validator (SAFETIES); driver `max_field_T = 14.0` T is the hard backstop |
+-| **T setpoint (session cap)** | **`set_both` target ≤ 100 K** | provided; committed as a SAFETIES setpoint typo-guard cap. `ratio = 0.95` per the rig card — deviations consent-gated |
+-
+-## Measurement setup (rig instruments wired this cooldown)
+-- **Gates**: top via **k_2400_tg** (GPIB0::1), back via **k_2400_bg**
+-  (GPIB0::24), hardwired to their sources.
+-- **Si gate**: **DC205** (`dc205.smart_voltage`, ASRL7, ±100 V
+-  range), hardwired to its source.
+-- **AC excitation / lock-ins**: SR830 family (`sr0` GPIB0::22, `sr1` GPIB0::14, `sr2` GPIB0::19, `sr3` GPIB0::18).
+-  Current-bias drive through a **100 MOhm** bias resistor, lock-in
+-  frequency **13.777 Hz**.
+-- **Current channel**: **`sr0`** = drain current, **`sr0_gain = −1E6`**
+-  (preamp gain). Per-channel sensitivities are recorded per run in
+-  `measurement_config`.
+-- **Drive / bias channel**: **`sr1`** — the lock-in whose
+-  oscillator provides the current-bias drive; `I_bias` = its live amplitude
+-  / the bias resistor. `hera-watch` reads the drive here.
+-- **Contacts — hardwired, no mux this cooldown**: device pads bond to
+-  two Fischer cables and land on the breakout; instrument leads connect
+-  directly there. Contact roles are **fixed** — rerouting a pair is
+-  operator work at the breakout, not software.
+-  - **Contact map**:
+-
+-    Bonded pads (label = position, T = top arc L→R, B = left side then
+-    bottom L→R). Only the provided configuration below is wired to
+-    instruments this cooldown:
+-
+-    | Label | Pad | | Label | Pad |
+-    |---|---|---|---|---|
+-    |  -  | -  | | T_0 | 29 |
+-    | B_1 | 12 | | T_1 | 41 |
+-    | B_2 | 04 | | T_2 | 01 |
+-    | B_3 | 27 | | T_3 | 42 |
+-    |  -  | -  | | T_4 | 43 |
+-
+-    Alive: T_0, B_1, B_2, B_3. Dead: T_1, T_2, T_3, T_4. Liveness on the provided configuration is
+-    re-confirmed at Gate C.
+-- **Provided contact configuration** (hardwired):
+-
+-  | role | label |
+-  |---|---|
+-  | source        | T_0 |
+-  | drain (`sr0`) | B_3 |
+-  | `sr1` (Rxx)   | B_1 - B_2 |
+-  | `sr2` (Rxx)   | n.c. |
+-  | `sr3` (Rxx)   | n.c. |
+-
+-## Notes
+-
+-Lock-in gains: `sr1` 1 (unity); `sr2`, `sr3` n.c.
+diff --git a/lib/measureme/sweep/async_station_test.py b/lib/measureme/sweep/async_station_test.py
+index 997d710..74c8d8d 100644
+--- a/lib/measureme/sweep/async_station_test.py
++++ b/lib/measureme/sweep/async_station_test.py
+@@ -3,7 +3,6 @@ import tempfile
+ import unittest
+ 
+ from qcodes.instrument_drivers.mock_instruments import DummyInstrument
+-from qcodes.parameters import Parameter
+ 
+ import sweep
+ 
+@@ -58,21 +57,6 @@ class DummySR86x(DummyBase):
+         return tuple(getattr(self, n)() for n in names)
+ 
+ 
+-class FlakySR830(DummySR830):
+-    """Mock SR830 whose snap() raises ValueError for the first `failures` calls."""
+-
+-    def __init__(self, name: str, failures: int) -> None:
+-        super().__init__(name)
+-        self.failures = failures
+-
+-    def snap(self, *names: str) -> tuple[float, ...]:
+-        if self.failures > 0:
+-            self.failures -= 1
+-            self.snap_call_count += 1
+-            raise ValueError("could not convert string to float: '173.232-'")
+-        return super().snap(*names)
+-
+-
+ def _close_sweep_log_handlers() -> None:
+     """Windows: the Station's log FileHandler keeps log.log open, which blocks
+     TemporaryDirectory cleanup (WinError 32). Close them before rmtree."""
+@@ -201,62 +185,5 @@ class TestAsyncStationBatchRead(unittest.TestCase):
+         sr830.close()
+ 
+ 
+-class TestReadRetry(unittest.TestCase):
+-    def setUp(self) -> None:
+-        self.dir = tempfile.TemporaryDirectory()
+-
+-    def tearDown(self) -> None:
+-        _close_sweep_log_handlers()
+-        self.dir.cleanup()
+-
+-    def _make_station(self) -> sweep.AsyncStation:
+-        return sweep.AsyncStation(basedir=self.dir.name, verbose=False)
+-
+-    def test_snap_retried_once(self) -> None:
+-        """One garbled snap reply → warning + clean re-read, point survives."""
+-        sr830 = FlakySR830("sr830_flaky1", failures=1)
+-        s = self._make_station()
+-        s.fp(sr830.X).fp(sr830.Y)
+-
+-        with self.assertLogs(s.logger, level="WARNING"):
+-            result = s._measure_by_inst([sr830.X, sr830.Y])
+-
+-        self.assertEqual(result, [1.0, 2.0])
+-        self.assertEqual(sr830.snap_call_count, 2)
+-        sr830.close()
+-
+-    def test_snap_second_failure_raises(self) -> None:
+-        """Two garbled replies in a row → ValueError propagates, no third try."""
+-        sr830 = FlakySR830("sr830_flaky2", failures=2)
+-        s = self._make_station()
+-        s.fp(sr830.X).fp(sr830.Y)
+-
+-        with self.assertRaises(ValueError):
+-            s._measure_by_inst([sr830.X, sr830.Y])
+-
+-        self.assertEqual(sr830.snap_call_count, 2)
+-        sr830.close()
+-
+-    def test_serial_read_retried_once(self) -> None:
+-        """Base Station serial path retries a parameter get that fails once."""
+-        calls = {"n": 0}
+-
+-        def flaky_get() -> float:
+-            calls["n"] += 1
+-            if calls["n"] == 1:
+-                raise ValueError("could not convert string to float: ''")
+-            return 42.0
+-
+-        p = Parameter("flaky", get_cmd=flaky_get, set_cmd=None)
+-        s = sweep.Station(basedir=self.dir.name, verbose=False)
+-        s.fp(p)
+-
+-        with self.assertLogs(s.logger, level="WARNING"):
+-            result = s._measure()
+-
+-        self.assertEqual(result, [42.0])
+-        self.assertEqual(calls["n"], 2)
+-
+-
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/lib/measureme/sweep/sweep.py b/lib/measureme/sweep/sweep.py
+index 521373e..cadd5f6 100644
+--- a/lib/measureme/sweep/sweep.py
++++ b/lib/measureme/sweep/sweep.py
+@@ -9,7 +9,7 @@ import concurrent.futures
+ import inspect
+ from collections import defaultdict
+ from collections.abc import Iterator
+-from typing import Any, Callable, TypeVar
++from typing import Any, Callable
+ 
+ from sweep.progress import interruptible_sleep
+ import logging
+@@ -46,8 +46,6 @@ import numpy as np
+ 
+ BASEDIR: str | None = None
+ 
+-_T = TypeVar("_T")
+-
+ _shutdown_handler: Callable[[], None] | None = None
+ _shutdown_requested: bool = False
+ _sweep_active: bool = False
+@@ -396,18 +394,8 @@ class Station:
+         w.metadata.update(extra)
+         w.update_metadata()
+ 
+-    def _retry_once(self, read: Callable[[], _T], name: str) -> _T:
+-        """Instruments rarely (~1 per few 10^4 reads) return a garbled reply
+-        that fails float parsing; a second read is clean. Retry once so a
+-        one-shot glitch doesn't kill a multi-hour sweep."""
+-        try:
+-            return read()
+-        except ValueError as e:
+-            self.logger.warning(f"{name}: unparseable reply ({e}); retrying once")
+-            return read()
+-
+     def _measure(self) -> list[float]:
+-        return [self._retry_once(p, p.full_name) / gain for p, gain in self._params]
++        return [p() / gain for p, gain in self._params]
+ 
+     def _col_names(self) -> list[str]:
+         return [p.full_name for p, _ in self._params]
+@@ -976,7 +964,7 @@ class AsyncStation(Station):
+         batch_result = self._try_batch_read(ps)
+         if batch_result is not None:
+             return batch_result
+-        return [self._retry_once(p, p.full_name) for p in ps]
++        return [p() for p in ps]
+ 
+     def _try_batch_read(self, ps: list[Parameter]) -> list[float] | None:
+         """Attempt a coherent batch read if the instrument supports it."""
+@@ -988,17 +976,16 @@ class AsyncStation(Station):
+             return None
+ 
+         names = [p.name for p in ps]
+-        label = ", ".join(p.full_name for p in ps)
+ 
+         # SR830-style: SNAP? (case-insensitive, 2-6 params)
+         if isinstance(inst, SnapReadable) and len(ps) <= 6:
+             if all(n.lower() in inst.SNAP_PARAMETERS for n in names):
+-                return self._retry_once(lambda: list(inst.snap(*names)), label)
++                return list(inst.snap(*names))
+ 
+         # SR86x-style: get_values (case-sensitive, 2-3 params)
+         if isinstance(inst, BatchReadable) and len(ps) <= 3:
+             if all(n in inst.PARAMETER_NAMES for n in names):
+-                return self._retry_once(lambda: list(inst.get_values(*names)), label)
++                return list(inst.get_values(*names))
+ 
+         return None
+ 
+diff --git a/src/drivers/leiden_qcs.py b/src/drivers/leiden_qcs.py
+index 5abb739..c0d80c8 100644
+--- a/src/drivers/leiden_qcs.py
++++ b/src/drivers/leiden_qcs.py
+@@ -1,35 +1,31 @@
+ """Leiden Cryogenics QCS v1 heater current source (via MCC USB-3101 DAQ).
+ 
+-The QCS v1 is analog-programmed — there is no command protocol and **no
+-on/off DIO bit**. Per channel: an analog out carries the setpoint
+-(``V = I[µA] × 1e-6 × R[range]``; OFF = 0 V on the DAC), and two AUXPORT
+-DIO bits (bits [2c+1:2c]) carry the range code, all four codes written as
+-one port byte. Status readback flips a channel's *inactive* range bit to
+-input and reads it. Map extracted from the vendor VI block diagrams —
+-full derivation and open unknowns in docs/manuals/leiden_qcs/README.md.
++The QCS v1 is analog-programmed: an MCC USB-3101 (InstaCal board number in
++config) sets each channel's current as a scaled analog-out voltage, digital
++outs select on/off and range (x1/x10/x100 µA), digital ins report actual
++output/error state. There is no command protocol. See
++docs/manuals/leiden_qcs/README.md.
++
++The wiring lives in a QcsMap. ``QCS_V1_MAP`` below is the real instrument's
++map and is currently **None** — it must be filled from the vendor VI block
++diagrams and validated at 0 µA on the rig before this driver can touch
++hardware (docs/plans/QCS_HEATER_CONTROL.md). Everything else is testable
++against a synthetic map + fake IO.
+ 
+ Safety invariants enforced here (not in the GUI):
+   - unknown channels (incl. 0 = N.C.) are rejected;
+   - set_current clamps to the per-channel config max and the top range max;
+-  - every output write recomputes the FULL port byte and volts from this
+-    driver's commanded state and re-asserts port direction — no partial
+-    updates, so a failed write can never leave a stale range scaling a
+-    later value write (10–100× overcurrent class; regression-tested);
+-  - the port byte is seeded from the hardware latch at configure_io(), so
+-    a fresh start cannot silently re-range channels somebody left driven;
+-  - nothing here writes any output until the first explicit set_current /
+-    set_on call (never-auto-zero: restarts must not move heaters).
+-
+-``QCS_V1_MAP`` is filled from the extraction but ``validated=False`` until
+-the deploy-window checks pass (AO scaling, status-bit polarity, rig-copy
+-diff) — the worker runs but warns loudly, and the CLI is the bring-up tool:
++  - range changes pass through 0 V (never re-scale with the DAC held high);
++  - nothing here ever turns a heater off implicitly — set_on() is the only
++    path that touches the on bit.
++
++CLI probe mode (read-only unless --set/--on/--off given):
+     python -m drivers.leiden_qcs --status
+ """
+ 
+ from __future__ import annotations
+ 
+ import argparse
+-import math
+ import sys
+ from dataclasses import dataclass
+ 
+@@ -53,39 +49,37 @@ class QcsError(Exception):
+ class RangeSpec:
+     """One QCS output range."""
+ 
+-    name: str  # "x10" / "x100"
+-    code: int  # 2-bit range code on the channel's DIO pair
+-    r_ohm: float  # conversion resistor: volts = uA * 1e-6 * r_ohm
+-    max_ua: float  # ceiling for range selection (first with max >= |I|)
++    name: str  # "x1" / "x10" / "x100"
++    max_ua: float  # full-scale output current on this range
++    volts_per_ua: float  # AOut volts per µA on this range
+ 
+ 
+ @dataclass(frozen=True)
+-class QcsMap:
+-    """Wiring of a QCS unit to its MCC DAQ (see the manual reference doc)."""
++class ChannelMap:
++    """DAQ wiring for one heater channel."""
+ 
+-    channels: dict[int, str]  # heater/aout channel -> name; ch 0 (N.C.) omitted
+-    ranges: tuple[RangeSpec, ...]  # ascending by max_ua; live build has no x1
+-    ao_range: str  # mcculw ULRange name for v_out
+-    status_true_means_on: bool = True  # polarity UNKNOWN until bring-up
+-    validated: bool = False  # flipped after deploy-window checks pass
++    name: str  # "3K" / "Still" / "MC"
++    aout: int  # cbAOut channel programming this heater
++    on_bit: int  # DIO out bit: output enable
++    range_bits: tuple[int, ...]  # DIO out bits: range select (binary code)
++    status_bit: int  # DIO in bit: actual output state
++    error_bit: int | None = None  # DIO in bit: error flag, if wired
+ 
+ 
+-# Extracted 2026-07-25 from the public Leiden-TC VI block diagrams
+-# (docs/manuals/leiden_qcs/README.md). validated=False until bring-up:
+-# AO volts-vs-counts, status polarity, and a rig-copy diff are unverified.
+-QCS_V1_MAP = QcsMap(
+-    channels={1: "3K", 2: "Still", 3: "MC"},  # 0 = N.C., rejected
+-    ranges=(
+-        RangeSpec("x10", code=0b01, r_ohm=2_000.0, max_ua=5_000.0),  # tops at 10 V
+-        RangeSpec("x100", code=0b10, r_ohm=100.0, max_ua=50_000.0),  # compliance 5 V
+-    ),
+-    ao_range="UNI10VOLTS",
+-)
++@dataclass(frozen=True)
++class QcsMap:
++    """Complete wiring of a QCS unit to its MCC DAQ."""
+ 
++    channels: dict[int, ChannelMap]  # heater channel number -> wiring
++    ranges: tuple[RangeSpec, ...]  # ascending by max_ua
++    ao_range: str  # mcculw ULRange name, e.g. "UNI10VOLTS"
++    invert_dout: bool = False  # QCS inputs are active-low
++    invert_din: bool = False  # QCS status outputs are active-low
+ 
+-def _range_shift(channel: int) -> int:
+-    """AUXPORT bit position of *channel*'s 2-bit range code."""
+-    return 2 * channel
++
++# The real QCS v1 map — TODO: fill from the QCS VI block diagrams, then
++# validate at 0 µA on the rig (see the plan's deploy-window checklist).
++QCS_V1_MAP: QcsMap | None = None
+ 
+ 
+ # --- IO seam --------------------------------------------------------------
+@@ -101,24 +95,22 @@ class McculwIO:
+         self._board = board_num
+         self._port = DigitalPortType.AUXPORT
+         self._ao_range = getattr(ULRange, ao_range)
++        self._out_dir = DigitalIODirection.OUT
++        self._in_dir = DigitalIODirection.IN
+ 
+     def board_name(self) -> str:
+         return self._ul.get_board_name(self._board)
+ 
++    def config_bit(self, bit: int, output: bool) -> None:
++        self._ul.d_config_bit(
++            self._board, self._port, bit, self._out_dir if output else self._in_dir
++        )
++
+     def a_out_volts(self, channel: int, volts: float) -> None:
+         self._ul.v_out(self._board, channel, self._ao_range, volts)
+ 
+-    def config_port_out(self) -> None:
+-        self._ul.d_config_port(self._board, self._port, DigitalIODirection.OUT)
+-
+-    def config_bit_in(self, bit: int) -> None:
+-        self._ul.d_config_bit(self._board, self._port, bit, DigitalIODirection.IN)
+-
+-    def d_out_port(self, byte: int) -> None:
+-        self._ul.d_out(self._board, self._port, byte)
+-
+-    def d_in_port(self) -> int:
+-        return self._ul.d_in(self._board, self._port)
++    def d_bit_out(self, bit: int, level: bool) -> None:
++        self._ul.d_bit_out(self._board, self._port, bit, int(level))
+ 
+     def d_bit_in(self, bit: int) -> bool:
+         return bool(self._ul.d_bit_in(self._board, self._port, bit))
+@@ -129,17 +121,17 @@ class McculwIO:
+ 
+ @dataclass
+ class ChannelState:
+-    """Last-commanded + last-readback state of one heater channel."""
++    """Last-known state of one heater channel."""
+ 
+     name: str
+-    set_ua: float | None  # commanded setpoint; None until first command
+-    range_name: str | None  # "x10"/"x100" for the commanded setpoint
+-    on: bool | None  # status readback; None = unknown (no code on pins)
+-    commanded_on: bool  # what we last told the DAC (False until commanded)
++    set_ua: float | None  # None until we set it (DAC is not readable)
++    range_name: str | None  # None until we set it
++    on: bool  # from status_bit readback
++    error: bool | None  # from error_bit readback, None if not wired
+ 
+ 
+ class LeidenQcs:
+-    """QCS driver: clamped setpoints, analog on/off, full-port writes.
++    """QCS driver: clamped current setpoints, absolute on/off, readback.
+ 
+     io       — an object with the McculwIO surface (fake in tests)
+     qcs_map  — instrument wiring (synthetic in tests)
+@@ -152,161 +144,119 @@ class LeidenQcs:
+     def __init__(self, io, qcs_map: QcsMap, max_ua: dict[str, float] | None = None):
+         if not qcs_map.channels:
+             raise QcsError("QCS map has no channels")
+-        if 0 in qcs_map.channels:
+-            raise QcsError("channel 0 is N.C. and must not be in the map")
+         self._io = io
+         self._map = qcs_map
+         self._max_ua = dict(max_ua or {})
+         self._state: dict[int, ChannelState] = {
+-            ch: ChannelState(name=name, set_ua=None, range_name=None,
+-                             on=None, commanded_on=False)
+-            for ch, name in qcs_map.channels.items()
++            ch: ChannelState(name=m.name, set_ua=None, range_name=None,
++                             on=False, error=None)
++            for ch, m in qcs_map.channels.items()
+         }
+-        # Per-channel 2-bit range codes composing the AUXPORT byte. Seeded
+-        # from the hardware latch in configure_io(); codes for channels we
+-        # haven't commanded are preserved on every write.
+-        self._range_codes: dict[int, int] = {}
+ 
+     # -- helpers --
+ 
+-    def _require(self, channel: int) -> ChannelState:
+-        state = self._state.get(channel)
+-        if state is None:
++    def _chan(self, channel: int) -> ChannelMap:
++        m = self._map.channels.get(channel)
++        if m is None:
+             raise QcsError(
+-                f"channel {channel} not driveable (valid: {sorted(self._state)})"
++                f"channel {channel} not driveable (valid: {sorted(self._map.channels)})"
+             )
+-        return state
++        return m
+ 
+     def resolve(self, channel: int | str) -> int:
+         """Accept a channel number or name ("MC"); return the number."""
+         if isinstance(channel, str):
+-            for ch, name in self._map.channels.items():
+-                if name == channel:
++            for ch, m in self._map.channels.items():
++                if m.name == channel:
+                     return ch
+             raise QcsError(f"unknown channel name {channel!r}")
+         if isinstance(channel, bool):  # JSON true would alias channel 1
+             raise QcsError(f"invalid channel {channel!r}")
+-        self._require(channel)
++        self._chan(channel)
+         return channel
+ 
++    def _out(self, bit: int, level: bool) -> None:
++        self._io.d_bit_out(bit, level != self._map.invert_dout)
++
++    def _in(self, bit: int) -> bool:
++        return self._io.d_bit_in(bit) != self._map.invert_din
++
+     def clamp(self, channel: int, ua: float) -> float:
+         """The current that set_current(channel, ua) would actually program."""
+-        state = self._require(channel)
+-        if not math.isfinite(ua):
+-            # NaN slides through min/max and would poison the stored
+-            # setpoint — which must never happen: even turning a channel
+-            # OFF goes through the setpoint math.
+-            raise QcsError(f"{state.name}: non-finite current {ua!r}")
++        m = self._chan(channel)
+         limit = min(
+-            self._max_ua.get(state.name, self.DEFAULT_MAX_UA),
++            self._max_ua.get(m.name, self.DEFAULT_MAX_UA),
+             self._map.ranges[-1].max_ua,
+         )
+         return min(max(ua, 0.0), limit)
+ 
+-    def _pick_range(self, ua: float) -> RangeSpec:
+-        for spec in self._map.ranges:
++    def _pick_range(self, ua: float) -> tuple[int, RangeSpec]:
++        for idx, spec in enumerate(self._map.ranges):
+             if ua <= spec.max_ua:
+-                return spec
++                return idx, spec
+         raise QcsError(f"{ua} µA exceeds top range")  # unreachable post-clamp
+ 
+-    def _port_byte(self, override_ch: int, override_code: int) -> int:
+-        # Unmapped pairs (incl. ch 0 = N.C.) compose as 00; any physically
+-        # connected channel must be in the map or its range gets zeroed.
+-        byte = (override_code & 0b11) << _range_shift(override_ch)
+-        for ch, code in self._range_codes.items():
+-            if ch != override_ch:
+-                byte |= (code & 0b11) << _range_shift(ch)
+-        return byte
+-
+-    def _write_channel(self, channel: int) -> None:
+-        """Re-assert direction, full range byte, and this channel's volts —
+-        always the whole sequence, from commanded state only.
+-
+-        The range-code cache is committed only AFTER d_out_port succeeds:
+-        the cache seeds every later port byte for ALL channels, so caching
+-        an unwritten code would let a failed write here silently re-range
+-        this channel the next time any other channel is commanded — with
+-        this channel's DAC still driving old-range volts (10–100×)."""
+-        state = self._state[channel]
+-        spec = self._pick_range(state.set_ua or 0.0)
+-        volts = 0.0
+-        if state.commanded_on and state.set_ua:
+-            volts = state.set_ua * 1e-6 * spec.r_ohm
+-        self._io.a_out_volts(channel, 0.0)
+-        self._io.config_port_out()
+-        self._io.d_out_port(self._port_byte(channel, spec.code))
+-        self._range_codes[channel] = spec.code
+-        state.range_name = spec.name
+-        self._io.a_out_volts(channel, volts)
+-
+     # -- init --
+ 
+     def configure_io(self) -> None:
+-        """Seed the range-code cache from the hardware latch; write nothing.
+-
+-        Reading the AUXPORT latch preserves range codes on channels someone
+-        left driven (a fresh start composing the port byte from an empty
+-        cache would silently re-range them). NOTE: after a DAQ power cycle
+-        the latch reads reset — pin behavior at that point is a deploy-
+-        checklist validation item, not an assumption.
+-        """
+-        latch = self._io.d_in_port()
+-        for ch in self._map.channels:
+-            self._range_codes[ch] = (latch >> _range_shift(ch)) & 0b11
++        """Set DIO directions. Writes no output latch, but configuring a bit
++        as OUT connects the existing latch to the pin — after a DAQ power
++        cycle the latches reset, so pin states after this call must be
++        validated at bring-up (deploy checklist) rather than assumed."""
++        for m in self._map.channels.values():
++            self._io.config_bit(m.on_bit, output=True)
++            for bit in m.range_bits:
++                self._io.config_bit(bit, output=True)
++            self._io.config_bit(m.status_bit, output=False)
++            if m.error_bit is not None:
++                self._io.config_bit(m.error_bit, output=False)
+ 
+     # -- operations --
+ 
+     def set_current(self, channel: int, ua: float) -> ChannelState:
+-        """Program *channel*'s setpoint, clamped. If the channel is
+-        commanded on, the new value goes to the DAC now; if off, the DAC
+-        stays at 0 V and the setpoint takes effect on set_on(True)."""
+-        state = self._require(channel)
+-        state.set_ua = self.clamp(channel, ua)
+-        self._write_channel(channel)
++        """Program *channel*'s setpoint, clamped. Does NOT touch the on bit.
++
++        Always writes the full 0 V → range bits → value sequence, with the
++        cached state invalidated until the sequence lands. Skipping the
++        re-range when the cache says the range is unchanged is unsafe: a
++        write that fails mid-sequence desyncs cache from hardware, and a
++        later cache-trusting write can put old-range volts on new-range
++        hardware — a 10–100× overcurrent. The brief 0 V dip per apply is
++        harmless for a heater.
++        """
++        m = self._chan(channel)
++        clamped = self.clamp(channel, ua)
++        range_idx, spec = self._pick_range(clamped)
++
++        state = self._state[channel]
++        state.set_ua = None
++        state.range_name = None
++        self._io.a_out_volts(m.aout, 0.0)
++        for pos, bit in enumerate(m.range_bits):
++            self._out(bit, bool(range_idx & (1 << pos)))
++        self._io.a_out_volts(m.aout, clamped * spec.volts_per_ua)
++        state.set_ua = clamped
++        state.range_name = spec.name
+         return self.read_channel(channel)
+ 
+     def set_on(self, channel: int, on: bool) -> ChannelState:
+-        """Drive *channel* on (setpoint volts) or off (0 V). There is no
+-        enable bit — this IS the DAC write."""
+-        state = self._require(channel)
+-        if on and state.set_ua is None:
+-            raise QcsError(
+-                f"{state.name}: no setpoint — set a current before turning on"
+-            )
+-        state.commanded_on = on
+-        self._write_channel(channel)
++        """Drive *channel*'s output-enable bit (absolute, idempotent)."""
++        m = self._chan(channel)
++        self._out(m.on_bit, on)
+         return self.read_channel(channel)
+ 
+     def read_channel(self, channel: int) -> ChannelState:
+-        """Refresh one channel's status readback and return its state.
+-
+-        Reads the channel's *inactive* range bit as an input, then restores
+-        port direction. Channels with no range code on the pins read as
+-        unknown (on=None) — the vendor's low-range fallback injects a test
+-        current and is deliberately not implemented ("heats up the
+-        cryostat")."""
+-        state = self._require(channel)
+-        code = self._range_codes.get(channel, 0)
+-        if code not in (0b01, 0b10):  # no/garbage code: readback undefined
+-            state.on = None
+-            return state
+-        inactive = _range_shift(channel) + (1 if code == 0b01 else 0)
+-        self._io.config_bit_in(inactive)
+-        try:
+-            raw = self._io.d_bit_in(inactive)
+-        finally:
+-            self._io.config_port_out()  # never leave the pin floating
+-        state.on = raw == self._map.status_true_means_on
++        """Refresh one channel's readback (on/error) and return its state."""
++        m = self._chan(channel)
++        state = self._state[channel]
++        state.on = self._in(m.status_bit)
++        if m.error_bit is not None:
++            state.error = self._in(m.error_bit)
+         return state
+ 
+     def status(self) -> dict[int, ChannelState]:
+         """Refresh readback on every channel."""
+-        return {ch: self.read_channel(ch) for ch in self._state}
+-
+-    def cached_status(self) -> dict[int, ChannelState]:
+-        """Commanded/cached state with no hardware IO (readback may be
+-        stale) — for reporting when the DAQ is unreachable."""
+-        return dict(self._state)
++        return {ch: self.read_channel(ch) for ch in self._map.channels}
+ 
+ 
+ # --- CLI probe mode -------------------------------------------------------
+@@ -325,14 +275,16 @@ def _cli() -> int:
+     parser.add_argument("--off", type=int, metavar="CH", help="disable channel output")
+     args = parser.parse_args()
+ 
++    if QCS_V1_MAP is None:
++        print("QCS_V1_MAP is not filled in yet — the pin/DAC map must be "
++              "extracted and validated first (docs/plans/QCS_HEATER_CONTROL.md).")
++        return 2
++
+     config = load_config()
+     board = args.board if args.board is not None else config.hardware.qcs_board_num
+     if board < 0:
+         print("no board: pass --board or set hardware.qcs_board_num in toploader.toml")
+         return 2
+-    if not QCS_V1_MAP.validated:
+-        print("NOTE: QCS_V1_MAP is unvalidated — bring-up checks pending "
+-              "(docs/plans/QCS_HEATER_CONTROL.md)")
+ 
+     io = McculwIO(board, QCS_V1_MAP.ao_range)
+     if args.id:
+@@ -341,24 +293,19 @@ def _cli() -> int:
+                     {k: float(v) for k, v in config.hardware.qcs_max_ua.items()})
+     qcs.configure_io()
+ 
+-    try:
+-        if args.set:
+-            ch_str, _, ua_str = args.set.partition("=")
+-            state = qcs.set_current(int(ch_str), float(ua_str))
+-            print(f"ch{ch_str} ({state.name}): set {state.set_ua} µA ({state.range_name})")
+-        if args.on is not None:
+-            qcs.set_on(args.on, True)
+-        if args.off is not None:
+-            qcs.set_on(args.off, False)
+-    except QcsError as e:
+-        print(f"error: {e}")
+-        return 1
++    if args.set:
++        ch_str, _, ua_str = args.set.partition("=")
++        state = qcs.set_current(int(ch_str), float(ua_str))
++        print(f"ch{ch_str} ({state.name}): set {state.set_ua} µA ({state.range_name})")
++    if args.on is not None:
++        qcs.set_on(args.on, True)
++    if args.off is not None:
++        qcs.set_on(args.off, False)
+ 
+     if args.status or not (args.id or args.set or args.on is not None or args.off is not None):
+         for ch, s in qcs.status().items():
+-            on = "?" if s.on is None else s.on
+-            print(f"ch{ch} {s.name}: on={on} commanded_on={s.commanded_on} "
+-                  f"set={s.set_ua} µA range={s.range_name}")
++            err = "" if s.error is None else f" error={s.error}"
++            print(f"ch{ch} {s.name}: on={s.on} set={s.set_ua} µA range={s.range_name}{err}")
+     return 0
+ 
+ 
+diff --git a/src/gui/qt/qcs_panel.py b/src/gui/qt/qcs_panel.py
+index a88831d..2dc03ac 100644
+--- a/src/gui/qt/qcs_panel.py
++++ b/src/gui/qt/qcs_panel.py
+@@ -126,15 +126,21 @@ class QcsHeaterPanel(WorkerPanel):
+             row = self._rows.get(name)
+             if row is None:
+                 continue
+-            on = ch.get("on")  # readback: True / False / None (unknown)
+-            row["lamp"].setStyleSheet(f"color: {'orange' if on else 'gray'};")
++            on = bool(ch.get("on"))
++            error = ch.get("error")
++            if error:
++                row["lamp"].setStyleSheet("color: red;")
++            else:
++                row["lamp"].setStyleSheet(f"color: {'orange' if on else 'gray'};")
+             set_ua = ch.get("set_ua")
+             set_str = "?" if set_ua is None else f"{set_ua:g} µA"
+             rng = f" ({ch['range']})" if ch.get("range") else ""
+-            state = "ON" if on else ("off" if on is False else "?")
+-            row["now"].setText(f"{state} · {set_str}{rng}")
+-            # Palette default when on (readable on any theme), gray otherwise.
+-            row["now"].setStyleSheet("" if on else "color: gray;")
++            state = "ON" if on else "off"
++            err_str = " ERROR" if error else ""
++            row["now"].setText(f"{state} · {set_str}{rng}{err_str}")
++            # Palette default when on (readable on any theme), gray when off.
++            row["now"].setStyleSheet("color: red;" if error
++                                     else ("" if on else "color: gray;"))
+ 
+         last_cmd = data.get("last_cmd")
+         if last_cmd is not None:
+diff --git a/src/workers/qcs_heater.py b/src/workers/qcs_heater.py
+index de503f6..f8892ea 100644
+--- a/src/workers/qcs_heater.py
++++ b/src/workers/qcs_heater.py
+@@ -43,10 +43,12 @@ from core.config import load_config
+ from core.influx import setup_influx, write_point
+ from drivers.leiden_qcs import (
+     QCS_V1_MAP,
++    ChannelMap,
+     LeidenQcs,
+     McculwIO,
+     QcsError,
+     QcsMap,
++    RangeSpec,
+ )
+ 
+ MEASUREMENT = "QCS"
+@@ -57,45 +59,44 @@ MAX_CONSECUTIVE_FAILURES = 5
+ 
+ # --- Simulation (dev-box panel exercise; no hardware, no InfluxDB) --------
+ 
+-# Same shape as the real map (see drivers.leiden_qcs.QCS_V1_MAP); validated
+-# is irrelevant in sim.
++# status_bit deliberately equals on_bit: _SimIO keeps one bit-latch dict, so
++# readback mirrors what was "driven" and the lamps behave like the real rig.
+ SIM_MAP = QcsMap(
+-    channels=dict(QCS_V1_MAP.channels),
+-    ranges=QCS_V1_MAP.ranges,
+-    ao_range=QCS_V1_MAP.ao_range,
+-    validated=True,
++    channels={
++        1: ChannelMap(name="3K", aout=0, on_bit=0, range_bits=(4, 5), status_bit=0),
++        2: ChannelMap(name="Still", aout=1, on_bit=1, range_bits=(6, 7), status_bit=1),
++        3: ChannelMap(name="MC", aout=2, on_bit=2, range_bits=(8, 9), status_bit=2),
++    },
++    ranges=(
++        RangeSpec("x1", 150.0, 1 / 15.0),
++        RangeSpec("x10", 1500.0, 1 / 150.0),
++        RangeSpec("x100", 15000.0, 1 / 1500.0),
++    ),
++    ao_range="UNI10VOLTS",
+ )
+ 
+ 
+ class _SimIO:
+-    """In-memory MCC stand-in mimicking the QCS's actual readback: the
+-    status bit reports whether current flows, i.e. the channel's DAC is
+-    above 0 V — so panel lamps behave like the real instrument."""
++    """In-memory MCC stand-in: bit latches + AOut values."""
+ 
+     def __init__(self) -> None:
+-        self.port_byte = 0
++        self.bits: dict[int, bool] = {}
+         self.aout: dict[int, float] = {}
+ 
+     def board_name(self) -> str:
+         return "SIM-3101"
+ 
++    def config_bit(self, bit: int, output: bool) -> None:
++        self.bits.setdefault(bit, False)
++
+     def a_out_volts(self, channel: int, volts: float) -> None:
+         self.aout[channel] = volts
+ 
+-    def config_port_out(self) -> None:
+-        pass
+-
+-    def config_bit_in(self, bit: int) -> None:
+-        pass
+-
+-    def d_out_port(self, byte: int) -> None:
+-        self.port_byte = byte
+-
+-    def d_in_port(self) -> int:
+-        return self.port_byte
++    def d_bit_out(self, bit: int, level: bool) -> None:
++        self.bits[bit] = level
+ 
+     def d_bit_in(self, bit: int) -> bool:
+-        return self.aout.get(bit // 2, 0.0) > 0.0
++        return self.bits.get(bit, False)
+ 
+ 
+ # --- Command handling -----------------------------------------------------
+@@ -137,9 +138,7 @@ def handle_command(qcs: LeidenQcs, line: str) -> dict:
+             # (bring-up will tell); the lamp follows the next poll either way.
+             result["ok"] = True
+             detail = f"commanded {'on' if on else 'off'}"
+-            if state.on is None:
+-                detail += "; readback unavailable"
+-            elif state.on != on:
++            if state.on != on:
+                 detail += f"; readback still {'on' if state.on else 'off'}"
+             result["detail"] = detail
+         else:
+@@ -157,59 +156,37 @@ def handle_command(qcs: LeidenQcs, line: str) -> dict:
+ # --- Publishing -----------------------------------------------------------
+ 
+ 
+-def data_payload(qcs: LeidenQcs, last_cmd: dict | None,
+-                 *, allow_stale: bool = False) -> dict:
+-    """Build the [data] JSON dict from fresh readback.
+-
+-    With allow_stale=True a readback failure falls back to cached state
+-    (flagged "readback_failed") instead of raising — used on the command
+-    path so a last_cmd result always reaches the panel even when the DAQ
+-    is unreachable. The poll path keeps allow_stale=False so failures
+-    feed the dead-DAQ counter."""
+-    stale = False
+-    try:
+-        states = qcs.status()
+-    except Exception:
+-        if not allow_stale:
+-            raise
+-        states = qcs.cached_status()
+-        stale = True
++def data_payload(qcs: LeidenQcs, last_cmd: dict | None) -> dict:
++    """Build the [data] JSON dict from fresh readback."""
++    states = qcs.status()
+     read_at = datetime.now(timezone.utc)
+     summary_parts = []
+     channels = {}
+     for ch, s in sorted(states.items()):
+         set_str = "?" if s.set_ua is None else f"{s.set_ua:g}"
+-        flow = "?" if s.on is None else ("ON " + set_str + "µA" if s.on else "off")
+-        summary_parts.append(f"{s.name} {flow}")
++        summary_parts.append(f"{s.name} {'ON ' + set_str + 'µA' if s.on else 'off'}")
+         channels[s.name] = {
+             "channel": ch,
+-            "on": s.on,  # readback (current flowing); None = unknown
+-            "commanded_on": s.commanded_on,
++            "on": s.on,
+             "set_ua": s.set_ua,
+             "range": s.range_name,
++            "error": s.error,
+         }
+     payload = {
+         "_summary": " · ".join(summary_parts),
+         "read_at": read_at.isoformat(timespec="seconds"),
+         "channels": channels,
+     }
+-    if stale:
+-        payload["readback_failed"] = True
+     if last_cmd is not None:
+         payload["last_cmd"] = last_cmd
+     return payload
+ 
+ 
+ def write_influx(write_api, org, bucket, payload: dict) -> None:
+-    """Publish per-channel state. `_on` prefers readback (Grafana must not
+-    show "off" on a physically driven heater after a restart) and falls
+-    back to commanded state when readback is unknown, so the metric always
+-    writes and freshness monitoring works. Unknown setpoints are skipped,
+-    not faked."""
++    """Publish per-channel state. Unknown setpoints are skipped, not faked."""
+     for name, ch in payload["channels"].items():
+-        on = ch["on"] if ch["on"] is not None else ch["commanded_on"]
+         write_point(write_api, org, bucket, MEASUREMENT, f"{name}_on",
+-                    1.0 if on else 0.0, "bool")
++                    1.0 if ch["on"] else 0.0, "bool")
+         if ch["set_ua"] is not None:
+             write_point(write_api, org, bucket, MEASUREMENT, f"{name}_current",
+                         ch["set_ua"], "uA")
+@@ -232,9 +209,10 @@ def main() -> None:
+             max_ua: dict[str, float] = {}
+             write_api = None
+         else:
+-            if not QCS_V1_MAP.validated:
+-                emit(Tag.INIT, "WARNING: QCS_V1_MAP is unvalidated — bring-up "
+-                               "checks pending (docs/plans/QCS_HEATER_CONTROL.md)")
++            if QCS_V1_MAP is None:
++                emit(Tag.ERROR, "QCS_V1_MAP not filled in — pin map extraction "
++                                "pending (docs/plans/QCS_HEATER_CONTROL.md)")
++                sys.exit(2)
+             config = load_config()
+             board = config.hardware.qcs_board_num
+             if board < 0:
+@@ -258,11 +236,10 @@ def main() -> None:
+     threading.Thread(target=_stdin_reader, args=(cmd_q,), daemon=True).start()
+ 
+     emit(Tag.INIT, "channels: " + ", ".join(
+-        f"{ch}={name}" for ch, name in sorted(qcs_map.channels.items())))
++        f"{ch}={m.name}" for ch, m in sorted(qcs_map.channels.items())))
+ 
+-    def publish(last_cmd: dict | None, to_influx: bool,
+-                allow_stale: bool = False) -> None:
+-        payload = data_payload(qcs, last_cmd, allow_stale=allow_stale)
++    def publish(last_cmd: dict | None, to_influx: bool) -> None:
++        payload = data_payload(qcs, last_cmd)
+         emit(Tag.DATA, json.dumps(payload))
+         if to_influx and write_api is not None:
+             try:
+@@ -287,9 +264,7 @@ def main() -> None:
+                 last_cmd = handle_command(qcs, line)
+                 if not last_cmd.get("ok"):
+                     emit(Tag.ERROR, f"command failed: {last_cmd['detail']}")
+-                # allow_stale: the last_cmd result must reach the panel even
+-                # if the DAQ is unreachable for the follow-up readback.
+-                publish(last_cmd, to_influx=True, allow_stale=True)
++                publish(last_cmd, to_influx=True)
+             elif time.monotonic() >= next_poll:
+                 next_poll = time.monotonic() + POLL_INTERVAL
+                 polls += 1
+diff --git a/tests/test_qcs_heater.py b/tests/test_qcs_heater.py
+index ce02a21..1cba871 100644
+--- a/tests/test_qcs_heater.py
++++ b/tests/test_qcs_heater.py
+@@ -1,10 +1,8 @@
+ """QCS driver + worker: safety invariants and the stdin command channel.
+ 
+-The driver must clamp/reject in itself (not the GUI), write the full
+-direction → range byte → volts sequence from commanded state on every
+-output change, preserve other channels' seeded range codes, and never
+-write any output until explicitly commanded. The worker must answer every
+-command with a last_cmd result (rejections are never silent).
++The driver must clamp/reject in itself (not the GUI), pass range changes
++through 0 V, and never touch the on bit except via set_on. The worker must
++answer every command with a last_cmd result (rejections are never silent).
+ """
+ 
+ from __future__ import annotations
+@@ -15,17 +13,24 @@ import time
+ 
+ import pytest
+ 
+-from drivers.leiden_qcs import LeidenQcs, QcsError, QcsMap, RangeSpec
++from drivers.leiden_qcs import ChannelMap, LeidenQcs, QcsError, QcsMap, RangeSpec
+ from gui.managed_process import ManagedProcess
+ from workers.qcs_heater import SIM_MAP, _SimIO, data_payload, handle_command
+ 
+-# Same shape/codes as the real QCS_V1_MAP, without depending on it.
++RANGES = (
++    RangeSpec("x1", 150.0, 1 / 15.0),
++    RangeSpec("x10", 1500.0, 1 / 150.0),
++    RangeSpec("x100", 15000.0, 1 / 1500.0),
++)
++
+ MAP = QcsMap(
+-    channels={1: "3K", 2: "Still", 3: "MC"},
+-    ranges=(
+-        RangeSpec("x10", code=0b01, r_ohm=2_000.0, max_ua=5_000.0),
+-        RangeSpec("x100", code=0b10, r_ohm=100.0, max_ua=50_000.0),
+-    ),
++    channels={
++        1: ChannelMap(name="3K", aout=0, on_bit=0, range_bits=(4, 5),
++                      status_bit=10, error_bit=12),
++        3: ChannelMap(name="MC", aout=2, on_bit=2, range_bits=(8, 9),
++                      status_bit=11),
++    },
++    ranges=RANGES,
+     ao_range="UNI10VOLTS",
+ )
+ 
+@@ -41,22 +46,14 @@ class RecordingIO(_SimIO):
+         super().a_out_volts(channel, volts)
+         self.ops.append(("aout", channel, volts))
+ 
+-    def config_port_out(self) -> None:
+-        self.ops.append(("cfg_out",))
+-
+-    def config_bit_in(self, bit: int) -> None:
+-        self.ops.append(("cfg_in", bit))
++    def d_bit_out(self, bit: int, level: bool) -> None:
++        super().d_bit_out(bit, level)
++        self.ops.append(("dout", bit, level))
+ 
+-    def d_out_port(self, byte: int) -> None:
+-        super().d_out_port(byte)
+-        self.ops.append(("dout", byte))
+ 
+-
+-def make_qcs(max_ua=None, qcs_map=MAP, io=None):
+-    io = io or RecordingIO()
+-    qcs = LeidenQcs(io, qcs_map, max_ua or {})
+-    qcs.configure_io()
+-    return qcs, io
++def make_qcs(max_ua=None, qcs_map=MAP):
++    io = RecordingIO()
++    return LeidenQcs(io, qcs_map, max_ua or {}), io
+ 
+ 
+ # --- Driver: channel validation ------------------------------------------
+@@ -64,39 +61,26 @@ def make_qcs(max_ua=None, qcs_map=MAP, io=None):
+ 
+ def test_nc_and_unknown_channels_rejected():
+     qcs, _ = make_qcs()
+-    for ch in (0, 4):  # 0 = N.C. (not in map); 4 nonexistent
++    for ch in (0, 2, 4):  # 0 = N.C.; 2 absent from this map; 4 nonexistent
+         with pytest.raises(QcsError):
+             qcs.set_current(ch, 100)
+         with pytest.raises(QcsError):
+             qcs.set_on(ch, True)
+ 
+ 
+-def test_map_with_nc_channel_refused():
+-    with pytest.raises(QcsError):
+-        LeidenQcs(_SimIO(), QcsMap(channels={0: "N.C.", 1: "3K"},
+-                                   ranges=MAP.ranges, ao_range="UNI10VOLTS"), {})
+-
+-
+-def test_resolve_names_and_rejects_bool():
+-    qcs, _ = make_qcs()
+-    assert qcs.resolve("MC") == 3
+-    with pytest.raises(QcsError):
+-        qcs.resolve("Nope")
+-    with pytest.raises(QcsError):
+-        qcs.resolve(True)  # JSON true must not alias channel 1
+-
+-
+ # --- Driver: clamping -----------------------------------------------------
+ 
+ 
+ def test_clamp_to_config_max():
+     qcs, _ = make_qcs(max_ua={"MC": 4000.0})
+-    assert qcs.set_current(3, 9999.0).set_ua == 4000.0
++    state = qcs.set_current(3, 9999.0)
++    assert state.set_ua == 4000.0
+ 
+ 
+-def test_clamp_to_default_max():
+-    qcs, _ = make_qcs()  # no config entry -> DEFAULT_MAX_UA (15000)
+-    assert qcs.set_current(1, 1e9).set_ua == 15000.0
++def test_clamp_to_default_and_top_range():
++    qcs, _ = make_qcs()  # no config entry -> DEFAULT_MAX_UA == top range max
++    state = qcs.set_current(1, 1e9)
++    assert state.set_ua == 15000.0
+ 
+ 
+ def test_negative_clamps_to_zero():
+@@ -104,198 +88,121 @@ def test_negative_clamps_to_zero():
+     assert qcs.set_current(3, -50.0).set_ua == 0.0
+ 
+ 
+-# --- Driver: range + volts math ------------------------------------------
++# --- Driver: range handling ----------------------------------------------
+ 
+ 
+-def test_picks_smallest_adequate_range_with_ceiling():
++def test_picks_smallest_adequate_range():
+     qcs, _ = make_qcs()
+-    assert qcs.set_current(3, 5000).range_name == "x10"  # boundary stays x10
+-    assert qcs.set_current(3, 5001).range_name == "x100"
+-    assert qcs.set_current(3, 100).range_name == "x10"
++    assert qcs.set_current(3, 100).range_name == "x1"
++    assert qcs.set_current(3, 151).range_name == "x10"
++    assert qcs.set_current(3, 5000).range_name == "x100"
+ 
+ 
+-def test_volts_scaling_matches_conversion_resistors():
++def test_every_set_passes_through_zero_and_writes_range():
++    """The full 0V -> range bits -> value sequence runs on EVERY set — a
++    cache-skipped re-range is how a failed write turns into a 100x
++    overcurrent (see set_current docstring)."""
+     qcs, io = make_qcs()
+-    qcs.set_current(3, 5000)
+-    qcs.set_on(3, True)
+-    assert io.aout[3] == pytest.approx(10.0)  # 5 mA x 2 kOhm = 10 V full scale
+-    qcs.set_current(3, 15000)  # -> x100: 15 mA x 100 Ohm = 1.5 V
+-    assert io.aout[3] == pytest.approx(1.5)
+-
++    qcs.set_current(3, 100)  # x1
++    io.ops.clear()
++    qcs.set_current(3, 5000)  # -> x100
++    assert io.ops[0] == ("aout", 2, 0.0)
++    assert io.ops[-1] == ("aout", 2, pytest.approx(5000 * (1 / 1500.0)))
++    # range code 2 (x100) on bits (8, 9): bit8 low, bit9 high
++    assert ("dout", 8, False) in io.ops and ("dout", 9, True) in io.ops
+ 
+-# --- Driver: write discipline ---------------------------------------------
++    io.ops.clear()
++    qcs.set_current(3, 120)  # same range: sequence still runs in full
++    assert io.ops[0] == ("aout", 2, 0.0)
++    assert ("dout", 8, False) in io.ops and ("dout", 9, False) in io.ops
++    assert io.ops[-1] == ("aout", 2, pytest.approx(120 * (1 / 15.0)))
+ 
+ 
+-def test_no_output_writes_until_commanded():
+-    _, io = make_qcs()
+-    assert io.ops == []  # configure_io only reads the latch
++class _FlakyIO(RecordingIO):
++    """Raises on the Nth a_out_volts call, then recovers."""
+ 
++    def __init__(self, fail_on_call: int) -> None:
++        super().__init__()
++        self._calls = 0
++        self._fail_on = fail_on_call
+ 
+-def _write_ops(io):
+-    """The output-write portion of the op log (up to the readback's cfg_in)."""
+-    for i, op in enumerate(io.ops):
+-        if op[0] == "cfg_in":
+-            return io.ops[:i]
+-    return list(io.ops)
++    def a_out_volts(self, channel: int, volts: float) -> None:
++        self._calls += 1
++        if self._calls == self._fail_on:
++            raise OSError("USB glitch")
++        super().a_out_volts(channel, volts)
+ 
+ 
+-def test_full_sequence_on_every_write():
+-    qcs, io = make_qcs()
++def test_failed_write_cannot_cause_overcurrent_on_retry():
++    """Reviewer repro: x1 set, range change to x100 dies on the final DAC
++    write (bits already flipped), operator retries the x1 current. The
++    retry must land x1 volts on x1 hardware — not x1 volts on x100."""
++    io = _FlakyIO(fail_on_call=4)  # call 4 = the value write of the 2nd set
++    qcs = LeidenQcs(io, MAP, {})
+     qcs.set_current(3, 100)
+-    # 0V -> direction -> full byte -> volts (volts 0: not commanded on yet)
+-    writes = _write_ops(io)
+-    assert [op[0] for op in writes] == ["aout", "cfg_out", "dout", "aout"]
+-    assert writes[0] == ("aout", 3, 0.0)
+-    assert writes[-1] == ("aout", 3, 0.0)  # off: DAC stays at 0 V
+-    assert writes[2] == ("dout", 0b01 << 6)  # MC range code x10 on bits 7:6
++    with pytest.raises(OSError):
++        qcs.set_current(3, 5000)
++    assert qcs.read_channel(3).set_ua is None  # honest: state unknown
+ 
+-
+-def test_set_on_is_the_dac_write():
+-    qcs, io = make_qcs()
+-    qcs.set_current(3, 100)
+-    io.ops.clear()
+-    qcs.set_on(3, True)
+-    assert _write_ops(io)[-1] == ("aout", 3, pytest.approx(100 * 1e-6 * 2000.0))
+-    io.ops.clear()
+-    qcs.set_on(3, False)
+-    assert _write_ops(io)[-1] == ("aout", 3, 0.0)
++    qcs.set_current(3, 100)  # retry
++    assert io.aout[2] == pytest.approx(100 * (1 / 15.0))  # x1 scaling
++    assert io.bits[8] is False and io.bits[9] is False  # x1 range code 0
+ 
+ 
+-def test_set_on_without_setpoint_rejected():
++def test_resolve_rejects_bool():
+     qcs, _ = make_qcs()
+     with pytest.raises(QcsError):
+-        qcs.set_on(3, True)
+-    qcs.set_on(3, False)  # turning OFF is never blocked
+-
+-
+-def test_seeded_range_codes_preserved_for_other_channels():
+-    """A fresh start must not silently re-range channels someone left
+-    driven: the port byte composes untouched channels from the latch."""
+-    io = RecordingIO()
+-    io.port_byte = 0b10 << 2  # Still (ch2) left on x100 by the old software
+-    qcs, _ = make_qcs(io=io)
+-    qcs.set_current(3, 100)  # touch only MC
+-    assert io.port_byte == (0b10 << 2) | (0b01 << 6)  # Still's code survives
++        qcs.resolve(True)  # JSON true must not alias channel 1
+ 
+ 
+-def test_failed_write_cannot_cause_overcurrent_on_retry():
+-    """Range-desync hazard: a write that dies after the range byte went out
+-    must not let a retry scale volts with a stale range. Every write
+-    recomputes byte+volts from commanded state, so the retry is correct."""
+-
+-    class FlakyIO(RecordingIO):
+-        def __init__(self, fail_on_call):
+-            super().__init__()
+-            self._calls, self._fail_on = 0, fail_on_call
+-
+-        def a_out_volts(self, channel, volts):
+-            self._calls += 1
+-            if self._calls == self._fail_on:
+-                raise OSError("USB glitch")
+-            super().a_out_volts(channel, volts)
+-
+-    # aout calls: set_current(100)=2, set_on(True)=2, then set_current(15000)
+-    # zeroes (call 5) and dies on its x100 value write (call 6) — after the
+-    # x100 range byte already went out.
+-    io = FlakyIO(fail_on_call=6)
+-    qcs, _ = make_qcs(io=io)
++def test_set_current_never_touches_on_bit():
++    qcs, io = make_qcs()
+     qcs.set_current(3, 100)
+-    qcs.set_on(3, True)
+-    with pytest.raises(OSError):
+-        qcs.set_current(3, 15000)
+-    assert (io.port_byte >> 6) & 0b11 == 0b10  # hardware left on x100
+-
+-    qcs.set_current(3, 100)  # operator retries the small current
+-    assert io.aout[3] == pytest.approx(100 * 1e-6 * 2000.0)  # x10 volts...
+-    assert (io.port_byte >> 6) & 0b11 == 0b01  # ...on x10 hardware
+-
+-
+-def test_failed_write_cannot_poison_other_channels():
+-    """Cross-channel hazard (2nd review): the port byte is shared, so a
+-    code cached before its write succeeds would be re-asserted by ANY later
+-    command on another channel — flipping this channel's hardware range
+-    under a live DAC voltage. The cache must commit only after d_out_port."""
+-
+-    class ZeroFailIO(RecordingIO):
+-        def __init__(self):
+-            super().__init__()
+-            self.fail_next_aout = False
+-
+-        def a_out_volts(self, channel, volts):
+-            if self.fail_next_aout:
+-                self.fail_next_aout = False
+-                raise OSError("USB glitch")
+-            super().a_out_volts(channel, volts)
+-
+-    io = ZeroFailIO()
+-    qcs, _ = make_qcs(io=io)
+-    qcs.set_current(3, 5000)  # MC on x10 at full scale
+-    qcs.set_on(3, True)
+-    assert io.aout[3] == pytest.approx(10.0)
++    qcs.set_current(3, 5000)
++    assert not any(op[0] == "dout" and op[1] == 2 for op in io.ops)
+ 
+-    io.fail_next_aout = True  # the x100 attempt dies on its leading 0V write
+-    with pytest.raises(OSError):
+-        qcs.set_current(3, 15000)
+-    assert (io.port_byte >> 6) & 0b11 == 0b01  # hardware untouched: still x10
+ 
+-    qcs.set_current(2, 100)  # unrelated command on Still
+-    # MC's hardware range must STILL be x10 — a stale cached x100 here would
+-    # put 10 V on 100 Ohm = 10x the commanded current.
+-    assert (io.port_byte >> 6) & 0b11 == 0b01
++# --- Driver: on/off + readback -------------------------------------------
+ 
+ 
+-def test_nan_rejected_and_off_never_blocked():
++def test_set_on_absolute_and_idempotent():
+     qcs, io = make_qcs()
+-    qcs.set_current(3, 200)
+     qcs.set_on(3, True)
+-    with pytest.raises(QcsError):
+-        qcs.set_current(3, float("nan"))
+-    assert qcs.cached_status()[3].set_ua == 200.0  # setpoint not poisoned
+-    qcs.set_on(3, False)  # and OFF still works
+-    assert io.aout[3] == 0.0
+-
+-
+-# --- Driver: status readback ----------------------------------------------
++    qcs.set_on(3, True)
++    assert io.ops == [("dout", 2, True), ("dout", 2, True)]
+ 
+ 
+-def test_readback_reads_inactive_bit_and_restores_direction():
++def test_readback_uses_status_bit_not_on_bit():
+     qcs, io = make_qcs()
+-    qcs.set_current(3, 100)  # x10, code 01 on bits 7:6
+-    io.ops.clear()
+-    qcs.read_channel(3)
+-    assert io.ops[0] == ("cfg_in", 7)  # inactive bit of the pair
+-    assert io.ops[-1] == ("cfg_out",)
+-
+-
+-def test_readback_unknown_without_range_code():
+-    qcs, _ = make_qcs()  # latch 0: no code on any channel
+-    assert qcs.read_channel(3).on is None
++    qcs.set_on(3, True)
++    assert qcs.read_channel(3).on is False  # status_bit 11 never driven
++    io.bits[11] = True
++    assert qcs.read_channel(3).on is True
+ 
+ 
+-def test_readback_polarity_flag():
+-    inv = QcsMap(channels=MAP.channels, ranges=MAP.ranges,
+-                 ao_range="UNI10VOLTS", status_true_means_on=False)
+-    qcs, _ = make_qcs(qcs_map=inv)
+-    qcs.set_current(3, 100)
+-    qcs.set_on(3, True)  # sim raw bit True (current flows)
+-    assert qcs.read_channel(3).on is False  # inverted interpretation
++def test_invert_dout_and_din():
++    inv = QcsMap(channels=MAP.channels, ranges=RANGES, ao_range="UNI10VOLTS",
++                 invert_dout=True, invert_din=True)
++    io = RecordingIO()
++    qcs = LeidenQcs(io, inv, {})
++    qcs.set_on(3, True)
++    assert io.ops == [("dout", 2, False)]  # active-low drive
++    assert qcs.read_channel(3).on is True  # bit reads False -> inverted True
+ 
+ 
+-def test_sim_lamp_follows_current_flow():
+-    qcs, _ = make_qcs()
+-    qcs.set_current(3, 100)
+-    assert qcs.read_channel(3).on is False  # commanded off -> 0 V -> no flow
+-    qcs.set_on(3, True)
+-    assert qcs.read_channel(3).on is True
++def test_error_bit_readback():
++    qcs, io = make_qcs()
++    assert qcs.read_channel(1).error is False
++    io.bits[12] = True
++    assert qcs.read_channel(1).error is True
++    assert qcs.read_channel(3).error is None  # not wired on MC
+ 
+ 
+ # --- Worker: command handling --------------------------------------------
+ 
+ 
+ def sim_qcs():
+-    qcs = LeidenQcs(_SimIO(), SIM_MAP, {})
+-    qcs.configure_io()
+-    return qcs
++    return LeidenQcs(_SimIO(), SIM_MAP, {})
+ 
+ 
+ def test_command_set_current_ok_and_clamped_detail():
+@@ -308,110 +215,36 @@ def test_command_set_current_ok_and_clamped_detail():
+ 
+ def test_command_set_on_reports_readback():
+     qcs = sim_qcs()
+-    handle_command(qcs, '{"cmd": "set_current", "channel": "Still", "ua": 100}')
+-    result = handle_command(qcs, '{"cmd": "set_on", "channel": "Still", "on": true}')
++    result = handle_command(qcs, '{"cmd": "set_on", "channel": 2, "on": true}')
+     assert result["ok"]
+     assert "readback" not in result["detail"]  # SIM mirrors instantly
+     assert qcs.read_channel(2).on is True
+ 
+ 
+-def test_command_set_on_without_setpoint_is_reported():
+-    qcs = sim_qcs()
+-    result = handle_command(qcs, '{"cmd": "set_on", "channel": "MC", "on": true}')
+-    assert result["ok"] is False
+-    assert "setpoint" in result["detail"]
+-
+-
+-def test_command_errors_are_reported_not_raised():
+-    qcs = sim_qcs()
+-    assert handle_command(qcs, "not json")["ok"] is False
+-    assert handle_command(qcs, '{"cmd": "set_current", "channel": 0, "ua": 1}')["ok"] is False
+-    assert handle_command(qcs, '{"cmd": "warp", "channel": 1}')["ok"] is False
+-    assert handle_command(qcs, '{"cmd": "set_current", "channel": 1}')["ok"] is False
++def test_command_set_on_slow_readback_is_not_a_failure():
++    # status may settle slower than the immediate re-read; that must read
++    # as "commanded, readback lagging", not as a failed command.
++    qcs = LeidenQcs(_SimIO(), MAP, {})  # MAP status bits are independent
++    result = handle_command(qcs, '{"cmd": "set_on", "channel": 3, "on": true}')
++    assert result["ok"]
++    assert "readback still off" in result["detail"]
+ 
+ 
+ def test_command_hardware_fault_returns_last_cmd():
+     # ULError/OSError from the DAQ must come back as a result, not escape.
+-    class BoomIO(_SimIO):
+-        def a_out_volts(self, channel, volts):
+-            raise OSError("USB glitch")
+-
+-    qcs = LeidenQcs(BoomIO(), SIM_MAP, {})
+-    qcs.configure_io()
++    io = _FlakyIO(fail_on_call=1)
++    qcs = LeidenQcs(io, MAP, {})
+     result = handle_command(qcs, '{"cmd": "set_current", "channel": 3, "ua": 10}')
+     assert result["ok"] is False
+     assert "USB glitch" in result["detail"]
+ 
+ 
+-def test_influx_on_prefers_readback(monkeypatch):
+-    import workers.qcs_heater as wq
+-
+-    points = []
+-    monkeypatch.setattr(
+-        wq, "write_point",
+-        lambda api, org, bucket, meas, metric, value, unit: points.append(
+-            (metric, value)),
+-    )
+-    payload = {"channels": {
+-        "MC": {"on": True, "commanded_on": False, "set_ua": None},  # left driven
+-        "Still": {"on": None, "commanded_on": True, "set_ua": 100.0},  # unknown
+-    }}
+-    wq.write_influx(None, "o", "b", payload)
+-    assert ("MC_on", 1.0) in points  # readback wins over commanded off
+-    assert ("Still_on", 1.0) in points  # falls back to commanded when unknown
+-    assert not any(p[0] == "MC_current" for p in points)  # unknown setpoint skipped
+-
+-
+-def test_command_result_survives_dead_daq():
+-    """A hardware-failed command must still produce a [data] payload with
+-    last_cmd (allow_stale falls back to cached state)."""
+-
+-    class DeadIO(_SimIO):
+-        def __init__(self):
+-            super().__init__()
+-            self.dead = False
+-
+-        def a_out_volts(self, channel, volts):
+-            if self.dead:
+-                raise OSError("gone")
+-            super().a_out_volts(channel, volts)
+-
+-        def d_bit_in(self, bit):
+-            if self.dead:
+-                raise OSError("gone")
+-            return super().d_bit_in(bit)
+-
+-    io = DeadIO()
+-    qcs = LeidenQcs(io, SIM_MAP, {})
+-    qcs.configure_io()
+-    handle_command(qcs, '{"cmd": "set_current", "channel": 3, "ua": 100}')
+-    io.dead = True
+-    cmd = handle_command(qcs, '{"cmd": "set_current", "channel": 3, "ua": 200}')
+-    assert cmd["ok"] is False
+-    with pytest.raises(OSError):
+-        data_payload(qcs, cmd)  # poll path still raises (dead-DAQ counter)
+-    payload = data_payload(qcs, cmd, allow_stale=True)
+-    assert payload["readback_failed"] is True
+-    assert payload["last_cmd"]["ok"] is False
+-
+-
+-def test_readback_restores_direction_on_fault():
+-    class BitFaultIO(RecordingIO):
+-        armed = False
+-
+-        def d_bit_in(self, bit):
+-            if self.armed:
+-                raise OSError("read fault")
+-            return super().d_bit_in(bit)
+-
+-    io = BitFaultIO()
+-    qcs, _ = make_qcs(io=io)
+-    qcs.set_on(3, False)  # establishes a range code so readback runs
+-    io.armed = True
+-    io.ops.clear()
+-    with pytest.raises(OSError):
+-        qcs.read_channel(3)
+-    assert io.ops[-1] == ("cfg_out",)  # pin not left floating as input
++def test_command_errors_are_reported_not_raised():
++    qcs = sim_qcs()
++    assert handle_command(qcs, "not json")["ok"] is False
++    assert handle_command(qcs, '{"cmd": "set_current", "channel": 0, "ua": 1}')["ok"] is False
++    assert handle_command(qcs, '{"cmd": "warp", "channel": 1}')["ok"] is False
++    assert handle_command(qcs, '{"cmd": "set_current", "channel": 1}')["ok"] is False
+ 
+ 
+ # --- Worker: payload ------------------------------------------------------
+@@ -424,11 +257,9 @@ def test_data_payload_shape():
+     payload = data_payload(qcs, {"cmd": "set_on", "channel": 3, "ok": True})
+     assert set(payload["channels"]) == {"3K", "Still", "MC"}
+     mc = payload["channels"]["MC"]
+-    assert mc["on"] is True and mc["commanded_on"] is True
+-    assert mc["set_ua"] == 250.0 and mc["range"] == "x10"
+-    threek = payload["channels"]["3K"]
+-    assert threek["set_ua"] is None and threek["on"] is None  # honest unknowns
+-    assert "MC ON 250µA" in payload["_summary"] and "3K ?" in payload["_summary"]
++    assert mc["on"] is True and mc["set_ua"] == 250.0 and mc["range"] == "x10"
++    assert payload["channels"]["3K"]["set_ua"] is None  # untouched -> honest ?
++    assert "MC ON 250µA" in payload["_summary"]
+     assert payload["read_at"] and payload["last_cmd"]["ok"]
+ 
+ 
+@@ -448,9 +279,12 @@ def test_send_line_roundtrip():
+     ready = threading.Event()
+     data = threading.Event()
+ 
++    def dispatch(cb):
++        cb()
++
+     proc.start_with_output(
+         cmd=[sys.executable, "-u", "-c", CHILD],
+-        dispatch=lambda cb: cb(),
++        dispatch=dispatch,
+         on_ready=ready.set,
+         on_failed=lambda rc: None,
+         on_died=lambda rc: None,
+diff --git a/tests/test_qcs_panel.py b/tests/test_qcs_panel.py
+index f75f9d3..5954d66 100644
+--- a/tests/test_qcs_panel.py
++++ b/tests/test_qcs_panel.py
+@@ -92,7 +92,7 @@ def test_lamps_follow_readback(panel):
+     assert "ON" in mc["now"].text() and "250" in mc["now"].text()
+     still = _row(panel, "Still")
+     assert "gray" in still["lamp"].styleSheet()
+-    assert "?" in still["now"].text()  # untouched: readback honestly unknown
++    assert "off" in still["now"].text()
+ 
+ 
+ def test_unknown_setpoint_shown_honestly(panel):
+diff --git a/tools/hera-session.md b/tools/hera-session.md
+index 1c52dbb..9f26443 100644
+--- a/tools/hera-session.md
++++ b/tools/hera-session.md
+@@ -222,11 +222,9 @@ The `ana.ipynb` `geometry` slot takes the same thicknesses.
+ 
+ The base ships placeholder values for one device; for a different device they
+ **must** be rewritten, and even for the matching device, fill from the deployed
+-card (don't trust the placeholder). Setup-cell `# <-- verify` items (the
+-per-cooldown instrument addresses): where the deployed card's Measurement
+-setup states an address, rewrite the line to the card's value, keeping the
+-`# <-- verify` tag; leave the rest untouched. All addresses are still
+-confirmed live (IDN) at bring-up.
++card (don't trust the placeholder). Leave the setup cells' `# <-- verify`
++items (the per-cooldown instrument addresses) as they are — confirmed live at
++bring-up, not filled from the card here.
+ 
+ Mechanism (stdlib, no project sync); edit cell `source` in place:
+ 

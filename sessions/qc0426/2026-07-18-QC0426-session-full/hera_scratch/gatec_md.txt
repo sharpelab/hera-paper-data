@@ -1,0 +1,11 @@
+## HERA — Gate C: gate-current-sanity-check (first-session liveness)
+
+Recipe: `device-init/gate-current-sanity-check.md` — first-session branch, no designated references (strict data isolation), so the 1D gate-response legs are judged on their own terms per `reentry-baseline` step 3.
+
+**What:** four legs, one run each — `k_tg` 0 → +3.0 / 0 → −3.0 V, `k_bg` 0 → +4.5 / 0 → −4.5 V (endpoints are the committed card limits; nothing hand-substituted), the other gate parked at 0, Si (DC205) parked at 0 V throughout (contact-doping gate, screened from the channel, no current readback; its survey is blocklisted). Gate-current channels at `nplci=10` for pA readback; the reset cell below restores `nplci=1` and runs **only after all four legs read clean from disk**.
+
+**Read per leg:** lock-in X nonzero and smoothly varying → alive; swept-gate current pA-scale on the capacitive charging slope → safe; parked-gate current at floor → no cross-gate path. Any gross turn-up off the charging slope → interrupt (the `try/finally` parks the gate), stop and report.
+
+**Drive/sens:** card starting points — sr1 drive 0.5 V through 100 MΩ (5 nA), voltage channels 2e-5, sr0 1e-2. Preconditions asserted in-cell: base T, B ≈ 0, Si at 0.
+
+**Price:** ~2.1 s/pt at nplci=10 (rig card, 20260714.2 runs 0–3 class) × 251 pts × 4 legs ≈ **35–42 min** total. Checkpoints: first rows of each leg via `hera-watch` (leakage / dead channel / clipping — cheapest kill), then per-leg completion digests. E1 auto-bucket: in-envelope, inside committed validators.

@@ -1,0 +1,215 @@
+{
+ "run_id": "zf1-r3",
+ "manifest": {
+  "run_id": "zf1-r3",
+  "device": "zf1",
+  "rig": "toploader",
+  "date": "2026-06-22",
+  "mode": "E0",
+  "archive": "measurement-env/hera/docs/notes/2026-06-22-zf1-session",
+  "rig_session_dir": "Isaac/b1c2_toploader",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-22T23:43:46+00:00",
+  "t_transcript_last": "2026-06-23T06:16:45+00:00",
+  "transcript_span_h": 6.549701111117999,
+  "session_h": 6.549701111117999,
+  "t_final_decision": "2026-06-23T06:12:06.140204+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 6.4722342233525385,
+  "t_first_sweep": "2026-06-22T23:47:51+00:00",
+  "t_last_sweep_end": "2026-06-23T06:08:32+00:00",
+  "sweep_span_h": 6.34493739399645,
+  "measuring_h": 3.9550384281741247,
+  "longest_sweep_h": 2.2382958655224905
+ },
+ "sweeps": {
+  "n_sweeps": 8,
+  "by_recipe": {
+   "bias-spectroscopy": {
+    "n": 1,
+    "hours": 0.141
+   },
+   "cnp-and-dline-calibration": {
+    "n": 2,
+    "hours": 0.245
+   },
+   "field-sweep-1d": {
+    "n": 1,
+    "hours": 0.086
+   },
+   "gate-current-sanity-check": {
+    "n": 1,
+    "hours": 0.029
+   },
+   "gatemap": {
+    "n": 2,
+    "hours": 2.301
+   },
+   "temperature-dependence": {
+    "n": 1,
+    "hours": 1.153
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.6233376600242523,
+  "hil": 0.6871034459957891,
+  "frac_measuring": 0.6233376600242523,
+  "frac_hera_court": 0.2838585760838,
+  "frac_human_court": 0.09280376389194771,
+  "hera_court_h": 1.8010648940006893,
+  "human_court_h": 0.5888340718216366,
+  "n_lands": 17,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 516.2656402587891,
+    "hera_s": 376.9411470890045,
+    "human_s": 139.32449316978455,
+    "land": 1782172553.235102,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 360.0648195743561,
+    "hera_s": 316.6311848163605,
+    "human_s": 43.433634757995605,
+    "land": 1782173233.980042,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 697.312872171402,
+    "hera_s": 627.9729204177856,
+    "human_s": 69.33995175361633,
+    "land": 1782181963.251713,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 417.38473320007324,
+    "hera_s": 309.8685200214386,
+    "human_s": 107.51621317863464,
+    "land": 1782182881.39789,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 291.13570070266724,
+    "hera_s": 193.00168776512146,
+    "human_s": 98.13401293754578,
+    "land": 1782183524.692848,
+    "next_slug": "bias-spectroscopy"
+   },
+   {
+    "after_sweep": 5,
+    "idle_s": 1178.7909121513367,
+    "hera_s": 301.7868196964264,
+    "human_s": 877.0040924549103,
+    "land": 1782184433.83724,
+    "next_slug": "field-sweep-1d"
+   },
+   {
+    "after_sweep": 6,
+    "idle_s": 5142.681598901749,
+    "hera_s": 4357.631338596344,
+    "human_s": 785.0502603054047,
+    "land": 1782189977.535196,
+    "next_slug": "temperature-dependence"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 418,
+  "n_api_requests": 191,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 205,
+  "message_counts": {
+   "human": 0,
+   "loop_tick": 0,
+   "task_notification": 10,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 194,
+  "tool_calls": {
+   "Write": 55,
+   "Bash": 48,
+   "Bash[nb-collab]": 27,
+   "Read": 24,
+   "Bash[hera-watch]": 11,
+   "Edit": 10,
+   "Bash[nb]": 9,
+   "Bash[hera-notify]": 9,
+   "AskUserQuestion": 1
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 7985,
+    "out": 272916,
+    "cr": 44207112,
+    "cw5": 0,
+    "cw1h": 901063,
+    "n_requests": 191
+   }
+  },
+  "cost_usd_est": 37.98,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-22-zf1-session/20260622_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-22-zf1-session/20260622_ana.ipynb",
+  "n_cells": 48,
+  "n_hera_cells": 17,
+  "n_slot_cells": 3,
+  "n_human_cells": 28,
+  "n_hera_executed": 8,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 34,
+  "n_ana_figures": 9
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-23T06:10:17.179742+00:00",
+   "excerpt": "**Read:** **The supercurrent melts at a finite Tc** \u2014 the fifth hallmark. Ic(T) saturates at ~24 nA at base (39 mK), falls monotonically, and reaches 0 at **Tc "
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-23T06:12:06.140204+00:00",
+   "excerpt": "# \u2605 Per-candidate SC verdict \u2014 zf1 (bottom device), 2026-06-22\n\n**Candidate R1 \u2014 `superconductor (DECISIVE)`** at **n \u2248 \u22124.65\u00d710\u00b9\u00b9 cm\u207b\u00b2, D \u2248 \u22120.65 V/nm** (V_tg="
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 63,
+  "scratch_by_ext": {
+   ".md": 23,
+   ".npz": 3,
+   ".png": 8,
+   ".py": 29
+  },
+  "scratch_loc": 1031,
+  "n_scratch_figures": 8,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E0",
+  "n_human_msgs": 0,
+  "n_interrupts": 0,
+  "longest_unattended_h": 6.549701111117999,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

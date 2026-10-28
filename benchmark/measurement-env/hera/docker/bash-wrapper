@@ -1,0 +1,14 @@
+#!/bin/busybox sh
+# Every shell the agent's tools run sees the episode's clock; the claude
+# process itself does not (libfaketime hangs it), so the fake is applied here.
+# The interpreter is static so LD_PRELOAD cannot reach it: Codex replays an
+# environment captured from a login shell that has since exited, and it
+# carries that shell's FAKETIME_SHARED; a dynamic interpreter would deadlock
+# in libfaketime's constructor before this script ran. NO_FAKE_STAT keeps
+# file mtimes real: the episode's files already carry the cut timestamp.
+unset FAKETIME_SHARED
+if [ -n "$HERA_FAKETIME" ]; then
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1 \
+        FAKETIME="$HERA_FAKETIME" FAKETIME_DONT_FAKE_MONOTONIC=1 NO_FAKE_STAT=1
+fi
+exec /bin/bash.real "$@"

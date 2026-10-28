@@ -1,0 +1,8 @@
+## Gate C verdict — PASS (device alive, gates clean to card limits)
+
+- **Complete**: 4/4 legs, 251/251 rows each, none interrupted; ~9 min/leg at 28 rows/min (2.1 s/pt at nplci 10 — matches the rig-card timing class; this is the session's timing calibration for NPLC-10 gate reads).
+- **Alive**: drain pinned at I_bias = 5.0 nA on every leg (current bias, 100 MΩ ≫ R_sample — flat-at-5-nA is the healthy signature). sr1/sr2 respond smoothly over ~1.5 decades; sr3 (Hall) stays |R| ≲ 10 Ω as it should at B = 0. No flat-zero, no NaNs, no clipping (max fs 0.55).
+- **Gates clean**: swept-gate current stays on the pA charging slope to every card limit — max |I_tg| 47 pA, max |I_bg| 112 pA. The TG channel carries a ~+27 pA constant offset and BG ~−100 pA; both are identical whether the gate is swept or parked → **Keithley zero offsets, not leakage, no cross-gate path** (leg 3 is the control: TG parked reads the same 27 pA it read while swept).
+- **Physics read (bonus, feeds Step 1)**: resistance maximum sits near (V_tg, V_bg) ≈ (0, 0) on both axes — sr1 peaks ~1.3–1.6 kΩ at zero gates and falls monotonically both ways: **ambipolar, CNP near the origin, both carrier signs conduct** (sr1 → 63 Ω at TG +3, 70 Ω at TG −3, 27 Ω at BG +4.5, 44 Ω at BG −4.5). Hole side does not go insulating within the window at TG = 0 — good sign for contact arms.
+
+**Gate C closed.** Next: `trilayer-stacking-fs-count` Step 1 — the B = 0 TG–BG gate map (`gatemap` slug) as input to `cnp-and-dline-calibration`. With the CNP near the origin, the full validator window [−3, +3] × [−4.5, +4.5] brackets it with margin.

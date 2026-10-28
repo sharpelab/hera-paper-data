@@ -1,0 +1,447 @@
+{
+  "episode": "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-fable-none/20260929T234510-ktxxq0/episodes/09",
+  "grader": "fan-design",
+  "model": "claude-opus-5",
+  "effort": "medium",
+  "max_turns": 40,
+  "timeout_s": 900.0,
+  "stall_s": 300.0,
+  "container": "hera-grade-20260930T013438-z7fm35-009",
+  "image": {
+    "tag": "hera-agent:8bf4e7d.c039b0f5p-none",
+    "id": "sha256:f1eac925261ec774836229d0fb586547417334a4897874d8c2ba9fe3c657d5b2",
+    "metadata": {
+      "corpus_sha": "039b0f5529561d8d37fac40e5ba8490feea48b19",
+      "condition": "none",
+      "harness_sha": "8bf4e7d251f6005378cb0e2781781e7af10ef74c",
+      "prompt_source": "corpus",
+      "corpus_paths": [
+        "hera/recipes",
+        "hera/crops",
+        "hera/models",
+        "hera/docs/tetralayer-stacking-extraction-survey.md",
+        "hera/docs/stacking-extraction-survey.md",
+        "hera/docs/raman-public-data.md",
+        "hera/docs/notebook-indexes",
+        "hera/docs/iris",
+        "hera/docs/papers",
+        "hera/hera_tactical.md",
+        "hera/iris.md"
+      ],
+      "whitelist": [
+        "CLAUDE.md",
+        "README.md",
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        "src/gui",
+        "src/sharpelab_nb",
+        "src/tools",
+        "src/workers",
+        "src/drivers",
+        "src/hera/__init__.py",
+        "src/hera/analysis.py",
+        "src/hera/assets",
+        "src/hera/cache.py",
+        "src/hera/classify.py",
+        "src/hera/models.py",
+        "src/hera/overlay.py",
+        "src/hera/prompt.py",
+        "src/hera/provider.py",
+        "src/hera/providers",
+        "src/hera/render.py",
+        "src/hera/sidecar.py",
+        "src/hera/watch.py",
+        "lib",
+        "vendor",
+        "docs/api",
+        "jupyter-config",
+        "tools/nb",
+        "tools/nb-collab",
+        "tools/menv",
+        "hera/CLAUDE.md",
+        "hera/recipes",
+        "hera/crops",
+        "hera/models",
+        "hera/rig-cards",
+        "hera/device-cards",
+        "hera/templates",
+        "hera/vti",
+        "hera/blinding.md",
+        "hera/session_template.md",
+        "hera/hera_tactical.md",
+        "hera/iris.md",
+        "hera/docs/tetralayer-stacking-extraction-survey.md",
+        "hera/docs/stacking-extraction-survey.md",
+        "hera/docs/raman-public-data.md",
+        "hera/docs/notebook-indexes",
+        "hera/docs/iris",
+        "hera/docs/papers"
+      ],
+      "strip": [
+        "hera/recipes",
+        "hera/crops"
+      ],
+      "claude_version": "2.1.283",
+      "codex_version": "0.157.1",
+      "docker_dir_sha256": "57555b224a00f63c55d50d6b88694219e849d5880d845c0fa365b038d2b98c08",
+      "built_at": "2026-09-27T02:22:34Z"
+    }
+  },
+  "episode_image": {
+    "tag": "hera-agent:8bf4e7d.c039b0f5p-none",
+    "id": "sha256:f1eac925261ec774836229d0fb586547417334a4897874d8c2ba9fe3c657d5b2"
+  },
+  "grading": {
+    "git_head": "58d02e641961fd33ae744eb6e271fea08ead7a92",
+    "dirty": [],
+    "code_hash": "87b1eabc4f2dcdf2a756a9551c2d8a0610f3dc736b5649b900694be78c75e5c2",
+    "paths": [
+      "/home/zack/sharpelab/measurement-env/src/hera/grading",
+      "/home/zack/sharpelab/measurement-env/hera/graders/BASE.md",
+      "/home/zack/sharpelab/measurement-env/hera/graders/devices.py",
+      "/home/zack/sharpelab/measurement-env/hera/graders/devices.toml",
+      "/home/zack/sharpelab/measurement-env/hera/graders/fan-design"
+    ]
+  },
+  "docker": [
+    "docker",
+    "run",
+    "--rm",
+    "-i",
+    "--name",
+    "hera-grade-20260930T013438-z7fm35-009",
+    "--user",
+    "1000:1000",
+    "--memory",
+    "3g",
+    "--cpus",
+    "2",
+    "--pids-limit",
+    "512",
+    "-v",
+    "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-fable-none/20260929T234510-ktxxq0/episodes/09/session:/episode:ro",
+    "-v",
+    "/home/zack/sharpelab/measurement-env/src/hera/grading:/home/hera/measurement_env/src/hera/grading:ro",
+    "-v",
+    "/home/zack/sharpelab/measurement-env/hera/graders:/hera-graders:ro",
+    "-v",
+    "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-fable-none/20260929T234510-ktxxq0/episodes/09/grades/fan-design/20260930T013438-z7fm35:/grade-run",
+    "-v",
+    "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-fable-none/20260929T234510-ktxxq0/episodes/09/grades/fan-design/20260930T013438-z7fm35/claude-projects:/home/hera/.claude/projects",
+    "--tmpfs",
+    "/tmp",
+    "--mount",
+    "type=tmpfs,destination=/episode/.claude,readonly",
+    "-e",
+    "HOME=/home/hera",
+    "-e",
+    "PATH=/grade-run/bin:/home/hera/measurement_env/.venv/bin:/home/hera/.local/bin:/usr/local/bin:/usr/bin:/bin",
+    "-e",
+    "HERA_GRADER_DIR=/hera-graders/fan-design",
+    "-e",
+    "HERA_OUTPUT_PATH=/grade-run/output.json",
+    "-e",
+    "HERA_SENTINEL=/grade-run/accepted",
+    "-e",
+    "MPLBACKEND=Agg",
+    "-e",
+    "MPLCONFIGDIR=/tmp/mpl",
+    "-e",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "-e",
+    "ANTHROPIC_API_KEY=<redacted>",
+    "-w",
+    "/episode",
+    "hera-agent:8bf4e7d.c039b0f5p-none",
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5",
+    "--effort",
+    "medium",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--max-turns",
+    "40",
+    "--allowedTools",
+    "Read,Glob,Grep,LS,Write,Edit,Bash(nb:*),Bash(submit_output:*),Bash(python:*),Bash(python3:*),Bash(uv run:*),Bash(ls:*),Bash(cat:*),Bash(head:*),Bash(tail:*),Bash(wc:*),Bash(grep:*),Bash(find:*),Bash(sed:*),Bash(pwd),Bash(mkdir:*)"
+  ],
+  "started_at": "2026-09-30T01:41:14Z",
+  "claude": {
+    "exit": "ok",
+    "error": null,
+    "rc": 0,
+    "wall_s": 57.7,
+    "cost_usd": 0.3420525,
+    "turns": 11,
+    "models": [
+      "claude-opus-5"
+    ],
+    "version": "2.1.283",
+    "quota": null
+  },
+  "accepted": true,
+  "scores": {
+    "grader": "fan-design",
+    "landed": "fan",
+    "form": "2d_megasweep",
+    "tier": "fan",
+    "flags": [],
+    "notes": "Cell 48 (unexecuted trailing code cell): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=1.0, fast_delay=1.0) with B_vec = np.round(np.arange(1.0,10.0001,0.075),4) -> 1.0-10.0 T, 121 rows uniform in B, and gates from calc_gate_voltages(np.linspace(-1.25,3.25,181), D=0.0) using the run-5 session calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), giving Vtg -0.2914..+0.9979 V, Vbg -0.4835..+1.1847 V. Cell 48 sets sr1.sensitivity(200e-6); sr0 sensitivity/tau and sr1 tau inherited from the cell-44 close_out(restore=state0) readback (sr0_sens 0.02, sr0_tau 0.3, sr1_tau 0.3). Excitation drive_V = 1.0 V from that same readback; 100 MOhm bias resistor from device_card.md line 64. NPLC 1/1 asserted (not set) in cell 48 and confirmed by the cell-44 readback. Run time from cell 47 markdown: 8.6 h computed, headline ~9 h.",
+    "versions": {
+      "scorer": "field resolution: wiki Fan-design scorer rev 108 (2026-09-19); forms + cost model 2026-09-22; vti-02 box 2026-09-26; NPLC in the cost 2026-09-26"
+    },
+    "status": "graded",
+    "ok": null,
+    "device": "vti-02",
+    "case": "vti02-fan-request-0822",
+    "params": {
+      "g": 4,
+      "m": 3.0,
+      "m_recipe_floor": 2.0,
+      "b_cut_T": 2.0,
+      "b_cut_note": "electron onset over 76 uncensored columns, 08-21/22/24/25 runs 5-8, 0.8-2.9e12: median 1.53 T, p90 2.0 T, flat in n (1.26 + 0.16 |n| T, rms 0.32 T); 2.0 T is the p90. 08-21 run 5 alone read 2.37 T (5-sigma floor of a 6.7-ohm-noise record; 08-22 run 6 at the same density with 3.2-ohm noise: 1.36 / 1.91 T)",
+      "n_window_cm2": [
+        1300000000000.0,
+        3400000000000.0
+      ],
+      "B_hi_T": 8.0,
+      "n_scale": 0.886,
+      "n_scale_note": "the 08-22 session's own pin for its run-5 calibration frame, the frame the cut state commits to: 0.886 +- 0.03 (session_notes.md:25; e-side Luttinger, h-side integer ladder, fan QH minima)",
+      "window_note": "provisional, actual frame: floor = the density whose F_L holds 5 periods from the 2.0 T onset to 8 T (1.3e12; 0.9e12 on the median onset); top = the D = 0 line's gate-safe reach, V_tg <= 1.0 V (3.4e12 frame, 3.1e12 actual); 8 T from a 2.0 T onset gives dF 2.7 T against tones 6.2 T apart that run 5's FFT resolves at dF 3.1 and merges at dF 5 -- 10 T buys 8 % more 1/B record for 15 min of ramp each way",
+      "side_note": "the hole side's gate-safe reach at D = 0 is |n| ~1.1e12 (TG limit -0.3 V, device_card.md:52): F_L ~11 T holds 3-4 periods above a 0.7 T onset with a 0.6-0.9 F_L ladder tone (08-22 run 7); the electron side holds the ABAB tone set at every density in reach (08-21 run 5, 08-22 run 6)",
+      "cost_model": {
+        "ramp_T_per_min": 0.137,
+        "field_settle_s": 3.0,
+        "point_overhead_s": 0.2,
+        "gate_read_s_per_plc": 0.045,
+        "flyback_s": 4.0
+      },
+      "scheme": "box",
+      "tone_model": "Halder_ABAB",
+      "signal_lockin": "sr1",
+      "b_lo_light_T": 0.75,
+      "b_lo_split_T": 1.0
+    },
+    "design": {
+      "spacing": "B",
+      "field_mode": "B",
+      "D": 0.0,
+      "slow_axis": "B",
+      "slow_delay_s": 1.0,
+      "fast_delay_s": 1.0,
+      "lockins": [
+        {
+          "name": "sr0",
+          "sensitivity_V": 0.02,
+          "sensitivity_set_in_answer": false,
+          "time_constant_s": 0.3,
+          "time_constant_set_in_answer": false
+        },
+        {
+          "name": "sr1",
+          "sensitivity_V": 0.0002,
+          "sensitivity_set_in_answer": true,
+          "time_constant_s": 0.3,
+          "time_constant_set_in_answer": false
+        }
+      ],
+      "gate_current_reads": [
+        {
+          "name": "k_2400_tg_curr",
+          "nplc": 1.0,
+          "nplc_set_in_answer": false
+        },
+        {
+          "name": "k_2400_bg_curr",
+          "nplc": 1.0,
+          "nplc_set_in_answer": false
+        }
+      ],
+      "excitation_V": 1.0,
+      "bias_resistor_ohm": 100000000.0,
+      "n_fans": 1,
+      "stated_wall_clock_h": 9.0
+    },
+    "scores": {
+      "box": {
+        "quality": 0.5079821300325199,
+        "p_call": 0.3461839482389227,
+        "light": {
+          "score": 6.88417428,
+          "p_call": 0.9974961309410879,
+          "min_spacing_T": 0.5555555555555556,
+          "chosen_n_actual_1e12": [
+            1.8163,
+            1.9935,
+            2.1707,
+            2.3479,
+            2.5251,
+            2.7023,
+            2.8795
+          ],
+          "chosen_weights": [
+            0.8841742799999999,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "chosen_periods": [
+            3.2683485599999997,
+            3.8222859600000003,
+            4.359757050790697,
+            4.7892732567441865,
+            5.108486928695654,
+            5.351434351959182,
+            5.5586907495348825
+          ],
+          "columns_weighted": 74,
+          "columns_full": 45,
+          "not_weighted": {
+            "undersampled": 18,
+            "periods_short": 25
+          }
+        },
+        "split": {
+          "score": 1.8056437118642792,
+          "p_call": 0.3461839482389227,
+          "min_spacing_T": 0.5555555555555556,
+          "chosen_n_actual_1e12": [
+            1.8163,
+            1.9935,
+            2.1707,
+            2.3479,
+            2.5251,
+            2.7023,
+            2.8795
+          ],
+          "chosen_weights": [
+            0.04101004224941185,
+            0.12380466968875059,
+            0.19885670179064474,
+            0.26803221142540634,
+            0.33243141904775686,
+            0.39256424278124946,
+            0.44894442488105946
+          ],
+          "chosen_periods": [
+            1.5820200844988237,
+            1.7476093393775012,
+            1.8977134035812895,
+            2.0360644228508127,
+            2.1648628380955137,
+            2.285128485562499,
+            2.397888849762119
+          ],
+          "columns_weighted": 52,
+          "columns_full": 0,
+          "not_weighted": {
+            "undersampled": 0,
+            "periods_short": 65
+          }
+        },
+        "A": 0.8184003194443836,
+        "acquisition": {
+          "lockin": "sr1",
+          "recorded": true,
+          "I_A": 1e-08,
+          "tau_s": 0.3,
+          "sensitivity_V": 0.0002,
+          "x_nA_rt_s": 5.47722557505166,
+          "delay_over_tau": 3.3333333333333335,
+          "quantized": false,
+          "A": 0.8184003194443836
+        },
+        "columns": 181,
+        "hole_or_off_table": 64,
+        "clipped": 0,
+        "windows": {
+          "light": {
+            "B_lo_T": 0.75,
+            "B_from_T": 1.0,
+            "rows": 121,
+            "W_per_T": 0.8999999999999999
+          },
+          "split": {
+            "B_lo_T": 1.0,
+            "B_from_T": 1.0,
+            "rows": 121,
+            "W_per_T": 0.8999999999999999
+          }
+        },
+        "params": {
+          "m": [
+            2.0,
+            3.0
+          ],
+          "k": [
+            1.5,
+            3.5
+          ],
+          "cap": 7,
+          "spacing_bins": 0.5,
+          "saturation": 4,
+          "tone_model": "Halder_ABAB",
+          "signal_lockin": "sr1",
+          "b_lo_light_T": 0.75,
+          "b_lo_split_T": 1.0
+        },
+        "flags": [],
+        "hours": 8.664112733171127
+      },
+      "derived": {
+        "n_B": 121,
+        "n_columns": 181,
+        "n_columns_landed": 181,
+        "n_points": 21901,
+        "B_range_T": [
+          1.0,
+          10.0
+        ],
+        "dB_T": [
+          0.07499999999999929,
+          0.07500000000000107
+        ],
+        "n_range_cm2": [
+          -1250000000000.0,
+          3250000000000.0
+        ],
+        "dn_cm2": [
+          25000000000.0,
+          25000000000.0
+        ],
+        "n_range_actual_cm2": [
+          -1107500000000.0,
+          2879500000000.0
+        ],
+        "fast_delay_over_tau": {
+          "sr0": 3.3333333333333335,
+          "sr1": 3.3333333333333335
+        },
+        "I_bias_A": 1e-08,
+        "dwell_h": 6.117222222222222,
+        "stated_over_dwell": 1.4712560167105622,
+        "cost": {
+          "traverse_h": 1.0948905109489049,
+          "settle_h": 0.10083333333333333,
+          "rows_h": 7.468388888888888,
+          "estimated_wall_h": 8.664112733171127,
+          "stated_wall_clock_h": 9.0,
+          "stated_over_estimated": 1.0387676473256062,
+          "model": {
+            "ramp_T_per_min": 0.137,
+            "field_settle_s": 3.0,
+            "point_overhead_s": 0.2,
+            "gate_read_s_per_plc": 0.045,
+            "flyback_s": 4.0
+          }
+        }
+      }
+    }
+  }
+}

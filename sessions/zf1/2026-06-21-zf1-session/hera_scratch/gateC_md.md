@@ -1,0 +1,7 @@
+## HERA — Gate C: contact-wiring liveness check (first session)
+
+Bring-up is green: setup cells executed in-kernel, SAFETIES committed and matching the device card exactly (TG (−7,+6) V, BG (−4,+4.2) V, field cap 0.1 T, heater 6.5 V); magnet reads −0.02 mT, probe MC 33.7 mK. Before the multi-hour pristine-field map I want a cheap liveness check on the provided wiring — recipe `measurements/contact-survey-2t.md` (B=0 aliveness flavor), pre-(n,D)-cal **raw single-gate** variant since the cap ratio isn't pinned yet. A single **BG cut at TG=0** across the full BG validator, reading the provided config: sr1 (5-4, current), sr2 (5-4, 2T), sr3 (30-31, 4T longitudinal), plus both gate leakage currents.
+
+This rig is **current-bias** (0.1 V / 100 MΩ ≈ 1 nA): the current channel only separates dead/alive (pinned at I_bias for any live pair), so the CNP and Rxx come from the **4T channel sr3**. Crossing the CNP (expected near BG≈0 at TG=0, slope prior −1.18) proves the 4T channel is live and the device gates; a flat/zero sr3 or a current far from ~1 nA is a wiring fault to chase before committing map time.
+
+**Before running, eyeball the precondition print** — T at base, B≈0, gates read sane; the cell raises on mismatch. It zeroes the DC bias and **does not touch the field controller** (Step-1 map-before-energise discipline). Coverage trade: TG fixed at 0 → one CNP crossing only; the full (n,D) survey is the next step, this is aliveness only. ~3–4 min + BG ramp.

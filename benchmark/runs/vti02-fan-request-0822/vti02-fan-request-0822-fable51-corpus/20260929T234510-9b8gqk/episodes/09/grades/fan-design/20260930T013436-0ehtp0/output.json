@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.5, 0.50507, 0.51025, 0.51554, 0.52093, 0.52644, 0.53207, 0.53782, 0.54369, 0.54969, 0.55583, 0.56211, 0.56853, 0.5751, 0.58182, 0.5887, 0.59574, 0.60296, 0.61035, 0.61793, 0.6257, 0.63366, 0.64183, 0.65022, 0.65882, 0.66766, 0.67674, 0.68606, 0.69565, 0.70551, 0.71565, 0.72609, 0.73684, 0.74791, 0.75932, 0.77108, 0.78322, 0.79574, 0.80866, 0.82202, 0.83582, 0.85009, 0.86486, 0.88016, 0.896, 0.91242, 0.92946, 0.94715, 0.96552, 0.98462, 1.00448, 1.02517, 1.04673, 1.06921, 1.09268, 1.11721, 1.14286, 1.16971, 1.19786, 1.2274, 1.25843, 1.29107, 1.32544, 1.3617, 1.4, 1.41938, 1.4393, 1.45978, 1.48086, 1.50256, 1.5249, 1.54791, 1.57163, 1.59609, 1.62132, 1.64737, 1.67426, 1.70205, 1.73077, 1.76048, 1.79123, 1.82307, 1.85606, 1.89027, 1.92576, 1.96262, 2.00091, 2.04072, 2.08215, 2.1253, 2.17028, 2.21719, 2.26619, 2.31739, 2.37097, 2.42708, 2.48591, 2.54766, 2.61256, 2.68085, 2.75281, 2.82874, 2.90897, 2.99389, 3.08392, 3.17952, 3.28125, 3.3897, 3.50556, 3.62963, 3.7628, 3.90611, 4.06077, 4.22819, 4.41, 4.60815, 4.82495, 5.06315, 5.32609, 5.61783, 5.9434, 6.30901, 6.72256, 7.19413, 7.73684, 8.36812, 9.11157, 10.0],
+  "n_min_cm2": 1.0e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 56,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.0,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.0). B_vec is stitched from two uniform-1/B legs (0.5-1.4 T at d(1/B)=0.020, 65 rows; 1.4-10 T at 0.0099, 64 rows, first dropped) = 128 rows, reproduced in a scratch script. Fast axis ns=np.linspace(3.2,1.0,56)e12 at D=0 via calc_gate_voltages with the session's run-5 calibration CAL (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013). sr1 sensitivity set to 100 uV in the answer; sr0 sensitivity 0.02 V and both taus 0.3 s inherited from the cell-44 close_out(restore=state0) readback, which also gives tg/bg nplci = 1.0 and drive 1.0 V (100 MOhm bias resistor, device card line 64). Wall clock ~4 h from the cell-47 markdown."
+}

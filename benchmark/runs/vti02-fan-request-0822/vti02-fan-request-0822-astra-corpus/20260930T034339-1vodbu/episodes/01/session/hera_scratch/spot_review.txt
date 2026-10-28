@@ -1,0 +1,110 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 7.3 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.00 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 7.2 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.20 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 29.7 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.50 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 29.5 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 2.00 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.76 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.00 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 12.5 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 1.50 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:14: UserWarning: sdh_onset: tone 12.7 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 2.00 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,b_lo=lo,r_full_scale=5000)
+run 6
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    electron side: n = +3.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (+0.9836, +1.1661); B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    921 of 921 (complete)
+  swept:   magnet_field 0 → 10 (monotonic)
+LOW 1.0 sdh_onset: onset_b = 1.00 T (tone 7.3 T) over B [1.00, 10.00] T
+  tone    7.3 T: onset  1.00 T  dF  1.11 T  snr_max   96.2  [censored@edge, near-residual, 2x->14.8T, 3x->22.3T, 4x->29.4T, 6x->43.7T, 8x->58.6T, 12x->88.4T, 18x->130.0T]
+  tone   22.3 T: onset  1.40 T  dF  1.63 T  snr_max   46.1  [~3x7.3T]
+  tone   14.8 T: onset  1.76 T  dF  2.13 T  snr_max   61.5  [~2x7.3T]
+  tone   29.4 T: onset  1.76 T  dF  2.14 T  snr_max  115.7  [~4x7.3T]
+  tone   88.4 T: onset  5.28 T  dF 11.21 T  snr_max   51.9  [revives-below-gap, ~12x7.3T]
+  tone   58.6 T: onset  3.76 T  dF  6.02 T  snr_max   65.8  [~8x7.3T]
+  tone  130.0 T: onset  5.58 T  dF 12.64 T  snr_max   21.3  [revives-below-gap, ~18x7.3T]
+  tone   43.7 T: onset  2.91 T  dF  4.10 T  snr_max   39.8  [~6x7.3T]
+FFT peaks [(np.float64(7.78), np.float64(9162.96)), (np.float64(14.44), np.float64(5839.03)), (np.float64(22.22), np.float64(5658.98)), (np.float64(29.99), np.float64(4463.93)), (np.float64(58.87), np.float64(1469.74)), (np.float64(33.33), np.float64(1105.6))]
+LOW 1.2 sdh_onset: onset_b = 1.20 T (tone 7.2 T) over B [1.20, 10.00] T
+  tone    7.2 T: onset  1.20 T  dF  1.36 T  snr_max  121.0  [censored@edge, near-residual, 2x->14.9T, 3x->22.4T, 4x->29.4T, 5x->37.2T, 8x->58.7T, 11x->81.4T, 17x->123.2T]
+  tone   22.4 T: onset  1.20 T  dF  1.36 T  snr_max   70.1  [censored@edge, ~3x7.2T]
+  tone   14.9 T: onset  1.20 T  dF  1.36 T  snr_max   51.7  [censored@edge, ~2x7.2T]
+  tone   29.4 T: onset  1.78 T  dF  2.16 T  snr_max  126.9  [~4x7.2T]
+  tone   58.7 T: onset  3.79 T  dF  6.10 T  snr_max   66.0  [~8x7.2T]
+  tone   81.4 T: onset  5.32 T  dF 11.35 T  snr_max   53.6  [~11x7.2T]
+  tone  123.2 T: onset  5.74 T  dF 13.49 T  snr_max   22.3  [revives-below-gap, ~17x7.2T]
+  tone   37.2 T: onset  2.23 T  dF  2.87 T  snr_max  130.0  [~5x7.2T]
+FFT peaks [(np.float64(6.82), np.float64(13335.7)), (np.float64(15.0), np.float64(8719.15)), (np.float64(29.99), np.float64(6684.47)), (np.float64(21.81), np.float64(6497.96)), (np.float64(58.62), np.float64(1842.79)), (np.float64(36.81), np.float64(1244.29))]
+LOW 1.5 sdh_onset: onset_b = 1.50 T (tone 29.7 T) over B [1.50, 10.00] T
+  tone   29.7 T: onset  1.50 T  dF  1.76 T  snr_max  121.2  [censored@edge, ~2x15.0T, 2x->59.1T]
+  tone   15.0 T: onset  1.50 T  dF  1.76 T  snr_max   55.9  [censored@edge, 2x->29.7T, 9x->130.9T]
+  tone    9.0 T: onset  1.50 T  dF  1.76 T  snr_max   61.4  [censored@edge, near-residual, 4x->37.5T, 9x->80.6T]
+  tone   80.6 T: onset  5.20 T  dF 10.83 T  snr_max   45.9  [~9x9.0T]
+  tone   22.0 T: onset  1.50 T  dF  1.76 T  snr_max   38.3  [censored@edge]
+  tone   59.1 T: onset  3.81 T  dF  6.14 T  snr_max   61.1  [~2x29.7T]
+  tone  130.9 T: onset  5.55 T  dF 12.48 T  snr_max   20.7  [~9x15.0T]
+  tone   37.5 T: onset  2.43 T  dF  3.20 T  snr_max   88.3  [~4x9.0T]
+FFT peaks [(np.float64(7.06), np.float64(21314.0)), (np.float64(14.11), np.float64(11358.39)), (np.float64(29.99), np.float64(10343.41)), (np.float64(22.94), np.float64(9017.37)), (np.float64(58.22), np.float64(1847.54)), (np.float64(37.05), np.float64(1522.5))]
+LOW 2.0 sdh_onset: onset_b = 2.00 T (tone 29.5 T) over B [2.00, 10.00] T
+  tone   29.5 T: onset  2.00 T  dF  2.50 T  snr_max  113.5  [censored@edge, ~2x14.6T, 2x->59.3T, 8x->245.4T, 14x->418.7T]
+  tone   14.6 T: onset  2.00 T  dF  2.50 T  snr_max   40.8  [censored@edge, near-residual, 2x->29.5T, 9x->129.9T]
+  tone   59.3 T: onset  3.87 T  dF  6.31 T  snr_max   38.3  [~2x29.5T]
+  tone   80.1 T: onset  4.96 T  dF  9.83 T  snr_max   46.8  [~2x38.1T]
+  tone  129.9 T: onset  5.92 T  dF 14.50 T  snr_max   17.6  [~9x14.6T]
+  tone   38.1 T: onset  3.44 T  dF  5.24 T  snr_max   51.6  [2x->80.1T]
+  tone  245.4 T: onset  7.69 T  dF 33.25 T  snr_max   10.5  [~8x29.5T]
+  tone  418.7 T: onset  9.24 T  dF 120.74 T  snr_max    6.8  [revives-below-gap, marginal, ~14x29.5T]
+FFT peaks [(np.float64(5.0), np.float64(43894.3)), (np.float64(29.99), np.float64(16413.47)), (np.float64(15.0), np.float64(15089.05)), (np.float64(22.49), np.float64(12360.51)), (np.float64(59.99), np.float64(3135.29)), (np.float64(44.99), np.float64(2172.29))]
+T 1.165 1.292 I nA 9.84293 9.93544
+run 7
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    hole side: n = -1.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (-0.2770, -0.4650); B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    486 of 486 (complete)
+  swept:   magnet_field 10 → 0.3 (monotonic)
+LOW 0.75 sdh_onset: onset_b = 0.76 T (tone 7.1 T) over B [0.76, 10.00] T
+  tone    7.1 T: onset  0.76 T  dF  0.82 T  snr_max  101.0  [censored@edge, 4x->29.2T, 7x->49.7T, 11x->76.3T]
+  tone   12.3 T: onset  1.25 T  dF  1.43 T  snr_max  100.3  [2x->24.5T]
+  tone    4.9 T: onset  0.76 T  dF  0.82 T  snr_max   74.8  [censored@edge, near-residual, 4x->19.2T]
+  tone   19.2 T: onset  2.06 T  dF  2.59 T  snr_max   26.3  [~4x4.9T]
+  tone   29.2 T: onset  2.57 T  dF  3.45 T  snr_max   29.1  [~4x7.1T]
+  tone   76.3 T: onset  5.31 T  dF 11.32 T  snr_max   16.4  [revives-below-gap, ~11x7.1T]
+  tone   24.5 T: onset  2.47 T  dF  3.27 T  snr_max   38.4  [~2x12.3T]
+  tone   49.7 T: onset  5.13 T  dF 10.53 T  snr_max   20.7  [~7x7.1T]
+FFT peaks [(np.float64(7.4), np.float64(34729.99)), (np.float64(4.93), np.float64(20828.67)), (np.float64(12.33), np.float64(9800.58)), (np.float64(13.98), np.float64(9174.54)), (np.float64(18.91), np.float64(3618.17)), (np.float64(23.85), np.float64(1344.64))]
+LOW 1.0 sdh_onset: onset_b = 1.00 T (tone 7.1 T) over B [1.00, 10.00] T
+  tone    7.1 T: onset  1.00 T  dF  1.11 T  snr_max  142.6  [censored@edge, near-residual, 4x->28.0T, 4x->28.9T, 7x->49.8T, 11x->75.7T, 16x->114.4T]
+  tone   12.6 T: onset  1.61 T  dF  1.92 T  snr_max  122.9
+  tone   18.9 T: onset  2.02 T  dF  2.53 T  snr_max   27.0
+  tone   28.9 T: onset  2.53 T  dF  3.39 T  snr_max   30.5  [~4x7.1T]
+  tone   75.7 T: onset  4.99 T  dF  9.95 T  snr_max   11.4  [~11x7.1T]
+  tone   28.0 T: onset  3.15 T  dF  4.60 T  snr_max   23.4  [~4x7.1T]
+  tone   49.8 T: onset  4.98 T  dF  9.93 T  snr_max   41.7  [revives-below-gap, ~7x7.1T]
+  tone  114.4 T: onset  6.62 T  dF 19.59 T  snr_max   10.2  [revives-below-gap, ~16x7.1T]
+FFT peaks [(np.float64(6.67), np.float64(49471.21)), (np.float64(4.44), np.float64(41472.14)), (np.float64(12.22), np.float64(17627.59)), (np.float64(18.88), np.float64(6515.96)), (np.float64(28.88), np.float64(1369.29)), (np.float64(34.44), np.float64(989.08))]
+LOW 1.5 sdh_onset: onset_b = 1.50 T (tone 12.5 T) over B [1.50, 10.00] T
+  tone   12.5 T: onset  1.50 T  dF  1.76 T  snr_max  107.1  [censored@edge, 4x->50.0T, 6x->76.7T, 9x->114.4T]
+  tone    9.0 T: onset  1.50 T  dF  1.76 T  snr_max   50.4  [censored@edge, near-residual, 3x->28.4T]
+  tone   21.4 T: onset  1.50 T  dF  1.76 T  snr_max   34.3  [censored@edge]
+  tone   33.1 T: onset  2.64 T  dF  3.59 T  snr_max   10.3
+  tone   76.7 T: onset  5.28 T  dF 11.20 T  snr_max   17.8  [~6x12.5T]
+  tone   28.4 T: onset  2.59 T  dF  3.49 T  snr_max   35.6  [~3x9.0T]
+  tone  114.4 T: onset  6.59 T  dF 19.29 T  snr_max    8.4  [revives-below-gap, marginal, ~9x12.5T]
+  tone   50.0 T: onset  5.30 T  dF 11.26 T  snr_max   26.7  [~4x12.5T]
+FFT peaks [(np.float64(5.29), np.float64(92554.26)), (np.float64(12.35), np.float64(46287.96)), (np.float64(21.17), np.float64(12733.89)), (np.float64(28.23), np.float64(3155.76)), (np.float64(33.52), np.float64(1995.25)), (np.float64(37.05), np.float64(1872.11))]
+LOW 2.0 sdh_onset: onset_b = 2.00 T (tone 12.7 T) over B [2.00, 10.00] T
+  tone   12.7 T: onset  2.00 T  dF  2.50 T  snr_max  146.0  [censored@edge, near-residual, 3x->38.3T, 6x->77.9T, 9x->114.5T, 13x->171.2T, 17x->214.9T]
+  tone   22.5 T: onset  2.00 T  dF  2.50 T  snr_max   43.0  [censored@edge]
+  tone   38.3 T: onset  3.42 T  dF  5.20 T  snr_max   32.7  [~3x12.7T]
+  tone   56.2 T: onset  4.09 T  dF  6.91 T  snr_max   26.3
+  tone   77.9 T: onset  5.17 T  dF 10.72 T  snr_max   17.5  [~6x12.7T]
+  tone  114.5 T: onset  6.56 T  dF 19.11 T  snr_max    8.5  [marginal, ~9x12.7T]
+  tone  171.2 T: onset  2.00 T  dF  2.50 T  snr_max   11.3  [censored@edge, ~13x12.7T]
+  tone  214.9 T: onset  2.00 T  dF  2.50 T  snr_max    8.7  [censored@edge, marginal, ~17x12.7T]
+FFT peaks [(np.float64(5.0), np.float64(91017.44)), (np.float64(12.5), np.float64(66945.13)), (np.float64(22.49), np.float64(19262.09)), (np.float64(37.49), np.float64(3911.22)), (np.float64(32.49), np.float64(2912.77)), (np.float64(49.99), np.float64(1957.82))]
+T 1.175 1.291 I nA 9.8086 9.930670000000001

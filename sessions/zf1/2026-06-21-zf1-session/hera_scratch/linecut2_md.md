@@ -1,0 +1,7 @@
+## HERA — clean n-linecut re-run (corrected sr3 range) + ±D control
+
+The first linecuts (runs 3,4) answered the SC question qualitatively — **no Rxx→0 dip** on the hole side; floor ~17 Ω, with a resistive plateau (>50 Ω) toward the CNP/gap — but they were **clipped**: I'd set sr3=5 µV without accounting for the **×100 voltage preamp**, so the lock-in railed at V_4T≈55 nV → Rxx capped at ~50 Ω (logged as a RECIPE FIX). Low-Rxx (SC) regions read fine through a high-side clip, so the no-candidate result holds — but the data isn't clean enough for the calibrated call the investigation's output contract wants.
+
+**This re-run** fixes it: sr3 = 200 µV (caps Rxx ~2 kΩ at 1 nA), same fine n-scan (+1 → −8×10¹¹), tc=300 ms. Three lines: **D = −0.60, −0.45** (re-do the candidate-region lines cleanly) and **D = +0.45** (the ±D-asymmetry control — proximity SC, if present, appears for one D sign only; per the s41586 prior the favoured sign here is D<0). ~4 min each, **~15 min total**.
+
+**Decision criteria for the call (next turn):** (1) any Rxx dip toward 0 within n=−4 to −6×10¹¹ → candidate, escalate to a tight nD map + bias spectroscopy; (2) a partial drop saturating at low-but-finite Rxx → the failed-SC/anomalous-metal fork; (3) smooth metallic/gapped with no drop, ±D-symmetric → not-SC in the accessible (n, D). Given runs 2–4, I expect (3), but I want clean magnitudes and the ±D check before committing the verdict. B untouched (still no need to energise — no candidate to field-test yet).

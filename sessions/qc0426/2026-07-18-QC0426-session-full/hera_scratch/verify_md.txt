@@ -1,0 +1,10 @@
+## HERA — kernel probe + VERIFY (grant gate)
+
+Gates A and B read green from the notebook: setup executed with sane readbacks (magnet 0.003 T, PS on / output enabled; T_sample 1.176 K; 4× SR830, 2× Keithley, DC205 RNGE 2 / output on), and the SAFETIES cell ran with exactly the device-card numbers (TG ±3.0 V, BG ±4.5 V, Si ±50 V, |B| ≤ 8.0 T, set_both ≤ 100 K).
+
+Two cells follow, per the brief's grant protocol — **neither runs until the operator says "go for autonomy"**; they are then my first E1 acts, in order:
+
+1. **Kernel probe** — read-only namespace check that execute-cell is bound to this instrument-carrying kernel.
+2. **VERIFY** — the brief's session-start checklist, read-only by construction: magnet at zero (both readback surfaces), committed validators re-compared against the card numbers, base T, heaters off + vaporizer at base, lakeshore-worker logfile advancing on the 5 s cadence (16 s mtime poll — the runtime of this cell), He level (AMI 1700, read-only query), hardwired contact map vs the card, DC205 range/output/0 V. Last output line is the machine-read verdict: `VERIFY: ALL GREEN` engages E1; any `VERIFY: FAIL <item>` voids the grant and I stay in E0.
+
+Runtime ≈ 20 s. No instrument writes anywhere in either cell.

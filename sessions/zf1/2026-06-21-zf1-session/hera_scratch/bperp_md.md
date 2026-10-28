@@ -1,0 +1,7 @@
+## HERA — B⊥ field-killing test (constellation piece 3)
+
+Both base-T hallmarks are in: **Rxx→0.57 Ω** (run 10) and a **supercurrent, I_c≈8–10 nA** (run 11), at n=−5.02×10¹¹, D=−0.673 V/nm. The decisive next test (`field-sweep-1d`, investigation Step 3): does a small **B⊥ kill the low-Rxx state while the normal state stays ≈ unchanged**? That's the read that counts *strong* for SC (a kill without the normal-state check is uninformative — any MR lowers R, so I check the high-|B| plateau matches the ~40 Ω normal).
+
+**Measurement:** Rxx (4T, AC 0.5 nA, **DC bias = 0**) vs B at the arc minimum, ±50 mT (within the 100 mT cap), 0.5 mT steps. **Field discipline:** ramp to +50 mT → settle 60 s → sweep **down to 0**; then ramp to −50 mT → settle → sweep **up to 0** — two one-sided sweeps that meet at 0, never increasing |B| through 0 during a sweep. They also locate the **effective zero** (the Rxx-minimum field ≠ nominal 0, given ~2 mT trapped flux + remanence). T is logged and plotted to catch ramp heating.
+
+**⚠️ This is the first magnet energising this session** — it injects ~10 mT remanence and ends the pristine-field condition. That's fine now: all base-T zero-field work (survey, arc, I_c) is done. **Reads:** Rxx rising from ~0 to the normal plateau over a few–tens of mT, with the plateau = normal state → B_c⊥, *strong* SC evidence. If Rxx is field-insensitive, or the "normal" plateau keeps drifting (plain MR), the SC reading weakens. ~12–15 min. I'm arming a monitor.

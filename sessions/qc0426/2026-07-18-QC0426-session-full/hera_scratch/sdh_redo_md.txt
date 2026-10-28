@@ -1,0 +1,9 @@
+## HERA — Step 3 redo: unclipped SdH records (runs 6–8); hole cell above superseded
+
+Run 5's sr1/sr2 clipped above ~2.4 T (sensitivities sized from B = 0 resistance, MR growth unbudgeted — my miss, caught at the completion checkpoint; full read in ana). The held hole cell (0b8ef9ac, "Step 3b") is **superseded — do not run** (wrong sensitivities, wrong traverse direction after the redo). Replacement plan, magnet-discipline-ordered (magnet sits at 8 T):
+
+1. **Run 6 — electron re-acquire, 8 → 2.0 T**, 5.4 mT uniform-B, sens sr1 1e-5 / sr2 5e-6 (~1.4× above the linear-MR extrapolation R(8 T) ≈ 360/180 Ω). Down-sweep puts the highest-R points first → a wrong sensitivity guess dies at the first-rows checkpoint, minutes in. 0.5 T overlap with run 5's clean window gives the stitch + grid-change check. ~1.7 h.
+2. **Run 7 — hole onset segment, 2.0 → 0.5 T** at 2.0 mT (Nyquist at 0.5 T), gates moved to the hole point (−2.797, −2.176) at 2 T, sens sr1 5e-6 / sr2 2e-6. Reads the hole-side onset directly. ~51 min.
+3. **Run 8 — hole main record, 0.5 → 8 T** (bare ramp to 1.0 T, points 1.0 → 8.0 at 5.4 mT), sens as run 6. Ends at 8 T, fan-ready. ~2.0 h.
+
+Combined ~4.7 h; electron analysis (runs 5+6 stitched) proceeds while runs 7–8 acquire. Net cost of the clip ≈ +2 h vs the original plan — bought back partly by run 5's fine low-B record, which stands as the onset measurement. E1 auto-bucket throughout.

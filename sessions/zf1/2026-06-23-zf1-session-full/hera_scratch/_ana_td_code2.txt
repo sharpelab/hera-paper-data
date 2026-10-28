@@ -1,0 +1,30 @@
+# Full I_c(T): dip depth (Rn - dV/dI(0)) vs T + the collapsing supercurrent traces.
+import glob, os
+Vdc = np.linspace(-5,5,25); Idc = Vdc/1e8*1e9
+rows = []
+for d in sorted(glob.glob(os.path.join("data",'*')), key=lambda x: int(os.path.basename(x)) if os.path.basename(x).isdigit() else -1):
+    rid = os.path.basename(d)
+    if not rid.isdigit() or int(rid) < 14: continue
+    try:
+        rr = open_run(d)
+        if rr.recipe != 'temperature-dependence': continue
+        T = np.nanmean(rr.col('T'))*1e3
+        hvi = rr.col_indices('heater_volt')
+        hon = bool(hvi) and abs(rr.col_at(hvi[0])[0]) > 0.01
+        dv = (rr.col('sr830_3_X')/100.0)/1e-9
+        Rn = np.median(dv[np.abs(Idc)>40]); depth = Rn - dv[np.argmin(np.abs(Idc))]
+        rows.append((T, depth, hon, int(rid)))
+    except Exception: pass
+rows.sort(); T=np.array([r[0] for r in rows]); dep=np.array([r[1] for r in rows]); hon=np.array([r[2] for r in rows])
+fig, ax = plt.subplots(1,2,figsize=(13,5))
+ax[0].plot(T[~hon], dep[~hon], 'o-', label='passive cooldown (heater OFF, clean)')
+ax[0].plot(T[hon], dep[hon], 's', color='tab:orange', alpha=.8, label='heater ladder (extra scatter)')
+ax[0].axvspan(280,320,color='red',alpha=.12,label='onset Tc ~0.30 K'); ax[0].axhline(0,color='gray',lw=.5)
+ax[0].set(xlabel='T (mK)', ylabel='dip depth Rn - dV/dI(0) (Ohm)', title='SC dip depth vs T'); ax[0].legend(fontsize=8); ax[0].grid(alpha=.3)
+for rid in [23,17,16,27,24,30,29]:
+    try:
+        rr=open_run(os.path.join("data",str(rid))); Tt=np.nanmean(rr.col('T'))*1e3
+        ax[1].plot(Idc,(rr.col('sr830_3_X')/100.0)/1e-9,'-',label=f'{Tt:.0f} mK')
+    except Exception: pass
+ax[1].set(xlabel='I_dc (nA)', ylabel='dV/dI (Ohm)', title='supercurrent dip collapsing with T'); ax[1].legend(fontsize=7,ncol=2); ax[1].grid(alpha=.3)
+plt.tight_layout(); plt.show()

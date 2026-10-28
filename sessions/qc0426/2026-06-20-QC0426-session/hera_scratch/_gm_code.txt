@@ -1,0 +1,40 @@
+import numpy as np, time
+
+# ---- preconditions (state assumed but not set by this cell) ----
+assert abs(magnet.field()) < 0.05, f"field not ~0: {magnet.field()}"
+assert heater.sample_temperature() < 2.0, f"sample T high: {heater.sample_temperature()}"
+assert k_2410.volt() == 0, f"Si gate not at contact-doping point 0 V: {k_2410.volt()}"
+T0 = heater.sample_temperature()
+print(f"start: T={T0:.3f} K, B={magnet.field():.4f} T, Si={k_2410.volt()} V")
+
+# ---- map design: BG slow x TG(DC205) fast, full validated ranges, B=0, Si=0 ----
+bg_vec = np.linspace(-4.5, 4.5, 37)     # slow: graphite back gate (k_bg = k_2400), dBG=0.25 V
+tg_vec = np.linspace(-6.0, 7.0, 105)    # fast: top gate (dc205_volt -> column DC_bias), dTG=0.125 V
+SLOW_DELAY, FAST_DELAY = 3.0, 1.2       # fast_delay = 4*tau floor (tau=0.3s, 24 dB/oct; device card)
+
+# ---- station (fresh -> no inherited comments) ----
+meas_config["comments"] = ("gatemap CNP-find | QC0426 3LGr | B=0, Si=0V, base T | "
+                           "BG[-4.5,4.5]x37 slow, TG/DC_bias[-6,7]x105 fast | "
+                           "src T2 / drain B7 / sr1 T3-T4 / sr2 B4-B5 / sr3 T5-B6(Hall)")
+meas_config["sample_temperature:"] = T0
+meas_config["Si (V)"] = k_2410.volt()
+s = async_station(meas_config)
+s.add_comment('gatemap')
+s.add_comment('cnp-and-dline-calibration: source map for CNP-line slope (c_bg/c_tg) + (n,D) offset')
+
+# follow params: 4 lock-in X raw (gains in meas_config) + BG/Si leakage. NO LS335 per-point.
+s.fp(sr0.X).fp(sr1.X).fp(sr2.X).fp(sr3.X).fp(k_2400.curr).fp(k_2410.curr)
+s.plot(dc205_volt, sr1.X)   # live fast-axis Rxx trace (plot.png = monitor, re-form from TSV for analysis)
+
+# ---- ramp gates to start, settle ----
+dc205_volt(tg_vec[0]); k_bg.volt(bg_vec[0])
+time.sleep(5)
+print(f"at start: TG={dc205.voltage():.3f} V, BG={k_2400.volt():.3f} V | "
+      f"megasweep {len(bg_vec)}x{len(tg_vec)} = {len(bg_vec)*len(tg_vec)} pts")
+
+res = s.megasweep(k_bg.volt, bg_vec, dc205_volt, tg_vec, slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)
+
+# ---- park gates + end state ----
+dc205_volt(0.0); k_bg.volt(0.0)
+T1 = heater.sample_temperature()
+print(f"DONE run id={res.id} | T start/end = {T0:.3f}/{T1:.3f} K | gates parked to 0 V")

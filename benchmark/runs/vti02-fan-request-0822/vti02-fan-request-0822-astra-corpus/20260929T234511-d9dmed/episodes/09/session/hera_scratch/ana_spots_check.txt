@@ -1,0 +1,42 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/ana_spots.py:14: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  print(sdh_onset(R,B,r_full_scale=5000).summary())
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/ana_spots.py:17: UserWarning: sdh_onset: marginal tone 3.1 T would carry the onset (0.77 T) — excluded; onset_b = 1.02 T from the 6.8 T tone
+  print(sdh_onset(R,B,b_hi=5,r_full_scale=5000).summary())
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/ana_spots.py:14: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.6 vs 5 across 3 windows))
+  print(sdh_onset(R,B,r_full_scale=5000).summary())
+Run 6: complete=True, interrupted=False, 921 points; R=-32.95..529.63 Ohm; I=9.843..9.935 nA
+T=1.165..1.292 K; duration=120.3 min
+Full-record onset (candidate tracks, not independent pocket counts):
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.1  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.9  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.7  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.7  [censored@edge]
+Local 0.3–5 T onset, excluding the large high-field MR rise from background fitting:
+sdh_onset: onset_b = 1.02 T (tone 6.8 T) over B [0.30, 5.00] T
+  tone   14.0 T: onset  1.66 T  dF  2.49 T  snr_max   25.8  [~2x6.8T, 3x->43.6T, 4x->58.3T]
+  tone   21.9 T: onset  1.39 T  dF  1.92 T  snr_max   38.4  [~7x3.1T]
+  tone    6.8 T: onset  1.02 T  dF  1.28 T  snr_max   18.3  [2x->14.0T]
+  tone   29.5 T: onset  1.73 T  dF  2.64 T  snr_max   20.8  [~9x3.1T]
+  tone    3.1 T: onset  0.77 T  dF  0.91 T  snr_max    7.6  [marginal, near-residual, 3x->9.4T, 7x->21.9T, 9x->29.5T]
+  tone   58.3 T: onset  3.67 T  dF 13.74 T  snr_max    7.3  [marginal, ~4x14.0T]
+  tone    9.4 T: onset  1.63 T  dF  2.41 T  snr_max   10.9  [~3x3.1T]
+  tone   43.6 T: onset  2.97 T  dF  7.29 T  snr_max    5.6  [marginal, ~3x14.0T]
+READ: peaks near 7, 14–15, 22–23, and 29–30 T form a possible harmonic comb. Do not count four pockets. The slow component is background-sensitive. Full-record censored onsets at 0.3 T do not persist under local MR fits: degree-5 0.3–4 and 0.3–5 T fits give 1.03 and 1.018 T. The ~7 T track varies 1.01–1.04 T in these local fits but is marginal for degree 3 at 4 T. Use 1.018 T as a provisional design edge; no absence claim below it. No stacking verdict yet.
+Run 7: complete=True, interrupted=False, 486 points; R=-0.38..586.87 Ohm; I=9.809..9.931 nA
+T=1.175..1.291 K; duration=95.6 min
+Full-record onset (candidate tracks, not independent pocket counts):
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.9  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)
+READ: hole onset 0.71 T is stable across degrees 3/5/7, but the accessible density is only -1.2e12. Model ABAB tones 5.86/6.54 T differ by 0.68 T, below 2*dF=1.53 T even with 10 T reach. A hole fan cannot cleanly split that pair here. Electron fan chosen for model separation; cross-density frequency trajectories must screen harmonics, adjacent-N, and region-offset alternatives.

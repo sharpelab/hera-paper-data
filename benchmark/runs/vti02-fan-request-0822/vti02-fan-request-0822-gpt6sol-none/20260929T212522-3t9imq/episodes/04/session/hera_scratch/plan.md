@@ -1,0 +1,16 @@
+# vti-02 stacking investigation — live plan
+
+## Scope and calibration
+
+Only this session's `data/` and the deployed cards are evidence. One hardwired longitudinal pair, B_1–B_2, senses a possible series mosaic; ridge A and ridge B in run 5 cannot be separately contacted. The absolute density scale remains tied to the 9.5 nm top hBN geometry prior until fan slopes give an independent lever-arm check.
+
+1. **Bring-up and Gate C — complete.** Operator setup/SAFETIES/VERIFY green; runs 0–3 show B_1–B_2 alive and no sustained gate leakage within the provided box. Gate C is liveness, not a stack test.
+2. **Zero-field CNP and D-line — complete.** Run 5 gives main ridge A, `c_bg/c_tg = 0.773`, `n_offset = -0.089e12 cm^-2`, `D_offset = -0.013 V/nm`; a parallel ridge B is offset by about `0.43e12 cm^-2`. The absolute `c_tg` remains a geometry prior. Do not infer stacking from the tunable CNP resistance alone.
+3. **SdH feasibility — complete, analysis to promote.** Run 6 at `n_A=+3.2e12`, `D=0`, `B=0..10 T` has strong oscillations; run 7 at `n_A=-1.2e12` rides `10..0.3 T` and has weaker/ambiguous tones. Both are one contact pair. Frequency mixing and harmonic confusion require density evolution in a fan.
+4. **Electron Landau fan — next.** At base temperature, `V_si=0`, co-sweep TG/BG along calibrated `D=0` for `n_A=+0.4..+3.2e12 cm^-2` (71 points, `0.04e12` spacing); slow field `2..10 T` in `0.2 T` steps (41 rows, forward from handoff `B≈0`). Use `fast_delay=2.4 s` for 8× the live `0.3 s` SR830 time constant at 24 dB/oct, 100 or 200 µV sensitivity sized to high-field resistance. The lower density limit avoids the CNP high-resistance rail; the fan omits `B<2 T`, for which the spot traces already provide onset information. Measure current, Rxx, T, and both gate currents at every point. Check first rows for rail/leakage and subsequent rows around 4, 6, 8 T for moving fan features; abort a washout or unsafe trace. Compare feature trajectories with density/B filling and with ridge B's measured offset, then refine the density lever arm from slopes where defensible.
+5. **Adjudicate stacking.** Test whether there is one fundamental fan, two independent branches, or a mixture that tracks ridge A/B displacement. A frequency ratio at one density is not enough: harmonics and the series mosaic can imitate multiple pockets. If the first fan separates branches clearly, take a targeted second cut only where the branch assignment needs it; consider D dependence within the committed gate box. If the available single longitudinal pair cannot resolve the regions, report `cannot tell` with calibrated strength and numerical limits.
+6. **Close-out.** After the final ana verdict, perform `return-to-initial`: field 0, TG/BG/Si 0 V at their committed pacing, both heater ranges off, then read back field, gates, and temperatures; log in `session_notes.md`.
+
+## Decision update, handoff
+
+Run 6 has a low-frequency ~7 T component and higher components near ~15, 23, 29–33 T whose harmonic/independent nature is unclear; the high-B spectrum is window-sensitive. Run 7 shows a ~5 T component and ~12.5 T component, also not yet decisive. This motivates Step 4 instead of a stacking call from either spot trace. The contact map is fixed; no rerouting is in scope.

@@ -1,0 +1,171 @@
+**SCORER / SUPPORT-SIDE ⚠️ — not for agent view.** Ablation-series lock (no-corpus offline stages); design + grading: Primer doc "HERA T1 no-corpus control - vti-02.md". Locked as produced; not edited.
+
+# vti-01 — fused Raman × transport stacking verdict (2026-08-24)
+
+Fusion of the locked transport call (`inputs/transport-call.md`, ana cell 33 +
+addendum cell 38) with the locked Raman read (`inputs/raman-contract.md`).
+Method derived for this step: (1) re-verify each contract's machine-checkable
+content from its own raw inputs; (2) build the one coordinate frame the
+supplied bridges actually support and state where they run out; (3) fuse per
+channel, letting each modality contribute only at the resolution the
+registration supports.
+
+**Headline: the two modalities do not disagree anywhere — but they also never
+meet on the same patch of crystal.** Transport gives a region-specific ABA
+call on sr1; Raman gives a material-level census of the parent flake (mixed
+ABA/ABC, ~50:50). The missing stage↔device bridge means Raman cannot be
+attached to any named channel, so no fused row is upgraded above its
+transport strength; sr2 remains a fused **cannot tell**. One genuine
+cross-modality inference does survive: transport's strong ABA on sr1 is
+*compatible* with a device built from the picked-up mixed sheet and *in
+tension* with a device built from the ABC-dominant remnant — the inputs do
+not say which happened.
+
+## 1. Per-channel table
+
+| Channel | Transport verdict (strength; evidence stage) | Raman verdict (strength; build stage it attaches to) | Fused verdict (strength) | Basis for the fused row |
+|---|---|---|---|---|
+| **sr1** (B_SD–L4) | **ABA / Bernal (strong, two-branch)** — BL fraction 0.87·F_L at scale 1.0; m\* = 0.049(2) mₑ vs ABA-BL 0.060 (ABC 0.108 excluded); A/2 = same-mass modulation; ML branch directly resolved (runs 19–20, f_ML = 4.7 ± 0.6 T at n = −1.74); Luttinger closes at λ = 1.14. Finished device, cooldown 2026-08-18→20. | **No region assignable** — no stage↔device bridge. Material level: parent sheet was mixed ABA/ABC ~50:50, lamellar 5–20 µm (strong); remnant 78% ABC (strong). Attaches to build stage: flake-on-substrate, 2026-05-28, pre-encapsulation (map 003 pre-pickup 19:57 UTC; map 005 post-pickup 20:20 UTC). | **ABA / Bernal (strong)** | Carried entirely by transport, which is region-specific and post-processing. Raman contributes no channel-scale test (registration gap) but is materially compatible: ABA lamellae were ~50% of the likely source sheet. Not decisive — transport's own softness (ML mass unmeasured, λ = 1.14 pending QH lever-arm, LK fit unreviewed) is inherited unchanged. |
+| **sr2** (L4–L1) | **Uninformative** — weak pair, signals near ADC floor throughout; no frequency content ever resolved. | **No region assignable** (same registration gap). Material level as above. | **Cannot tell** (no strength — no evidence from either side reaches this segment) | Neither modality constrains this crystal. Not a benign gap: if the device is pickup-origin and domains are static, ~50% of source area was ABC, so sr2's segment could plausibly be ABC or mixed and nothing measured would show it. Transport's "no positive ABC evidence on any channel" is absence of signal here, not evidence of absence. |
+| **sr3** (L3–L2) | **ABA (consistent-with)** — matches sr1 on all frequency content (fan + spot checks); ML corroborated at lower SNR (run 19); no independent mass, LK amplitudes SNR-limited/non-monotonic. | **No region assignable** (same). Material level as above. | **ABA (moderate)** | Transport concordance with sr1 across the full frequency content plus ML corroboration, on a physically distinct segment, is more than "weak" but lacks an independent mass — so moderate, not strong. Raman adds material compatibility only; it cannot confirm sr3 and sr1 sit on the same lamella (or different ones). |
+
+Device-level synthesis (not a contract row): the fused picture of *the whole
+device* is weaker than sr1's row. If vti-01 came from the 20:10–20:19 pickup,
+the Hall bar sits somewhere in a ~50:50 ABA/ABC mosaic with 5–20 µm domains;
+transport then localizes ABA under sr1 (and probably sr3), while ABC lamellae
+elsewhere in the device — under sr2, the gates' singly-gated arms, or the
+contacts — are unconstrained and entirely consistent with both contracts.
+Transport's hedge "small-area ABC domains below spectral weight cannot be
+excluded" and Raman's mosaic are the same statement seen from two sides.
+Conversely, a remnant-origin device (78% ABC, ABA only in 66 µm² of
+edge-adjacent strips read *weak*) sits in tension with transport's strong,
+two-branch ABA on sr1; the fusion therefore *disfavors* remnant origin under
+a static-domain assumption, but cannot rule it out because domains are mobile
+under processing (hedge H3) and origin was never recorded (hedge H2).
+
+## 2. Registration
+
+**Artifacts: `registration.png` (figure) and `registration.json`
+(machine-readable transforms + edge list); regenerated by
+`f2_registration.py` from `f1_extract_videos.py` → `fusion_videos.npz`
+(videos re-extracted from `vti-01.wip` with an independent parser,
+`f0_parse_wip.py`).**
+
+What the supplied bridges support — one frame, the **WITec stage µm frame**:
+
+- **map 003 / map 005 → stage**: in-file `TDSpaceTransformation` per map;
+  cross-map residual ~1 µm (Raman contract hedge 7). `inputs/regions.npz`
+  already delivers the region labels on this frame (0.5 µm grid); its areas,
+  centroids, and remnant ABC fraction reproduce the Raman contract's numbers
+  exactly (528 / 516 / 236 / 66 / 66 / 39 µm²; 78% ABC post-pickup;
+  `f3_contract_checks.py`).
+- **videos 002 / 004 / 007 → stage**: in-file transforms (0.04913 µm/px,
+  rotation −0.513°, WorldOrigins matching `raman-provenance.md` to the cm⁻²
+  digit); verified independently here by a photometric check — region-mask
+  sheet pixels sample darker video gray than background in both epochs
+  (75.7 vs 102.9 pre; 79.2 vs 99.3 post), i.e. the overlay lands on the
+  flake. Uncertainty ≤ 2 µm.
+- **Registration uncertainty vs feature scale**: 1–2 µm against 5–20 µm
+  lamellae — *within* the Raman frame, domains are comfortably resolved; the
+  Raman contract's region calls are spatially sound.
+- **stage → device (sr1/sr2/sr3): NO BRIDGE.** The inputs contain no optical
+  image of the finished Hall bar, no GDS, no build-step list; the in-file
+  videos show only the bare flake before/after pickup, months before
+  fabrication was complete. **Correspondence cannot be established for any
+  channel.** Cost, per row: Raman is demoted from region-resolved evidence to
+  a material-level prior for all three channels; that is why sr1 gains
+  nothing, sr3 gains nothing beyond compatibility, and sr2 stays cannot-tell.
+  The channel segments' physical lengths are also absent from the inputs, so
+  it cannot even be said whether one segment averages over several lamellae
+  or sits inside one.
+
+**Timeline registration** (also in `registration.json`):
+
+| Evidence leg | Attaches to |
+|---|---|
+| Raman map 003 (`labels_pre`) | 2026-05-28 19:57 UTC — parent flake on substrate, **pre-pickup**, pre-encapsulation |
+| Raman map 005 (`labels_post`) | 2026-05-28 20:20 UTC — remnant, **post-pickup** (pickup ~20:10–20:19 UTC, in-file video evidence) |
+| Transport runs 0–18 → call (cell 33) | 2026-08-18→20 — finished encapsulated dual-gated device, VTI cooldown, 1.2–15 K |
+| Transport runs 19–20 → addendum (cell 38) | 2026-08-20 — same cooldown, τ = 300 ms extension |
+
+Between the two legs lie ~3 months of unrecorded processing (encapsulation,
+patterning, contacts, any anneals). No supplied document covers that
+interval.
+
+## 3. Named hedges
+
+- **H1 — Missing stage↔device bridge** (dominant). No channel can be placed
+  on any lamella; every fused row's Raman column is material-level only.
+- **H2 — Device material origin undetermined.** Pickup vs remnant vs neither
+  is not in the inputs; even the flake↔device link (WITec sample `73474_` =
+  vti-01) is owner-group testimony, not in-file (per `raman-provenance.md`).
+- **H3 — Domain mobility across the gap.** ABA/ABC walls in trilayers move
+  under processing; the Raman census describes 2026-05-28, transport
+  describes the cooled device in August. Even a perfect spatial registration
+  of the *flake* would not close this.
+- **H4 — Raman assignment direction rests on literature signatures recalled
+  from memory** (Raman contract hedge 1). If inverted, the mixed-sheet row is
+  unchanged (both stackings present ~50:50) but the remnant becomes
+  ABA-dominant, which would *reverse* the origin-tension direction in the
+  synthesis above (remnant origin would become the concordant reading).
+- **H5 — Transport softness inherited**: ML mass unmeasured; λ = 1.14 pending
+  the QH lever-arm upgrade; LK fit flagged for expert review (no automated
+  fit in corpus); T_e ≈ 8 K; single ~109 MΩ source contact limits sr2/sr3
+  SNR.
+- **H6 — Channel geometry absent.** Segment lengths vs the 5–20 µm domain
+  scale unknown; "short pair" (transport's description of sr2) vs the device
+  card's L1…L4 ordering is not reconciled by any input — panel C of the
+  figure is topology-only.
+- **H7 — Layer count is owner testimony in both modalities** (3L). Both
+  contracts note their reads survive a miscount, but the model masses/
+  fractions quoted are trilayer-specific.
+
+## 4. What would settle it
+
+- **All rows / H1**: a frame bridge — optical image or GDS of the finished
+  vti-01 Hall bar registered to the stamp or stage frame. This alone converts
+  Raman to region-resolved evidence per channel (subject to H3).
+- **All rows / H3 (most decisive single follow-up)**: a post-encapsulation
+  532 nm Raman map of the actual device — 2D lineshape survives hBN
+  encapsulation — read against the same lineshape discriminators.
+- **H2**: build-step testimony from the owner group: which pickup built
+  vti-01, and any anneals between map and cooldown.
+- **sr2 row**: any signal at all — rewiring/contact repair to lift the
+  109 MΩ ceiling, or the step-6 Streda/Chern complement at 10 T+ (ABA's
+  non-dispersing ML N = 0 doublet offsets the QH sequence), which would also
+  firm sr1 to decisive.
+- **sr3 row**: an independent LK mass on sr3 (second density / electron
+  side per the transport contract's list).
+- **sr1 row to decisive**: ML mass (low-B-window ladder) or the QH lever-arm
+  upgrade closing λ = 1.14.
+- **H4**: one reference spectrum from a known-stacking trilayer on the same
+  tool (or published 532 nm ABA/ABC lineshapes checked against
+  `final_lineshapes.png` in the Raman read's archive).
+
+## Provenance line
+
+Inputs received and used: `inputs/transport-call.md`,
+`inputs/raman-contract.md`, `inputs/raman-provenance.md`,
+`inputs/regions.npz` + `inputs/regions.png`, `inputs/20260818_ana.ipynb`
+(parsed only — never executed; call cells 33/38 match the transport contract
+verbatim), `inputs/session_notes.md`, `inputs/device_card.md`, and the raw
+WITec project `/data/sharpelab/hera-data/raman-vti-01/vti-01.wip` (69,400,468
+bytes; the in-file stage-registered videos were re-extracted here with an
+independent parser as the only frame bridge). I saw **no prior fusion
+attempt, draft, or verdict for this device, and no third-party read, lean, or
+reaction to either modality's call**; I accessed no repository or notes
+directory, no web, email, chat, or wiki. Analysis used only public tools
+(numpy and matplotlib via `uv`, `jq` for notebook parsing, a custom WIT-tag
+parser written here). No forbidden material reached me.
+
+## Archive (this directory)
+
+- `f0_parse_wip.py` — independent WIT-tag parser (fusion-side, written fresh)
+- `f1_extract_videos.py` → `fusion_videos.npz` — videos 002/004/007 + stage
+  transforms; stdout cross-checks corners/scale/rotation against
+  `raman-provenance.md` (all match)
+- `f2_registration.py` → **`registration.png`**, **`registration.json`** —
+  the registration artifact; stdout carries the photometric overlay check
+- `f3_contract_checks.py` — reproduces the Raman contract's areas, centroids,
+  and stacking fractions from `inputs/regions.npz` (all match)
+- `fusion-verdict.md` — this file

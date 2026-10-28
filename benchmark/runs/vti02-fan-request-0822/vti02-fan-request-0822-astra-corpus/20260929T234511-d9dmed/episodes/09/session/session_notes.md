@@ -1,0 +1,15 @@
+
+## 2026-08-22 — E1 grant
+
+- **GRANT** — operator (Zack) "go for autonomy" after gates A/B green; He attested fine (closed-loop system, not a concern). Kernel probe (measure cell 31, exec 16): BOUND, 22/22 names. VERIFY (measure cell 32, exec 17): `VERIFY: ALL GREEN` — all 23 checks OK (magnet +0.0063 T, validators == card, T_sample 1.166 K, heaters off, DC205 RNGE 2 / 0 V / 0.5 V/s, gates 0). E1 engaged on the printed verdict.
+- PROTOCOL — the brief's VERIFY list includes "He budget", which no kernel-connected instrument can read (AMI 1700 isn't in the setup section); handled as operator-attested. Either add an AMI 1700 connect to the VTI template or mark that item operator-attested in the brief template.
+- FEEDBACK/self — run 4 (gatemap, sr1 20 µV) aborted at the first-rows checkpoint: the CNP ridge at D ≈ +0.3 V/nm railed at 2.18 kΩ while the D ≈ 0 peaks (runs 0–3) were ≤ 330 Ω. Lesson for `gatemap` step 5 sizing: on a first map the ridge at the window's max-|D| corner, not the 1D-leg peak, sets R_max — size with ≥ 10× over the 1D peak or accept a rail. Re-run as run 5 at 100 µV (10 kΩ FS), peak 2.5–2.9 kΩ at fs 0.28.
+- TOOLING — `hera-watch` "⚠ LEAK k_2400_tg=Δ1xx pA" fires every gatemap row: the TG current excursion is the flyback charging transient at the row start (lo −200 / hi +120 pA around a −92 pA median), not a sustained excess. The warning should baseline per-row after the first few points or exclude the flyback transient.
+- RECIPE FIX — `gatemap` step 5 (sensitivity sizing): on a first map the CNP ridge at the window's largest |D| sets R_max, not the D ≈ 0 peaks seen in 1D legs (run 4: 1D peaks ≤ 330 Ω, ridge at D = +0.3 V/nm > 2.2 kΩ → railed at 20 µV; run 5 at 100 µV fine). Say: size to ≥ 10× the 1D peak, or to the gapped-CNP expectation at the map's |D|max.
+- RECIPE FIX — `cnp-and-dline-calibration` step 3 D-offset: the minimum of R_CNP along the ridge vs raw D is a usable "physically locates D = 0" feature (run 5: vertex at raw D = +0.013 V/nm, symmetric R on both sides); worth naming as the default feature to look for.
+- TOOLING — `hera-watch` ETA on a mixed-step field sweep (50 mT then 10 mT) extrapolates the current per-row rate (24 s/pt on the coarse leg → "6 h"); a per-setpoint-spacing model (ramp time ∝ ΔB + fixed overhead) would price it right.
+
+## 2026-08-23 — handoff resumed
+
+- FEEDBACK — Zack requested a Landau fan as the next move. Read handoff measure cells 44/46 (state0 restored, field/gates zero; KERNEL PROBE: BOUND) and carried forward the explicit E1 engagement from the brief without replaying bring-up. Spot-check analysis now lands at ana 14–15 before the fan proposal; rationale and computed sampling/cost are in the new measure proposal.
+- TOOLING — Full-record electron `sdh_onset` on run 6 gives censored low-frequency tracks at 0.3 T that change under background fits; local 0.3–4/5 T fits give a ~1.02 T design edge. The onset ambiguity is preserved in ana 15 and the fan proposal, rather than treated as a resolved low-field pocket. No safety surface changed.

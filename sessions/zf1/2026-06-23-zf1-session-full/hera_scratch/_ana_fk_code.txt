@@ -1,0 +1,12 @@
+r10 = open_run('data/10')
+B = r10.col_at(r10.col_indices('magnet_field')[0])*1e3      # mT
+dVdI = (r10.col('sr830_3_X')/100.0)/1e-9
+Tm = r10.col('T')*1e3
+Rn = np.median(dVdI[np.abs(B)>40]); half=(Rn+dVdI.min())/2
+Bo,Ro = B[np.argsort(-B)], dVdI[np.argsort(-B)]
+Bc = Bo[np.argmax(Ro>half)]
+print(f'normal dV/dI {Rn:.1f} Ohm; min {dVdI.min():.2f} Ohm at B={B[np.argmin(dVdI)]:+.1f} mT; B_c_perp ~ {abs(Bc):.0f} mT; T {Tm.min():.1f}-{Tm.max():.1f} mK')
+fig,ax=plt.subplots(figsize=(6.6,4.4))
+ax.plot(B,dVdI,'.-'); ax.axhline(half,color='gray',ls=':',lw=.8); ax.axvline(Bc,color='r',ls='--',lw=.8,label=f'B_c⊥~{abs(Bc):.0f}mT')
+ax.set(xlabel='B_perp (mT)', ylabel='zero-bias dV/dI (Ohm)', title='Run 10 field-kill: B_c⊥ ~ 4 mT'); ax.legend(); ax.grid(alpha=.3)
+plt.tight_layout(); plt.show()

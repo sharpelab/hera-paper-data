@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.5,
+  "n_B": 301,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.45,
+  "flags": [],
+  "notes": "Cell 48 is a 1D field sweep, s.sweep(magnet.field, np.round(np.arange(0.3, 1.5001, 0.004), 4), delay=0) = 301 uniform-B points at the run-6 spot n = +3.2e12 cm^-2, D = 0 V/nm (calc_gate_voltages with the run-5 calibration constants committed in the cell). No fan is issued and no further density columns are named anywhere (no hera_scratch/plan.md), so probe_only. sr1 sensitivity 20 uV is set in the cell; other lock-in/NPLC/drive values are inherited from cell 44's close_out(restore=state0) readback (sr0 20 mV / 0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0, drive_V 1.0 V); bias resistor 100 MOhm from meas_config in cell 23 and the device card. Stated price is about 27 min for the sweep (the header log line quotes an ETA of about 30 min); the markdown names the fan as the intended next move after this onset pin."
+}

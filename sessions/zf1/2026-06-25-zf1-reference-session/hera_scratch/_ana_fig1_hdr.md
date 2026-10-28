@@ -1,0 +1,3 @@
+## Run 3 — Figure 1: high-res wide SC dome map R_xx(n,D) at B_eff0
+
+Why / what we're testing: the headline figure — the SC dome resolved over a wide (n,D) landscape at the true zero field, to (a) show the dome in context (valence-band metal, CNP/gap ridge) and (b) **select the widest-point D-line and optimal n** that the heater block (Figs 3/4/5) and the Fraunhofer (Fig 2) all ride on. n[−7,−1]×10¹¹ fast (0.03) × D[−0.69,−0.40] slow (0.0025), symmetric sampling, 21,239 pts, AC 1 nA, **4T sens 0.1 mV (resolve 1 kΩ at 1 nA; rails above as it nears the CNP gap)**, B = B_eff0 = −0.366 mT. ~8.6 h. Verified: not interrupted, leakage <90 pA, T 33.7 mK held, no NaNs.

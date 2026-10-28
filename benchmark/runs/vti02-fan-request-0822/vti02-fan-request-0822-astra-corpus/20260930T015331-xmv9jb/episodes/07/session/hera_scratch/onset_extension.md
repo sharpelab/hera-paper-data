@@ -1,0 +1,7 @@
+## HERA — resolve the electron onset before pricing the fan
+
+`sdh-spot-check`, in the `tetralayer-stacking-fs-count` ladder: run 6 resolves a candidate 7/22/29 T family, but `sdh_onset` on its adequately sampled B≥1 T portion is censored at 1 T. Its 50 mT low-field leg cannot locate the onset. This short extension replaces that leg at the same n=+3.2e12 cm⁻², calibrated D≈0, Si=0, bias=10 nA and 50 µV sensitivity, overlapping 1–1.5 T to check continuity. No stacking verdict is assigned yet.
+
+335 field points uniform in 1/B over 0.3→1.5 T give Δ(1/B)=0.007984 T⁻¹: 3.15 points/period at F=39.70 T (F_L=33.09 T plus 20% scale margin). The 3 s blocking magnet settle retains the recorded 10τ/24 dB settling; no ramp pacing changes. Cost: initial 0→0.3 T plus 0.3→1.5 T totals 1.5×7.3=10.95 min, plus 335×3.08 s=17.2 min from run 6, gate positioning and margin → 32 min. It ends at 1.5 T, available as a subsequent fan endpoint. Check first 20 points for leakage, clipping and current delivery; inspect again at 150 points and on completion. Abort halts the sweep; on this VTI a kernel interrupt does not halt an active magnet ramp, so the operator must handle an urgent supply stop.
+
+Preflight rechecks exact committed validators, fresh sample/vaporizer logs, base T, heaters off, magnet PS/output, Si=0/RNGE 2/output on, fixed hardwired contact map, and inherited lock-in settings. No Si ramp. Trip at |I_gate|>1 nA, lock-in ≥90% full scale, or loss of base/thermometry freshness; any safety trip drops E1 pending explicit re-grant.

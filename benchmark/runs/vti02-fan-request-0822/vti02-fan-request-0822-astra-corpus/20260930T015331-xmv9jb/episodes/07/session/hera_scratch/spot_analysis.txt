@@ -1,0 +1,48 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:17: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:17: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.7 vs 5 across 3 windows))
+  on=sdh_onset(R,B,r_full_scale=5000)
+RUN 6 complete True interrupted False rows 921
+R range -32.5965 522.475 I nA 9.84293 9.93544 T 1.165 1.292
+gate abs max pA 123.3946 117.2982
+timing median dt 7.4635045528411865 non-ramp seconds [3.07363271 3.08331286 3.102652  ]
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.2  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.7  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.6  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.6  [censored@edge]
+ONSET 0.3 CLIP 10.0
+FFT 6 0.3 3 [(3.09, 1114.488), (7.11, 701.336), (22.26, 319.285), (29.37, 293.89), (14.22, 245.077), (15.46, 209.945)]
+FFT 6 0.3 5 [(3.09, 1216.58), (7.11, 739.636), (5.87, 326.862), (22.26, 318.088), (29.37, 293.788), (14.22, 240.816)]
+FFT 6 2 3 [(7.5, 27152.952), (29.99, 16377.259), (15.0, 16192.394), (22.49, 12348.353), (59.99, 3099.157), (44.99, 2147.781)]
+FFT 6 2 5 [(5.0, 43411.386), (29.99, 16270.5), (15.0, 14976.71), (22.49, 12260.064), (59.99, 3107.261), (44.99, 2154.26)]
+FFT 6 3 3 [(4.28, 64336.596), (29.99, 33854.836), (21.42, 16767.163), (59.99, 6749.803)]
+FFT 6 3 5 [(29.99, 33195.907), (8.57, 20103.452), (21.42, 17066.688), (59.99, 6795.255)]
+FFT 6 4 3 [(6.67, 85411.088), (33.33, 53602.752), (59.99, 11199.296)]
+FFT 6 4 5 [(33.33, 51391.349), (59.99, 11384.742)]
+RUN 7 complete True interrupted False rows 486
+R range -0.372532 575.747 I nA 9.8086 9.930670000000001 T 1.175 1.291
+gate abs max pA 215.8295 120.0978
+timing median dt 11.827555179595947 non-ramp seconds [3.05689205 3.06755518 3.08562864]
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   84.7  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   39.3  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   23.0  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.8  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   41.2  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   46.2
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  124.8
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.7 vs 5 across 3 windows)
+ONSET 0.7138767261704282 CLIP 10.0
+FFT 7 0.7138767261704282 3 [(6.98, 34623.387), (4.65, 17552.004), (12.41, 8498.895), (13.96, 7897.696), (19.39, 3184.448), (23.27, 1284.906)]
+FFT 7 0.7138767261704282 5 [(6.98, 34570.828), (3.88, 17625.201), (12.41, 8505.429), (13.96, 7885.342), (19.39, 3185.073), (23.27, 1286.032)]
+FFT 7 2 3 [(5.0, 89247.723), (12.5, 66621.648), (22.49, 19019.557), (37.49, 3862.01), (32.49, 2861.854), (49.99, 1932.054)]
+FFT 7 2 5 [(5.0, 90055.502), (12.5, 66240.091), (22.49, 19049.115), (37.49, 3865.841), (32.49, 2877.745), (49.99, 1934.461)]
+FFT 7 3 3 [(8.57, 89903.033), (38.56, 12037.536), (51.42, 6246.155), (64.27, 2085.378)]
+FFT 7 3 5 [(12.85, 68723.102), (38.56, 11966.827), (51.42, 6255.411), (64.27, 2079.795)]
+FFT 7 4 3 [(13.33, 45148.237), (39.99, 25885.339), (66.65, 2160.853)]
+FFT 7 4 5 [(20.0, 34260.955), (39.99, 25612.611), (66.65, 2125.843)]

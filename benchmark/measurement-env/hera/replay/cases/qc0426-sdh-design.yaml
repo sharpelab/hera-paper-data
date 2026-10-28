@@ -1,0 +1,16 @@
+# The SdH spot-check design point on QC0426 (06-19 session 3): the cut sits after
+# the calc_gate_voltages signature read that closed Step 1, before the agent
+# verified the gate convention and designed the hole-side spot check (cell 43).
+# Same notebook state as Nate's ref43 fork (measure cut at cell 41, ana at 13).
+case: qc0426-sdh-design
+source: ../../docs/notes/2026-06-19-QC0426-session-3
+cut:
+  transcript: 226a2e70-8449-42b4-800c-7fee0e907e29.jsonl
+  at: d8ab3b69-4920-4e34-82de-d64eaf75a6a9
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Signature confirmed. Designing the hole-side spot check now."
+  prompt: "Carry on."
+grader: sdh-field-resolution

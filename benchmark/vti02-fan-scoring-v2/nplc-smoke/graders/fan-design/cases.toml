@@ -1,0 +1,114 @@
+# What each fan-design case is read against: the carrier side the evidence favours, the
+# density window the fan's claim needs, the field it has to reach, the low-field cutoff below
+# which rows are not asked of the design, and the density scale that turns the session's
+# calibration frame into the frame the tones live in.  Keyed by replay case name; `source` is
+# the archive dir the case cuts, which is how a bare archive (no episode.json) finds its table.
+# Every value is provisional: read out of the archives, not ruled by Aaron.
+
+[qc0426-fan-design]
+source = "2026-06-19-QC0426-session-3"
+side = "electron"
+side_note = "spot check run 3 (electron) is clean; run 2 (hole) clipped and aliased (hera_scratch/ana_take_step3.md)"
+n_window_cm2 = [1.0e12, 3.5e12]
+B_hi_T = 4.0
+b_cut_T = 1.2
+b_cut_note = "measured: sdh_onset 1.16 T (hole, runs 7+8 sr1) and 1.21 T (electron, run 5 sr2), 2026-07-18 session, |n| 6.5e12, records from 0.5 T"
+note = "provisional: electron side; top = the brief's overlay-validity clamp (hera_session.md:65), floor = the fan that ran; nothing in the session reads above 4 T"
+
+[qc0426-fan-design-0716]
+source = "2026-07-16-QC0426-session-3"
+side = "hole"
+side_note = "locked before the cut (hera_scratch/ana_sc2_take.md:3)"
+n_window_cm2 = [-6.0e12, -2.5e12]
+B_hi_T = 8.0
+b_cut_T = 1.2
+b_cut_note = "measured: sdh_onset 1.16 T (hole, runs 7+8 sr1) and 1.21 T (electron, run 5 sr2), 2026-07-18 session, |n| 6.5e12, records from 0.5 T"
+note = "provisional: hole side, locked before the cut (hera_scratch/ana_sc2_take.md:3); spot checks at 6e12; partition claims trusted for |n| >= 2.5e12 (fan_md.md:7); 8 T for the dF the claim needs"
+
+[qc0426-fan-design-0717]
+source = "2026-07-17-QC0426-capstone-2"
+side = "hole"
+side_note = "hole spot check shows both pair members and the F_L tone; the electron singleton is already characterized"
+n_window_cm2 = [-3.5e12, -0.5e12]
+B_hi_T = 8.0
+b_cut_T = 1.2
+b_cut_note = "measured: sdh_onset 1.16 T (hole, runs 7+8 sr1) and 1.21 T (electron, run 5 sr2), 2026-07-18 session, |n| 6.5e12, records from 0.5 T"
+note = "provisional: hole side; both edges stated with reasons in hera_scratch/fan_md.md:15; 8 T carries the B-window split of the F_L tone"
+
+[vti02-fan-design]
+source = "2026-08-21-vti-02-session"
+side = "electron"
+side_note = "the hole side's gate-safe reach at D = 0 is |n| ~1.1e12 (TG limit -0.3 V, device_card.md:52): F_L ~11 T holds 3-4 periods above a 0.7 T onset with a 0.6-0.9 F_L ladder tone (08-22 run 7); the electron side holds the ABAB tone set at every density in reach (08-21 run 5, 08-22 run 6)"
+n_window_cm2 = [1.3e12, 3.4e12]
+B_hi_T = 8.0
+b_cut_T = 2.0
+b_cut_note = "electron onset over 76 uncensored columns, 08-21/22/24/25 runs 5-8, 0.8-2.9e12: median 1.53 T, p90 2.0 T, flat in n (1.26 + 0.16 |n| T, rms 0.32 T); 2.0 T is the p90. 08-21 run 5 alone read 2.37 T (5-sigma floor of a 6.7-ohm-noise record; 08-22 run 6 at the same density with 3.2-ohm noise: 1.36 / 1.91 T)"
+n_scale = 0.92
+n_scale_note = "actual over 08-21 calibration-frame density: slope of the F_L tone vs frame n across runs 5, 8 and the LK ladder (0.924, rms 3.6 %; the session pinned 0.90-0.93 from the Luttinger sum); cross-session systematic +-0.03"
+note = "provisional, actual frame: floor = the density whose F_L holds 5 periods from the 2.0 T onset to 8 T (1.3e12; 0.9e12 on the median onset); top = the D = 0 line's gate-safe reach, V_tg <= 1.0 V (3.4e12 frame, 3.1e12 actual); 8 T from a 2.0 T onset gives dF 2.7 T against tones 6.2 T apart that run 5's FFT resolves at dF 3.1 and merges at dF 5 -- 10 T buys 8 % more 1/B record for 15 min of ramp each way"
+
+# Graded by the (n, F) box (box.py; hera/docs/fan-design-grader.md): side, window, cutoff and reach
+# above are read only by the probe tier.
+scheme = "box"
+tone_model = "Halder_ABAB"
+b_lo_light_T = 0.75
+b_lo_split_T = 1.0
+
+# Rig cost model (VTI magnet), measured on 2026-08-23 run 6 (38 gate rows of 122 points at
+# fast_delay 0.5 s rode a 0.137 T/min ramp at 83 s per row) and checked against runs 08-21 r8,
+# 08-22 r8, 08-24 r4, 08-25 r8 (estimate within 6 % of each wall clock).  Reported, never scored.
+# point_overhead_s is the overhead at NPLC 1; gate_read_s_per_plc adds each gate-current read's
+# integration beyond 1 PLC, fitted on the twelve NPLC-10 leakage legs of 08-21/22/25 (two 2400
+# reads, 1.04-1.11 s per point over the delay; the model within 3 % of each).
+ramp_T_per_min = 0.137
+field_settle_s = 3.0
+point_overhead_s = 0.2
+gate_read_s_per_plc = 0.045
+flyback_s = 4.0
+
+[vti01-fan-design]
+source = "2026-08-18-vti-01-session"
+side = "hole"
+side_note = "named before the cut (hera_scratch/ana_run9_md.txt)"
+n_window_cm2 = [-1.84e12, -0.70e12]
+B_hi_T = 5.0
+b_cut_T = 1.0
+b_cut_note = "measured: sdh_onset 1.02 T, lowest robust tone (9.3 T) on the run 20 descent, 2026-08-18 session, hole n -1.74e12, record from 0.5 T"
+note = "provisional: hole side, named before the cut; gate-safe reach at D = 0 (device_card.md:123) to the <2-periods floor; 5 T stays under the LL-splitting Nyquist (hera_scratch/fan_d0_md.txt:5)"
+
+# Live vti-02 fans graded as references for the vti02-fan-design frontier: the case's window,
+# side, cutoff and cost model, with the density scale of the session whose frame the fan was
+# designed in.  Fixtures under $HERA_DATA/frontier/calibration/vti02-live/.
+
+[vti02-live-0821]
+base = "vti02-fan-design"
+source = "2026-08-21-vti-02-session"
+note_ref = "run 8, the cut's own live fan; agent-authored (Fable + corpus)"
+
+[vti02-live-0822]
+base = "vti02-fan-design"
+source = "2026-08-22-vti-02-session"
+n_scale = 0.886
+n_scale_note = "the session's own pin: 0.886 +- 0.03 x the run-5 calibration frame (session_notes.md:25; e-side Luttinger, h-side integer ladder, fan QH minima)"
+note_ref = "run 8; agent-authored (Fable + corpus)"
+
+[vti02-live-0823]
+base = "vti02-fan-design"
+source = "2026-08-23-vti-02-session"
+n_scale = 0.90
+n_scale_note = "provisional: no density read in this session (gate space only, geometry prior c_tg); 0.90 is the device-wide top-gate lever arm vs the prior measured on 08-25 (session_notes.md:186)"
+note_ref = "run 6, continuous ramp 0.7 -> 8 T; agent-authored (Fable, no corpus)"
+
+[vti02-live-0824]
+base = "vti02-fan-design"
+source = "2026-08-24-vti-02-session"
+n_scale = 0.90
+n_scale_note = "provisional: the session's frame is the geometry-prior c_tg with a measured ratio (run 3); 0.90 is the device-wide top-gate lever arm vs the prior measured on 08-25 (session_notes.md:186). Possibly 0.85: two Luttinger sums in the session's own data (r4 c37 0.837, r5 c3 0.860; vti02-fan-scoring-v2/model-fit), no F_L anchor"
+note_ref = "run 4, 1/B fan 0.75 -> 6 T across both carrier signs; agent-authored (Opus, no corpus)"
+
+[vti02-live-0825]
+base = "vti02-fan-design"
+source = "2026-08-25-vti-02-session"
+n_scale = 0.95
+n_scale_note = "the session's own F_L tone vs its LL-spacing frame (runs 5, 6; session_notes.md:199): 0.9496 +- 0.0006 over 61 columns, rms 0.13 T (vti02-fan-scoring-v2/model-fit); 0.9505 and 0.951 from independent synth and literature fits. Run 5 is in gate space at V_bg = 0 (D varies along the row), densities from the card prior"
+note_ref = "run 5, the agent's calibration fan (uniform-B 0 -> 6 T, 13 rows); agent-authored (Opus + corpus). Run 8, the FS-count fan, is operator-specified (transcript L1505, L1546): a footnote, not a reference"

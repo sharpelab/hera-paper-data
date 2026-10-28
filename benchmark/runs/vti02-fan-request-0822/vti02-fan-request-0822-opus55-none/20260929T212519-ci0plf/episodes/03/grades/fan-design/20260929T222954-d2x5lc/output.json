@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [1.0, 1.0084, 1.0169, 1.0256, 1.0345, 1.0435, 1.0526, 1.0619, 1.0714, 1.0811, 1.0909, 1.1009, 1.1111, 1.1215, 1.1321, 1.1429, 1.1538, 1.165, 1.1765, 1.1881, 1.2, 1.2121, 1.2245, 1.2371, 1.25, 1.2632, 1.2766, 1.2903, 1.3043, 1.3187, 1.3333, 1.3483, 1.3636, 1.3793, 1.3953, 1.4118, 1.4286, 1.4458, 1.4634, 1.4815, 1.5, 1.519, 1.5385, 1.5584, 1.5789, 1.6, 1.6216, 1.6438, 1.6667, 1.6901, 1.7143, 1.7391, 1.7647, 1.791, 1.8182, 1.8462, 1.875, 1.9048, 1.9355, 1.9672, 2.0, 2.0339, 2.069, 2.1053, 2.1429, 2.1818, 2.2222, 2.2642, 2.3077, 2.3529, 2.4, 2.449, 2.5, 2.5532, 2.6087, 2.6667, 2.7273, 2.7907, 2.8571, 2.9268, 3.0, 3.0769, 3.1579, 3.2432, 3.3333, 3.4286, 3.5294, 3.6364, 3.75, 3.871, 4.0, 4.1379, 4.2857, 4.4444, 4.6154, 4.8, 5.0, 5.2, 5.4, 5.6, 5.8, 6.0, 6.2, 6.4, 6.6, 6.8, 7.0, 7.2, 7.4, 7.6, 7.8, 8.0, 8.2, 8.4, 8.6, 8.8, 9.0, 9.2, 9.4, 9.6, 9.8, 10.0],
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 91,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.5,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0). B_vec is stitched: uniform in 1/B at d(1/B)=1/120 per tesla from 1.0 to 4.8 T (96 rows), then 0.2 T steps to 10.0 T; 122 rows total, recomputed in a scratch script (the cell comment says the join is at 4.9 T, the actual join is 4.8 T as the markdown states). Fast axis is np.round(np.arange(-1.25, 3.275, 0.05), 4) in 1e12 cm^-2 (91 pts) mapped through calc_gate_voltages with the run-5 CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) at D = 0 V/nm; reported unscaled in that geometry-prior frame, though the markdown floats a possible ~13% larger absolute lever arm. Lock-in state inherited from cell 44's close_out(restore=state0) readback (sr0 20 mV / 0.3 s, sr1 2 uV / 0.3 s); the appended cell sets only sr1 to 100 uV. nplci 1.0 on both Keithleys is asserted (not set) in cell 48 and confirmed by that same readback; drive 1.0 V through the 100 MOhm bias resistor (10 nA). Stated price is 5.1 h computed with a ~5.5 h headline."
+}

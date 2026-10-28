@@ -1,0 +1,7 @@
+## HERA — Runs 6 and 7: field spots justify the fan, not a stacking call
+
+Plan step 3. Both records are complete: data/6 has 921 points in 120.4 min; data/7 has 486 points in 95.7 min. Drain current stays 9.843–9.935 / 9.809–9.931 nA respectively, gate currents remain below 0.22 nA, and sample temperature spans 1.165–1.292 K. Signed B_1–B_2 resistance spans -32.95..529.63 ohm (electron) and -0.38..586.87 ohm (hole); preserve that sign to avoid introducing rectification harmonics. Phase excursions near small X require caution about treating every resistance minimum as a pure longitudinal zero.
+
+Raw X and phase precede signed V/I and background-subtracted spectra below. Electron spectral structure near 22 and 30 T and hole structure around 12–13 T warrant tracking across density; window-sensitive low-frequency background and harmonic families prevent identifying stacking from these spots alone. Automatic onset estimates that reach the selected lower boundary are censored, not measured onset fields. The run-5 density scale remains geometry-anchored; nominal D=0 uses the resistance-minimum proxy. Two neutral ridges within one measured pair suggest inhomogeneity but do not establish independently contacted domains or a transport gap.
+
+Decision (plan step 4): a bipolar density fan at nominal D=0, preserving raw gate axes, to track origins, crossings and frequency evolution. No region-resolved stacking call yet.

@@ -1,0 +1,34 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 0.5, 1.0, 1.15, 1.3, 1.45, 1.6, 1.75, 1.9, 2.05, 2.2, 2.35, 2.5, 2.65, 2.8, 2.95, 3.1, 3.25, 3.4, 3.55, 3.7, 3.85, 4.0, 4.15, 4.3, 4.45, 4.6, 4.75, 4.9, 5.05, 5.2, 5.35, 5.5, 5.65, 5.8, 5.95, 6.1, 6.25, 6.4, 6.55, 6.7, 6.85, 7.0, 7.15, 7.3, 7.45, 7.6, 7.75, 7.9, 8.05, 8.2, 8.35, 8.5, 8.65, 8.8, 8.95, 9.1, 9.25, 9.4, 9.55, 9.7, 9.85, 10.0],
+  "B_min_T": 0.0,
+  "B_max_T": 10.0,
+  "n_B": 63,
+  "spacing": "B",
+  "n_min_cm2": -1.26e12,
+  "n_max_cm2": 3.22e12,
+  "n_columns": 113,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 5.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.67,
+  "flags": [],
+  "notes": "Measure cell 48 (trailing, unexecuted) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=5.0, fast_delay=1.0). Slow B axis is np.unique(np.hstack(([0.0,0.5], np.arange(1.0,10.0001,0.15)))) = 63 rows — two baseline rows plus a uniform 0.15 T leg, hence field_mode 'stitched' (B_values given; B_min/B_max/n_B echo its ends). Fast axis: calc_gate_voltages over np.round(np.arange(-1.26,3.2601,0.04),4) (1e12 cm^-2) at D=0 with the session's run-5 calibration CAL = {c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013}, clipped 5 mV inside TG/BG validators — 113 points, n = -1.26e12 .. +3.22e12, V_tg -0.2942..+0.9894 V, V_bg -0.4872..+1.1735 V (reproduced in a scratch script). Sweep records sr0.X/P and sr1.X/P plus k_2400_tg_curr / k_2400_bg_curr. Cell 48 sets sr1.sensitivity(100e-6); all other instrument state is inherited from cell 44's close_out(restore=state0) readback (sr0_sens 0.02, sr0_tau/sr1_tau 0.3 s, tg/bg nplci 1.0, drive_V 1.0), which is the latest record before the appended cell; bias_resistor 100e6 from meas_config (cell 23). Wall clock 3 h 40 m stated in cell 47's markdown."
+}

@@ -1,0 +1,19 @@
+# Per-device values a grade.py needs and the archive does not state in machine form.
+# Keyed by the device name on the first line of the archive's device_card.md, lowercased.
+#
+# b_min_T: the field below which SdH rows are not asked of a design -- the measured onset
+# where known.  The low edge of the S1 window and the fan-design cutoff.
+
+[qc0426]
+b_min_T = 1.2
+b_min_note = "measured: sdh_onset 1.16 T (hole, runs 7+8 sr1) and 1.21 T (electron, run 5 sr2), 2026-07-18 session, |n| 6.5e12, records from 0.5 T"
+
+[vti-01]
+b_min_T = 1.0
+b_min_note = "measured: sdh_onset 1.02 T, lowest robust tone (9.3 T) on the run 20 descent, 2026-08-18 session, hole n -1.74e12, record from 0.5 T"
+
+[vti-02]
+b_min_T = 2.4
+b_min_note = "measured onset (2026-08-21 session)"
+
+[zf1]  # graded in gate space (sc-survey)

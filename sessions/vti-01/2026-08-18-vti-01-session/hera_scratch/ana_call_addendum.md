@@ -1,0 +1,10 @@
+## CALL ADDENDUM — runs 19–20 (τ = 300 ms, operator-requested): ML pocket resolved
+
+**The hedge is retired. Verdict upgrade: sr1 region ABA / Bernal — now carried by both pockets.**
+
+- **ML branch directly resolved** (run 19, sr1): a third tone at 1.7 → ~3.6 T over n = −0.70…−1.42, tracking its own shallow Onsager slope (~2.4 T/10¹² — the model f_ML *shape*), distinct from A/2; corroborated at lower SNR on sr3. Confirmed at the high-|n| endpoint by run 20 (δF 0.72 window): **f_ML = 4.4 T** (window sensitivity 4.4–5.5 → quote 4.7 ± 0.6) at n = −1.74. Run 19's apparent 2.0 T pinning beyond n = −1.5 was sub-0.9 T background contamination (excluded by cutoff), the same artifact class killed twice before.
+- **Luttinger closes with the pair at one global scale**: f_ML + f_BL = (1.14 ± 0.02)·F_L across ten run-19 columns and run 20's endpoint (20.8 vs 20.6). λ = 1.14 sits at the lever-arm band's edge — the QH lever-arm check remains the pending upgrade. Partition f_ML/Σ ≈ 20% vs model 13% (inside the model's stated partition uncertainty).
+- **Branch identities pinned by masses**: f_BL = branch A (16.4 at −1.74), measured m* = 0.049(2) mₑ (model BL 0.060). The alternative — {4.4, 12.0} as the pair with 16.4 a magnetic-breakdown sum — is **excluded**: a sum orbit damps with m_ML + m_BL (~0.07 model), and 16.4 is measured *lighter* than its would-be BL parent. 12.0 = 16.4 − 4.4 exactly → mixing/difference line. A/2 (8.2–8.8) keeps its even–odd-modulation identity (mass 0.047 ≈ parent; an ML 2nd harmonic would read ~0.02).
+- Under the revised scale the earlier "ABC singleton at 0.90·F_L" reading is fully dissolved: it was f_BL at λ = 1.14 with the ML branch unresolved at τ = 100 ms.
+
+**Remaining softness** (kept from the original contract): ML mass unmeasured (predicted ~0.01 mₑ — a low-B-window ladder would finish it); λ = 1.14 pending QH lever-arm; sr3 corroborates without independent tracking; sr2 uninformative. On the strength scale this is **ABA (strong, two-branch)** — the last step to *decisive* is the ML mass or the Streda complement.

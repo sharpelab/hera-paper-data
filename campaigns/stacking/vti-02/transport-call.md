@@ -1,0 +1,34 @@
+# vti-02 — transport call (locked)
+
+**SCORER / SUPPORT-SIDE ⚠️ — not for agent view.** Prereg §5 step 1.
+
+## Provenance
+
+- Session: E1 HERA tactical on the VTI, 2026-08-21 20:16 → 2026-08-22 09:37
+  (rig local). Archive: `hera/docs/notes/2026-08-21-vti-02-session/`.
+- Corpus: `13b07e9` (= `vti-02-deploy` = `arm1-freeze` + the vti-02 kit),
+  clean at session build (`corpus_provenance.json`).
+- Transcript: `transcripts/b6d6abb9-5f23-44c6-a728-56fca6e59729.jsonl`.
+- Call: ana notebook `20260821_ana.ipynb` cell 29, landed 2026-08-22 09:15
+  (cell metadata `appended_at` 16:15:16Z). Text below is verbatim from
+  `hera_scratch/ana_call_md.md`; the notebook cell is byte-identical.
+- Session log: `session_notes.md` (grant, bring-up record, close-out
+  readback, run list 0–15). No operator override during E1.
+
+---
+
+## Session call — vti-02 stacking (investigation `tetralayer-stacking-fs-count`, output contract)
+
+**1. Per-region verdict.** Channel/pair **sr1 = B_1–B_2 (source T_0, drain B_3): ABAB (Bernal) — strong.** No other R_xx pair is wired this cooldown (sr2/sr3 n.c.), so this is a one-region call; the flake may host other domains elsewhere.
+
+**2. Evidence (all at D ≈ 0, electron side, Si = 0, T_e ≈ 8 K per rig card; global density scale 0.93 ± 0.03 pinned on the whole peak set by the Luttinger sum — design densities ×0.93):**
+- Run 5 (spot, n ≈ 2.8): fundamentals **f₁ = 6.2 T, f₂ = 21.8 T**, sum **28.1 T** (= F_L at scale 0.90), difference **15.6 T**; onset 2.4 T; partition 0.78/0.22. Ana cells 16–18.
+- Run 8 (fan, n 1.35–3.06 actual, 36 rows × 41 columns, δF 3.1 T): light branch 3.2 → 6.9 T at 0.21–0.22·F_L across the range, on the ABAB light curve (slope ≈ 3.3 T/10¹²; trilayer ML would be ≈ 1); heavy branch 20.8 → 25.2 T ≈ 0.77·F_L on the ABAB heavy curve for n ≳ 2.5 (unresolvable from the F_L tone below); a tone at F_L in every column. Luttinger: f₁ + f₂ = 32.1 vs 33.1 T (n = 3.06), 28.0 vs 28.1 (run 5). Ana cells 22–25 (Onsager overlays with the model curves in cell 23).
+- F_L-tone origin: B-window split — sum/heavy 0.26 → 0.70 → 1.15 from low to high windows (run 5), 0.99 → 2.11 (fan column n = 3.16): strengthens with B like a breakdown / intermodulation orbit (cell 24); grid-change (uniform-B vs uniform-1/B) reproduces the set; LK: the F_L tone's mass 0.065 ± 0.004 (joint; 0.051 in 2.4–4.5 T, 0.100 in 3.5–7 T) m_e exceeds both fundamentals (0.039 ± 0.002 light, 0.048 ± 0.003 heavy) and is window-dependent (0.05 low-B → 0.10 mid-B) — consistent with the additive breakdown-orbit mass (≈ 0.085) within the window fork, not with a single pocket of fixed mass. Beat exclusion: the light branch is **lighter** than the heavy one → a genuine second band, not a beat (decisive per the investigation's rule). Ana cells 26–27.
+- Degeneracy audit: one global scale (0.93), no 2×/4× multiplicity → g = 4 holds; ν ≈ 16-family rays visible in the raw fan.
+
+**3. Confidence and hedges.** Strong, not decisive: (i) **one contact pair** — mosaic caveat, no cross-region check possible this cooldown; (ii) **mass ratio** — measured heavy/light ≈ 1.2–1.4 vs the model's ≈ 2.2 at this density (φ² limit 2.6): the light tone's LK rests on a 2-period record (6 T in a 0.32 T⁻¹ span) and is the least trustworthy number here; the model masses are semi-quantitative (README). The frequencies/partition/Luttinger/breakdown behaviour carry the call, the masses support "two genuine bands" without confirming the φ² split; (iii) **δF = 3.1 T** — the heavy branch is resolved from the F_L tone only for n ≳ 2.5; the B-window split is a weak null below n ≈ 2.7; (iv) **hole side unmeasured**: the D = 0 line reaches only −1.1 × 10¹² (TG limit) and a V_bg-independent series segment (CNP at V_tg ≈ −0.2 V, Si-insensitive, runs 4/6/7) is driven to neutrality there — geometry-limited on this pair, not a null; (v) **series-segment tone**: its predicted V_tg-only line (12–20 T) is not identified as any branch (the 13–16 T peaks track f₂ − f₁), but cannot be excluded at δF = 3 T; (vi) **absolute layer number**: the peak set matches the 4L ABAB overlay, not the trilayer ML+BL family (light fraction 0.21 vs 0.12–0.15; heavy 0.77 vs 0.87) — N = 4 is what the transport supports; pentalayer not tested; (vii) ABCA: excluded as the sole stacking of this region (a 0.21·F_L branch has no ABCA parent; sub-F_L fundamentals dominate); an ABCA minority domain contributing to the F_L tone is not excluded (mixed-domain confound of the sum tone); ABCB: not supported (light branch linear at 0.21·F_L, no Dirac-like supra-linear shape resolvable; citation-grade template).
+
+**4. What would firm it.** A second R_xx pair on the flake (region cross-check) — operator rewiring; a cleaner R_xx pair without Hall admixture for the QH-ray lever-arm pin and ν = 8/12/16 ladder; a longer 1/B record for the light tone (lower onset: higher mobility cooldown, or mK/lower T_e rig) for the φ² mass split; the hole side at D ≈ 0 on a pair whose path is fully dual-gated; a second-density LK rung set.
+
+**5. Calibration and housekeeping for the card.** c_bg/c_tg = 0.727 (run 4, ratio data-calibrated); absolute scale 0.93 ± 0.03 of the geometry prior (Luttinger, runs 5/8) — i.e. c_tg ≈ 2.60 × 10⁻³ F/m² (≈ 10.2 nm hBN-equivalent) with c_bg ≈ 1.89 × 10⁻³; n_offset −0.07 × 10¹² (design frame); D_offset 0 (gap minimum at geometric D = +0.006 V/nm); CNP ridge gaps to 3 kΩ at D = +0.3 V/nm; series segment CNP at V_tg ≈ −0.2 V (Si-insensitive); SdH onset 2.4 T at n ≈ 2.8 × 10¹² electrons; Hall admixture α ≈ 0.2 on B_1–B_2.

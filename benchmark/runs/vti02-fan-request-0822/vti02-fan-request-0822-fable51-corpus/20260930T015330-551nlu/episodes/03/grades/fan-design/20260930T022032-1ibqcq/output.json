@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.0,
+  "B_max_T": 1.3,
+  "n_B": 131,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.33,
+  "flags": [],
+  "notes": "Cell 48 (unexecuted trailing code cell, md cell 47): one 1D field sweep s.sweep(magnet.field, np.round(np.arange(0.0, 1.3001, 0.01), 4), delay=0) = 131 pts 0 -> 1.3 T uniform in B, at the single spot n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the run-5 calibration committed in the cell: c_tg=2.796e-3, c_bg=2.161e-3 -> Vtg +0.9836, Vbg +1.1661); md cell 47 notes the QH minima put the true density at ~0.91x nominal, values left unscaled here. No fan and no further densities are named — the cell is framed as a low-field extension of run 6 to pin the fan's B_lo, with the fan itself only described, not issued. sr1 sensitivity 50 uV set in the cell; sr1 tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s and both Keithley nplci = 1.0 are inherited from the close_out(restore=state0) readback in cell 44; drive 1.0 V (same readback) through the device card's 100 MOhm bias resistor. Stated ETA ~20 min (cell 47: '≈20 min', 16.4 min compute + gate ramps)."
+}

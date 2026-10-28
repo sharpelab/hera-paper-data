@@ -1,0 +1,5 @@
+## Runs 6 and 7 — spot cuts reviewed before the Landau fan (plan step 3)
+
+Both completed: data/6 has 921 points over 0–10 T (120.3 min); data/7 has 486 points over 10–0.3 T (95.6 min). Measured drain current spans 9.81–9.94 nA; signed B_1–B_2 resistance spans −33 to 530 ohm (electron) and −0.38 to 587 ohm (hole), without clipping. Raw voltage precedes current-normalized resistance and Fourier analysis below. Preserve signed resistance: rectifying its zero crossings would manufacture harmonics.
+
+Electron FFT peaks near 7 and 30 T persist across 1.5–10 and 2–10 T windows; intermediate peaks near 14 and 22 T may be harmonics. Hole peaks near 5–7 and 12 T are window-dependent. The onset helper reports a censored low-edge tone at 0.5 T, not a measured onset; its near-residual and harmonic flags prevent reading every returned tone as a band. No stacking assignment follows from these spectra. The next fan (plan step 4) tests continuous branch dispersion and origins across both carrier signs. Nominal n and D retain absolute-scale and D-zero uncertainty from run 5; two CNP ridges are not proof of separately resolved spatial domains.

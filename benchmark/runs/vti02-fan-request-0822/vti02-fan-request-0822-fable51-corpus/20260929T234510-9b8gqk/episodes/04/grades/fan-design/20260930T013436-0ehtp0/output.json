@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 10.0,
+  "n_B": 133,
+  "spacing": "invB",
+  "n_min_cm2": 0.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 53,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.92,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.0); B_vec = 1/np.linspace(1/0.7, 1/10.0, 133) (N_B computed in-cell = 133, verified in scratch), fast axis ns = np.arange(3.2, 0.6-1e-9, -0.05) = 53 columns in 1e12 cm^-2 at D = 0 V/nm via calc_gate_voltages with the run-5 CAL committed in the cell. Instrument state: cell 48 sets sr1.sensitivity(100e-6); tau 0.3 s and sr0 sens 0.02 V inherited from the cell-44 close_out(restore=state0) readback (sr1_sens there was 2e-6, superseded). nplci 1/1 asserted (not set), inherited from cell 34's post-leg reset and confirmed in the cell-44 readback; drive 1.0 V through 100 MOhm. Wall clock: header markdown quotes ETA ~09:24 (~3 h 55 m); the design section's raw estimate is ~3 h 40 m before the +8 % quote."
+}

@@ -1,0 +1,9 @@
+**Read — hole side (T3–T4 and B4–B5 regions).**
+
+- **Scale pinned first** (recipe discipline): the Hall slope gives |n| = 6.38×10¹² cm⁻² vs 6.0 designed — the geometry-prior capacitance scale is ~6 % low (well inside its stated 10–15 % band). All tones below are read against **F_L(true) ≈ 66.0 T**, not the design 62 T. (This is a lever-arm *scale* data point: c's ≈ ×1.07 geometry; formal upgrade still awaits the QH check.)
+- **Onset ≈ 3.5 T** (oscillations emerge above ~3.5 T in the detrended record; consistent with T_e ≈ 8 K). Usable 1/B span ≈ 0.16 T⁻¹ → **δF ≈ 6.5 T resolution floor** — the binding constraint on this rig.
+- **Main tone, stable: 54–57 T on both channels** across a 4-way detrender/window stability sweep → a real pocket at ≈ 0.83·F_L. **A singleton at F_L is disfavored** — the Hall-pinned scale leaves no room to slide 55 T onto 66.0 T.
+- **Candidate small partner ≈ 13 T (sr1)**: strongest FFT peak in two of four extractions, and 55.5 + 13 ≈ 68.5 ≈ F_L within δF — an ABA-like Luttinger partition (f_BL + f_ML = F_L) with f_ML/F_L ≈ 0.2. **Fork, not evidence yet**: the peak sits ~2 bins from DC and wanders with the detrender (STYLE rule 14 — reported as a fork). The ~27–33 T wandering content is consistent with 2f_ML; the ~72 T bump with f_BL + f_ML intermodulation; neither is claimed.
+- **sr2 shows the same main tone but weaker low-F content** — mild region difference (as with the 2 % slope spread), no mosaic claim from this alone.
+
+**Interim lean: ABA-consistent (pair partitioning F_L), on the strength of the main tone sitting well below the Hall-pinned F_L.** What decides it: the fan's per-column F(n) — a real ML pocket at ~13 T must track its own Onsager curve with n; a detrender artifact won't. Fan design inherits: onset 3.5 T → B_lo; Δ(1/B) = 5.4e-3 confirmed adequate (fastest stable tone 57 T « Nyquist 93 T); sensitivity sizing validated (770 Ω max, no clip).

@@ -1,0 +1,78 @@
+[project]
+name = "measurement-env"
+version = "0.1.0"
+description = "Sharpe Lab measurement environment for toploader instruments"
+requires-python = ">=3.10"
+dependencies = [
+    "sweep",
+    "measurebot",
+    "qcodes",
+    "pyvisa",
+    # ActiveX/COM for the pink rig's Leiden DR TempControl thermometry (LVApp)
+    "pywin32>=306; sys_platform == 'win32'",
+    # MCC Universal Library wrapper — drives the toploader's QCS heater DAQ
+    "mcculw>=1.0; sys_platform == 'win32'",
+    "jupyterlab>=4.5,<4.6",
+    "jupyterlab-cell-index",
+    "jupyter-collaboration>=4.3,<5",
+    "jupyter-nbmodel-client>=0.14,<0.15",
+    "numpy",
+    "matplotlib",
+    "scipy",
+    "tqdm",
+    "hidapi",
+    "influxdb-client",
+    "pyqt5",
+    "pydantic>=2",
+    "google-genai>=0.3",
+    "pyyaml",  # hera-metrics reads the run manifest (runs.yaml)
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[project.gui-scripts]
+measurement-env-toploader = "gui.qt.toploader_launcher:main"
+measurement-env-vti = "gui.qt.vti_launcher:main"
+measurement-env-pink = "gui.qt.pink_launcher:main"
+
+[project.scripts]
+nb = "tools.nb:main"
+nb-collab = "tools.nb_collab:main"
+hera-notify = "tools.hera_notify:main"
+hera-watch = "tools.hera_watch:main"
+hera-utilization = "tools.hera_utilization:main"
+hera-metrics = "tools.run_metrics:main"
+hera-classify = "hera.classify:main"
+hera-overlay = "hera.overlay:main"
+hera-replay = "hera.replay:main"
+hera-trajectory = "hera.trajectory:main"
+hera-variance = "hera.variance:main"
+hera-experiments = "hera.experiment_scheduler:main"
+hera-grade = "hera.grading.runner:main"
+submit_output = "hera.grading.submit:main"
+
+[tool.pytest.ini_options]
+# Confine collection to real test roots — without testpaths, pytest crawls the
+# whole repo and chokes on *_test.py scratch files under hera/docs/notes/.
+testpaths = ["tests", "src", "lib"]
+# Repo root on sys.path so `from tests.hera.conftest import ...` resolves.
+pythonpath = ["."]
+markers = ["slow: tests that take longer to run"]
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
+
+[tool.uv.sources]
+sweep = { path = "lib/measureme", editable = true }
+measurebot = { path = "lib/measurebot", editable = true }
+jupyterlab-cell-index = { path = "vendor/jupyterlab_cell_index-0.2.0-py3-none-any.whl" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gui", "src/hera", "src/sharpelab_nb", "src/tools", "src/workers", "src/drivers"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

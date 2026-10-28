@@ -1,0 +1,24 @@
+# === Thermometry fix: park heater, check BOTH probes, re-point `temperature` to Probe1 ===
+import os, time as _t
+
+heater.volt(0)
+print("heater ->", heater.volt(), "V ; curr", heater.curr(), "A\n")
+
+probes = {
+    "Probe1": r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt",
+    "Probe2": r"C:\Users\toploader\temperature_logs\Probe2_MixingCh_low.txt",
+}
+for name, lf in probes.items():
+    try:
+        p = temperature_from_logfile("T", lf)
+        v1 = float(p()); _t.sleep(3); v2 = float(p())
+        age = _t.time() - os.path.getmtime(lf)
+        live = "LIVE" if age < 120 else "STALE(file old)"
+        print(f"{name}: T {v1*1e3:.1f} -> {v2*1e3:.1f} mK | logfile age {age:.0f}s | {live}")
+    except Exception as e:
+        print(f"{name}: error {e}")
+
+# Re-point the sample thermometer to Probe1 (live). Supersedes setup cell 8 (Probe2).
+temperature = temperature_from_logfile("T", probes["Probe1"])
+print(f"\nsample T (Probe1) now: {temperature()*1e3:.1f} mK   "
+      f"(expect ELEVATED & falling if Probe1 is the real sample sensor — we just heated to 5 V)")

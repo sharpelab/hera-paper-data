@@ -1,0 +1,45 @@
+# Run 3 fan — Fermi-surface COUNT: per-column SdH-FFT, F_L/2 finding, QH lever-arm
+from hera.analysis import fan_grids, resistance_grids, sdh_fft
+from sharpelab_nb import gates
+from scipy.signal import find_peaks
+hh, ee, RK = 6.62607e-34, 1.602177e-19, 25812.807
+r3 = run(3); fg = fan_grids(r3); rg = resistance_grids(fg); mc = r3.meta["measurement_config"]
+B = np.asarray(fg.slow); Vtg = fg.grid("DC_bias")[0]; Vbg = fg.grid("k_2400_volt")[0]
+ncol = gates.calc_nD(Vtg, Vbg, 1.7027e-3, 2.2024e-3, -0.1445, 0.0)[0]
+FL = (hh / (4 * ee)) * (np.abs(ncol) * 1e16)
+Rxx = {ch: np.asarray(rg.R[ch]) for ch in ["sr1", "sr2"]}; Rxy = np.asarray(rg.R["sr3"])
+
+fig, ax = plt.subplots(2, 3, figsize=(17, 9))
+for row, ch in enumerate(["sr1", "sr2"]):
+    R = np.abs(Rxx[ch]); Xg = np.abs(fg.grid(f"{ch}_X")); sens = mc[f"{ch}_sens"]
+    # (1) raw fan
+    pc = ax[row, 0].pcolormesh(np.abs(ncol), B, np.clip(R, 0, 3000), shading="auto", cmap="inferno")
+    ax[row, 0].set_xlabel("|n| (1e12)"); ax[row, 0].set_ylabel("B (T)"); ax[row, 0].set_title(f"{ch} |Rxx|(n,B)"); fig.colorbar(pc, ax=ax[row, 0])
+    # (2) FFT waterfall freq vs n, with F_L and F_L/2
+    fgrid = np.linspace(5, 55, 140); Z = np.full((len(ncol), len(fgrid)), np.nan); fdom = []
+    for j in range(len(ncol)):
+        railed = Xg[:, j] > 0.88 * sens; good = np.isfinite(R[:, j]) & ~railed & (B >= 1.5)
+        if good.sum() < 8: fdom.append(np.nan); continue
+        fr, sp = sdh_fft(R[good, j].reshape(-1, 1), B[good], b_range=(B[good].min(), B[good].max()), bg_degree=5)
+        mag = sp[0]; mm = (fr > 6) & (fr < 55)
+        Z[j] = np.interp(fgrid, fr, mag / mag.max())
+        pk, _ = find_peaks(mag[mm], height=0.4 * mag[mm].max())
+        fdom.append(fr[mm][pk[np.argmax(mag[mm][pk])]] if len(pk) else np.nan)
+    pc = ax[row, 1].pcolormesh(fgrid, np.abs(ncol), Z, shading="auto", cmap="viridis")
+    ax[row, 1].plot(FL, np.abs(ncol), "w-", lw=1.5, label="F_L"); ax[row, 1].plot(FL / 2, np.abs(ncol), "c--", lw=1.5, label="F_L/2")
+    ax[row, 1].set_xlabel("SdH freq (T)"); ax[row, 1].set_ylabel("|n| (1e12)"); ax[row, 1].set_title(f"{ch} FFT(n): dominant ridge ON F_L/2"); ax[row, 1].legend(fontsize=8)
+    fdom = np.array(fdom); sel = np.isfinite(fdom)
+    print(f"{ch}: median F_dom/F_L = {np.nanmedian(fdom[sel]/FL[sel]):.3f}  (0.50 => 2 FS / ABA; 1.0 => 1 FS / ABC)")
+# (3) QH lever-arm: gate nu vs Hall nu (scale check) at a clean column
+j = np.argmin(np.abs(ncol - (-3.37)))
+nu_gate = np.abs(ncol[j]) * 1e16 * hh / (ee * B); nu_hall = RK / np.abs(Rxy[:, j])
+ax[0, 2].plot(nu_hall, nu_gate, "o-", ms=4); lim = [0, max(nu_gate.max(), nu_hall.max())]
+ax[0, 2].plot(lim, lim, "k--", lw=1, label="gate=Hall"); ax[0, 2].set_xlabel("ν (Hall, R_K/|Rxy|)"); ax[0, 2].set_ylabel("ν (gate, nh/eB)")
+ax[0, 2].set_title(f"QH lever-arm: ν_gate/ν_Hall={np.median(nu_gate/nu_hall):.2f} (scale OK)"); ax[0, 2].legend(fontsize=8)
+# (4) direct osc count panel for the n=-3.37 column
+R1 = np.abs(Rxx["sr1"][:, j]); good = np.isfinite(R1) & (np.abs(fg.grid("sr1_X")[:, j]) < 0.88 * mc["sr1_sens"]) & (B >= 1.5)
+invB = 1 / B[good]; o = np.argsort(invB); ib = invB[o]; rr = R1[good][o]; dR = rr - np.polyval(np.polyfit(ib, rr, 4), ib)
+ax[1, 2].plot(ib, dR, ".-", ms=3); ax[1, 2].set_xlabel("1/B (1/T)"); ax[1, 2].set_ylabel("ΔRxx (Ω)")
+ax[1, 2].set_title(f"n={ncol[j]:.2f}e12: ~{np.sum(np.diff(np.sign(dR))!=0)//2} periods over Δ(1/B)={ib.max()-ib.min():.2f} → F≈F_L/2")
+plt.tight_layout(); plt.show()
+print(f"QH lever-arm ν_gate/ν_Hall median = {np.median(nu_gate/nu_hall):.3f} (==1 confirms density scale; rules out 2x error)")

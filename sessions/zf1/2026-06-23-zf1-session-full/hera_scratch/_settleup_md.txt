@@ -1,0 +1,7 @@
+## HERA — Heater settle calibration: UP ladder (0→6 V, 1 V steps)
+
+New task: calibrate the fridge thermal settle vs heater voltage. This is the data the rig card says to "derive from this session's own ramps" — now possible with Probe1 live. **Up ladder first** (reverse ladder next, to test up/down asymmetry).
+
+**Method:** for each 1 V up-step (0→1, 1→2, 2→3, 3→4, 4→5, 5→6) — ramp the heater (qcodes 5 mV sub-steps), then **record T(t) on Probe1 for ~8 min** (100 pts @ 5 s) while held, one run per step. Each step starts from the *equilibrated* previous level, so the settle is clean. Recorded: `temperature` (Probe1, the measurement), `fridge_temperature` (second sensor, cross-check), `heater.volt`/`heater.curr` (confirms the step drew current). Live plot is `time` vs `temperature` — watch it plateau.
+
+**Discipline / safety:** tops out at **6 V** (sustained ceiling is 6.5 V; validator 0–6.5). Starts from a stable base (asserts heater=0 and T<60 mK — if the sample is still cooling from the T-dependence, wait before running). **Heater is left HELD at 6 V at the end** (equilibrated) so the reverse ladder can step straight down — park it (heater.volt(0)) if you pause for long. ~50 min (6 × ~8 min); interrupt anytime, partial traces are readable. I'll extract the settle time per step (time to reach the plateau / dT/dt below threshold) and we compare against the down ladder for asymmetry.

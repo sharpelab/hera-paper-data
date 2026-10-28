@@ -1,0 +1,20 @@
+connected: http://localhost:8888 path=aaron/20260624-3-zf1/20260624_measure.ipynb cells=37
+  executing code @ 36 id=94422ede kernel=59053853-0954-42c3-a402-cd4684b61e3a
+C:\Users\toploader\measurement_env\src\tools\nb_collab.py:706: UserWarning: We recommend installing `jupyter_kernel_client` for a better execution behavior.
+  result = client.execute_cell(idx, kc, timeout=timeout)
+C:\Users\toploader\measurement_env\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+status: error
+execution_count: 18
+--- output ---
+T: 0.03413 B: -1.3026e-05 gates: 0.0 0.0 dc205_1: 0.0
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+Cell In[18], line 17
+     15 c_tg = stack_capacitance([(23.6,3)]); c_bg = c_tg*1.1833
+     16 n_off = -calc_nD(0.1634,0.0,c_tg,c_bg)[0]
+---> 17 Vtg_op, Vbg_op = [float(x) for x in calc_gate_voltages(np.array([-0.55]),np.array([-0.6]),c_tg,c_bg,n_offset=n_off)]
+     18 print("operating point: Vtg=%.3f Vbg=%.3f" % (Vtg_op, Vbg_op))
+     20 # AC excitation 1 nA (0.1 V / 100 MOhm); DC bias via dc205_1 / 100 MOhm: +/-15 V -> +/-150 nA
+
+TypeError: only 0-dimensional arrays can be converted to Python scalars

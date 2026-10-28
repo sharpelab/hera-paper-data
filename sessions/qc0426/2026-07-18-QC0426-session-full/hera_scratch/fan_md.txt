@@ -1,0 +1,18 @@
+## HERA — Step 4: D = 0 Landau fan, electron side (per-column SdH-FFT fan)
+
+Recipes: `measurements/landau-fan.md` + `landau-fan-vti` deltas; Step 4 of `trilayer-stacking-fs-count`. Side choice: **electron** — spot-check quality carried the decision (sr2 SNR 144, tones template-matched; hole onset segment shows the same family with weaker SNR at matched B). Conditional: if run 8's full hole record overturns the cleanliness ranking, this cell is superseded before execution — it does not run until the hole read is on the page.
+
+**What the fan settles**: (1) **n-tracking** of the {13.4, 55.2, 66.3} families — a harmonic tracks k·f exactly, a pocket follows its own Onsager curve; this retires the 13.4-comb fork. (2) **Partition robustness** — f_ML(n) + f_BL(n) = F_L(n) across density, algebraic. (3) The sr1-vs-sr2 region difference (ABC singleton vs ABA pair) across the whole window → the region-resolved call.
+
+**Floored design (recipe step-1 levers, stated):**
+- **B_lo = 1.2 T** — measured onset (run 5 fine segment, sr2 tone-tracked 1.21 T; not eyeballed, not censored). **B_hi = 8 T** (session cap; claim needs the high-B periods for δF ≈ 1.5 T above onset).
+- **n window (labels, calibrated scale 1.106×): 2.0 → 6.2×10¹² cm⁻²**. n_max floored by the TG validator margin (V_tg(6.2) = +2.94 V); n_lo floored by the **dynamic-range worst corner** (low-n × 8 T: R̂(2×10¹², 8 T) ≈ 2 kΩ from the run-4 R(n) anchor × the measured ~16× MR factor) — columns below 2×10¹² would force a sensitivity that clips or starves the whole fan. The first fan row is the 8 T row → the worst corner is validated in the first minutes (down-fan).
+- **N_B = 131** rows, `field_invB(8.0, 1.2, 131)` — Δ(1/B) = 5.4e-3 /T **inherited from the locked spot-check acquisition**; 2.6 pts/period at the n_max Nyquist floor (F_max ≈ 72 T). Descending: starts where the magnet sits after run 8, ends at 1.2 T.
+- **N_n = 81** (Δn = 0.0525×10¹²) — ray-Nyquist at B_lo: Δn_ray = 4(e/h)·1.2 T = 0.116×10¹², 2.2 pts/ray ≥ 2 floor.
+- **Dwell**: fast_delay 1.8 s = 6τ (n-axis carries the extracted signal — recipe step 7); slow_delay 1 s.
+- **Sensitivities (fixed whole-fan, worst-corner sized, headroom-not-precision)**: sr1 1e-4 (5 kΩ ceiling; corner fs ≈ 0.5, high-n rows read at fs ≈ 0.1 — losing low-R resolution beats saturating), sr2 5e-5, sr3 1e-4 (R_xy corner 2.3 kΩ), sr0 5e-2.
+- **δF check**: usable record per column 1/1.2 − 1/8 = 0.71 /T → δF ≈ 1.4 T ≪ the 11 T (55↔66) separation the claim rides on ✓.
+
+**Price**: 131 × (81 × 2.05 s + ~9 s turnaround) + 50 min traverse ≈ **7.2 h nominal, 7.5–8 h realistic** (calibrated on this session's runs). N_B·N_n·t_pt stated per the cost-floor rule; each lever at its floor — this is the one fan.
+
+**Checkpoints**: first rows = worst-corner clip check (abort threshold: any FS-CLIP in the first 3 rows); then periodic digest reads every ~1.5 h (R ridge continuity, T_sample at base, gate-current offsets); mid-fan a partial per-column FFT on landed rows (high-B rows land first — the tone families are checkable early).

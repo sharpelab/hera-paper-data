@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# nb-collab — wrapper around the measurement-env's `nb-collab` tool
+# (append cells to the live JupyterLab notebook via YDoc). Exec'd via uv
+# so the project env is loaded without the caller needing to know the path.
+exec uv run --no-sync --project "${HOME}/measurement_env" nb-collab "$@"

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# hera-tactical — launch the HERA tactical agent in a new terminal, rooted in a
+# session dir, with that session's brief as its opening message.
+#
+# Usage: hera-tactical <session-dir>
+#
+# Wraps the newclaude invocation so the transcript-backup hook's gate is set
+# DETERMINISTICALLY: this launcher always exports HERA_SESSION_DIR=<session-dir>,
+# instead of relying on the hera-session agent to remember the --env flag when
+# it hand-types newclaude. It didn't — every observed handoff dropped the flag,
+# so HERA_SESSION_DIR was never set and the hook silently no-op'd at its gate.
+# Mirrors the `iris` shim, which is robust for exactly this reason.
+#
+# HERA_SESSION_DIR pins the hook to THIS session dir, fixed for the session's
+# life and immune to any later cd. See hera-transcript-hook.
+set -euo pipefail
+
+dir="${1:?usage: hera-tactical <session-dir>}"
+
+if [[ ! -d "$dir" ]]; then
+    echo "hera-tactical: session dir not found: $dir" >&2
+    exit 1
+fi
+# Normalize to an absolute path (matches the iris shim's $PWD-based env value),
+# so HERA_SESSION_DIR doesn't depend on the caller's cwd.
+dir="$(cd "$dir" && pwd)"
+
+brief="$dir/hera_session.md"
+if [[ ! -f "$brief" ]]; then
+    echo "hera-tactical: brief not found: $brief" >&2
+    exit 1
+fi
+
+# newclaude opens tactical in its OWN terminal window and returns — this
+# command is not interactive in the calling shell and needs no backgrounding.
+echo "hera-tactical: spawning tactical in a new terminal (model ${HERA_MODEL:-opus}) ..."
+newclaude "$dir" --agent hera-tactical --env "HERA_SESSION_DIR=$dir" \
+    --model "${HERA_MODEL:-opus}" \
+    -f "$brief"
+echo "hera-tactical: spawned — switch to the new terminal; this shell is free"

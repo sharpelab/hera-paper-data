@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 82,
+  "spacing": "invB",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 151,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.75,
+  "flags": [],
+  "notes": "Answer = cells 47 (md) + 48 (code): multimegasweep([magnet.field],[field_invB(1.0,10.0,82)]) slow x [k_tg.volt,k_bg.volt] fast from calc_gate_voltages over np.round(np.arange(-1.25,3.25+1e-9,0.03),4) (151 pts, units 1e12 cm^-2) at D = 0 with the session's run-5 CAL (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013); densities left on that geometry-prior scale, the cell itself quotes true = 0.894 x prior from the run-6 ladder. Cell 48 sets sr1 sensitivity 100 uV; sr0 sensitivity 0.02 V and both tau = 0.3 s / 24 dB are inherited from the cell-44 close_out(restore=state0) readback, as are drive_V = 1.0 V and nplci = 1/1 (cell 48 only asserts them). Bias resistor 1e8 from the cell's own amplitude/100e6 bias arithmetic. Timing: fast_delay 1.0 s, slow_delay 3.0 s; md quotes 5 h 19 m computed and an ETA of ~5 h 45 m including the 0 -> 1 T pre-ramp, so 5.75 h reported."
+}

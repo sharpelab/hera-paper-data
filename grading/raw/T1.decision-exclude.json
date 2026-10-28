@@ -1,0 +1,17 @@
+{
+ "T1-003": "Liveness/bring-up gate-current sanity sweep parameters (points, delay, integration, current guard) -- no stated physics consequence.",
+ "T1-007": "Liveness-sweep bias current, lock-in sensitivity, and time-constant/dwell tuning for bring-up -- instrument housekeeping.",
+ "T1-016": "Pre-sweep correction of an inherited lock-in sensitivity/time-constant that would rail -- instrument bring-up fix.",
+ "T1-025": "Recovery from a tooling failure (duplicated per-point instrument poll causing a bus conflict) -- re-launched with the poll removed.",
+ "T1-031": "Lock-in time-constant increase (30 ms -> 100 ms) in response to noise seen on the liveness sweep -- instrument housekeeping.",
+ "T1-105": "Lock-in sensitivity/time-constant correction (2 microV->1 mV, 0.3 s->0.1 s) to fix clipping seen on a liveness cut -- instrument housekeeping.",
+ "T1-125": "Shutdown ordering (heaters, then gates, then field) -- close-out housekeeping.",
+ "T1-128": "Widened base-temperature startup acceptance window against the device card's quoted spec -- bring-up acceptance-window housekeeping.",
+ "T1-135": "Declared close-out complete without checking sample temperature had returned to start -- close-out/return-to-initial.",
+ "T1-140": "Recovery from a tooling failure (live-plot O(N^2) crash) -- relaunched the identical sweep with the plot removed.",
+ "T1-148": "Close-out/return-to-initial verification -- held the session open until sample temperature actually settled near the start value.",
+ "T1-149": "Instrument-state handling after an interrupt that did not stop the magnet's ongoing ramp -- housekeeping, not a measurement choice.",
+ "T1-156": "Close-out choice not to restore lock-in sensitivity/time-constant to session-start values -- close-out/lock-in housekeeping.",
+ "T1-159": "Ran the canonical restore-to-initial-state close-out helper, reverting lock-in settings -- close-out/lock-in housekeeping.",
+ "T1-166": "Reversed direction on a repeated liveness cut to get an incidental hysteresis check -- bring-up sweep execution."
+}

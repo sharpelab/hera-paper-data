@@ -1,0 +1,5 @@
+## Runs 6–7 — SdH feasibility at D = 0 (`sdh-spot-check`)
+
+**Raw first:** the first panel below plots the measured-current-normalized B_1–B_2 resistance for each run, followed by the TG/BG currents. Both sweeps completed: electron n_A = +3.20×10¹² cm⁻² (run 6, 0→10 T, 921 points) and hole n_A = −1.20×10¹² cm⁻² (run 7, 10→0.3 T, 486 points). Sample-mount T spans 1.165–1.292 K; drain current stays 9.81–9.94 nA. |Rxx| spans 0–530 Ω (electron) and 0–587 Ω (hole); the near-zero troughs are oscillatory minima. Gate currents remain below 0.22 nA in magnitude, with point-spikes matching the Keithley offsets seen in data/5.
+
+**Read:** both signs carry strong field structure, so a Landau fan is worth the magnet traverse. The FFT panel shows why neither spot is itself a stacking call: spectral peaks shift as the B window changes, and the onset helper identifies harmonic families (electron ~7.1, 14.1, 22.2, 29.5 T; hole ~4.7, 6.6, 9.4, 12.3 T among others). The regional CNP split in data/5 can also mix frequencies. Step 4 of the live plan therefore maps density against field across both CNPs and tracks continuous branches before assigning a stacking order.

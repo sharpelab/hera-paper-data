@@ -1,0 +1,38 @@
+nbformat 4.5  ncells=36
+metadata keys: ['hera', 'kernelspec', 'language_info']
+[  0] markdown exec=None src=   839B out=0 (2B) :: # <DEVICE> — Analysis |  | This is the session's **chronological record** — the running log of the science.
+[  1] code     exec=2 src=  1672B out=0 (2B) :: import numpy as np | import scipy.constants as cst | import matplotlib.pyplot as plt
+[  2] markdown exec=None src=   448B out=0 (2B) :: ## (n, D) — capacitance-based convention |  | `GateCalibration` carries the gate->(n, D) lever arm: `cal.n_D(V_tg, V_bg)`
+[  3] code     exec=3 src=   621B out=0 (2B) :: # slot: geometry — gate-stack thicknesses from the device card's Gate-stack | # geometry (geometry prior — calibrate cnp-and-dline-calibration before | # trusting derived scales). 
+[  4] markdown exec=None src=   502B out=0 (2B) :: ## Analysis discipline — raw first, then the read |  | For every run, in order: **(1) plot the raw run** (`plot_raw(g)`); **(2) then the analysis** via the `hera.analysis` helpers 
+[  5] markdown exec=None src=    66B out=0 (2B) :: ## Run <id> — <what it measured> |  | Why / what we're testing: <...>.
+[  6] code     exec=None src=   156B out=0 (2B) :: g = run(<id>)                 # open + re-form via helpers | plot_raw(g)                   # raw view FIRST — rails/clipping, dead channels, streaks live here
+[  7] code     exec=None src=   136B out=0 (2B) :: # reduce to the feature (fit / peak / slope) and plot it on the data: | # fit overlaid, residual, or zoom — the support your take rests on
+[  8] markdown exec=None src=    32B out=0 (2B) :: **Read:** <what this run shows>.
+[  9] code     exec=None src=     0B out=0 (2B) :: 
+[ 10] markdown exec=None src=   476B out=0 (2B) :: ## Run 0–3 — Gate C: gate-current sanity check, contact liveness, CNP reconnaissance |  | `recipe: device-init/gate-current-sanity-check.md`. Four legs, each gate driven
+[ 11] code     exec=4 src=   303B out=8 (599566B) :: # Gate C — raw first. Four gate-current-sanity-check legs, every lock-in | # channel gain-divided on the run's own axes. Rails, dead channels, and drift | # are visible here and hi
+[ 12] code     exec=5 src=  3081B out=4 (254532B) :: # Gate C — the reduced read: ridge positions per leg, leakage, cap ratio. | from scipy.ndimage import gaussian_filter1d | from scipy.signal import find_peaks
+[ 13] markdown exec=None src=  3602B out=0 (2B) :: **Read.** |  | *Gates.* Safe on both polarities of both gates. BG is flat at its +25 pA readback
+[ 14] markdown exec=None src=   581B out=0 (2B) :: ## Run 4 — first 0 T gate map (V_tg × V_bg), the CNP-line calibration substrate |  | `recipe: measurements/gatemap.md`, feeding `device-init/cnp-and-dline-calibration.md`.
+[ 15] code     exec=6 src=   140B out=2 (113104B) :: # Run 4 — raw first. Every lock-in channel gain-divided on the run's own axes. | r4 = run(4) | print(summarize_run(r4))
+[ 16] code     exec=7 src=  4025B out=2 (122203B) :: # Run 4 — ridge extraction, the linearity test, and the (n, D) reprojection. | from scipy.ndimage import gaussian_filter1d | from scipy.signal import find_peaks
+[ 17] markdown exec=None src=  3555B out=0 (2B) :: **Read.** |  | *Health.* No railing anywhere (peak sr1 load 0.34 of full scale, R ceiling
+[ 18] markdown exec=None src=   660B out=0 (2B) :: ## Run 5 — calibration Landau fan (V_bg = 0): the measurement that unstuck the session |  | `recipe: measurements/landau-fan-vti.md`. B slow 0 → 6 T × 13 rows (0.5 T),
+[ 19] code     exec=8 src=   143B out=2 (90089B) :: # Run 5 — raw first. Calibration fan, every channel gain-divided on its own axes. | r5 = run(5) | print(summarize_run(r5))
+[ 20] code     exec=11 src=  4547B out=2 (144931B) :: # Run 5 — LL ray tracking: CNP from ray convergence, lever arm from ray slopes. | # | # Physics used and nothing else: LLs hold n = nu*eB/h, so at fixed V_bg a minimum
+[ 21] markdown exec=None src=  4378B out=0 (2B) :: **Read — three results, in order of importance.** |  | **1. One CNP, not two.** Seven LL rays were tracked across field; six of their
+[ 22] markdown exec=None src=   358B out=0 (2B) :: ## Run 6 — back-gate calibration fan (descent 6 → 1 T): the calibration closes |  | `recipe: measurements/landau-fan-vti.md`. V_bg fast [−1.3, +2.0] × 301 (11 mV) at
+[ 23] code     exec=13 src=  4872B out=4 (124826B) :: """Back-gate calibration fan (run 6): c_bg from ray slopes, CNP from convergence.""" |  | import numpy as np, scipy.constants as cst
+[ 24] markdown exec=None src=  2921B out=0 (2B) :: **Read.** |  | **The cap ratio is measured, and it vindicates geometry over the ridges.**
+[ 25] markdown exec=None src=   592B out=0 (2B) :: ## Run 7 — SdH spot check at five (n, D = 0) points (investigation Step 3) |  | `recipe: measurements/sdh-spot-check.md`. B slow 1.5 → 6.0 T, 187 rows sampled
+[ 26] code     exec=14 src=   130B out=2 (78452B) :: # Run 7 — SdH spot check: raw traces, then the FFT read against F_L. | r7 = run(7) | print(summarize_run(r7))
+[ 27] code     exec=15 src=  4325B out=4 (233098B) :: """SdH spot check read: onset + 1/B FFT per density, against the Luttinger F_L. |  | The read the investigation asks for: which tones are present at each (n, D=0),
+[ 28] code     exec=16 src=  3534B out=1 (10426B) :: """FFT stability sweep + harmonic screen (sdh-spot-check Verify). |  | A real tone sharpens and holds position as the 1/B record lengthens and across
+[ 29] code     exec=17 src=  1352B out=5 (1320B) :: # Forward-model overlay (investigation Verify) + the mandatory adjacent-N check. | # Both 4L templates AND the trilayer ML+BL curves, per: "For any two-tone pair, | # compute BOTH 
+[ 30] markdown exec=None src=  7531B out=0 (2B) :: # The call — vti-02 stacking, session of 2026-08-24 |  | Per `investigations/tetralayer-stacking-fs-count.md` Step 7. All five parts are
+[ 31] markdown exec=None src=  1248B out=0 (2B) :: ## Run 8 — the FS-count fan: B 8 → 1 T uniform in 1/B, τ = 300 ms, 101 × 57 |  | `recipe: measurements/landau-fan-vti.md`, investigation **Step 4/5**.
+[ 32] code     exec=18 src=    82B out=2 (130591B) :: # Run 8 — raw first. | r8 = run(8) | print(summarize_run(r8))
+[ 33] code     exec=19 src=  4282B out=1 (6973B) :: """Run 8 FS-count fan: per-column FFT vs F_L, harmonic screen, Luttinger partition. |  | Order matters and follows the investigation: extract tones -> SCREEN HARMONICS ->
+[ 34] code     exec=20 src=  6840B out=13 (3639B) :: """Run 8 Verify suite: B-window split (F_L-tone origin) + partition trajectory. |  | Two tests the investigation makes mandatory before an ABAB call:
+[ 35] markdown exec=None src=  7172B out=0 (2B) :: # THE CALL (revised after run 8) — vti-02 stacking |  | Supersedes the run-7 verdict above, which read **ABAB (consistent-with)**. Run 8

@@ -1,0 +1,17 @@
+# Correction — leakage-proof LK refit (v1 data) weakens the beat exclusion
+
+Operator review caught two things in the fan/ladder analysis: (1) the tone tracker's model-centered band-max misrepresents sr1 at mid-n (spectrum check: sr1 carries a resolved BL+FL doublet at n_true 3.5–4.6 — "no BL in sr1" holds only at high n); (2) with 55.2 and 66.3 separated by just 2.1·δF in the ladder window, FFT band-max amplitudes cross-leak between BL and FL bands.
+
+**Refit method:** per-rung multi-cosine least squares in 1/B — R(B) = poly₅(B) + Σᵢ[aᵢcos + bᵢsin](2πFᵢ/B) with the three frequencies fixed from the fan; amplitudes solved linearly (exact separation, no spectral leakage). Lattice-T LK fits on rungs ≥ 13 K, B_eff = 3.82 T:
+
+| tone | sr1 m* | sr2 m* | band-max (superseded) |
+|---|---|---|---|
+| ML 13.4 | 0.0169 ± 0.0017 | 0.0153 ± 0.0013 | 0.018–0.019 |
+| BL 55.2 | 0.0419 ± 0.0014 | 0.0471 ± 0.0010 | 0.043 / **0.057 (leakage-inflated)** |
+| FL 66.3 | 0.0559 ± 0.0098 | 0.0538 ± 0.0066 | 0.052–0.057 |
+
+**Consequence:** parents' sum m_ML + m_BL = 0.059–0.062; measured FL mass 0.054–0.056 ± 0.007–0.010 — **overlapping within ~1σ. The beat exclusion is inconclusive at this precision**, not decisive as previously stated. The two distinct ABA masses (ML vs BL) stand and even sharpen.
+
+**The sr1 ABC call therefore demotes from strong to consistent-with**, resting on: (1) the B-window split (FL amplitude falls with B; breakdown grows ~exp(−B₀/B)); (2) FL dominance over its would-be parents in sr1 at high n (a combination tone outrunning a parent is atypical); (3) spatial/side selectivity (FL-dominance confined to one channel on one carrier sign; the hole side carries the strongest pairs yet no FL-dominant channel — generic magnetic interaction should not be that selective). The ABA calls (sr2 electron side; both channels hole side) are unaffected.
+
+**Firming priority reordered:** (1) ladder v2's rungs (acquiring now) refit by this method — tighter FL mass; (2) **Streda/Chern high-field read (Step 6)** — promoted: an independent, mass-free discriminator on existing + one further fan; (3) mid-n doublet systematics in sr1. Anomaly noted for the record: ML amplitude rises ~30% from base to 10 K rung before falling — outside simple LK, unexplained (extraction noise on a 2.5-period tone, or e-temp systematics); flagged, not interpreted. Also logged: ~32.8 T combination-tone candidate (≈ BL − ML ≈ F_L − 2ML) in both channels near n_true 4.1.

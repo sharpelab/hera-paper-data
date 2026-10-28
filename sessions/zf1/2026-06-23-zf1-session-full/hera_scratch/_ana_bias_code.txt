@@ -1,0 +1,18 @@
+r9 = open_run('data/9')
+Vdc = r9.col_at(r9.col_indices('dc205_1_voltage')[0]); Idc = Vdc/1e8*1e9   # nA
+dVdI = (r9.col('sr830_3_X')/100.0)/1e-9
+N=len(Idc); h=N//2
+Rn = np.median(dVdI[np.abs(Idc)>120]); thr=0.5*Rn
+print(f'normal dV/dI {Rn:.1f} Ohm; zero-bias dV/dI {np.median(dVdI[np.abs(Idc)<3]):.2f} Ohm')
+# Ic = first threshold crossing each side (forward branch)
+If, Rf = Idc[:h+1], dVdI[:h+1]
+pos=If>=0; neg=If<=0
+icp = If[pos][np.argsort(If[pos])][np.argmax(Rf[pos][np.argsort(If[pos])]>thr)]
+icn = If[neg][np.argsort(-If[neg])][np.argmax(Rf[neg][np.argsort(-If[neg])]>thr)]
+print(f'Ic+ {icp:+.0f} nA  Ic- {icn:+.0f} nA  (thr {thr:.0f} Ohm)')
+fig,ax=plt.subplots(figsize=(7.5,4.8))
+ax.plot(Idc[:h+1], dVdI[:h+1], '.-', ms=3, label='forward')
+ax.plot(Idc[h:], dVdI[h:], '.-', ms=3, alpha=0.7, label='backward')
+ax.axhline(thr,color='gray',ls=':',lw=.8); ax.axvline(icp,color='r',ls='--',lw=.8); ax.axvline(icn,color='r',ls='--',lw=.8)
+ax.set(xlabel='I_dc (nA)', ylabel='dV/dI (Ohm)', title='Run 9 supercurrent: zero-bias plateau + Ic~30nA coherence peaks')
+ax.legend(); ax.grid(alpha=.3); plt.tight_layout(); plt.show()

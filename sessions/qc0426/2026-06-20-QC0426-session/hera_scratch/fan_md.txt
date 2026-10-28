@@ -1,0 +1,12 @@
+## HERA — Step 4 · Landau fan (per-column SdH-FFT), HOLE side, D = 0
+
+`landau-fan-vti`. The spot checks (runs 1+2) resolved **two robust tones at n=−3.4e12: ~20 T and ~35 T (≈F_L)** — not a clean single-tone ABC. The fan tracks **F(n) across density** to settle the Luttinger partition (Σf(n) = F_L(n) is algebraic — a one-density coincidence won't hold) and read each Rxx region separately.
+
+**Cost-floored design (one fan, every lever at its floor):**
+- **B_lo = 1.4 T** — the measured onset. `sdh_onset` did not converge on the gradual-onset high-field data (returns nan); 1.4 T is the visual onset from ΔRxx(1/B) (oscillations emerge ~1.3–1.5 T). Stated caveat.
+- **n_max = 3.5e12** — clamped to the Onsager-overlay validity (not extended for the low-n edge).
+- **B_max = 8 T** — magnet is already there → sweep **down** to 1.4 T (no re-traverse). uniform-1/B (`field_invB`), Δ(1/B)=1/(3·F_L,max)=0.0092 → **N_B=64**, Nyquist 54 T > F_L_max 36 T.
+- **N_n = 31** — ray-Nyquist floor at B_lo (LL group Δn=0.126e12, ≥2 pts). n = −3.5→−1.5e12 at D=0.
+- **Fixed sens 1e-4** (sr1/sr2) — sized for the worst corner (low-|n|×high-B ≈ 2.3 kΩ → 45% FS; clipping would corrupt a whole column's FFT). sr3 2e-4, sr0 5e-2. Bias 2 V/20 nA, dwell **1.8 s (6τ — n-axis carries the signal)**.
+
+**~1.8 h** (≈59 min dwell + ≈48 min ramp 8→1.4 T). **Checkpoint ~15 min (first rows at 8 T = the worst dynamic-range corner):** sr1/sr2 un-railed at low-|n|×8 T, leakage <1 nA, rate sane → continue; else interrupt & resize. Fan ends at 1.4 T. FFT each n-column → F(n) per channel vs F_L(n).

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 120,
+  "spacing": "invB",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 141,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 7.5,
+  "flags": [],
+  "notes": "Cell 48 runs s.multimegasweep with magnet.field over field_invB(1.0, 10.0, 120) slow and k_tg.volt/k_bg.volt fast, slow_delay=3.0, fast_delay=1.0. Densities are np.linspace(-1.25, 3.25, 141)e12 cm^-2 at D = 0, converted by calc_gate_voltages with the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013), giving Vtg [-0.291, +0.998] and Vbg [-0.484, +1.185] V, inside the cell-18 validators. sr1 sensitivity is set to 100 uV in the answer; sr0 sensitivity 0.02 V and both time constants 0.3 s are inherited from the cell-44 close_out(restore=state0) readback (cell 46 is a read-only probe), as are nplci 1/1, which cell 48 asserts. Drive 1.0 V through the 100 MOhm bias resistor (10 nA) from the same readback; the markdown states ETA about 7 h 30 m."
+}

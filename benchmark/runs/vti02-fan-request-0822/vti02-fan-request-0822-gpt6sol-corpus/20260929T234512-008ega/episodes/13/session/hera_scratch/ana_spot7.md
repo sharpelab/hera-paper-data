@@ -1,0 +1,3 @@
+## Run 7 — hole SdH spot check, n = −1.20×10¹² cm⁻², D = 0 (`sdh-spot-check`)
+
+Raw TSV first: the B = 10→0.3 T sweep completed 486/486 points; plot |Rxx| and both gate currents before extracting frequencies. Drain current stays near 9.9 nA, |Rxx| reaches 587 Ω, and gate currents remain below 0.22 nA (run 7). Oscillations are present, with provisional ~5 and ~12 T content, but the D = 0 gate line ends at −1.27×10¹² cm⁻²; the model's near-CNP hole-side pair is close and this side cannot reach the investigation's preferred |n| ≥ 2–3×10¹². The electron side is the discriminating fan target; hole-side nulls or ambiguous splits carry no negative weight here.

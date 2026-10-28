@@ -1,0 +1,3723 @@
+{
+    "version": 2,
+    "comments": [
+        "cnp-and-dline-calibration",
+        "Step1 locate: constant-D n-linecut, D=+0.50 V/nm",
+        "n[-1.23,+0.30] e12 cm^-2; caps ratio 1.183, n_off -0.115, D_off 0"
+    ],
+    "columns": [
+        "time",
+        "k_tg_volt",
+        "k_bg_volt",
+        "T",
+        "k_tg_volt",
+        "k_tg_curr",
+        "k_bg_volt",
+        "k_bg_curr",
+        "sr830_1_X",
+        "sr830_1_P",
+        "sr830_2_X",
+        "sr830_2_P",
+        "sr830_3_X",
+        "sr830_3_P"
+    ],
+    "measurement_config": {
+        "sr1": "5-4",
+        "sr1_gain": -1000000.0,
+        "sr2": "5-4",
+        "sr2_gain": 100.0,
+        "sr3": "30-31",
+        "sr3_gain": 100.0,
+        "bias_resistor": 100000000.0,
+        "bias_voltage_1": 0.1,
+        "lockin_freq_1": 7.777,
+        "comment": "zf1 bottom device \u2014 2026-06-24"
+    },
+    "instruments": {
+        "k_tg": {
+            "snapshot": {
+                "functions": {},
+                "submodules": {},
+                "parameters": {
+                    "IDN": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_IDN",
+                        "value": {
+                            "vendor": "KEITHLEY INSTRUMENTS INC.",
+                            "model": "2400",
+                            "serial": "4028439",
+                            "firmware": "C32   Oct  4 2010 14:20:11/A02  /T/K"
+                        },
+                        "raw_value": {
+                            "vendor": "KEITHLEY INSTRUMENTS INC.",
+                            "model": "2400",
+                            "serial": "4028439",
+                            "firmware": "C32   Oct  4 2010 14:20:11/A02  /T/K"
+                        },
+                        "ts": "2026-06-24 15:49:50",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [
+                            "<Anything>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Anything>",
+                        "post_delay": 0,
+                        "name": "IDN",
+                        "label": "IDN"
+                    },
+                    "timeout": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_timeout",
+                        "value": 10.0,
+                        "raw_value": 10.0,
+                        "ts": "2026-06-24 18:41:52",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "s",
+                        "validators": [
+                            "<MultiType: Numbers v>=0, Enum: {None}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<MultiType: Numbers v>=0, Enum: {None}>",
+                        "post_delay": 0,
+                        "name": "timeout",
+                        "label": "timeout"
+                    },
+                    "rangev": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_rangev",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "rangev",
+                        "label": "Voltage range"
+                    },
+                    "rangei": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_rangei",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "rangei",
+                        "label": "Current range"
+                    },
+                    "compliancev": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_compliancev",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "compliancev",
+                        "label": "Voltage Compliance"
+                    },
+                    "compliancei": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_compliancei",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "compliancei",
+                        "label": "Current Compliance"
+                    },
+                    "volt": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_volt",
+                        "value": 4.228555845854122,
+                        "raw_value": 4.228555845854122,
+                        "ts": "2026-06-24 18:44:21",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "V",
+                        "validators": [
+                            "<Numbers -7.0<=v<=6.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers -7.0<=v<=6.0>",
+                        "post_delay": 0,
+                        "name": "volt",
+                        "label": "Voltage",
+                        "step": 0.005
+                    },
+                    "curr": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_curr",
+                        "value": -5.614476e-11,
+                        "raw_value": "-4.919000E+00,-5.614476E-11",
+                        "ts": "2026-06-24 18:44:09",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "A",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "curr",
+                        "label": "Current"
+                    },
+                    "mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'VOLT', 'CURR'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'VOLT', 'CURR'}>",
+                        "post_delay": 0,
+                        "name": "mode",
+                        "label": "Mode"
+                    },
+                    "sense": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_sense",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "sense",
+                        "label": "Sense mode"
+                    },
+                    "output": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_output",
+                        "value": true,
+                        "raw_value": "1",
+                        "ts": "2026-06-24 15:57:49",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {False, True, 'on', 'Off', 'OFF', 'off', 'ON', '1', '0', 'On'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {False, True, 'on', 'Off', 'OFF', 'off', 'ON', '1', '0', 'On'}>",
+                        "post_delay": 0,
+                        "name": "output",
+                        "val_mapping": {
+                            "On": "1",
+                            "ON": "1",
+                            "on": "1",
+                            "1": "1",
+                            "true": "1",
+                            "Off": "0",
+                            "OFF": "0",
+                            "off": "0",
+                            "0": "0",
+                            "false": "0"
+                        },
+                        "label": "output"
+                    },
+                    "nplcv": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_nplcv",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "nplcv",
+                        "label": "Voltage integration time"
+                    },
+                    "nplci": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_nplci",
+                        "value": 1,
+                        "raw_value": 1,
+                        "ts": "2026-06-24 17:00:39",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "nplci",
+                        "label": "Current integration time"
+                    },
+                    "resistance": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_tg_resistance",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_tg",
+                        "unit": "Ohm",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "resistance",
+                        "label": "Resistance"
+                    }
+                },
+                "__class__": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                "label": "k_tg",
+                "name": "k_tg",
+                "address": "GPIB4::9::INSTR",
+                "terminator": "\n",
+                "read_terminator": "\n",
+                "write_terminator": "\n",
+                "timeout": 10.0
+            },
+            "parameters": {
+                "k_tg_volt": {
+                    "gain": 1.0
+                },
+                "k_tg_curr": {
+                    "gain": 1.0
+                }
+            }
+        },
+        "k_bg": {
+            "snapshot": {
+                "functions": {},
+                "submodules": {},
+                "parameters": {
+                    "IDN": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_IDN",
+                        "value": {
+                            "vendor": "KEITHLEY INSTRUMENTS INC.",
+                            "model": "2400",
+                            "serial": "4028442",
+                            "firmware": "C32   Oct  4 2010 14:20:11/A02  /T/K"
+                        },
+                        "raw_value": {
+                            "vendor": "KEITHLEY INSTRUMENTS INC.",
+                            "model": "2400",
+                            "serial": "4028442",
+                            "firmware": "C32   Oct  4 2010 14:20:11/A02  /T/K"
+                        },
+                        "ts": "2026-06-24 15:49:50",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [
+                            "<Anything>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Anything>",
+                        "post_delay": 0,
+                        "name": "IDN",
+                        "label": "IDN"
+                    },
+                    "timeout": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_timeout",
+                        "value": 10.0,
+                        "raw_value": 10.0,
+                        "ts": "2026-06-24 18:41:52",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "s",
+                        "validators": [
+                            "<MultiType: Numbers v>=0, Enum: {None}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<MultiType: Numbers v>=0, Enum: {None}>",
+                        "post_delay": 0,
+                        "name": "timeout",
+                        "label": "timeout"
+                    },
+                    "rangev": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_rangev",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "rangev",
+                        "label": "Voltage range"
+                    },
+                    "rangei": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_rangei",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "rangei",
+                        "label": "Current range"
+                    },
+                    "compliancev": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_compliancev",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "compliancev",
+                        "label": "Voltage Compliance"
+                    },
+                    "compliancei": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_compliancei",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "compliancei",
+                        "label": "Current Compliance"
+                    },
+                    "volt": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_volt",
+                        "value": -3.0745464555163906,
+                        "raw_value": -3.0745464555163906,
+                        "ts": "2026-06-24 18:44:29",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "V",
+                        "validators": [
+                            "<Numbers -4.0<=v<=4.2>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers -4.0<=v<=4.2>",
+                        "post_delay": 0,
+                        "name": "volt",
+                        "label": "Voltage",
+                        "step": 0.005
+                    },
+                    "curr": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_curr",
+                        "value": -2.388577e-11,
+                        "raw_value": "+2.491000E+00,-2.388577E-11",
+                        "ts": "2026-06-24 18:44:09",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "A",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "curr",
+                        "label": "Current"
+                    },
+                    "mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'VOLT', 'CURR'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'VOLT', 'CURR'}>",
+                        "post_delay": 0,
+                        "name": "mode",
+                        "label": "Mode"
+                    },
+                    "sense": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_sense",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "sense",
+                        "label": "Sense mode"
+                    },
+                    "output": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_output",
+                        "value": true,
+                        "raw_value": "1",
+                        "ts": "2026-06-24 15:57:49",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {False, True, 'on', 'Off', 'OFF', 'off', 'ON', '1', '0', 'On'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {False, True, 'on', 'Off', 'OFF', 'off', 'ON', '1', '0', 'On'}>",
+                        "post_delay": 0,
+                        "name": "output",
+                        "val_mapping": {
+                            "On": "1",
+                            "ON": "1",
+                            "on": "1",
+                            "1": "1",
+                            "true": "1",
+                            "Off": "0",
+                            "OFF": "0",
+                            "off": "0",
+                            "0": "0",
+                            "false": "0"
+                        },
+                        "label": "output"
+                    },
+                    "nplcv": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_nplcv",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "nplcv",
+                        "label": "Voltage integration time"
+                    },
+                    "nplci": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_nplci",
+                        "value": 1,
+                        "raw_value": 1,
+                        "ts": "2026-06-24 17:00:39",
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "nplci",
+                        "label": "Current integration time"
+                    },
+                    "resistance": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "k_bg_resistance",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                        "instrument_name": "k_bg",
+                        "unit": "Ohm",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "resistance",
+                        "label": "Resistance"
+                    }
+                },
+                "__class__": "qcodes.instrument_drivers.Keithley.Keithley_2400.Keithley2400",
+                "label": "k_bg",
+                "name": "k_bg",
+                "address": "GPIB4::10::INSTR",
+                "terminator": "\n",
+                "read_terminator": "\n",
+                "write_terminator": "\n",
+                "timeout": 10.0
+            },
+            "parameters": {
+                "k_bg_volt": {
+                    "gain": 1.0
+                },
+                "k_bg_curr": {
+                    "gain": 1.0
+                }
+            }
+        },
+        "sr830_1": {
+            "snapshot": {
+                "functions": {
+                    "auto_gain": {},
+                    "auto_reserve": {},
+                    "auto_phase": {},
+                    "auto_offset": {},
+                    "reset": {},
+                    "disable_front_panel": {},
+                    "enable_front_panel": {},
+                    "send_trigger": {},
+                    "buffer_start": {},
+                    "buffer_pause": {},
+                    "buffer_reset": {}
+                },
+                "submodules": {},
+                "parameters": {
+                    "IDN": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_IDN",
+                        "value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45469",
+                            "firmware": "ver1.07"
+                        },
+                        "raw_value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45469",
+                            "firmware": "ver1.07"
+                        },
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Anything>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Anything>",
+                        "post_delay": 0,
+                        "name": "IDN",
+                        "label": "IDN"
+                    },
+                    "timeout": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_timeout",
+                        "value": 10.0,
+                        "raw_value": 10.0,
+                        "ts": "2026-06-24 18:41:52",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "s",
+                        "validators": [
+                            "<MultiType: Numbers v>=0, Enum: {None}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<MultiType: Numbers v>=0, Enum: {None}>",
+                        "post_delay": 0,
+                        "name": "timeout",
+                        "label": "timeout"
+                    },
+                    "phase": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_phase",
+                        "value": 0.0,
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "deg",
+                        "validators": [
+                            "<Numbers -360<=v<=729.99>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers -360<=v<=729.99>",
+                        "post_delay": 0,
+                        "name": "phase",
+                        "label": "Phase"
+                    },
+                    "reference_source": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_reference_source",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'internal', 'external'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'internal', 'external'}>",
+                        "post_delay": 0,
+                        "name": "reference_source",
+                        "val_mapping": {
+                            "external": 0,
+                            "internal": 1
+                        },
+                        "label": "Reference source"
+                    },
+                    "frequency": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_frequency",
+                        "value": 7.777,
+                        "raw_value": "7.777\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Numbers 0.001<=v<=102000.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.001<=v<=102000.0>",
+                        "post_delay": 0,
+                        "name": "frequency",
+                        "label": "Frequency"
+                    },
+                    "ext_trigger": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_ext_trigger",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'TTL rising', 'sine', 'TTL falling'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'TTL rising', 'sine', 'TTL falling'}>",
+                        "post_delay": 0,
+                        "name": "ext_trigger",
+                        "val_mapping": {
+                            "sine": 0,
+                            "TTL rising": 1,
+                            "TTL falling": 2
+                        },
+                        "label": "External trigger"
+                    },
+                    "harmonic": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_harmonic",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Ints 1<=v<=19999>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Ints 1<=v<=19999>",
+                        "post_delay": 0,
+                        "name": "harmonic",
+                        "label": "Harmonic"
+                    },
+                    "amplitude": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_amplitude",
+                        "value": 0.1,
+                        "raw_value": "0.1\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [
+                            "<Numbers 0.004<=v<=5.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.004<=v<=5.0>",
+                        "post_delay": 0,
+                        "name": "amplitude",
+                        "label": "Amplitude"
+                    },
+                    "input_config": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_input_config",
+                        "value": "a",
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>",
+                        "post_delay": 0,
+                        "name": "input_config",
+                        "label": "Input configuration"
+                    },
+                    "input_shield": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_input_shield",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'float', 'ground'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'float', 'ground'}>",
+                        "post_delay": 0,
+                        "name": "input_shield",
+                        "val_mapping": {
+                            "float": 0,
+                            "ground": 1
+                        },
+                        "label": "Input shield"
+                    },
+                    "input_coupling": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_input_coupling",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'DC', 'AC'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'DC', 'AC'}>",
+                        "post_delay": 0,
+                        "name": "input_coupling",
+                        "val_mapping": {
+                            "AC": 0,
+                            "DC": 1
+                        },
+                        "label": "Input coupling"
+                    },
+                    "notch_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_notch_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'both', 'off', '2x line in', 'line in'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'both', 'off', '2x line in', 'line in'}>",
+                        "post_delay": 0,
+                        "name": "notch_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "line in": 1,
+                            "2x line in": 2,
+                            "both": 3
+                        },
+                        "label": "Notch filter"
+                    },
+                    "sensitivity": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_sensitivity",
+                        "value": 0.001,
+                        "raw_value": "17\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [
+                            "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>",
+                        "post_delay": 0,
+                        "name": "sensitivity",
+                        "label": "Sensitivity"
+                    },
+                    "reserve": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_reserve",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'normal', 'high', 'low noise'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'normal', 'high', 'low noise'}>",
+                        "post_delay": 0,
+                        "name": "reserve",
+                        "val_mapping": {
+                            "high": 0,
+                            "normal": 1,
+                            "low noise": 2
+                        },
+                        "label": "Reserve"
+                    },
+                    "time_constant": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_time_constant",
+                        "value": 0.3,
+                        "raw_value": "9\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "s",
+                        "validators": [
+                            "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>",
+                        "post_delay": 0,
+                        "name": "time_constant",
+                        "val_mapping": {
+                            "1e-05": 0,
+                            "3e-05": 1,
+                            "0.0001": 2,
+                            "0.0003": 3,
+                            "0.001": 4,
+                            "0.003": 5,
+                            "0.01": 6,
+                            "0.03": 7,
+                            "0.1": 8,
+                            "0.3": 9,
+                            "1": 10,
+                            "3": 11,
+                            "10": 12,
+                            "30": 13,
+                            "100": 14,
+                            "300": 15,
+                            "1000.0": 16,
+                            "3000.0": 17,
+                            "10000.0": 18,
+                            "30000.0": 19
+                        },
+                        "label": "Time constant"
+                    },
+                    "filter_slope": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_filter_slope",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "dB/oct",
+                        "validators": [
+                            "<Enum: {24, 18, 12, 6}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {24, 18, 12, 6}>",
+                        "post_delay": 0,
+                        "name": "filter_slope",
+                        "val_mapping": {
+                            "6": 0,
+                            "12": 1,
+                            "18": 2,
+                            "24": 3
+                        },
+                        "label": "Filter slope"
+                    },
+                    "sync_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_sync_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'off', 'on'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'off', 'on'}>",
+                        "post_delay": 0,
+                        "name": "sync_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "on": 1
+                        },
+                        "label": "Sync filter"
+                    },
+                    "X_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_X_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X_offset",
+                        "label": "X_offset"
+                    },
+                    "Y_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_Y_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y_offset",
+                        "label": "Y_offset"
+                    },
+                    "R_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_R_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R_offset",
+                        "label": "R_offset"
+                    },
+                    "aux_in1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_in1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in1",
+                        "label": "Aux input 1"
+                    },
+                    "aux_out1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_out1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out1",
+                        "label": "Aux output 1"
+                    },
+                    "aux_in2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_in2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in2",
+                        "label": "Aux input 2"
+                    },
+                    "aux_out2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_out2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out2",
+                        "label": "Aux output 2"
+                    },
+                    "aux_in3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_in3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in3",
+                        "label": "Aux input 3"
+                    },
+                    "aux_out3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_out3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out3",
+                        "label": "Aux output 3"
+                    },
+                    "aux_in4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_in4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in4",
+                        "label": "Aux input 4"
+                    },
+                    "aux_out4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_aux_out4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out4",
+                        "label": "Aux output 4"
+                    },
+                    "output_interface": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_output_interface",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'RS232', 'GPIB'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'RS232', 'GPIB'}>",
+                        "post_delay": 0,
+                        "name": "output_interface",
+                        "val_mapping": {
+                            "RS232": "0\n",
+                            "GPIB": "1\n"
+                        },
+                        "label": "Output interface"
+                    },
+                    "X": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_X",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X",
+                        "label": "X"
+                    },
+                    "Y": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_Y",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y",
+                        "label": "Y"
+                    },
+                    "R": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_R",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R",
+                        "label": "R"
+                    },
+                    "P": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_P",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "deg",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "P",
+                        "label": "P"
+                    },
+                    "complex_voltage": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_complex_voltage",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [
+                            "<Complex Number>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Complex Number>",
+                        "post_delay": 0,
+                        "name": "complex_voltage",
+                        "label": "Voltage"
+                    },
+                    "buffer_SR": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_buffer_SR",
+                        "value": 64,
+                        "raw_value": "10\n",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>",
+                        "post_delay": 0,
+                        "name": "buffer_SR",
+                        "val_mapping": {
+                            "0.0625": 0,
+                            "0.125": 1,
+                            "0.25": 2,
+                            "0.5": 3,
+                            "1": 4,
+                            "2": 5,
+                            "4": 6,
+                            "8": 7,
+                            "16": 8,
+                            "32": 9,
+                            "64": 10,
+                            "128": 11,
+                            "256": 12,
+                            "512": 13,
+                            "Trigger": 14
+                        },
+                        "label": "Buffer sample rate"
+                    },
+                    "buffer_acq_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_buffer_acq_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'loop', 'single shot'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'loop', 'single shot'}>",
+                        "post_delay": 0,
+                        "name": "buffer_acq_mode",
+                        "val_mapping": {
+                            "single shot": 0,
+                            "loop": 1
+                        },
+                        "label": "Buffer acquistion mode"
+                    },
+                    "buffer_trig_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_buffer_trig_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'ON', 'OFF'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'ON', 'OFF'}>",
+                        "post_delay": 0,
+                        "name": "buffer_trig_mode",
+                        "val_mapping": {
+                            "ON": 1,
+                            "OFF": 0
+                        },
+                        "label": "Buffer trigger start mode"
+                    },
+                    "buffer_npts": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_buffer_npts",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "buffer_npts",
+                        "label": "Buffer number of stored points"
+                    },
+                    "sweep_setpoints": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.GeneratedSetPoints",
+                        "full_name": "sr830_1_sweep_setpoints",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "s",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>",
+                        "post_delay": 0,
+                        "name": "sweep_setpoints",
+                        "label": "Time"
+                    },
+                    "ch1_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_ch1_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_ratio",
+                        "label": "Channel 1 ratio"
+                    },
+                    "ch1_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_ch1_display",
+                        "value": "X",
+                        "raw_value": "X",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_display",
+                        "label": "Channel 1 display"
+                    },
+                    "ch1_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_1_ch1_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch1_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch1_databuffer"
+                    },
+                    "ch1_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_1_ch1_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "V",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>",
+                        "post_delay": 0,
+                        "name": "ch1_datatrace",
+                        "label": "X"
+                    },
+                    "ch2_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_ch2_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_ratio",
+                        "label": "Channel 2 ratio"
+                    },
+                    "ch2_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_1_ch2_display",
+                        "value": "Phase",
+                        "raw_value": "Phase",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_display",
+                        "label": "Channel 2 display"
+                    },
+                    "ch2_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_1_ch2_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch2_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch2_databuffer"
+                    },
+                    "ch2_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_1_ch2_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_1",
+                        "unit": "deg",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A3FA60>,)>",
+                        "post_delay": 0,
+                        "name": "ch2_datatrace",
+                        "label": "Phase"
+                    }
+                },
+                "__class__": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                "label": "sr830_1",
+                "name": "sr830_1",
+                "address": "GPIB0::8::INSTR",
+                "terminator": null,
+                "read_terminator": null,
+                "write_terminator": "\r\n",
+                "timeout": 10.0
+            },
+            "parameters": {
+                "sr830_1_X": {
+                    "gain": 1.0
+                },
+                "sr830_1_P": {
+                    "gain": 1.0
+                }
+            }
+        },
+        "sr830_2": {
+            "snapshot": {
+                "functions": {
+                    "auto_gain": {},
+                    "auto_reserve": {},
+                    "auto_phase": {},
+                    "auto_offset": {},
+                    "reset": {},
+                    "disable_front_panel": {},
+                    "enable_front_panel": {},
+                    "send_trigger": {},
+                    "buffer_start": {},
+                    "buffer_pause": {},
+                    "buffer_reset": {}
+                },
+                "submodules": {},
+                "parameters": {
+                    "IDN": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_IDN",
+                        "value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45595",
+                            "firmware": "ver1.07"
+                        },
+                        "raw_value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45595",
+                            "firmware": "ver1.07"
+                        },
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Anything>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Anything>",
+                        "post_delay": 0,
+                        "name": "IDN",
+                        "label": "IDN"
+                    },
+                    "timeout": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_timeout",
+                        "value": 10.0,
+                        "raw_value": 10.0,
+                        "ts": "2026-06-24 18:41:52",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "s",
+                        "validators": [
+                            "<MultiType: Numbers v>=0, Enum: {None}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<MultiType: Numbers v>=0, Enum: {None}>",
+                        "post_delay": 0,
+                        "name": "timeout",
+                        "label": "timeout"
+                    },
+                    "phase": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_phase",
+                        "value": 0.0,
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "deg",
+                        "validators": [
+                            "<Numbers -360<=v<=729.99>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers -360<=v<=729.99>",
+                        "post_delay": 0,
+                        "name": "phase",
+                        "label": "Phase"
+                    },
+                    "reference_source": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_reference_source",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'internal', 'external'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'internal', 'external'}>",
+                        "post_delay": 0,
+                        "name": "reference_source",
+                        "val_mapping": {
+                            "external": 0,
+                            "internal": 1
+                        },
+                        "label": "Reference source"
+                    },
+                    "frequency": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_frequency",
+                        "value": 7.777,
+                        "raw_value": "7.777\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Numbers 0.001<=v<=102000.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.001<=v<=102000.0>",
+                        "post_delay": 0,
+                        "name": "frequency",
+                        "label": "Frequency"
+                    },
+                    "ext_trigger": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_ext_trigger",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'TTL rising', 'sine', 'TTL falling'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'TTL rising', 'sine', 'TTL falling'}>",
+                        "post_delay": 0,
+                        "name": "ext_trigger",
+                        "val_mapping": {
+                            "sine": 0,
+                            "TTL rising": 1,
+                            "TTL falling": 2
+                        },
+                        "label": "External trigger"
+                    },
+                    "harmonic": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_harmonic",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Ints 1<=v<=19999>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Ints 1<=v<=19999>",
+                        "post_delay": 0,
+                        "name": "harmonic",
+                        "label": "Harmonic"
+                    },
+                    "amplitude": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_amplitude",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [
+                            "<Numbers 0.004<=v<=5.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.004<=v<=5.0>",
+                        "post_delay": 0,
+                        "name": "amplitude",
+                        "label": "Amplitude"
+                    },
+                    "input_config": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_input_config",
+                        "value": "a",
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>",
+                        "post_delay": 0,
+                        "name": "input_config",
+                        "label": "Input configuration"
+                    },
+                    "input_shield": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_input_shield",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'float', 'ground'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'float', 'ground'}>",
+                        "post_delay": 0,
+                        "name": "input_shield",
+                        "val_mapping": {
+                            "float": 0,
+                            "ground": 1
+                        },
+                        "label": "Input shield"
+                    },
+                    "input_coupling": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_input_coupling",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'DC', 'AC'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'DC', 'AC'}>",
+                        "post_delay": 0,
+                        "name": "input_coupling",
+                        "val_mapping": {
+                            "AC": 0,
+                            "DC": 1
+                        },
+                        "label": "Input coupling"
+                    },
+                    "notch_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_notch_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'both', 'off', '2x line in', 'line in'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'both', 'off', '2x line in', 'line in'}>",
+                        "post_delay": 0,
+                        "name": "notch_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "line in": 1,
+                            "2x line in": 2,
+                            "both": 3
+                        },
+                        "label": "Notch filter"
+                    },
+                    "sensitivity": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_sensitivity",
+                        "value": 0.1,
+                        "raw_value": "23\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [
+                            "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>",
+                        "post_delay": 0,
+                        "name": "sensitivity",
+                        "label": "Sensitivity"
+                    },
+                    "reserve": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_reserve",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'normal', 'high', 'low noise'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'normal', 'high', 'low noise'}>",
+                        "post_delay": 0,
+                        "name": "reserve",
+                        "val_mapping": {
+                            "high": 0,
+                            "normal": 1,
+                            "low noise": 2
+                        },
+                        "label": "Reserve"
+                    },
+                    "time_constant": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_time_constant",
+                        "value": 0.3,
+                        "raw_value": "9\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "s",
+                        "validators": [
+                            "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>",
+                        "post_delay": 0,
+                        "name": "time_constant",
+                        "val_mapping": {
+                            "1e-05": 0,
+                            "3e-05": 1,
+                            "0.0001": 2,
+                            "0.0003": 3,
+                            "0.001": 4,
+                            "0.003": 5,
+                            "0.01": 6,
+                            "0.03": 7,
+                            "0.1": 8,
+                            "0.3": 9,
+                            "1": 10,
+                            "3": 11,
+                            "10": 12,
+                            "30": 13,
+                            "100": 14,
+                            "300": 15,
+                            "1000.0": 16,
+                            "3000.0": 17,
+                            "10000.0": 18,
+                            "30000.0": 19
+                        },
+                        "label": "Time constant"
+                    },
+                    "filter_slope": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_filter_slope",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "dB/oct",
+                        "validators": [
+                            "<Enum: {24, 18, 12, 6}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {24, 18, 12, 6}>",
+                        "post_delay": 0,
+                        "name": "filter_slope",
+                        "val_mapping": {
+                            "6": 0,
+                            "12": 1,
+                            "18": 2,
+                            "24": 3
+                        },
+                        "label": "Filter slope"
+                    },
+                    "sync_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_sync_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'off', 'on'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'off', 'on'}>",
+                        "post_delay": 0,
+                        "name": "sync_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "on": 1
+                        },
+                        "label": "Sync filter"
+                    },
+                    "X_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_X_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X_offset",
+                        "label": "X_offset"
+                    },
+                    "Y_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_Y_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y_offset",
+                        "label": "Y_offset"
+                    },
+                    "R_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_R_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R_offset",
+                        "label": "R_offset"
+                    },
+                    "aux_in1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_in1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in1",
+                        "label": "Aux input 1"
+                    },
+                    "aux_out1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_out1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out1",
+                        "label": "Aux output 1"
+                    },
+                    "aux_in2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_in2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in2",
+                        "label": "Aux input 2"
+                    },
+                    "aux_out2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_out2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out2",
+                        "label": "Aux output 2"
+                    },
+                    "aux_in3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_in3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in3",
+                        "label": "Aux input 3"
+                    },
+                    "aux_out3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_out3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out3",
+                        "label": "Aux output 3"
+                    },
+                    "aux_in4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_in4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in4",
+                        "label": "Aux input 4"
+                    },
+                    "aux_out4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_aux_out4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out4",
+                        "label": "Aux output 4"
+                    },
+                    "output_interface": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_output_interface",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'RS232', 'GPIB'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'RS232', 'GPIB'}>",
+                        "post_delay": 0,
+                        "name": "output_interface",
+                        "val_mapping": {
+                            "RS232": "0\n",
+                            "GPIB": "1\n"
+                        },
+                        "label": "Output interface"
+                    },
+                    "X": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_X",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X",
+                        "label": "X"
+                    },
+                    "Y": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_Y",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y",
+                        "label": "Y"
+                    },
+                    "R": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_R",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R",
+                        "label": "R"
+                    },
+                    "P": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_P",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "deg",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "P",
+                        "label": "P"
+                    },
+                    "complex_voltage": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_complex_voltage",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [
+                            "<Complex Number>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Complex Number>",
+                        "post_delay": 0,
+                        "name": "complex_voltage",
+                        "label": "Voltage"
+                    },
+                    "buffer_SR": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_buffer_SR",
+                        "value": 4,
+                        "raw_value": "6\n",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>",
+                        "post_delay": 0,
+                        "name": "buffer_SR",
+                        "val_mapping": {
+                            "0.0625": 0,
+                            "0.125": 1,
+                            "0.25": 2,
+                            "0.5": 3,
+                            "1": 4,
+                            "2": 5,
+                            "4": 6,
+                            "8": 7,
+                            "16": 8,
+                            "32": 9,
+                            "64": 10,
+                            "128": 11,
+                            "256": 12,
+                            "512": 13,
+                            "Trigger": 14
+                        },
+                        "label": "Buffer sample rate"
+                    },
+                    "buffer_acq_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_buffer_acq_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'loop', 'single shot'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'loop', 'single shot'}>",
+                        "post_delay": 0,
+                        "name": "buffer_acq_mode",
+                        "val_mapping": {
+                            "single shot": 0,
+                            "loop": 1
+                        },
+                        "label": "Buffer acquistion mode"
+                    },
+                    "buffer_trig_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_buffer_trig_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'ON', 'OFF'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'ON', 'OFF'}>",
+                        "post_delay": 0,
+                        "name": "buffer_trig_mode",
+                        "val_mapping": {
+                            "ON": 1,
+                            "OFF": 0
+                        },
+                        "label": "Buffer trigger start mode"
+                    },
+                    "buffer_npts": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_buffer_npts",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "buffer_npts",
+                        "label": "Buffer number of stored points"
+                    },
+                    "sweep_setpoints": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.GeneratedSetPoints",
+                        "full_name": "sr830_2_sweep_setpoints",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "s",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>",
+                        "post_delay": 0,
+                        "name": "sweep_setpoints",
+                        "label": "Time"
+                    },
+                    "ch1_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_ch1_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_ratio",
+                        "label": "Channel 1 ratio"
+                    },
+                    "ch1_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_ch1_display",
+                        "value": "X",
+                        "raw_value": "X",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_display",
+                        "label": "Channel 1 display"
+                    },
+                    "ch1_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_2_ch1_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch1_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch1_databuffer"
+                    },
+                    "ch1_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_2_ch1_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "V",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>",
+                        "post_delay": 0,
+                        "name": "ch1_datatrace",
+                        "label": "X"
+                    },
+                    "ch2_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_ch2_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_ratio",
+                        "label": "Channel 2 ratio"
+                    },
+                    "ch2_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_2_ch2_display",
+                        "value": "Phase",
+                        "raw_value": "Phase",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_display",
+                        "label": "Channel 2 display"
+                    },
+                    "ch2_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_2_ch2_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch2_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch2_databuffer"
+                    },
+                    "ch2_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_2_ch2_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_2",
+                        "unit": "deg",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020810A818A0>,)>",
+                        "post_delay": 0,
+                        "name": "ch2_datatrace",
+                        "label": "Phase"
+                    }
+                },
+                "__class__": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                "label": "sr830_2",
+                "name": "sr830_2",
+                "address": "GPIB0::9::INSTR",
+                "terminator": null,
+                "read_terminator": null,
+                "write_terminator": "\r\n",
+                "timeout": 10.0
+            },
+            "parameters": {
+                "sr830_2_X": {
+                    "gain": 1.0
+                },
+                "sr830_2_P": {
+                    "gain": 1.0
+                }
+            }
+        },
+        "sr830_3": {
+            "snapshot": {
+                "functions": {
+                    "auto_gain": {},
+                    "auto_reserve": {},
+                    "auto_phase": {},
+                    "auto_offset": {},
+                    "reset": {},
+                    "disable_front_panel": {},
+                    "enable_front_panel": {},
+                    "send_trigger": {},
+                    "buffer_start": {},
+                    "buffer_pause": {},
+                    "buffer_reset": {}
+                },
+                "submodules": {},
+                "parameters": {
+                    "IDN": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_IDN",
+                        "value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45471",
+                            "firmware": "ver1.07"
+                        },
+                        "raw_value": {
+                            "vendor": "Stanford_Research_Systems",
+                            "model": "SR830",
+                            "serial": "s/n45471",
+                            "firmware": "ver1.07"
+                        },
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Anything>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Anything>",
+                        "post_delay": 0,
+                        "name": "IDN",
+                        "label": "IDN"
+                    },
+                    "timeout": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_timeout",
+                        "value": 10.0,
+                        "raw_value": 10.0,
+                        "ts": "2026-06-24 18:41:52",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "s",
+                        "validators": [
+                            "<MultiType: Numbers v>=0, Enum: {None}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<MultiType: Numbers v>=0, Enum: {None}>",
+                        "post_delay": 0,
+                        "name": "timeout",
+                        "label": "timeout"
+                    },
+                    "phase": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_phase",
+                        "value": 0.0,
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "deg",
+                        "validators": [
+                            "<Numbers -360<=v<=729.99>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers -360<=v<=729.99>",
+                        "post_delay": 0,
+                        "name": "phase",
+                        "label": "Phase"
+                    },
+                    "reference_source": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_reference_source",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'internal', 'external'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'internal', 'external'}>",
+                        "post_delay": 0,
+                        "name": "reference_source",
+                        "val_mapping": {
+                            "external": 0,
+                            "internal": 1
+                        },
+                        "label": "Reference source"
+                    },
+                    "frequency": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_frequency",
+                        "value": 7.777,
+                        "raw_value": "7.777\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Numbers 0.001<=v<=102000.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.001<=v<=102000.0>",
+                        "post_delay": 0,
+                        "name": "frequency",
+                        "label": "Frequency"
+                    },
+                    "ext_trigger": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_ext_trigger",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'TTL rising', 'sine', 'TTL falling'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'TTL rising', 'sine', 'TTL falling'}>",
+                        "post_delay": 0,
+                        "name": "ext_trigger",
+                        "val_mapping": {
+                            "sine": 0,
+                            "TTL rising": 1,
+                            "TTL falling": 2
+                        },
+                        "label": "External trigger"
+                    },
+                    "harmonic": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_harmonic",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Ints 1<=v<=19999>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Ints 1<=v<=19999>",
+                        "post_delay": 0,
+                        "name": "harmonic",
+                        "label": "Harmonic"
+                    },
+                    "amplitude": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_amplitude",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [
+                            "<Numbers 0.004<=v<=5.0>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Numbers 0.004<=v<=5.0>",
+                        "post_delay": 0,
+                        "name": "amplitude",
+                        "label": "Amplitude"
+                    },
+                    "input_config": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_input_config",
+                        "value": "a",
+                        "raw_value": "0\n",
+                        "ts": "2026-06-24 18:38:15",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'a-b', 'I 1M', 'I 100M', 'a'}>",
+                        "post_delay": 0,
+                        "name": "input_config",
+                        "label": "Input configuration"
+                    },
+                    "input_shield": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_input_shield",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'float', 'ground'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'float', 'ground'}>",
+                        "post_delay": 0,
+                        "name": "input_shield",
+                        "val_mapping": {
+                            "float": 0,
+                            "ground": 1
+                        },
+                        "label": "Input shield"
+                    },
+                    "input_coupling": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_input_coupling",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'DC', 'AC'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'DC', 'AC'}>",
+                        "post_delay": 0,
+                        "name": "input_coupling",
+                        "val_mapping": {
+                            "AC": 0,
+                            "DC": 1
+                        },
+                        "label": "Input coupling"
+                    },
+                    "notch_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_notch_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'both', 'off', '2x line in', 'line in'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'both', 'off', '2x line in', 'line in'}>",
+                        "post_delay": 0,
+                        "name": "notch_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "line in": 1,
+                            "2x line in": 2,
+                            "both": 3
+                        },
+                        "label": "Notch filter"
+                    },
+                    "sensitivity": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_sensitivity",
+                        "value": 2e-05,
+                        "raw_value": 12,
+                        "ts": "2026-06-24 18:38:15",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [
+                            "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>",
+                        "post_delay": 0,
+                        "name": "sensitivity",
+                        "label": "Sensitivity"
+                    },
+                    "reserve": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_reserve",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'normal', 'high', 'low noise'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'normal', 'high', 'low noise'}>",
+                        "post_delay": 0,
+                        "name": "reserve",
+                        "val_mapping": {
+                            "high": 0,
+                            "normal": 1,
+                            "low noise": 2
+                        },
+                        "label": "Reserve"
+                    },
+                    "time_constant": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_time_constant",
+                        "value": 0.3,
+                        "raw_value": "9\n",
+                        "ts": "2026-06-24 16:58:21",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "s",
+                        "validators": [
+                            "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>",
+                        "post_delay": 0,
+                        "name": "time_constant",
+                        "val_mapping": {
+                            "1e-05": 0,
+                            "3e-05": 1,
+                            "0.0001": 2,
+                            "0.0003": 3,
+                            "0.001": 4,
+                            "0.003": 5,
+                            "0.01": 6,
+                            "0.03": 7,
+                            "0.1": 8,
+                            "0.3": 9,
+                            "1": 10,
+                            "3": 11,
+                            "10": 12,
+                            "30": 13,
+                            "100": 14,
+                            "300": 15,
+                            "1000.0": 16,
+                            "3000.0": 17,
+                            "10000.0": 18,
+                            "30000.0": 19
+                        },
+                        "label": "Time constant"
+                    },
+                    "filter_slope": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_filter_slope",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "dB/oct",
+                        "validators": [
+                            "<Enum: {24, 18, 12, 6}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {24, 18, 12, 6}>",
+                        "post_delay": 0,
+                        "name": "filter_slope",
+                        "val_mapping": {
+                            "6": 0,
+                            "12": 1,
+                            "18": 2,
+                            "24": 3
+                        },
+                        "label": "Filter slope"
+                    },
+                    "sync_filter": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_sync_filter",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'off', 'on'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'off', 'on'}>",
+                        "post_delay": 0,
+                        "name": "sync_filter",
+                        "val_mapping": {
+                            "off": 0,
+                            "on": 1
+                        },
+                        "label": "Sync filter"
+                    },
+                    "X_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_X_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X_offset",
+                        "label": "X_offset"
+                    },
+                    "Y_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_Y_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y_offset",
+                        "label": "Y_offset"
+                    },
+                    "R_offset": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_R_offset",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R_offset",
+                        "label": "R_offset"
+                    },
+                    "aux_in1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_in1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in1",
+                        "label": "Aux input 1"
+                    },
+                    "aux_out1": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_out1",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out1",
+                        "label": "Aux output 1"
+                    },
+                    "aux_in2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_in2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in2",
+                        "label": "Aux input 2"
+                    },
+                    "aux_out2": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_out2",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out2",
+                        "label": "Aux output 2"
+                    },
+                    "aux_in3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_in3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in3",
+                        "label": "Aux input 3"
+                    },
+                    "aux_out3": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_out3",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out3",
+                        "label": "Aux output 3"
+                    },
+                    "aux_in4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_in4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_in4",
+                        "label": "Aux input 4"
+                    },
+                    "aux_out4": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_aux_out4",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "aux_out4",
+                        "label": "Aux output 4"
+                    },
+                    "output_interface": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_output_interface",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'RS232', 'GPIB'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'RS232', 'GPIB'}>",
+                        "post_delay": 0,
+                        "name": "output_interface",
+                        "val_mapping": {
+                            "RS232": "0\n",
+                            "GPIB": "1\n"
+                        },
+                        "label": "Output interface"
+                    },
+                    "X": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_X",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "X",
+                        "label": "X"
+                    },
+                    "Y": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_Y",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "Y",
+                        "label": "Y"
+                    },
+                    "R": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_R",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "R",
+                        "label": "R"
+                    },
+                    "P": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_P",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "deg",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "P",
+                        "label": "P"
+                    },
+                    "complex_voltage": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_complex_voltage",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [
+                            "<Complex Number>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Complex Number>",
+                        "post_delay": 0,
+                        "name": "complex_voltage",
+                        "label": "Voltage"
+                    },
+                    "buffer_SR": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_buffer_SR",
+                        "value": 64,
+                        "raw_value": "10\n",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "Hz",
+                        "validators": [
+                            "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {0.0625, 0.125, 1, 0.25, 0.5, 2, 4, 32, 8, 64, 128, 256, 'Trigger', 16, 512}>",
+                        "post_delay": 0,
+                        "name": "buffer_SR",
+                        "val_mapping": {
+                            "0.0625": 0,
+                            "0.125": 1,
+                            "0.25": 2,
+                            "0.5": 3,
+                            "1": 4,
+                            "2": 5,
+                            "4": 6,
+                            "8": 7,
+                            "16": 8,
+                            "32": 9,
+                            "64": 10,
+                            "128": 11,
+                            "256": 12,
+                            "512": 13,
+                            "Trigger": 14
+                        },
+                        "label": "Buffer sample rate"
+                    },
+                    "buffer_acq_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_buffer_acq_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'loop', 'single shot'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'loop', 'single shot'}>",
+                        "post_delay": 0,
+                        "name": "buffer_acq_mode",
+                        "val_mapping": {
+                            "single shot": 0,
+                            "loop": 1
+                        },
+                        "label": "Buffer acquistion mode"
+                    },
+                    "buffer_trig_mode": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_buffer_trig_mode",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Enum: {'ON', 'OFF'}>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Enum: {'ON', 'OFF'}>",
+                        "post_delay": 0,
+                        "name": "buffer_trig_mode",
+                        "val_mapping": {
+                            "ON": 1,
+                            "OFF": 0
+                        },
+                        "label": "Buffer trigger start mode"
+                    },
+                    "buffer_npts": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_buffer_npts",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "buffer_npts",
+                        "label": "Buffer number of stored points"
+                    },
+                    "sweep_setpoints": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.GeneratedSetPoints",
+                        "full_name": "sr830_3_sweep_setpoints",
+                        "value": null,
+                        "raw_value": null,
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "s",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>",
+                        "post_delay": 0,
+                        "name": "sweep_setpoints",
+                        "label": "Time"
+                    },
+                    "ch1_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_ch1_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_ratio",
+                        "label": "Channel 1 ratio"
+                    },
+                    "ch1_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_ch1_display",
+                        "value": "X",
+                        "raw_value": "X",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch1_display",
+                        "label": "Channel 1 display"
+                    },
+                    "ch1_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_3_ch1_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch1_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch1_databuffer"
+                    },
+                    "ch1_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_3_ch1_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "V",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>",
+                        "post_delay": 0,
+                        "name": "ch1_datatrace",
+                        "label": "X"
+                    },
+                    "ch2_ratio": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_ch2_ratio",
+                        "value": "none",
+                        "raw_value": "none",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_ratio",
+                        "label": "Channel 2 ratio"
+                    },
+                    "ch2_display": {
+                        "__class__": "qcodes.parameters.parameter.Parameter",
+                        "full_name": "sr830_3_ch2_display",
+                        "value": "Phase",
+                        "raw_value": "Phase",
+                        "ts": "2026-06-24 15:49:49",
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "",
+                        "validators": [
+                            "<Strings>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Strings>",
+                        "post_delay": 0,
+                        "name": "ch2_display",
+                        "label": "Channel 2 display"
+                    },
+                    "ch2_databuffer": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelBuffer",
+                        "full_name": "sr830_3_ch2_databuffer",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "setpoint_units": [
+                            "s"
+                        ],
+                        "setpoint_names": [
+                            "Time"
+                        ],
+                        "unit": "V",
+                        "validators": [],
+                        "inter_delay": 0,
+                        "post_delay": 0,
+                        "name": "ch2_databuffer",
+                        "setpoint_labels": [
+                            "Time"
+                        ],
+                        "label": "ch2_databuffer"
+                    },
+                    "ch2_datatrace": {
+                        "__class__": "qcodes.instrument_drivers.stanford_research.SR830.ChannelTrace",
+                        "full_name": "sr830_3_ch2_datatrace",
+                        "ts": null,
+                        "instrument": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                        "instrument_name": "sr830_3",
+                        "unit": "deg",
+                        "validators": [
+                            "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>"
+                        ],
+                        "inter_delay": 0,
+                        "vals": "<Arrays, shape: (<function ParameterBase._wrap_get.<locals>.get_wrapper at 0x0000020811103240>,)>",
+                        "post_delay": 0,
+                        "name": "ch2_datatrace",
+                        "label": "Phase"
+                    }
+                },
+                "__class__": "qcodes.instrument_drivers.stanford_research.SR830.SR830",
+                "label": "sr830_3",
+                "name": "sr830_3",
+                "address": "GPIB0::4::INSTR",
+                "terminator": null,
+                "read_terminator": null,
+                "write_terminator": "\r\n",
+                "timeout": 10.0
+            },
+            "parameters": {
+                "sr830_3_X": {
+                    "gain": 1.0
+                },
+                "sr830_3_P": {
+                    "gain": 1.0
+                }
+            }
+        }
+    },
+    "interrupted": false,
+    "start_time": 1782351874.0571237,
+    "type": "1D",
+    "function": "multisweep",
+    "delay": 0.6,
+    "params": [
+        "k_tg_volt",
+        "k_bg_volt"
+    ],
+    "setpoints": [
+        [
+            4.228555845854122,
+            4.221438428770096,
+            4.21432101168607,
+            4.207203594602043,
+            4.200086177518017,
+            4.192968760433991,
+            4.185851343349964,
+            4.178733926265938,
+            4.171616509181911,
+            4.164499092097885,
+            4.157381675013859,
+            4.150264257929833,
+            4.143146840845806,
+            4.13602942376178,
+            4.128912006677754,
+            4.121794589593728,
+            4.114677172509702,
+            4.107559755425675,
+            4.100442338341649,
+            4.093324921257623,
+            4.086207504173597,
+            4.07909008708957,
+            4.071972670005543,
+            4.064855252921517,
+            4.057737835837491,
+            4.050620418753465,
+            4.043503001669438,
+            4.036385584585412,
+            4.029268167501386,
+            4.02215075041736,
+            4.015033333333333,
+            4.007915916249307,
+            4.000798499165281,
+            3.9936810820812547,
+            3.9865636649972287,
+            3.9794462479132027,
+            3.972328830829176,
+            3.9652114137451493,
+            3.958093996661123,
+            3.950976579577097,
+            3.943859162493071,
+            3.9367417454090443,
+            3.9296243283250183,
+            3.922506911240992,
+            3.915389494156966,
+            3.9082720770729393,
+            3.9011546599889133,
+            3.894037242904887,
+            3.886919825820861,
+            3.8798024087368344,
+            3.8726849916528083,
+            3.8655675745687814,
+            3.858450157484755,
+            3.851332740400729,
+            3.8442153233167025,
+            3.8370979062326764,
+            3.82998048914865,
+            3.822863072064624,
+            3.8157456549805975,
+            3.8086282378965715,
+            3.8015108208125454,
+            3.794393403728519,
+            3.787275986644493,
+            3.7801585695604665,
+            3.7730411524764405,
+            3.765923735392414,
+            3.758806318308387,
+            3.751688901224361,
+            3.7445714841403346,
+            3.7374540670563086,
+            3.730336649972282,
+            3.723219232888256,
+            3.7161018158042296,
+            3.7089843987202036,
+            3.701866981636177,
+            3.694749564552151,
+            3.6876321474681246,
+            3.6805147303840986,
+            3.6733973133000726,
+            3.666279896216046,
+            3.65916247913202,
+            3.6520450620479927,
+            3.6449276449639667,
+            3.6378102278799407,
+            3.630692810795914,
+            3.623575393711888,
+            3.6164579766278617,
+            3.6093405595438357,
+            3.6022231424598092,
+            3.595105725375783,
+            3.5879883082917567,
+            3.5808708912077307,
+            3.5737534741237043,
+            3.5666360570396782,
+            3.5595186399556518,
+            3.552401222871625,
+            3.5452838057875997,
+            3.5381663887035733,
+            3.5310489716195463,
+            3.52393155453552,
+            3.516814137451494,
+            3.5096967203674674,
+            3.5025793032834414,
+            3.4954618861994153,
+            3.488344469115389,
+            3.481227052031363,
+            3.4741096349473364,
+            3.4669922178633104,
+            3.459874800779284,
+            3.4527573836952574,
+            3.445639966611231,
+            3.438522549527205,
+            3.431405132443179,
+            3.424287715359152,
+            3.417170298275126,
+            3.4100528811910995,
+            3.4029354641070735,
+            3.395818047023047,
+            3.388700629939021,
+            3.3815832128549945,
+            3.3744657957709685,
+            3.3673483786869425,
+            3.360230961602916,
+            3.35311354451889,
+            3.345996127434863,
+            3.338878710350837,
+            3.3317612932668106,
+            3.3246438761827846,
+            3.317526459098758,
+            3.310409042014732,
+            3.3032916249307056,
+            3.296174207846679,
+            3.289056790762653,
+            3.2819393736786266,
+            3.2748219565946006,
+            3.267704539510574,
+            3.260587122426548,
+            3.2534697053425217,
+            3.246352288258495,
+            3.239234871174469,
+            3.2321174540904427,
+            3.2250000370064167,
+            3.21788261992239,
+            3.210765202838364,
+            3.2036477857543377,
+            3.1965303686703117,
+            3.1894129515862852,
+            3.1822955345022588,
+            3.1751781174182327,
+            3.1680607003342063,
+            3.1609432832501803,
+            3.153825866166154,
+            3.1467084490821278,
+            3.139591031998101
+        ],
+        [
+            -3.0745464555163906,
+            -3.0805613436124157,
+            -3.0865762317084404,
+            -3.0925911198044655,
+            -3.0986060079004902,
+            -3.104620895996515,
+            -3.1106357840925405,
+            -3.1166506721885656,
+            -3.1226655602845903,
+            -3.1286804483806154,
+            -3.13469533647664,
+            -3.140710224572665,
+            -3.14672511266869,
+            -3.1527400007647146,
+            -3.1587548888607397,
+            -3.1647697769567644,
+            -3.1707846650527896,
+            -3.1767995531488142,
+            -3.182814441244839,
+            -3.188829329340864,
+            -3.1948442174368887,
+            -3.200859105532914,
+            -3.2068739936289394,
+            -3.212888881724964,
+            -3.218903769820989,
+            -3.224918657917014,
+            -3.2309335460130386,
+            -3.2369484341090637,
+            -3.2429633222050884,
+            -3.248978210301113,
+            -3.2549930983971382,
+            -3.261007986493163,
+            -3.267022874589188,
+            -3.2730377626852127,
+            -3.279052650781238,
+            -3.2850675388772625,
+            -3.2910824269732872,
+            -3.297097315069313,
+            -3.303112203165338,
+            -3.3091270912613626,
+            -3.3151419793573873,
+            -3.3211568674534124,
+            -3.327171755549437,
+            -3.3331866436454622,
+            -3.339201531741487,
+            -3.345216419837512,
+            -3.3512313079335367,
+            -3.3572461960295614,
+            -3.3632610841255866,
+            -3.3692759722216112,
+            -3.3752908603176364,
+            -3.381305748413662,
+            -3.3873206365096866,
+            -3.3933355246057113,
+            -3.3993504127017364,
+            -3.405365300797761,
+            -3.4113801888937862,
+            -3.417395076989811,
+            -3.4234099650858356,
+            -3.4294248531818607,
+            -3.4354397412778854,
+            -3.4414546293739106,
+            -3.4474695174699352,
+            -3.4534844055659604,
+            -3.459499293661985,
+            -3.4655141817580097,
+            -3.4715290698540353,
+            -3.4775439579500604,
+            -3.483558846046085,
+            -3.48957373414211,
+            -3.495588622238135,
+            -3.5016035103341596,
+            -3.5076183984301847,
+            -3.5136332865262094,
+            -3.5196481746222346,
+            -3.5256630627182592,
+            -3.531677950814284,
+            -3.537692838910309,
+            -3.5437077270063337,
+            -3.549722615102359,
+            -3.5557375031983836,
+            -3.561752391294409,
+            -3.567767279390434,
+            -3.573782167486459,
+            -3.5797970555824836,
+            -3.5858119436785088,
+            -3.5918268317745334,
+            -3.597841719870558,
+            -3.6038566079665832,
+            -3.609871496062608,
+            -3.615886384158633,
+            -3.6219012722546577,
+            -3.627916160350683,
+            -3.6339310484467076,
+            -3.6399459365427322,
+            -3.645960824638758,
+            -3.651975712734782,
+            -3.657990600830807,
+            -3.6640054889268328,
+            -3.6700203770228574,
+            -3.676035265118882,
+            -3.6820501532149073,
+            -3.688065041310932,
+            -3.694079929406957,
+            -3.7000948175029817,
+            -3.7061097055990064,
+            -3.7121245936950316,
+            -3.7181394817910562,
+            -3.7241543698870814,
+            -3.730169257983106,
+            -3.736184146079131,
+            -3.742199034175156,
+            -3.7482139222711814,
+            -3.754228810367206,
+            -3.7602436984632313,
+            -3.766258586559256,
+            -3.7722734746552806,
+            -3.7782883627513058,
+            -3.7843032508473304,
+            -3.7903181389433556,
+            -3.7963330270393802,
+            -3.8023479151354054,
+            -3.80836280323143,
+            -3.8143776913274547,
+            -3.82039257942348,
+            -3.8264074675195046,
+            -3.83242235561553,
+            -3.8384372437115553,
+            -3.84445213180758,
+            -3.8504670199036046,
+            -3.8564819079996298,
+            -3.8624967960956544,
+            -3.8685116841916796,
+            -3.8745265722877043,
+            -3.880541460383729,
+            -3.886556348479754,
+            -3.8925712365757787,
+            -3.898586124671804,
+            -3.9046010127678286,
+            -3.9106159008638537,
+            -3.9166307889598784,
+            -3.922645677055903,
+            -3.928660565151928,
+            -3.934675453247953,
+            -3.9406903413439784,
+            -3.946705229440003,
+            -3.9527201175360283,
+            -3.958735005632053,
+            -3.964749893728078,
+            -3.9707647818241028,
+            -3.976779669920128,
+            -3.9827945580161526,
+            -3.9888094461121772,
+            -3.9948243342082024
+        ]
+    ],
+    "end_time": 1782351991.1497266
+}

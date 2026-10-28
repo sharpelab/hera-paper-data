@@ -1,0 +1,15 @@
+# The fan-design decision point on QC0426 (07-16 session 3): both spot checks read, the
+# run-7 ana entry just landed (line 771). The agent pencilled a fan pre-design at line 714,
+# mid spot check 2, so this cut starts anchored on its own draft.
+case: qc0426-fan-design-0716
+source: ../../docs/notes/2026-07-16-QC0426-session-3
+cut:
+  transcript: 54b22e3a-9b66-48c5-a535-075cffd076b5.jsonl
+  at: 273034f0-1c43-421f-ada8-dc6b2e8bb376
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 7's read is on the page. Designing the fan now."
+  prompt: "Carry on."
+grader: null

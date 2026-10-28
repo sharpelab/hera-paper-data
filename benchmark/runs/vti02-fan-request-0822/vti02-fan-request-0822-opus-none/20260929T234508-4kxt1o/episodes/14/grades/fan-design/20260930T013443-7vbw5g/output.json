@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 10.0,
+  "n_B": 132,
+  "spacing": "invB",
+  "n_min_cm2": -1.24e12,
+  "n_max_cm2": 3.24e12,
+  "n_columns": 91,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.0,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, with markdown 47): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0). Fast axis is the cell's own n_vec = np.linspace(-1.24,+3.24,91) in 1e12 cm^-2 at D=0, converted by calc_gate_voltages with the run-5 session calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013). Slow axis B_vec is built in-cell by a 1/B recursion (d(1/B)=0.0105) from 0.7 T with a 0.40 T cap on dB; re-running that loop gives 132 rows, 0.7 -> 10.0 T (dB 0.0052..0.400 T), so rows above ~6.2 T are effectively uniform in B — reported as invB per the cell's own construction. Instrument state: sr1.sensitivity(100e-6) is set in the answer cell; sr1 tau 0.3 s / 24 dB is only asserted, and sr0 sens 0.02 V, sr0 tau 0.3 s, drive 1.0 V, and tg/bg nplci 1/1 are inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells. bias_resistor 100e6 from meas_config (cell 23). Stated run time from markdown 47 (\"ETA ~11:29 (approx 6h)\"); the cell also prints its own nominal pricing."
+}

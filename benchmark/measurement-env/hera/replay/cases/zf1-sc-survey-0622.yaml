@@ -1,0 +1,15 @@
+# The sc-survey decision point on zf1 (06-22, the grader's reference session): the run-1 recon
+# script just ran (line 219); the survey (cells 30-31) is designed next. The expected SC region
+# was read before the cut.
+case: zf1-sc-survey-0622
+source: ../../docs/notes/2026-06-22-zf1-session
+cut:
+  transcript: 109e4c21-6305-45ec-aaaa-32f98909a9f5.jsonl
+  at: 90d747ac-293d-42fb-8abb-42460d31f5c1
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Recon read back. Checking it, then designing the survey map."
+  prompt: "Carry on."
+grader: sc-survey

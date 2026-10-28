@@ -1,0 +1,12 @@
+# Run 0 — raw
+g = run(0)
+print(summarize_run(g))
+vbg = g.col("k_2400_volt")
+v1, v2, v3 = g.col("sr1_X"), g.col("sr2_X"), g.col("sr3_X")
+plt.figure(figsize=(7, 4))
+plt.plot(vbg, v1 * 1e6, label="sr1 X (T3-T4)")
+plt.plot(vbg, v2 * 1e6, label="sr2 X (B4-B5)")
+plt.plot(vbg, v3 * 1e6, label="sr3 X (Hall)")
+plt.xlabel("V_bg [V]"); plt.ylabel("lock-in X [uV]"); plt.legend()
+plt.title("Run 0 raw - Gate C BG liveness sweep (TG=0, Si=0, B=0)")
+plt.show()

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.2,
+  "n_B": 181,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.333,
+  "flags": [],
+  "notes": "Trailing cells 47 (md) + 48 (code): a 1D sweep(magnet.field, np.unique(np.round(np.arange(0.3, 1.2001, 0.005), 4)), delay=0) = 181 pts uniform in B, at n = +3.2e12 cm^-2, D = 0 V/nm via calc_gate_voltages with the session's run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013 -> Vtg +0.9836, Vbg +1.1661); it is a low-field onset extension of run 6 at the same density, with no further densities named, hence probe_only. Cell 48 sets sr1.sensitivity(50e-6); sr0 sens/tau, sr1 tau and both Keithley nplci are inherited from cell 44's close_out(restore=state0) readback (sr0 0.02 V/0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0); drive amplitude 1.0 V from the same readback, 100 MOhm bias resistor from device_card.md:64. Cell 47's markdown spells out one fan (D = 0, n +1.0 -> +3.25e12, 61 columns, B 0.8 -> 10 T, 1/B-uniform to 6 T then 0.2 T steps, N_B ~167) as the next cell, but no fan cell is present in the archive; stated 20 min is for the landed probe."
+}

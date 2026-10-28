@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.5,
+  "n_B": 168,
+  "spacing": "invB",
+  "n_cm2": [2.0e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Cell 48 issues a single 1D descending field sweep s.sweep(magnet.field, field_invB(1.5, 0.3, 168), delay=0) at n = +2.0e12 cm^-2, D = 0 V/nm via calc_gate_voltages with the cell's run-5 CAL (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) -> (V_tg, V_bg) = (+0.6398, +0.7213) V; verified Delta(1/B) = 0.01597. Cell 48 sets sr1 sensitivity to 50 uV; sr0 sens 0.02 V and both tau = 0.3 s are inherited from the cell 44 close_out(restore=state0) readback. NPLC 1 for both Keithley current reads is asserted (not set) in cell 48 and matches that readback; excitation 1.0 V (drive_V in the same readback) through the 100 MOhm bias resistor from device_card.md. Markdown cell 47 states ~30 min for this read and describes (but does not issue) the follow-on fan: D = 0, n 2.0 -> 3.25e12, 51 columns, B from the measured onset to 10 T, uniform in 1/B capped at 0.1 T above 3.2 T, ~6.7 h at B_lo = 0.5 T; no further probe columns are declared."
+}

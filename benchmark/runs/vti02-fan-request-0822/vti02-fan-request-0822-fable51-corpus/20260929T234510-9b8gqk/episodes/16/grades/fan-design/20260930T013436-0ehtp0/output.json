@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 151,
+  "spacing": "invB",
+  "n_min_cm2": 0.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 61,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.83,
+  "flags": [],
+  "notes": "Cell 48 (appended, with markdown cell 47): s.multimegasweep([magnet.field], [field_invB(1.0, 10.0, 151)], [k_tg.volt, k_bg.volt], [Vtgs, Vbgs], slow_delay=3.0, fast_delay=1.8); gates from calc_gate_voltages over np.linspace(0.8, 3.2, 61)e12 at D = 0 with the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) -> Vtg 0.296..0.984 V, Vbg 0.276..1.166 V, inside the safety limits. Cell 48 sets sr1.sensitivity(100e-6) and only asserts tau = 0.3 s; sr0 sensitivity 0.02 V, sr0/sr1 tau 0.3 s, tg/bg nplci 1.0 and drive 1.0 V are the readback of the restore in cell 44's close_out(restore=state0), the latest state record before the appended cells (cell 46 is a read-only probe). Bias resistor 100 MOhm from device_card.md. Run time '≈6 h 50 m' stated in cell 47."
+}

@@ -1,0 +1,7 @@
+## HERA — SdH onset extension, electron side (`sdh-spot-check`), before the fan
+
+Spot-check read (runs 6/7, ana to follow): electron side is the cleaner side — dominant tone **7.1 T** (SNR 40–90) with a 2×/3×/4× comb (14.1/22.1/29.5 T) against F_L = 33.1 T; model ABAB at n = +3.2e12 predicts 7.31 (light) + 25.78 T (heavy), so the observed 22.1 T tone is either the ABAB heavy pocket or the 3× harmonic of 7.1 — the recipe's warned confound, resolved by n-trajectories in the fan, not by δF here. Hole side (run 7) is the predicted near-CNP exception regime (close, balanced tones) — the fan goes electron.
+
+**Why this cell first**: run 6's carrying tone is `censored` at the record's low edge — its 50 mT low-B leg undersamples 7.1 T below ~0.84 T, so the onset (which sets the fan's B_lo, the most expensive design lever) is unmeasured; `landau-fan.md` step 1 prescribes a cheap low-field extension before committing the fan. Hole-side measured onset is 0.71 T; LK at T_e ≈ 8 K, m* ≈ 0.027 says the light tone should die between ~0.7 and 1 T. This 5 mT leg (3× Nyquist on 7.1 T down to 0.33 T) measures it; the fan's B_lo = the measured onset (each 0.1 T of B_lo saved/spent moves the fan by roughly ±1 h). Overlap 1.0–1.32 T with run 6's 10 mT leg doubles as the grid-change reproduction check (Verify).
+
+Preconditions on the page: T ≈ 1.2 K, B = 0 (handoff state), V_si = 0, PS heater/output on. Gates ramp to the run-6 spot and stay; field ends at 1.32 T, from which the fan positions.

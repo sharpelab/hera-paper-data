@@ -1,0 +1,1126 @@
+{
+  "schema": "hera-replay-episode/1",
+  "created_at": "2026-09-29T23:45:09.250315+00:00",
+  "cut": {
+    "source": "/home/zack/sharpelab/measurement-env/hera/docs/notes/2026-08-22-vti-02-session",
+    "transcript": "transcripts/b0c3c413-7523-44ec-a7c1-d3680081c6cb.jsonl",
+    "session_id": "b0c3c413-7523-44ec-a7c1-d3680081c6cb",
+    "uuid": "3a4cf818-834e-4a30-b0fa-b6e764f242cc",
+    "index": 1037,
+    "timestamp": "2026-08-23T12:11:33.483000+00:00",
+    "tool": "Bash"
+  },
+  "rig": {
+    "cwd": "C:\\Users\\DGG\\VTI_local_data\\zack\\20260822-vti-02",
+    "style": "windows",
+    "home": "C:\\Users\\DGG",
+    "user": "zack",
+    "session": "20260822-vti-02"
+  },
+  "container": {
+    "home": "/home/hera",
+    "session_dir": "/home/hera/measurements/zack/20260822-vti-02",
+    "projects_slug": "-home-hera-measurements-zack-20260822-vti-02",
+    "transcript": null,
+    "jupyter_port": 8890
+  },
+  "resume": null,
+  "transcript": {
+    "entries_total": 1934,
+    "targets": {
+      "measurement_env": [
+        "docs/api/hera-analysis.md",
+        "docs/api/measureme.md",
+        "hera/models/tetralayer_fs_count/README.md",
+        "hera/recipes/STYLE.md",
+        "hera/recipes/device-init/cnp-and-dline-calibration.md",
+        "hera/recipes/device-init/gate-current-sanity-check.md",
+        "hera/recipes/device-init/reentry-baseline.md",
+        "hera/recipes/investigations/tetralayer-stacking-fs-count.md",
+        "hera/recipes/measurements/field-sweep-1d.md",
+        "hera/recipes/measurements/gatemap.md",
+        "hera/recipes/measurements/landau-fan-vti.md",
+        "hera/recipes/measurements/landau-fan.md",
+        "hera/recipes/measurements/sdh-spot-check.md",
+        "hera/recipes/measurements/temperature-dependence-vti.md",
+        "hera/recipes/measurements/temperature-dependence.md",
+        "hera/recipes/utils/session-closeout-vti.md",
+        "hera/recipes/utils/session-closeout.md",
+        "src/drivers/FastBi1K5.py",
+        "src/drivers/Lakeshore_335.py",
+        "src/drivers/SRS_DC205.py",
+        "src/sharpelab_nb/autorange.py",
+        "src/sharpelab_nb/gates.py",
+        "src/sharpelab_nb/leakage.py",
+        "src/sharpelab_nb/thermometry.py"
+      ],
+      "cli_task_outputs": [],
+      "volatile": [],
+      "blanked": []
+    }
+  },
+  "notebooks": {
+    "20260822_ana.ipynb": {
+      "cells_total": 24,
+      "cells_kept": 16,
+      "cut_cell": {
+        "index": 15,
+        "id": "c056c015"
+      },
+      "basis": "last agent cell c056c015 @ 15, referenced",
+      "referenced_ids": [
+        "setup",
+        "nd-geometry",
+        "4249a59e",
+        "4ef060c6",
+        "5a904a2c",
+        "c056c015"
+      ],
+      "code_cells_renumbered": 8,
+      "outputs_stripped": []
+    },
+    "20260822_measure.ipynb": {
+      "cells_total": 53,
+      "cells_kept": 43,
+      "cut_cell": {
+        "index": 42,
+        "id": "5bfd8912"
+      },
+      "basis": "last agent cell 5bfd8912 @ 42, referenced",
+      "referenced_ids": [
+        "d75ed42a",
+        "e8c83505",
+        "706d76c9",
+        "c95f557c",
+        "910fe74e",
+        "459e7ba9",
+        "8ab60040",
+        "f92b2103",
+        "075b33ff",
+        "3a471ec7",
+        "e4294991",
+        "d9aa37a5",
+        "5bfd8912"
+      ],
+      "code_cells_renumbered": 22,
+      "outputs_stripped": []
+    }
+  },
+  "mask": {
+    "path": "/home/zack/sharpelab/measurement-env/hera/replay/cases/masks/vti02-pre-fan-0822.yaml",
+    "dropped": [
+      "hera_scratch/cell_fan.py",
+      "hera_scratch/md_fan.md",
+      "hera_scratch/fan_read.py",
+      "hera_scratch/ana_spot6_md.md",
+      "hera_scratch/ana_spot6.py",
+      "hera_scratch/spot_run6.png",
+      "hera_scratch/spot_fft.py",
+      "hera_scratch/spot_run7.png",
+      "20260822_ana.ipynb#a1d41a69",
+      "20260822_ana.ipynb#c056c015"
+    ],
+    "edits": [
+      {
+        "target": "20260822_measure.ipynb#3a471ec7",
+        "removed": "**10 mT from 1 to 10 T**: Δ(1/B) = 0.01/B² meets Nyquist on F_L (≤ 0.0139 T⁻¹) above 0.85 T and 1/3-Nyquist above 1.04 T; 921 points.",
+        "new": "**10 mT from 1 to 10 T**; 921 points."
+      },
+      {
+        "target": "20260822_measure.ipynb#3a471ec7",
+        "removed": "the heavy-ABAB-vs-ABCA split is 7.5 T, the partner 5 periods need 1/B ≥ 0.67 T⁻¹ → B_lo ≤ 1.3 T at the 10 T cap.",
+        "new": "the heavy-ABAB-vs-ABCA split is 7.5 T."
+      },
+      {
+        "target": "20260822_measure.ipynb#3a471ec7",
+        "removed": " δF = 1/(1/B_onset − 0.1): 1.1 T at a 1 T onset, 2.5 T at 2.5 T — both resolve the 7.5 T split.",
+        "new": ""
+      },
+      {
+        "target": "hera_scratch/md_spot_e.md",
+        "removed": "**10 mT from 1 to 10 T**: Δ(1/B) = 0.01/B² meets Nyquist on F_L (≤ 0.0139 T⁻¹) above 0.85 T and 1/3-Nyquist above 1.04 T; 921 points.",
+        "new": "**10 mT from 1 to 10 T**; 921 points."
+      },
+      {
+        "target": "hera_scratch/md_spot_e.md",
+        "removed": "the heavy-ABAB-vs-ABCA split is 7.5 T, the partner 5 periods need 1/B ≥ 0.67 T⁻¹ → B_lo ≤ 1.3 T at the 10 T cap.",
+        "new": "the heavy-ABAB-vs-ABCA split is 7.5 T."
+      },
+      {
+        "target": "hera_scratch/md_spot_e.md",
+        "removed": " δF = 1/(1/B_onset − 0.1): 1.1 T at a 1 T onset, 2.5 T at 2.5 T — both resolve the 7.5 T split.",
+        "new": ""
+      },
+      {
+        "target": "20260822_measure.ipynb#e4294991",
+        "removed": "#     Delta(1/B) = 0.01/B^2 <= 0.0139 T^-1 (Nyquist on F_L = 33 T at n = 3.2e12) for B >= 0.85 T; 1/3-Nyquist above 1.04 T.\n",
+        "new": ""
+      },
+      {
+        "target": "hera_scratch/cell_spot_e.py",
+        "removed": "#     Delta(1/B) = 0.01/B^2 <= 0.0139 T^-1 (Nyquist on F_L = 33 T at n = 3.2e12) for B >= 0.85 T; 1/3-Nyquist above 1.04 T.\n",
+        "new": ""
+      },
+      {
+        "target": "20260822_measure.ipynb#d9aa37a5",
+        "removed": "the session needs anyway (the fan starts at 1 T going up), and",
+        "new": "the session needs anyway, and"
+      },
+      {
+        "target": "20260822_measure.ipynb#d9aa37a5",
+        "removed": "Grid: 20 mT uniform in B descending (Δ(1/B) = 0.02/B² ≤ 1/(2·12.4) = 0.040 for B ≥ 0.71 T), 486 pts",
+        "new": "Grid: 20 mT uniform in B descending, 486 pts"
+      },
+      {
+        "target": "hera_scratch/md_spot_h.md",
+        "removed": "the session needs anyway (the fan starts at 1 T going up), and",
+        "new": "the session needs anyway, and"
+      },
+      {
+        "target": "hera_scratch/md_spot_h.md",
+        "removed": "Grid: 20 mT uniform in B descending (Δ(1/B) = 0.02/B² ≤ 1/(2·12.4) = 0.040 for B ≥ 0.71 T), 486 pts",
+        "new": "Grid: 20 mT uniform in B descending, 486 pts"
+      },
+      {
+        "target": "20260822_measure.ipynb#5bfd8912",
+        "removed": "# gates stay at the spot; field ends at 0.3 T (the fan starts from its onset going up) — no park here.",
+        "new": "# gates stay at the spot; field ends at 0.3 T — no park here."
+      },
+      {
+        "target": "20260822_measure.ipynb#5bfd8912",
+        "removed": "   # 10 -> 0.3 T, 20 mT: Delta(1/B) = 0.02/B^2 <= 1/(2 F_L = 24.8 T) = 0.040 for B >= 0.71 T",
+        "new": "   # 10 -> 0.3 T, 20 mT"
+      },
+      {
+        "target": "hera_scratch/cell_spot_h.py",
+        "removed": "   # 10 -> 0.3 T, 20 mT: Delta(1/B) = 0.02/B^2 <= 1/(2 F_L = 24.8 T) = 0.040 for B >= 0.71 T",
+        "new": "   # 10 -> 0.3 T, 20 mT"
+      },
+      {
+        "target": "hera_scratch/cell_spot_h.py",
+        "removed": "# gates stay at the spot; field ends at 0.3 T (the fan starts from its onset going up) — no park here.",
+        "new": "# gates stay at the spot; field ends at 0.3 T — no park here."
+      },
+      {
+        "target": "session_notes.md",
+        "removed": "- TOOLING — measured per-point cost on `s.sweep(magnet.field, ...)` at 10 mT steps: 10.3 s/pt (run 6: 921 pts in 2 h 04 m) = 4.4 s ramp + 3 s `settle_s` + ~3 s set/poll/read overhead — ~1.5× my pre-run estimate (3.8 s overhead). Rig-card Timing should carry \"blocking field set ≈ ramp + settle_s + 3 s\" for fine-step field sweeps.\n- PROTOCOL — the B_1−B_2 \"Rxx\" pair on this device straddles a flake corner (left side vs bottom pad): the channel carries a ρxy admixture (R falls 52 → 12 Ω by 0.5 T at n = 3.2e12). Harmless for SdH frequency reads; the device card could state that the provided pair is not a clean longitudinal pair.\n",
+        "new": ""
+      }
+    ],
+    "appended": [
+      {
+        "notebook": "20260822_measure.ipynb",
+        "id": "4231f087",
+        "cell_type": "markdown",
+        "index": 43,
+        "start": "2026-08-23T12:11:33.483000+00:00",
+        "end": "2026-08-23T12:13:33.483000+00:00"
+      },
+      {
+        "notebook": "20260822_measure.ipynb",
+        "id": "12d8d10a",
+        "cell_type": "code",
+        "index": 44,
+        "start": "2026-08-23T12:13:33.483000+00:00",
+        "end": "2026-08-23T12:16:33.483000+00:00"
+      },
+      {
+        "notebook": "20260822_measure.ipynb",
+        "id": "3de6b6f9",
+        "cell_type": "markdown",
+        "index": 45,
+        "start": "2026-08-23T12:16:33.483000+00:00",
+        "end": "2026-08-23T12:17:33.483000+00:00"
+      },
+      {
+        "notebook": "20260822_measure.ipynb",
+        "id": "371d6534",
+        "cell_type": "code",
+        "index": 46,
+        "start": "2026-08-23T12:17:33.483000+00:00",
+        "end": "2026-08-23T12:17:35.483000+00:00"
+      }
+    ],
+    "clock": "2026-08-23T12:17:35.483000+00:00"
+  },
+  "runs": {
+    "kept": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "in_flight_dropped": [],
+    "end_from_mtime": {},
+    "unobserved": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "first_seen": {
+      "0": 257,
+      "1": 311,
+      "2": 311,
+      "3": 295,
+      "4": 366,
+      "5": 657,
+      "6": 657,
+      "7": 887
+    },
+    "first_seen_in_notebook": {
+      "0": "20260822_measure.ipynb:910fe74e",
+      "1": "20260822_measure.ipynb:910fe74e",
+      "2": "20260822_measure.ipynb:910fe74e",
+      "3": "20260822_measure.ipynb:910fe74e",
+      "4": "20260822_measure.ipynb:8ab60040",
+      "5": "20260822_measure.ipynb:075b33ff",
+      "6": "20260822_ana.ipynb:c056c015",
+      "7": "20260822_measure.ipynb:5bfd8912"
+    },
+    "first_seen_in_text": {
+      "5": 403,
+      "6": 694,
+      "7": 913
+    }
+  },
+  "files": {
+    "as_archived": [
+      "hera_session.md",
+      "rig_card.md",
+      "corpus_provenance.json"
+    ],
+    "reconstructed": {
+      "device_card.md": {
+        "basis": "read-baseline@16",
+        "ops": [
+          {
+            "index": 16,
+            "kind": "read"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 4909
+      },
+      "hera_scratch/cell_probe.py": {
+        "basis": "write@141",
+        "ops": [
+          {
+            "index": 141,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 832
+      },
+      "hera_scratch/cell_verify.py": {
+        "basis": "write@143",
+        "ops": [
+          {
+            "index": 143,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 4996
+      },
+      "hera_scratch/md_verify.md": {
+        "basis": "heredoc@157",
+        "ops": [
+          {
+            "index": 157,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1337
+      },
+      "hera_scratch/cell_gatec.py": {
+        "basis": "write@207",
+        "ops": [
+          {
+            "index": 207,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 3522
+      },
+      "session_notes.md": {
+        "basis": "appends only; head unseen by the agent",
+        "ops": [
+          {
+            "index": 234,
+            "kind": "heredoc"
+          },
+          {
+            "index": 410,
+            "kind": "heredoc"
+          },
+          {
+            "index": 686,
+            "kind": "heredoc"
+          },
+          {
+            "index": 905,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 3022
+      },
+      "hera_scratch/md_gatec.md": {
+        "basis": "heredoc@237",
+        "ops": [
+          {
+            "index": 237,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1135
+      },
+      "hera_scratch/gatec_analysis.py": {
+        "basis": "write@303",
+        "ops": [
+          {
+            "index": 303,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1904
+      },
+      "hera_scratch/gatec_legs.png": {
+        "basis": "archived: last written 2026-08-23T07:01:59+00:00, before the cut",
+        "ops": [
+          {
+            "index": 315,
+            "kind": "read-image"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 128943
+      },
+      "hera_scratch/ana_gatec.py": {
+        "basis": "heredoc@342",
+        "ops": [
+          {
+            "index": 342,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1524
+      },
+      "hera_scratch/ana_gatec_md.md": {
+        "basis": "heredoc@342",
+        "ops": [
+          {
+            "index": 342,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1111
+      },
+      "hera_scratch/cell_gatemap.py": {
+        "basis": "write@348",
+        "ops": [
+          {
+            "index": 348,
+            "kind": "write"
+          },
+          {
+            "index": 384,
+            "kind": "sed"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2448
+      },
+      "hera_scratch/md_gatemap.md": {
+        "basis": "heredoc@357",
+        "ops": [
+          {
+            "index": 357,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1696
+      },
+      "hera_scratch/md_gatemap2.md": {
+        "basis": "heredoc@394",
+        "ops": [
+          {
+            "index": 394,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 831
+      },
+      "hera_scratch/gatemap_cnp.py": {
+        "basis": "write@415",
+        "ops": [
+          {
+            "index": 415,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 3800
+      },
+      "hera_scratch/gatemap_run5.png": {
+        "basis": "archived: last written 2026-08-23T07:48:22+00:00, before the cut",
+        "ops": [
+          {
+            "index": 437,
+            "kind": "read-image"
+          },
+          {
+            "index": 506,
+            "kind": "read-image"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 67458
+      },
+      "hera_scratch/cnp_calibration.py": {
+        "basis": "write@538",
+        "ops": [
+          {
+            "index": 538,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 6165
+      },
+      "hera_scratch/cnp_cal_run5.png": {
+        "basis": "archived: last written 2026-08-23T08:31:11+00:00, before the cut",
+        "ops": [
+          {
+            "index": 550,
+            "kind": "read-image"
+          },
+          {
+            "index": 606,
+            "kind": "read-image"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 167981
+      },
+      "hera_scratch/cell_spot_e.py": {
+        "basis": "write@568",
+        "ops": [
+          {
+            "index": 568,
+            "kind": "write"
+          },
+          {
+            "index": 641,
+            "kind": "sed"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 3682
+      },
+      "hera_scratch/ana_cal.py": {
+        "basis": "archived: content unknown at the cut (sed@634: applied to an unknown state); its mtime 2026-08-23T08:32:41+00:00 precedes the cut",
+        "ops": [
+          {
+            "index": 625,
+            "kind": "heredoc",
+            "unknown": true
+          },
+          {
+            "index": 634,
+            "kind": "sed",
+            "unknown": true
+          },
+          {
+            "index": 634,
+            "kind": "sed",
+            "unknown": true
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 7021
+      },
+      "hera_scratch/ana_cal_md.md": {
+        "basis": "heredoc@634",
+        "ops": [
+          {
+            "index": 634,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1601
+      },
+      "hera_scratch/md_spot_e.md": {
+        "basis": "heredoc@645",
+        "ops": [
+          {
+            "index": 645,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2123
+      },
+      "hera_scratch/spot_fft.py": {
+        "basis": "write@675",
+        "ops": [
+          {
+            "index": 675,
+            "kind": "write"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2835
+      },
+      "hera_scratch/spot_run6.png": {
+        "basis": "archived: last written 2026-08-23T10:35:06+00:00, before the cut",
+        "ops": [
+          {
+            "index": 712,
+            "kind": "read-image"
+          },
+          {
+            "index": 781,
+            "kind": "read-image"
+          },
+          {
+            "index": 864,
+            "kind": "read-image"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 125203
+      },
+      "hera_scratch/cell_fan.py": {
+        "basis": "write@743",
+        "ops": [
+          {
+            "index": 743,
+            "kind": "write"
+          },
+          {
+            "index": 900,
+            "kind": "sed"
+          },
+          {
+            "index": 905,
+            "kind": "sed"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 3845
+      },
+      "hera_scratch/md_spot_h.md": {
+        "basis": "heredoc@794",
+        "ops": [
+          {
+            "index": 794,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 1356
+      },
+      "hera_scratch/ana_spot6.py": {
+        "basis": "archived: an unmodelled change after start left the file as archived; its mtime 2026-08-23T10:08:52+00:00 precedes the cut",
+        "ops": [
+          {
+            "index": 809,
+            "kind": "heredoc"
+          },
+          {
+            "index": 876,
+            "kind": "script"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2347
+      },
+      "hera_scratch/ana_spot6_md.md": {
+        "basis": "heredoc@876",
+        "ops": [
+          {
+            "index": 876,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2387
+      },
+      "hera_scratch/md_fan.md": {
+        "basis": "heredoc@900",
+        "ops": [
+          {
+            "index": 900,
+            "kind": "heredoc"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 2184
+      },
+      "hera_scratch/fan_read.py": {
+        "basis": "write@915",
+        "ops": [
+          {
+            "index": 915,
+            "kind": "write"
+          },
+          {
+            "index": 927,
+            "kind": "sed"
+          },
+          {
+            "index": 927,
+            "kind": "sed"
+          }
+        ],
+        "corroborated_by": "archived",
+        "bytes": 4331
+      },
+      "hera_scratch/spot_run7.png": {
+        "basis": "read-image@989",
+        "ops": [
+          {
+            "index": 989,
+            "kind": "read-image"
+          }
+        ],
+        "corroborated_by": "byte-exact Read",
+        "bytes": 97273
+      },
+      "hera_scratch/cal_run5.json": {
+        "basis": "archived: last written 2026-08-23T08:32:58+00:00, before the cut",
+        "ops": [],
+        "corroborated_by": "archived",
+        "bytes": 291
+      },
+      "hera_scratch/cell_spot_h.py": {
+        "basis": "archived: last written 2026-08-23T08:45:56+00:00, before the cut",
+        "ops": [],
+        "corroborated_by": "archived",
+        "bytes": 3669
+      }
+    }
+  },
+  "not_materialized": {
+    "data/10/data.tsv.gz": "run not observed before the cut",
+    "data/10/metadata.json": "run not observed before the cut",
+    "data/10/plot.png": "run not observed before the cut",
+    "data/11/data.tsv.gz": "run not observed before the cut",
+    "data/11/metadata.json": "run not observed before the cut",
+    "data/11/plot.png": "run not observed before the cut",
+    "data/12/data.tsv.gz": "run not observed before the cut",
+    "data/12/metadata.json": "run not observed before the cut",
+    "data/12/plot.png": "run not observed before the cut",
+    "data/13/data.tsv.gz": "run not observed before the cut",
+    "data/13/metadata.json": "run not observed before the cut",
+    "data/13/plot.png": "run not observed before the cut",
+    "data/14/data.tsv.gz": "run not observed before the cut",
+    "data/14/metadata.json": "run not observed before the cut",
+    "data/14/plot.png": "run not observed before the cut",
+    "data/8/data.tsv.gz": "run not observed before the cut",
+    "data/8/metadata.json": "run not observed before the cut",
+    "data/8/plot.png": "run not observed before the cut",
+    "data/9/data.tsv.gz": "run not observed before the cut",
+    "data/9/metadata.json": "run not observed before the cut",
+    "data/9/plot.png": "run not observed before the cut",
+    "data/log.log": "not a run dir",
+    "hera_scratch/ana_call.md": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_fan8.py": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_fan8_md.md": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_lk.py": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_lk_md.md": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_spot7.py": "written after the cut, and no op before the cut",
+    "hera_scratch/ana_spot7_md.md": "written after the cut, and no op before the cut",
+    "hera_scratch/cell_closeout.py": "written after the cut, and no op before the cut",
+    "hera_scratch/cell_lk.py": "written after the cut, and no op before the cut",
+    "hera_scratch/fan_run8.png": "written after the cut, and no op before the cut",
+    "hera_scratch/lk_ladder.png": "written after the cut, and no op before the cut",
+    "hera_scratch/lk_read.py": "written after the cut, and no op before the cut",
+    "hera_scratch/md_closeout.md": "written after the cut, and no op before the cut",
+    "hera_scratch/md_lk.md": "written after the cut, and no op before the cut",
+    "hera_scratch/spot_run10.png": "written after the cut, and no op before the cut",
+    "hera_scratch/spot_run9.png": "written after the cut, and no op before the cut"
+  },
+  "stop_hook": {
+    "settings": "session/.claude/settings.json",
+    "script": "session/.claude/episode_stop.py",
+    "marker": "session/episode-stop.json"
+  },
+  "stubs": {
+    "hera-notify": "stubs/hera-notify",
+    "hera-watch": "stubs/hera-watch",
+    "nb-collab": "stubs/nb-collab"
+  },
+  "clock": {
+    "start": "2026-08-23T12:17:35.483000+00:00",
+    "after_cut_s": 362
+  },
+  "mtimes": {
+    "session": "2026-08-23T12:11:33.483000+00:00",
+    "20260822_measure.ipynb": "2026-08-23T12:17:35.483000+00:00"
+  },
+  "run": {
+    "case": "vti02-fan-request-0822-opus55-corpus",
+    "run_dir": "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj",
+    "sample": "14",
+    "container": "hera-replay-vti02-fan-request-0822-opus55-corpus-20260929T234508-msonbj-14",
+    "started_at": "2026-09-30T00:33:44+00:00",
+    "start": {
+      "mode": "fresh",
+      "session_id": "7a641831-be98-47c0-884d-2f1676be2ef2",
+      "first_message": {
+        "source": "/home/zack/sharpelab/measurement-env/hera/replay/cases/briefs/vti02-fan-request-0822/corpus.md",
+        "sha256": "cdb1795282ec04a70ecada8bdc0c6a32211b0de45d64828999ecc1b9829f7917",
+        "lines": 148
+      }
+    },
+    "model": {
+      "pinned": "claude-opus-5-5",
+      "observed": [
+        "claude-opus-5-5"
+      ]
+    },
+    "runner": "claude",
+    "effort": "high",
+    "max_turns": 120,
+    "allowed_tools": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "ScheduleWakeup",
+      "Monitor"
+    ],
+    "timeout_s": 1800.0,
+    "stall_s": 600.0,
+    "faketime_s": 3240969,
+    "docker": {
+      "run": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "hera-replay-vti02-fan-request-0822-opus55-corpus-20260929T234508-msonbj-14",
+        "--user",
+        "1000:1000",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/mnt:/home/hera/measurements",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/session:/home/hera/measurements/zack/20260822-vti-02",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/claude-projects:/home/hera/.claude/projects",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/tmp:/tmp",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/stubs/hera-notify:/home/hera/.local/bin/hera-notify:ro",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/stubs/hera-watch:/home/hera/.local/bin/hera-watch:ro",
+        "-v",
+        "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-opus55-corpus/20260929T234508-msonbj/episodes/14/stubs/nb-collab:/home/hera/.local/bin/nb-collab:ro",
+        "-e",
+        "HOME=/home/hera",
+        "-e",
+        "ANTHROPIC_API_KEY=<redacted>",
+        "-e",
+        "HERA_EPISODE_DIR=/home/hera/measurements/zack/20260822-vti-02",
+        "-e",
+        "HERA_FAKETIME=-3240969",
+        "-e",
+        "HERA_JL_ROOT=/home/hera/measurements",
+        "-e",
+        "HERA_JL_PORT=8890",
+        "-e",
+        "TZ=America/Los_Angeles",
+        "-w",
+        "/home/hera/measurements/zack/20260822-vti-02",
+        "hera-agent:8bf4e7d.c13b07e9p-full"
+      ],
+      "exec": [
+        "docker",
+        "exec",
+        "-i",
+        "-w",
+        "/home/hera/measurements/zack/20260822-vti-02",
+        "-e",
+        "BUN_OPTIONS=--preload /opt/hera/fakedate.js",
+        "-e",
+        "HERA_FAKE_OFFSET_MS=3240969000",
+        "hera-replay-vti02-fan-request-0822-opus55-corpus-20260929T234508-msonbj-14",
+        "claude",
+        "-p",
+        "--agent",
+        "hera-tactical",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "high",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--session-id",
+        "7a641831-be98-47c0-884d-2f1676be2ef2",
+        "--max-turns",
+        "120",
+        "--allowedTools",
+        "Bash,Read,Write,Edit,Glob,Grep,ScheduleWakeup,Monitor"
+      ],
+      "version": {
+        "client": "29.8.1",
+        "server": "29.8.1"
+      },
+      "hostname": "edhar"
+    },
+    "image": {
+      "tag": "hera-agent:8bf4e7d.c13b07e9p-full",
+      "id": "sha256:194d62c195b5b728afcb971ec0afc0bcde416de207ac5dd344c06ff690ac622a",
+      "metadata": {
+        "corpus_sha": "13b07e9898b973aa34066587c27ac61db13c26cc",
+        "condition": "full",
+        "harness_sha": "8bf4e7d251f6005378cb0e2781781e7af10ef74c",
+        "prompt_source": "corpus",
+        "corpus_paths": [
+          "hera/recipes",
+          "hera/crops",
+          "hera/models",
+          "hera/docs/tetralayer-stacking-extraction-survey.md",
+          "hera/docs/stacking-extraction-survey.md",
+          "hera/docs/raman-public-data.md",
+          "hera/docs/notebook-indexes",
+          "hera/docs/iris",
+          "hera/docs/papers",
+          "hera/hera_tactical.md",
+          "hera/iris.md"
+        ],
+        "whitelist": [
+          "CLAUDE.md",
+          "README.md",
+          "pyproject.toml",
+          "uv.lock",
+          ".python-version",
+          "src/gui",
+          "src/sharpelab_nb",
+          "src/tools",
+          "src/workers",
+          "src/drivers",
+          "src/hera/__init__.py",
+          "src/hera/analysis.py",
+          "src/hera/assets",
+          "src/hera/cache.py",
+          "src/hera/classify.py",
+          "src/hera/models.py",
+          "src/hera/overlay.py",
+          "src/hera/prompt.py",
+          "src/hera/provider.py",
+          "src/hera/providers",
+          "src/hera/render.py",
+          "src/hera/sidecar.py",
+          "src/hera/watch.py",
+          "lib",
+          "vendor",
+          "docs/api",
+          "jupyter-config",
+          "tools/nb",
+          "tools/nb-collab",
+          "tools/menv",
+          "hera/CLAUDE.md",
+          "hera/recipes",
+          "hera/crops",
+          "hera/models",
+          "hera/rig-cards",
+          "hera/device-cards",
+          "hera/templates",
+          "hera/vti",
+          "hera/blinding.md",
+          "hera/session_template.md",
+          "hera/hera_tactical.md",
+          "hera/iris.md",
+          "hera/docs/tetralayer-stacking-extraction-survey.md",
+          "hera/docs/stacking-extraction-survey.md",
+          "hera/docs/raman-public-data.md",
+          "hera/docs/notebook-indexes",
+          "hera/docs/iris",
+          "hera/docs/papers"
+        ],
+        "strip": [],
+        "claude_version": "2.1.283",
+        "codex_version": "0.157.1",
+        "docker_dir_sha256": "57555b224a00f63c55d50d6b88694219e849d5880d845c0fa365b038d2b98c08",
+        "built_at": "2026-09-27T02:24:02Z"
+      }
+    },
+    "claude_version": {
+      "image": "2.1.283",
+      "observed": "2.1.283"
+    },
+    "harness": {
+      "git_head": "58d02e641961fd33ae744eb6e271fea08ead7a92",
+      "dirty": [],
+      "code_hash": "168ca18578055489a628f44ecda468e4d5528554b8ff35b7e08940e5aceb7c15",
+      "paths": [
+        "src/hera/replay",
+        "hera/docker"
+      ]
+    },
+    "status": "ok",
+    "guard": null,
+    "returncode": 0,
+    "error": null,
+    "result": {
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 1,
+      "duration_ms": 14932,
+      "duration_api_ms": 428313,
+      "total_cost_usd": 1.9394191999999997,
+      "stop_reason": "end_turn",
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 52,
+          "outputTokens": 40735,
+          "cacheReadInputTokens": 2643581,
+          "cacheCreationInputTokens": 119159,
+          "webSearchRequests": 0,
+          "costUSD": 1.9394191999999997,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 27177,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 861,
+        "cache_read_input_tokens": 160226,
+        "output_tokens": 1316,
+        "output_tokens_details": {
+          "thinking_tokens": 131
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 861
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1316,
+            "cache_read_input_tokens": 160226,
+            "cache_creation_input_tokens": 861,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 861,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      }
+    },
+    "stop": {
+      "timestamp": "2026-08-23T12:25:04.545480+00:00",
+      "tool": "nb-collab",
+      "command": "nb-collab append 20260822_measure.ipynb --markdown-file hera_scratch/md_ext.md --code-file hera_scratch/cell_ext.py --summary fan B_lo pin: sdh-spot-check low-field extension, n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0.3->1.5 T uniform 1/B dinv 0.01 (267 pts), delay 0 (3 s settle), sr1 50 uV; ends at 1.5 T --eta 30m --execute --timeout 3000",
+      "invocation": "nb-collab append 20260822_measure.ipynb --markdown-file hera_scratch/md_ext.md --code-file hera_scratch/cell_ext.py --summary fan B_lo pin: sdh-spot-check low-field extension, n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0.3->1.5 T uniform 1/B dinv 0.01 (267 pts), delay 0 (3 s settle), sr1 50 uV; ends at 1.5 T --eta 30m --execute --timeout 3000",
+      "cell_ids": [],
+      "tool_use_id": null,
+      "append_landed": {
+        "invocation": "nb-collab append 20260822_measure.ipynb --markdown-file hera_scratch/md_ext.md --code-file hera_scratch/cell_ext.py --summary fan B_lo pin: sdh-spot-check low-field extension, n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0.3->1.5 T uniform 1/B dinv 0.01 (267 pts), delay 0 (3 s settle), sr1 50 uV; ends at 1.5 T --eta 30m --execute --timeout 3000",
+        "cell_ids": [
+          "ebbb76c8",
+          "08c13048"
+        ]
+      }
+    },
+    "stop_cell_sweeps": true,
+    "sweep_cell_appended": true,
+    "cost_usd": 1.9394191999999997,
+    "cells_appended": 2,
+    "quota": null,
+    "turns": {
+      "num_turns": 1,
+      "api_messages": 26,
+      "assistant_events": 55,
+      "tool_calls": 31,
+      "events": 382
+    },
+    "jupyter_ready_s": 2.3,
+    "ended_at": "2026-09-30T00:41:40+00:00",
+    "wall_s": 475.4,
+    "notebooks": {
+      "20260822_ana.ipynb": {
+        "cells_before": 14,
+        "cells_after": 14,
+        "appended": [],
+        "modified": []
+      },
+      "20260822_measure.ipynb": {
+        "cells_before": 47,
+        "cells_after": 49,
+        "appended": [
+          "ebbb76c8",
+          "08c13048"
+        ],
+        "modified": [
+          "3a471ec7",
+          "e4294991",
+          "d9aa37a5",
+          "5bfd8912",
+          "4231f087",
+          "12d8d10a",
+          "3de6b6f9",
+          "371d6534"
+        ]
+      }
+    },
+    "notifications": 0,
+    "tokens": {
+      "input": 2,
+      "cache_creation": 861,
+      "cache_read": 160226,
+      "output": 1316
+    },
+    "tokens_source": "result",
+    "session_jsonl": {
+      "path": "claude-projects/-home-hera-measurements-zack-20260822-vti-02/7a641831-be98-47c0-884d-2f1676be2ef2.jsonl",
+      "entries_before": 0,
+      "entries_after": 187
+    },
+    "outputs": {
+      "transcript": "transcript.jsonl",
+      "stderr": "claude-stderr.txt",
+      "harness_log": "harness.log",
+      "appended_cells": "appended_cells.json",
+      "tmp": "tmp",
+      "marker": "session/episode-stop.json",
+      "notifications": "session/notifications.jsonl"
+    }
+  }
+}

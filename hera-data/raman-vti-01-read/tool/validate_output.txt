@@ -1,0 +1,81 @@
+/data/sharpelab/hera-data/raman-vti-01-read/tool/metrics.py:61: OptimizeWarning: Covariance of the parameters could not be estimated
+  p, _ = curve_fit(_lorentz, w, i, p0=[amp0, x0, 40.0, base],
+  N   FWHM(ABC)  FWHM(AB)   skew(ABC)  skew(AB)  r_lh(ABC)  r_lh(AB)
+    3      67.1      63.2      -0.03     -0.04      0.99      1.06  ok
+    4      69.6      66.8      -0.05     -0.03      1.04      1.08  ok
+    5      71.8      65.5      -0.02     -0.03      1.01      1.08  ok
+    6      74.0      67.0      -0.05     -0.01      1.05      1.10  ok
+    7      75.0      66.8      -0.03      0.02      1.02      1.12  ok
+    8      72.9      65.8      -0.02      0.01      1.03      1.20  ok
+    9      74.6      65.1      -0.03      0.01      1.03      1.11  ok
+   10      80.3      63.9      -0.03      0.04      1.07      1.20  ok
+  200      84.5      56.8      -0.04     -0.01      1.10      1.26  ok
+[PASS] A.pku-fig4: FWHM(ABC)>FWHM(AB) at all shared N=[3, 4, 5, 6, 7, 8, 9, 10, 200] (trilayer included: True)
+[PASS] A.pku-fig2c: 2C1 (ABC-labeled) FWHM 81.8 vs 2C2 57.1
+[PASS] B.nemes-pair: rhomb FWHM 80.7 / skew -0.00 vs hexa 64.0 / 0.01
+  dir              file                                      nm     FWHM   skew
+  10 layer         MK_FLG_ABC_58--Spectrum--025--Spec.Data     488    82.3  -0.03
+  10 layer_2       MK_ABC_FLG_58--Spectrum--007--Spec.Data     532    81.9  -0.04
+  10 layer_2       MK_ABC_FLG_58--Spectrum--007--Spec.Data     532    81.7  -0.04
+  10 layer_2       MK_ABC_FLG_58--Spectrum--012--Spec.Data     532    80.6  -0.08
+  10 layer_3       FLG_58--Spectrum--003--Spec.Data 1_ANal9    488    81.7  -0.03
+  10 layer_3       FLG_58--Spectrum--004--Spec.Data 1_anal0    488    81.3  -0.03
+  11 layer         MK_FLG_ABC_58--Spectrum--021--Spec.Data     488    82.4  -0.04
+  11 layer         MK_FLG_ABC_58--Spectrum--022--Spec.Data     488    79.8  -0.03
+  11 layer_2       MK_ABC_FLG_58--Spectrum--006--Spec.Data     532    81.9  -0.07
+  11 layer_2       MK_ABC_FLG_58--Spectrum--012--Spec.Data     532    80.6  -0.08
+  12 layer         MK_FLG_ABC_58--Spectrum--023--Spec.Data     488    79.8   0.01
+  12 layer_2       MK_ABC_FLG_58--Spectrum--005--Spec.Data     532    79.6  -0.03
+  12 layer_2       MK_ABC_FLG_58--Spectrum--012--Spec.Data     532    80.6  -0.08
+  4 layer          ABCA_ANAL90.txt                             488    72.4   0.01
+  4 layer          ERS anal 0 _ABCA.txt                        488    72.8  -0.03
+  4 layer_2        MK_ABC_FLG_33--Spectrum--020--Spec.Data     488    72.3   0.03
+  4 layer_2        MK_ABC_FLG_33--Spectrum--021--Spec.Data     488    73.5  -0.01
+  7 layer_488      FLG_37--Spectrum--029--Spec.Data 1-ABC7-    488    77.4   0.01
+  7 layer_488      FLG_37--Spectrum--030--Spec.Data 1-ABC7-    488    79.7  -0.02
+  8 layer_488      FLG_37--Spectrum--015--Spec.Data 1-ABC8-    488    81.2  -0.03
+  8 layer_488      FLG_37--Spectrum--016--Spec.Data 1-ABC8-    488    78.7   0.01
+  8 layer_532      FLG_37-532--Spectrum--012--Spec.Data 1-A    532    77.5  -0.02
+  8 layer_532      FLG_37-532--Spectrum--013--Spec.Data 1-A    532    78.2  -0.06
+  9 layer_488      Spectrum--006--Spec.Data 1-ABC9-ERS-488-    488    77.5   0.05
+  9 layer_488      Spectrum--007--Spec.Data 1-ABC9-ERS-488-    488    81.2  -0.01
+  9 layer_532      Spectrum--014--Spec.Data 1-532-Gsplittin    532    78.8  -0.08
+  9 layer_532      Spectrum--015--Spec.Data 1-ABC9-ERS-532-    532    73.0   0.07
+  9 layer_633      Spectrum--009--Spec.Data 1-ABC9-ERS-633-    633    84.6  -0.00
+  9 layer_633      Spectrum--010--Spec.Data 1-ABC9-ERS-633-    633    91.6  -0.12
+  3 layer          [ERS-region export, 3216-6424 cm^-1, no 2D band]
+  3 layer          [ERS-region export, 3216-6424 cm^-1, no 2D band]
+  3 layer_2        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  3 layer_2        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  3 layer_3        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  3 layer_3        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  3 layer_4        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  3 layer_4        [ERS-region export, 3716-6751 cm^-1, no 2D band]
+  5 layer          [ERS-region export, 3467-6587 cm^-1, no 2D band]
+  5 layer          [ERS-region export, 3467-6587 cm^-1, no 2D band]
+  5 layer_2        [ERS-region export, 3467-6587 cm^-1, no 2D band]
+  5 layer_2        [ERS-region export, 3467-6587 cm^-1, no 2D band]
+  6 layer          [ERS-region export, 3341-6506 cm^-1, no 2D band]
+  6 layer          [ERS-region export, 3341-6506 cm^-1, no 2D band]
+  7 layer_532      [ERS-region export, 3006-5712 cm^-1, no 2D band]
+  7 layer_532      [ERS-region export, 3006-5712 cm^-1, no 2D band]
+[PASS] C.nemes-abc-layers: 29 labeled-ABC 2D spectra at [488, 532, 633] nm, FWHM 72-92, median skew -0.03; 16 ERS-only exports (incl. all trilayer -- 2D-band trilayer truth is Gate A)
+  map 48x45: 1091 graphene px, clusters 643 @ 60.2 / 448 @ 77.9 cm^-1
+  ref hexa-7L   FWHM   60.9  skew  0.07
+  ref hexa-8L   FWHM   60.6  skew  0.06
+  ref rhomb-7L  FWHM   78.6  skew  0.01
+  ref rhomb-8L  FWHM   78.1  skew  0.02
+[PASS] D.map-refs: labeled region averages: rhomb FWHM > hexa at 7L and 8L
+  cluster 0 (low-FWHM) mean-spectrum FWHM 62.0 -> nearest ref hexa-7L (60.9)
+  cluster 1 (high-FWHM) mean-spectrum FWHM 77.9 -> nearest ref rhomb-8L (78.1)
+[PASS] D.map-clusters: low-FWHM cluster -> hexa-7L, high-FWHM cluster -> rhomb-8L
+  wrote /data/sharpelab/hera-data/raman-vti-01-read/tool/flg37_map_validation.png
+  synthetic α=0.00 -> recovered 0.000 (r2 0.997)
+  synthetic α=0.25 -> recovered 0.326 (r2 0.996)
+  synthetic α=0.50 -> recovered 0.510 (r2 0.998)
+  synthetic α=0.75 -> recovered 0.785 (r2 0.997)
+  synthetic α=1.00 -> recovered 1.000 (r2 0.998)
+  76 intermediate-FWHM map pixels: 78% decompose at α ∈ (0.2, 0.8)
+[PASS] E.decompose: synthetic mixtures recovered within ±0.1 at 2% noise (real wall pixels: 78% mid-α)
+
+7/7 gates passed

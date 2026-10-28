@@ -1,0 +1,17 @@
+## Run 5 take — preliminary tones, and the redo decision
+
+**Usable window** 0.5–2.4 T (clip-truncated); onset ≈ 1.2 T (sr2 tone-tracked; sr1 1.7 T) — well resolved above the 0.5 T floor, so the onset is *measured*, not censored. **Hall cross-check**: slope 94.6 Ω/T (0.5–1.5 T) → n_Hall ≈ 6.6×10¹² cm⁻² vs target 6.0 — suggests the geometry-prior scale reads ~10% low (caveat: low-B Hall in a possible two-band system is an indicator, not a calibration). **F_L is therefore a band, ≈ 62–68 T**; the scale gets pinned properly by the Luttinger sum over the full peak set (investigation: pin the scale before you reject).
+
+**Preliminary peak sets (δF 2.5–5 T on this short record — read loosely):**
+- **sr2 (B4–B5)**: strong 53.9 T + marginal 11.3 T, with 22.2 ≈ 2×11.3 and 72.4 ≈ 6×11.3 flagged as harmonic-comb members. Two competing readings: (a) **ABA pair** {f_ML ≈ 11.3, f_BL ≈ 53.9}, sum 65.2 — inside the F_L band ✓; (b) an 11.3 T harmonic comb with 53.9 accidentally ≈ 5×11.3 (56.5 — off by 2.6 ≈ δF, unresolvable here).
+- **sr1 (T3–T4)**: single dominant ≈ 64.9 T, inside the F_L band (weak 32.7 ≈ f/2 flag), *no clear small partner* — on this record consistent-with an ABC singleton in that region → **mixed-domain candidate** (channels disagree = signal, per the investigation). But: a tone absent from a clipped record is unresolved, not absent.
+- sr3 (Hall): clean linear + developing QH structure ≥6 T; not an SdH-FFT channel here.
+
+**Acquisition verdict: redo before any claim strength** (investigation Verify: fix acquisition; a clean spot check must carry the call). The 2.4–8 T record — where the oscillations are deepest and δF would drop to ~1.4 T — is what the clip cost.
+
+**Redo plan (measure cells following):**
+1. **Run 6** — electron re-acquire, **8 → 2.0 T down-sweep** (magnet sits at 8 T; never re-traverse), 5.4 mT, sens sr1 1e-5 / sr2 5e-6 (≈1.4× above the linear-MR extrapolation to 8 T: ~360/180 Ω; the riskiest, highest-R rows come **first** in a down-sweep — first-rows checkpoint kills a wrong guess in minutes). 0.5 T overlap with run 5's usable window for the stitch/grid-change check. ~1.7 h.
+2. **Run 7** — hole onset segment: gates to (−2.797, −2.176) at 2 T, **2.0 → 0.5 T** at 2.0 mT, mid sens (sr1 5e-6 / sr2 2e-6). ~51 min.
+3. **Run 8** — hole main record: **0.5 → 8 T** (bare ramp to 1.0, points 1.0 → 8.0 at 5.4 mT), coarse sens as run 6. ~2.0 h. Ends at 8 T, fan-ready.
+
+The held hole cell 0b8ef9ac is **superseded** (wrong sens, wrong traverse) — left unexecuted per append-only discipline.

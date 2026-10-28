@@ -1,0 +1,2 @@
+### HERA — LK ladder re-land: LS335 polled per point (my error)
+Cell [24] died at rung 1, point 6 (run 9, 6 rows, heaters turned off by the `finally`, magnet holding ≈ 2.5 T): I had `fp`'d `heater.sample_power` / `heater.vaporizer_power` — per-point GPIB reads on the LS335, which the rig card reserves for the lakeshore worker — and the bus timed out (`HTR? 1`). Same cell with those two follows removed (temperatures come from the worker logfiles only) and the start-field precondition widened to ±0.2 T around 2.4 T. Summary / ETA as above; the 4 K rung restarts from the top.

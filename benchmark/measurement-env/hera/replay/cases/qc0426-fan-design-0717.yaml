@@ -1,0 +1,15 @@
+# The fan-design decision point on QC0426 (07-17 capstone 2): run 6 (electron) analysed in
+# ana, its take not yet written (line 839); run 5 (hole) fully read. No fan parameter or
+# side is stated before the cut.
+case: qc0426-fan-design-0717
+source: ../../docs/notes/2026-07-17-QC0426-capstone-2
+cut:
+  transcript: 37ba8a33-add6-44d3-978a-e0ea542ce1f4.jsonl
+  at: 5c225071-d046-43bb-bcdf-ceee2d09d054
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 6 is analysed. Writing the electron-side take, then designing the fan."
+  prompt: "Carry on."
+grader: null

@@ -1,0 +1,255 @@
+{
+  "grader": "fan-design",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "tier": "fan",
+  "flags": [],
+  "notes": "Cell 48 (appended, unexecuted) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=0, fast_delay=2.4); B_vec = np.round(np.r_[np.linspace(0,4,41), np.linspace(4.2,10,30)],4) is stitched (0.1 T to 4 T, 0.2 T above, 71 rows), n_vec = np.linspace(0.8,3.2,49)e12 cm^-2 at D = 0 via calc_gate_voltages with the session's committed run-5 CAL (c_tg=2.7961e-3, c_bg=2.1607e-3, n_offset=-0.0894, D_offset=-0.013); c_tg is a 9.5 nm hBN geometry prior, ratio and offsets session-measured. Cell 48 sets sr1.sensitivity(100e-6); sr1 tau 0.3 s, sr0 sens 20 mV / tau 0.3 s and both Keithley nplci = 1.0 are inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells. Drive amp 1.0 V through the 100 MOhm bias resistor is asserted in cell 48. Timing 4 h 15 m from the cell-47 markdown header.",
+  "versions": {
+    "scorer": "field resolution: wiki Fan-design scorer rev 108 (2026-09-19); forms + cost model 2026-09-22; vti-02 box 2026-09-26; NPLC in the cost 2026-09-26"
+  },
+  "status": "graded",
+  "ok": null,
+  "device": "vti-02",
+  "case": "vti02-fan-request-0822",
+  "params": {
+    "g": 4,
+    "m": 3.0,
+    "m_recipe_floor": 2.0,
+    "b_cut_T": 2.0,
+    "b_cut_note": "electron onset over 76 uncensored columns, 08-21/22/24/25 runs 5-8, 0.8-2.9e12: median 1.53 T, p90 2.0 T, flat in n (1.26 + 0.16 |n| T, rms 0.32 T); 2.0 T is the p90. 08-21 run 5 alone read 2.37 T (5-sigma floor of a 6.7-ohm-noise record; 08-22 run 6 at the same density with 3.2-ohm noise: 1.36 / 1.91 T)",
+    "n_window_cm2": [
+      1300000000000.0,
+      3400000000000.0
+    ],
+    "B_hi_T": 8.0,
+    "n_scale": 0.886,
+    "n_scale_note": "the 08-22 session's own pin for its run-5 calibration frame, the frame the cut state commits to: 0.886 +- 0.03 (session_notes.md:25; e-side Luttinger, h-side integer ladder, fan QH minima)",
+    "window_note": "provisional, actual frame: floor = the density whose F_L holds 5 periods from the 2.0 T onset to 8 T (1.3e12; 0.9e12 on the median onset); top = the D = 0 line's gate-safe reach, V_tg <= 1.0 V (3.4e12 frame, 3.1e12 actual); 8 T from a 2.0 T onset gives dF 2.7 T against tones 6.2 T apart that run 5's FFT resolves at dF 3.1 and merges at dF 5 -- 10 T buys 8 % more 1/B record for 15 min of ramp each way",
+    "side_note": "the hole side's gate-safe reach at D = 0 is |n| ~1.1e12 (TG limit -0.3 V, device_card.md:52): F_L ~11 T holds 3-4 periods above a 0.7 T onset with a 0.6-0.9 F_L ladder tone (08-22 run 7); the electron side holds the ABAB tone set at every density in reach (08-21 run 5, 08-22 run 6)",
+    "cost_model": {
+      "ramp_T_per_min": 0.137,
+      "field_settle_s": 3.0,
+      "point_overhead_s": 0.2,
+      "gate_read_s_per_plc": 0.045,
+      "flyback_s": 4.0
+    },
+    "scheme": "box",
+    "tone_model": "Halder_ABAB",
+    "signal_lockin": "sr1",
+    "b_lo_light_T": 0.75,
+    "b_lo_split_T": 1.0
+  },
+  "design": {
+    "spacing": null,
+    "field_mode": "stitched",
+    "D": 0.0,
+    "slow_axis": "B",
+    "slow_delay_s": 0.0,
+    "fast_delay_s": 2.4,
+    "lockins": [
+      {
+        "name": "sr1",
+        "sensitivity_V": 0.0001,
+        "sensitivity_set_in_answer": true,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      },
+      {
+        "name": "sr0",
+        "sensitivity_V": 0.02,
+        "sensitivity_set_in_answer": false,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      }
+    ],
+    "gate_current_reads": [
+      {
+        "name": "k_tg.curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      },
+      {
+        "name": "k_bg.curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      }
+    ],
+    "excitation_V": 1.0,
+    "bias_resistor_ohm": 100000000.0,
+    "n_fans": 1,
+    "stated_wall_clock_h": 4.25
+  },
+  "scores": {
+    "box": {
+      "quality": 0.44685058785765175,
+      "p_call": 0.09994760148178017,
+      "light": {
+        "score": 7.0,
+        "p_call": 0.9999620191130424,
+        "min_spacing_T": 0.4347826086956522,
+        "chosen_n_actual_1e12": [
+          1.8606,
+          1.9935,
+          2.1264,
+          2.2593,
+          2.3922,
+          2.5251,
+          2.658
+        ],
+        "chosen_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "chosen_periods": [
+          3.5330686734949492,
+          3.7202431761616164,
+          3.8838123200000005,
+          4.07015404,
+          4.198031031776223,
+          4.372923686233768,
+          4.4788051683116885
+        ],
+        "columns_weighted": 39,
+        "columns_full": 23,
+        "not_weighted": {
+          "undersampled": 0,
+          "periods_short": 10
+        }
+      },
+      "split": {
+        "score": 0.6440686561001029,
+        "p_call": 0.09994760148178017,
+        "min_spacing_T": 0.5555555555555556,
+        "chosen_n_actual_1e12": [
+          2.1264,
+          2.3036,
+          2.4808,
+          2.658,
+          2.8352
+        ],
+        "chosen_weights": [
+          0.02445914475245481,
+          0.08146600529800341,
+          0.1334475818969315,
+          0.18215598395219534,
+          0.22253994020051782
+        ],
+        "chosen_periods": [
+          1.5489182895049096,
+          1.6629320105960068,
+          1.766895163793863,
+          1.8643119679043907,
+          1.9450798804010356
+        ],
+        "columns_weighted": 18,
+        "columns_full": 0,
+        "not_weighted": {
+          "undersampled": 0,
+          "periods_short": 31
+        }
+      },
+      "A": 0.8184003194443836,
+      "acquisition": {
+        "lockin": "sr1",
+        "recorded": true,
+        "I_A": 1e-08,
+        "tau_s": 0.3,
+        "sensitivity_V": 0.0001,
+        "x_nA_rt_s": 5.47722557505166,
+        "delay_over_tau": 8.0,
+        "quantized": false,
+        "A": 0.8184003194443836
+      },
+      "columns": 49,
+      "hole_or_off_table": 0,
+      "clipped": 0,
+      "windows": {
+        "light": {
+          "B_lo_T": 0.75,
+          "B_from_T": 0.8,
+          "rows": 63,
+          "W_per_T": 1.15
+        },
+        "split": {
+          "B_lo_T": 1.0,
+          "B_from_T": 1.0,
+          "rows": 61,
+          "W_per_T": 0.9
+        }
+      },
+      "params": {
+        "m": [
+          2.0,
+          3.0
+        ],
+        "k": [
+          1.5,
+          3.5
+        ],
+        "cap": 7,
+        "spacing_bins": 0.5,
+        "saturation": 4,
+        "tone_model": "Halder_ABAB",
+        "signal_lockin": "sr1",
+        "b_lo_light_T": 0.75,
+        "b_lo_split_T": 1.0
+      },
+      "flags": [],
+      "hours": 3.867211678832116
+    },
+    "derived": {
+      "n_B": 71,
+      "n_columns": 49,
+      "n_columns_landed": 49,
+      "n_points": 3479,
+      "B_range_T": [
+        0.0,
+        10.0
+      ],
+      "dB_T": [
+        0.09999999999999964,
+        0.20000000000000107
+      ],
+      "n_range_cm2": [
+        800000000000.0,
+        3200000000000.0
+      ],
+      "dn_cm2": [
+        50000000000.0,
+        50000000000.0
+      ],
+      "n_range_actual_cm2": [
+        708800000000.0,
+        2835200000000.0
+      ],
+      "fast_delay_over_tau": {
+        "sr1": 8.0,
+        "sr0": 8.0
+      },
+      "I_bias_A": 1e-08,
+      "dwell_h": 2.3193333333333332,
+      "stated_over_dwell": 1.8324231100891062,
+      "cost": {
+        "traverse_h": 1.21654501216545,
+        "settle_h": 0.059166666666666666,
+        "rows_h": 2.5915,
+        "estimated_wall_h": 3.867211678832116,
+        "stated_wall_clock_h": 4.25,
+        "stated_over_estimated": 1.0989830278138497,
+        "model": {
+          "ramp_T_per_min": 0.137,
+          "field_settle_s": 3.0,
+          "point_overhead_s": 0.2,
+          "gate_read_s_per_plc": 0.045,
+          "flyback_s": 4.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+## HERA — Gate C · contact-config liveness (first-session branch)
+
+No designated references (first session on this device for HERA), so this is judged on its own terms: **select the provided contact configuration** and confirm every channel is alive at the current operating point (gates 0 V, B ≈ 0). Routing is read back from hardware; the Si standing closures (QSwitch lines 16/11) are *excluded* from the mux's managed set, so the select must leave them closed — verified explicitly below. The comprehensive gate-response sweep is the next step (the 0 T gate map / CNP calibration); this is the cheap predecessor that protects it. ~10 s (relay settle 4 s).
+
+Stop-and-report if any channel reads railed (pinned at full-scale sensitivity) or dead (zero current / zero voltage), or if a Si closure is missing.

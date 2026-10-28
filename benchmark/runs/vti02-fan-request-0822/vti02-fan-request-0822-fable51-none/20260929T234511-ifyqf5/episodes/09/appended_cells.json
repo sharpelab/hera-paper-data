@@ -1,0 +1,303 @@
+{
+  "20260822_ana.ipynb": {
+    "appended": [],
+    "modified": []
+  },
+  "20260822_measure.ipynb": {
+    "appended": [
+      {
+        "cell_type": "markdown",
+        "id": "f7167276",
+        "metadata": {
+          "hera": {
+            "appended_at": "2026-08-23T12:24:18.648399+00:00",
+            "eta_at": "2026-08-23T17:34:18.648399+00:00",
+            "summary": "landau-fan D=0: fast (Vtg,Vbg) along n=-1.25..+3.25e12 151 pts (0.03e12), slow B 1.0->10 T (0.2 T to 3.8, 0.1 T from 4.0; 76 rows), sr1 200 uV, fast_delay 1 s; ends at 10 T, gates parked 0",
+            "v": "v0"
+          }
+        },
+        "source": [
+          "## HERA — Step 4: Landau fan #1 at D = 0 (`landau-fan`), n = −1.25 … +3.25×10¹² × B 1 → 10 T\n",
+          "\n",
+          "> **05:24** · landau-fan D=0: fast (Vtg,Vbg) along n=-1.25..+3.25e12 151 pts (0.03e12), slow B 1.0->10 T (0.2 T to 3.8, 0.1 T from 4.0; 76 rows), sr1 200 uV, fast\\_delay 1 s; ends at 10 T, gates parked 0 · **ETA ~10:34** (≈5h10m)\n",
+          "\n",
+          "**Why this, now (plan step 4; operator ask: the fan for the stacking call).** The spot checks (runs 6, 7 — my read in ana, next cell) show well-developed quantum oscillations at D = 0: run 6 (n = +3.2×10¹²) has Rxx minima to ≈ 0 Ω at ~2.3, 3.4, 4.2, 6.0, 7.2 T with tones 7.1 T (dominant) + 14.1 / 22.1 / ~30 T; run 7 (n = −1.2×10¹²) tones 12.3 T (≈ F_L = 12.4) + 6.6 / 4.7 / 8.5 T. The electron-side pair 7.1 / ~30 T is *either* two pockets (ABAB-like light + heavy bilayer bands: model 7.5 / 25.6 T) *or* one pocket at F_L ≈ 30 T with F_L/2, F_L/4 subharmonics (every 4th gap deep, ABCA-like). A 1D trace cannot tell those apart; a fan can — two pockets give two line families with different slopes through one CNP, subharmonics give one family with alternating gap depth — and it reads the zero-LL degeneracy directly (first gap at |ν| = 8 vs 16 from the CNP). Run 5's region-B mosaic (CNP offset +0.43×10¹²) will show up as a second intercept, so the fan also separates the two regions' lines.\n",
+          "\n",
+          "**Design.** Fast axis: (V_tg, V_bg) co-swept along the calibrated D = 0 line (run-5 cal: ratio 0.773, c_tg prior, n_offset −0.089, D_offset −0.013), n = −1.25 → +3.25×10¹² in 151 points (0.030×10¹²; TG −0.291 … +0.998 V, BG −0.484 … +1.185 V — 2 mV inside the TG limit on the electron end, hole end TG-limited at −0.29 V). Coverage trade: the hole side reaches only n = −1.25 (TG −0.3 V limit) — at 10 T that is ν = −5, at 4 T ν = −13, so the hole-side zero-LL degeneracy is read at B ≲ 6.5 T (ν = −8) rather than 10 T; the electron side reaches ν = +13 at 10 T, +27 at 5 T. Slow axis uniform in B (LL lines are straight in (n, B)): 1.0 → 3.8 T at 0.2 T (15 rows — lines dense there, ν = 4 spacing ≈ 4 fast steps at 1 T), 4.0 → 10.0 T at 0.1 T (61 rows — ν = 1 spacing = 8 fast steps at 10 T). 76 rows × 151 = 11 476 pts. Sensitivity fixed at 200 µV (20 kΩ FS at 10 nA): runs 6/7 peaked at 590 Ω; only ν = 0 at high B can rail, and that is not diagnostic. fast_delay 1.0 s (τ = 0.3 s / 24 dB, a uniform ~1-step lag in n, slopes untouched — same as run 5), slow_delay 3 s; leak guard > 1 nA either gate → interrupt. Ends at **10 T with gates parked at 0 V** (fan #2 rides the magnet down — never re-traverse).\n",
+          "\n",
+          "**Price** (from run 5: 1.0 s/pt + ~8 s row turnaround; magnet 0.137 T/min + 3 s settle): 0 → 1 T ramp 7 min; 15 coarse rows × 250 s + 61 fine rows × 206 s ≈ 4.6 h → **~5.1 h realistic (+10 %)**. **Checkpoints:** first 2 rows (signal on sr1, no rail, gate currents at the pA floor, T_sample ≈ 1.2 K, field tracking) via `hera-watch`; then ~every 1–1.5 h a re-formed partial fan (`fan_grids`) — abandon if featureless or railing across the window (price of a continue call: the remaining rows).\n"
+        ]
+      },
+      {
+        "cell_type": "code",
+        "execution_count": null,
+        "id": "88ff4890",
+        "metadata": {
+          "hera": {
+            "appended_at": "2026-08-23T12:24:18.648399+00:00",
+            "v": "v0"
+          }
+        },
+        "outputs": [],
+        "source": [
+          "# === Landau fan #1 (`landau-fan`): D = 0 line, n = -1.25 .. +3.25e12 fast (151 pts), B 1.0 -> 10 T slow (76 rows) ===\n",
+          "from sharpelab_nb.gates import calc_gate_voltages, calc_nD\n",
+          "\n",
+          "# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---\n",
+          "CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)\n",
+          "n_line = np.linspace(-1.25, 3.25, 151)          # 1e12 cm^-2, 0.03e12 step, hole -> electron\n",
+          "D_line = 0.0                                    # V/nm\n",
+          "Vtg_line, Vbg_line = calc_gate_voltages(n_line, np.full_like(n_line, D_line), CAL[\"c_tg\"], CAL[\"c_bg\"], CAL[\"n_offset\"], CAL[\"D_offset\"])\n",
+          "assert Vtg_line.min() >= TG_MIN and Vtg_line.max() <= TG_MAX, (Vtg_line.min(), Vtg_line.max())\n",
+          "assert Vbg_line.min() >= BG_MIN and Vbg_line.max() <= BG_MAX, (Vbg_line.min(), Vbg_line.max())\n",
+          "print(f\"fast line: n {n_line[0]:+.2f} -> {n_line[-1]:+.2f}e12 ({len(n_line)} pts, {n_line[1]-n_line[0]:.3f}e12), D = {D_line:+.2f} V/nm; \"\n",
+          "      f\"Vtg {Vtg_line.min():+.4f}..{Vtg_line.max():+.4f} V, Vbg {Vbg_line.min():+.4f}..{Vbg_line.max():+.4f} V (limits TG [{TG_MIN},{TG_MAX}], BG [{BG_MIN},{BG_MAX}])\")\n",
+          "\n",
+          "# --- field grid: uniform in B (LL lines straight in (n, B)); coarse below 4 T, fine above where nu is assigned\n",
+          "B_vec = np.round(np.concatenate((np.arange(1.0, 3.8001, 0.2), np.arange(4.0, 10.0001, 0.1))), 3)\n",
+          "assert B_vec.max() <= B_SESSION_CAP and np.all(np.diff(B_vec) > 0)\n",
+          "print(f\"slow B: {len(B_vec)} rows, {B_vec[0]} -> {B_vec[-1]} T (0.2 T to 3.8, 0.1 T from 4.0); {len(B_vec)*len(n_line)} pts\")\n",
+          "\n",
+          "# --- preconditions (assumed, not set) ---\n",
+          "assert_thermometry_live(\"T_sample\", VTI.temp_logfile_candidates[\"T_sample\"], max_age=15, max_period=12)\n",
+          "_T0, _B0 = T_sample(), magnet.field()\n",
+          "print(f\"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.05: handoff left 0 T), V_si = {k_si():+.3f} V (0), \"\n",
+          "      f\"nplci tg/bg = {k_tg.nplci()}/{k_bg.nplci()} (1/1), PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}\")\n",
+          "assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.05 and abs(k_si()) < 0.01\n",
+          "assert k_tg.nplci() == 1 and k_bg.nplci() == 1, \"gate-current nplci not 1\"\n",
+          "assert magnet.persistent_switch_on() and magnet.output_enabled()\n",
+          "\n",
+          "FAST_DELAY, SLOW_DELAY = 1.0, 3.0\n",
+          "I_TRIP = 1e-9\n",
+          "# Fixed sensitivity for the whole fan: 200 uV = 20 kOhm FS at 10 nA. Run 6/7 maxima <= 590 Ohm at 10 T away from the CNP;\n",
+          "# only the nu = 0 region at high B can exceed 20 kOhm (a rail there is not diagnostic). Quantization ~0.3 Ohm.\n",
+          "sr1.sensitivity(200e-6)\n",
+          "print(f\"drive {sr1.amplitude()} V -> 10 nA; sr1 sens {sr1.sensitivity()} V (20 kOhm FS); sr0 sens {sr0.sensitivity()} V; tau {sr1.time_constant()} s, slope {sr1.filter_slope()} dB\")\n",
+          "\n",
+          "mc = dict(meas_config); mc[\"Si (V)\"] = k_si(); mc[\"sample_temperature:\"] = _T0\n",
+          "mc[\"comments\"] = (f\"landau-fan D = {D_line:+.2f} V/nm (run-5 cal): fast (Vtg,Vbg) along n = {n_line[0]:+.2f}..{n_line[-1]:+.2f}e12 ({len(n_line)} pts), \"\n",
+          "                  f\"slow B {B_vec[0]}..{B_vec[-1]} T ({len(B_vec)} rows: 0.2 T to 3.8, 0.1 T from 4.0), sr1 200 uV, fast_delay 1 s\")\n",
+          "s = sweep.AsyncStation(mc)\n",
+          "s.add_comment('landau-fan')\n",
+          "s.add_comment(f'D = {D_line:+.2f} V/nm; fast n = {n_line[0]:+.2f} -> {n_line[-1]:+.2f}e12 cm^-2 ({len(n_line)} pts, {n_line[1]-n_line[0]:.3f}e12) as co-swept (Vtg, Vbg); '\n",
+          "              f'slow B = {B_vec[0]} -> {B_vec[-1]} T ({len(B_vec)} rows); cal run 5: ratio {CAL[\"c_bg\"]/CAL[\"c_tg\"]:.3f}, c_tg {CAL[\"c_tg\"]:.3e} (prior), '\n",
+          "              f'n_offset {CAL[\"n_offset\"]:+.3f}e12, D_offset {CAL[\"D_offset\"]:+.3f}; Vsi = 0; T_sample {_T0:.3f} K')\n",
+          "s.ramp(k_bg.volt, Vbg_line[0]); s.ramp(k_tg.volt, Vtg_line[0])\n",
+          "interruptible_sleep(10)\n",
+          "\n",
+          "# row layout: [time, B, Vtg, Vbg, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]\n",
+          "s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)\n",
+          "s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)\n",
+          "s.plot(k_tg.volt, sr1.X); s.plot(k_tg.volt, sr1.P); s.plot(k_tg.volt, sr0.X)\n",
+          "s.plot('time', k_tg.curr); s.plot('time', k_bg.curr); s.plot('time', T_sample)\n",
+          "\n",
+          "def leak_guard(station, data):\n",
+          "    i_tg, i_bg = abs(float(data[5])), abs(float(data[6]))\n",
+          "    if i_tg > I_TRIP or i_bg > I_TRIP:\n",
+          "        print(f\"LEAK TRIP at B={float(data[1]):+.3f} T, Vtg={float(data[2]):+.3f}, Vbg={float(data[3]):+.3f}: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A\")\n",
+          "        station.interrupt_requested = True\n",
+          "s.register_run_after(leak_guard, ())\n",
+          "\n",
+          "try:\n",
+          "    s.multimegasweep([magnet.field], [B_vec], [k_tg.volt, k_bg.volt], [Vtg_line, Vbg_line],\n",
+          "                     slow_delay=SLOW_DELAY, fast_delay=FAST_DELAY)\n",
+          "finally:\n",
+          "    # gates parked at 0; field stays where the fan ends (10 T) — fan #2 rides it down, never re-traverse.\n",
+          "    s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)\n",
+          "print(f\"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f}), T_sample = {T_sample():.3f} K\")\n"
+        ]
+      }
+    ],
+    "modified": [
+      {
+        "id": "3a471ec7",
+        "before": "## HERA — Step 3: SdH spot check, electron side (`sdh-spot-check`), n = +3.2×10¹² at D = 0, B 0 → 10 T\n\n> **01:33** · sdh-spot-check e-side: n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0->10 T, 50 mT to 1 T then 10 mT, delay 0 (3 s settle), sr1 50 uV; ends at 10 T · **ETA ~03:48** (≈2h15m)\n\nCalibration from run 5 (ana): c_bg/c_tg = 0.773 (data), c_tg = 2.796 mF/m² (9.5 nm prior), n_offset −0.089×10¹², D_offset −0.013 V/nm (R_CNP(D) symmetry). The D = 0 line inside the validators spans n = −1.27 … +3.27×10¹², so the electron side is the high-|n| side: spot at **n = +3.2×10¹²** → (V_tg, V_bg) = (+0.984, +1.166) V, 16 mV under the TG limit. **Feasibility (Step 2, model table):** F_L = 33.1 T; ABAB pair ≈ 7.5 / 25.6 T (m* 0.028 / 0.061 mₑ), ABCA singleton 33.1 T (m* 0.074); the heavy-ABAB-vs-ABCA split is 7.5 T. Grid: uniform in B (blocking magnet) — 50 mT from 0 to 1 T (MR background only; LK at T_e ≈ 8 K kills m* = 0.06 below ~1.5 T), **10 mT from 1 to 10 T**; 921 points. Dwell: `delay = 0` — each `magnet.field` set blocks through the ramp plus the driver's 3 s settle = 10 τ at τ = 0.3 s / 24 dB, i.e. the lock-in is at the settling floor at every point. Sensitivity fixed at 50 µV (5 kΩ FS): R(B = 0) ≈ 70 Ω is 1.4 % of range, but there is no SdH below ~1.5 T and the MR + SdH maxima at high B need the headroom; the FFT window starts above onset. **Price:** 10 T bare traverse 73 min + 921 × ~3.8 s per-point overhead (settle 3 s + reads) ≈ 58 min → **≈ 2 h 15 m**, ending at **10 T with the gates at the spot** — the hole-side spot check (n = −1.2×10¹²) then rides the magnet down 10 → 0.3 T, never re-traversing. Checkpoints: first 20 points (signal, sensitivity, leakage, field readback tracking setpoints); at ~3 T and ~6 T a partial FFT on the landed record (onset, tone count) — abort if the channel rails or no oscillation content has appeared by 6 T with R flat (then the fan is pointless at this T_e and the read is resolution-limited).\n",
+        "after": [
+          "## HERA — Step 3: SdH spot check, electron side (`sdh-spot-check`), n = +3.2×10¹² at D = 0, B 0 → 10 T\n",
+          "\n",
+          "> **01:33** · sdh-spot-check e-side: n=+3.2e12 D=0 (Vtg +0.984, Vbg +1.166), B 0->10 T, 50 mT to 1 T then 10 mT, delay 0 (3 s settle), sr1 50 uV; ends at 10 T · **ETA ~03:48** (≈2h15m)\n",
+          "\n",
+          "Calibration from run 5 (ana): c_bg/c_tg = 0.773 (data), c_tg = 2.796 mF/m² (9.5 nm prior), n_offset −0.089×10¹², D_offset −0.013 V/nm (R_CNP(D) symmetry). The D = 0 line inside the validators spans n = −1.27 … +3.27×10¹², so the electron side is the high-|n| side: spot at **n = +3.2×10¹²** → (V_tg, V_bg) = (+0.984, +1.166) V, 16 mV under the TG limit. **Feasibility (Step 2, model table):** F_L = 33.1 T; ABAB pair ≈ 7.5 / 25.6 T (m* 0.028 / 0.061 mₑ), ABCA singleton 33.1 T (m* 0.074); the heavy-ABAB-vs-ABCA split is 7.5 T. Grid: uniform in B (blocking magnet) — 50 mT from 0 to 1 T (MR background only; LK at T_e ≈ 8 K kills m* = 0.06 below ~1.5 T), **10 mT from 1 to 10 T**; 921 points. Dwell: `delay = 0` — each `magnet.field` set blocks through the ramp plus the driver's 3 s settle = 10 τ at τ = 0.3 s / 24 dB, i.e. the lock-in is at the settling floor at every point. Sensitivity fixed at 50 µV (5 kΩ FS): R(B = 0) ≈ 70 Ω is 1.4 % of range, but there is no SdH below ~1.5 T and the MR + SdH maxima at high B need the headroom; the FFT window starts above onset. **Price:** 10 T bare traverse 73 min + 921 × ~3.8 s per-point overhead (settle 3 s + reads) ≈ 58 min → **≈ 2 h 15 m**, ending at **10 T with the gates at the spot** — the hole-side spot check (n = −1.2×10¹²) then rides the magnet down 10 → 0.3 T, never re-traversing. Checkpoints: first 20 points (signal, sensitivity, leakage, field readback tracking setpoints); at ~3 T and ~6 T a partial FFT on the landed record (onset, tone count) — abort if the channel rails or no oscillation content has appeared by 6 T with R flat (then the fan is pointless at this T_e and the read is resolution-limited).\n"
+        ]
+      },
+      {
+        "id": "e4294991",
+        "before": "# === SdH spot check, electron side (`sdh-spot-check`): n = +3.2e12 at D = 0 (region-A calibration), B 0 -> 10 T ===\nfrom sharpelab_nb.gates import calc_gate_voltages, calc_nD\n\n# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---\nCAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)\nn_spot, D_spot = 3.2, 0.0                       # 1e12 cm^-2, V/nm\nVtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL[\"c_tg\"], CAL[\"c_bg\"], CAL[\"n_offset\"], CAL[\"D_offset\"])\nassert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)\nprint(f\"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; \"\n      f\"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}\")\n\n# --- preconditions (assumed, not set) ---\nassert_thermometry_live(\"T_sample\", VTI.temp_logfile_candidates[\"T_sample\"], max_age=15, max_period=12)\n_T0, _B0 = T_sample(), magnet.field()\nprint(f\"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.05: sweep starts at 0), V_si = {k_si():+.3f} V (0), \"\n      f\"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}\")\nassert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.05 and abs(k_si()) < 0.01\nassert magnet.persistent_switch_on() and magnet.output_enabled()\n\n# --- field grid: uniform in B (blocking rate-limited magnet). 50 mT to 1 T (background only), 10 mT 1 -> 10 T:\nB_vec = np.unique(np.round(np.hstack((np.arange(0.0, 1.0, 0.05), np.arange(1.0, 10.0001, 0.01))), 4))\nassert B_vec.max() <= B_SESSION_CAP\nI_TRIP = 1e-9\n# Fixed sensitivity: 50 uV = 5 kOhm full scale at 10 nA (R(B=0) ~ 70 Ohm = 1.4 % FS; MR + SdH maxima at high B size the headroom).\nsr1.sensitivity(50e-6)\nprint(f\"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)\")\n\nmc = dict(meas_config); mc[\"Si (V)\"] = k_si(); mc[\"sample_temperature:\"] = _T0\nmc[\"comments\"] = f\"sdh-spot-check electron: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 0 -> 10 T, 10 mT above 1 T, sr1 50 uV\"\ns = sweep.AsyncStation(mc)\ns.add_comment('sdh-spot-check')\ns.add_comment(f'electron side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '\n              f'B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio {CAL[\"c_bg\"]/CAL[\"c_tg\"]:.3f}, n_offset {CAL[\"n_offset\"]:+.3f}e12, D_offset {CAL[\"D_offset\"]:+.3f}')\ns.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)\ninterruptible_sleep(10)\n\n# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]\ns.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)\ns.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)\ns.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)\n\ndef leak_guard(station, data):\n    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))\n    if i_tg > I_TRIP or i_bg > I_TRIP:\n        print(f\"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A\")\n        station.interrupt_requested = True\ns.register_run_after(leak_guard, ())\n\ns.sweep(magnet.field, B_vec, delay=0)\n# gates stay at the spot; field stays at 10 T (the hole-side spot check rides it down) — no park here.\nprint(f\"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})\")\n",
+        "after": [
+          "# === SdH spot check, electron side (`sdh-spot-check`): n = +3.2e12 at D = 0 (region-A calibration), B 0 -> 10 T ===\n",
+          "from sharpelab_nb.gates import calc_gate_voltages, calc_nD\n",
+          "\n",
+          "# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---\n",
+          "CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)\n",
+          "n_spot, D_spot = 3.2, 0.0                       # 1e12 cm^-2, V/nm\n",
+          "Vtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL[\"c_tg\"], CAL[\"c_bg\"], CAL[\"n_offset\"], CAL[\"D_offset\"])\n",
+          "assert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)\n",
+          "print(f\"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; \"\n",
+          "      f\"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}\")\n",
+          "\n",
+          "# --- preconditions (assumed, not set) ---\n",
+          "assert_thermometry_live(\"T_sample\", VTI.temp_logfile_candidates[\"T_sample\"], max_age=15, max_period=12)\n",
+          "_T0, _B0 = T_sample(), magnet.field()\n",
+          "print(f\"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (|B|<0.05: sweep starts at 0), V_si = {k_si():+.3f} V (0), \"\n",
+          "      f\"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}\")\n",
+          "assert 1.0 <= _T0 <= 1.5 and abs(_B0) < 0.05 and abs(k_si()) < 0.01\n",
+          "assert magnet.persistent_switch_on() and magnet.output_enabled()\n",
+          "\n",
+          "# --- field grid: uniform in B (blocking rate-limited magnet). 50 mT to 1 T (background only), 10 mT 1 -> 10 T:\n",
+          "B_vec = np.unique(np.round(np.hstack((np.arange(0.0, 1.0, 0.05), np.arange(1.0, 10.0001, 0.01))), 4))\n",
+          "assert B_vec.max() <= B_SESSION_CAP\n",
+          "I_TRIP = 1e-9\n",
+          "# Fixed sensitivity: 50 uV = 5 kOhm full scale at 10 nA (R(B=0) ~ 70 Ohm = 1.4 % FS; MR + SdH maxima at high B size the headroom).\n",
+          "sr1.sensitivity(50e-6)\n",
+          "print(f\"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)\")\n",
+          "\n",
+          "mc = dict(meas_config); mc[\"Si (V)\"] = k_si(); mc[\"sample_temperature:\"] = _T0\n",
+          "mc[\"comments\"] = f\"sdh-spot-check electron: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 0 -> 10 T, 10 mT above 1 T, sr1 50 uV\"\n",
+          "s = sweep.AsyncStation(mc)\n",
+          "s.add_comment('sdh-spot-check')\n",
+          "s.add_comment(f'electron side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '\n",
+          "              f'B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio {CAL[\"c_bg\"]/CAL[\"c_tg\"]:.3f}, n_offset {CAL[\"n_offset\"]:+.3f}e12, D_offset {CAL[\"D_offset\"]:+.3f}')\n",
+          "s.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)\n",
+          "interruptible_sleep(10)\n",
+          "\n",
+          "# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]\n",
+          "s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)\n",
+          "s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)\n",
+          "s.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)\n",
+          "\n",
+          "def leak_guard(station, data):\n",
+          "    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))\n",
+          "    if i_tg > I_TRIP or i_bg > I_TRIP:\n",
+          "        print(f\"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A\")\n",
+          "        station.interrupt_requested = True\n",
+          "s.register_run_after(leak_guard, ())\n",
+          "\n",
+          "s.sweep(magnet.field, B_vec, delay=0)\n",
+          "# gates stay at the spot; field stays at 10 T (the hole-side spot check rides it down) — no park here.\n",
+          "print(f\"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})\")\n"
+        ]
+      },
+      {
+        "id": "d9aa37a5",
+        "before": "## HERA — Step 3b: SdH spot check, hole side (`sdh-spot-check`), n = −1.2×10¹² at D = 0, riding the magnet 10 → 0.3 T\n\n> **03:34** · sdh-spot-check h-side: n=-1.2e12 D=0 (Vtg -0.280, Vbg -0.463), B 10->0.3 T, 20 mT, delay 0, sr1 50 uV; ends at 0.3 T · **ETA ~05:19** (≈1h45m)\n\nRun 6 (electron, n = +3.2×10¹²) ends at 10 T with the gates at the spot. The investigation takes both signs (no side prior); the hole side of the D = 0 line reaches only n = −1.27×10¹² (TG −0.3 V limit), so the spot sits at **n = −1.2×10¹²** → (V_tg, V_bg) = (−0.280, −0.463) V. Feasibility (model): F_L = 12.4 T; ABAB pair ≈ 5.3 / 7.1 T (the near-CNP semimetal regime, tones close and balanced — the recipe's stated low-|n| exception), ABCA 12.4 T with m* ≈ 1 mₑ — LK-dead at this rig's T_e ≈ 8 K. **Coverage trade, stated:** this is a cheap preview, not a decisive read — it costs ~35 min over the bare 10 → 0 T ramp the session needs anyway, and a null here is resolvability-limited, not evidence. Grid: 20 mT uniform in B descending, 486 pts, delay 0 (3 s driver settle = 10 τ). Sensitivity 50 µV (5 kΩ FS; R(B = 0) ≈ 250–300 Ω this close to the CNP, MR headroom). Price: 9.7 T traverse 71 min + 486 × ~3.8 s ≈ 31 min → **≈ 1 h 45 m**, ending at 0.3 T. Checkpoints: first 20 points (rail? the CNP side at 10 T could be large), then the ana read at the end together with run 6.\n",
+        "after": [
+          "## HERA — Step 3b: SdH spot check, hole side (`sdh-spot-check`), n = −1.2×10¹² at D = 0, riding the magnet 10 → 0.3 T\n",
+          "\n",
+          "> **03:34** · sdh-spot-check h-side: n=-1.2e12 D=0 (Vtg -0.280, Vbg -0.463), B 10->0.3 T, 20 mT, delay 0, sr1 50 uV; ends at 0.3 T · **ETA ~05:19** (≈1h45m)\n",
+          "\n",
+          "Run 6 (electron, n = +3.2×10¹²) ends at 10 T with the gates at the spot. The investigation takes both signs (no side prior); the hole side of the D = 0 line reaches only n = −1.27×10¹² (TG −0.3 V limit), so the spot sits at **n = −1.2×10¹²** → (V_tg, V_bg) = (−0.280, −0.463) V. Feasibility (model): F_L = 12.4 T; ABAB pair ≈ 5.3 / 7.1 T (the near-CNP semimetal regime, tones close and balanced — the recipe's stated low-|n| exception), ABCA 12.4 T with m* ≈ 1 mₑ — LK-dead at this rig's T_e ≈ 8 K. **Coverage trade, stated:** this is a cheap preview, not a decisive read — it costs ~35 min over the bare 10 → 0 T ramp the session needs anyway, and a null here is resolvability-limited, not evidence. Grid: 20 mT uniform in B descending, 486 pts, delay 0 (3 s driver settle = 10 τ). Sensitivity 50 µV (5 kΩ FS; R(B = 0) ≈ 250–300 Ω this close to the CNP, MR headroom). Price: 9.7 T traverse 71 min + 486 × ~3.8 s ≈ 31 min → **≈ 1 h 45 m**, ending at 0.3 T. Checkpoints: first 20 points (rail? the CNP side at 10 T could be large), then the ana read at the end together with run 6.\n"
+        ]
+      },
+      {
+        "id": "5bfd8912",
+        "before": "# === SdH spot check, hole side (`sdh-spot-check`): n = -1.2e12 at D = 0 (region-A calibration), rides the magnet 10 -> 0.3 T ===\nfrom sharpelab_nb.gates import calc_gate_voltages, calc_nD\n\n# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---\nCAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)\nn_spot, D_spot = -1.2, 0.0                      # 1e12 cm^-2, V/nm (D = 0 line reaches -1.27 on this side)\nVtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL[\"c_tg\"], CAL[\"c_bg\"], CAL[\"n_offset\"], CAL[\"D_offset\"])\nassert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)\nprint(f\"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; \"\n      f\"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}\")\n\n# --- preconditions (assumed, not set) ---\nassert_thermometry_live(\"T_sample\", VTI.temp_logfile_candidates[\"T_sample\"], max_age=15, max_period=12)\n_T0, _B0 = T_sample(), magnet.field()\nprint(f\"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (expect 10 T: the electron spot check ended there), V_si = {k_si():+.3f} V (0), \"\n      f\"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}\")\nassert 1.0 <= _T0 <= 1.5 and abs(_B0 - 10.0) < 0.05 and abs(k_si()) < 0.01\nassert magnet.persistent_switch_on() and magnet.output_enabled()\n\n# --- field grid: uniform in B, descending (blocking magnet; start where it sits). F_L(1.2e12) = 12.4 T.\nB_vec = np.unique(np.round(np.arange(10.0, 0.2999, -0.02), 4))[::-1]   # 10 -> 0.3 T, 20 mT\nassert B_vec.max() <= B_SESSION_CAP\nI_TRIP = 1e-9\n# Fixed sensitivity: 50 uV = 5 kOhm FS at 10 nA (R(B=0) ~ 250-300 Ohm near the CNP side; MR + SdH maxima at 10 T size the headroom).\nsr1.sensitivity(50e-6)\nprint(f\"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)\")\n\nmc = dict(meas_config); mc[\"Si (V)\"] = k_si(); mc[\"sample_temperature:\"] = _T0\nmc[\"comments\"] = f\"sdh-spot-check hole: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 10 -> 0.3 T, 20 mT, sr1 50 uV\"\ns = sweep.AsyncStation(mc)\ns.add_comment('sdh-spot-check')\ns.add_comment(f'hole side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '\n              f'B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio {CAL[\"c_bg\"]/CAL[\"c_tg\"]:.3f}, n_offset {CAL[\"n_offset\"]:+.3f}e12, D_offset {CAL[\"D_offset\"]:+.3f}')\ns.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)\ninterruptible_sleep(10)\n\n# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]\ns.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)\ns.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)\ns.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)\n\ndef leak_guard(station, data):\n    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))\n    if i_tg > I_TRIP or i_bg > I_TRIP:\n        print(f\"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A\")\n        station.interrupt_requested = True\ns.register_run_after(leak_guard, ())\n\ns.sweep(magnet.field, B_vec, delay=0)\n# gates stay at the spot; field ends at 0.3 T — no park here.\nprint(f\"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})\")\n",
+        "after": [
+          "# === SdH spot check, hole side (`sdh-spot-check`): n = -1.2e12 at D = 0 (region-A calibration), rides the magnet 10 -> 0.3 T ===\n",
+          "from sharpelab_nb.gates import calc_gate_voltages, calc_nD\n",
+          "\n",
+          "# --- session calibration from run 5 (cnp-and-dline-calibration; ratio data-calibrated, scale = geometry prior) ---\n",
+          "CAL = dict(c_tg=2.796e-03, c_bg=2.161e-03, n_offset=-0.0894, D_offset=-0.013)\n",
+          "n_spot, D_spot = -1.2, 0.0                      # 1e12 cm^-2, V/nm (D = 0 line reaches -1.27 on this side)\n",
+          "Vtg_spot, Vbg_spot = calc_gate_voltages(n_spot, D_spot, CAL[\"c_tg\"], CAL[\"c_bg\"], CAL[\"n_offset\"], CAL[\"D_offset\"])\n",
+          "assert TG_MIN <= Vtg_spot <= TG_MAX and BG_MIN <= Vbg_spot <= BG_MAX, (Vtg_spot, Vbg_spot)\n",
+          "print(f\"spot: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm -> (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}) V; \"\n",
+          "      f\"roundtrip n,D = {calc_nD(Vtg_spot, Vbg_spot, CAL['c_tg'], CAL['c_bg'], CAL['n_offset'], CAL['D_offset'])}\")\n",
+          "\n",
+          "# --- preconditions (assumed, not set) ---\n",
+          "assert_thermometry_live(\"T_sample\", VTI.temp_logfile_candidates[\"T_sample\"], max_age=15, max_period=12)\n",
+          "_T0, _B0 = T_sample(), magnet.field()\n",
+          "print(f\"precondition T_sample = {_T0:.3f} K (1.0-1.5), B = {_B0:+.4f} T (expect 10 T: the electron spot check ended there), V_si = {k_si():+.3f} V (0), \"\n",
+          "      f\"PS heater {magnet.persistent_switch_on()}, output {magnet.output_enabled()}\")\n",
+          "assert 1.0 <= _T0 <= 1.5 and abs(_B0 - 10.0) < 0.05 and abs(k_si()) < 0.01\n",
+          "assert magnet.persistent_switch_on() and magnet.output_enabled()\n",
+          "\n",
+          "# --- field grid: uniform in B, descending (blocking magnet; start where it sits). F_L(1.2e12) = 12.4 T.\n",
+          "B_vec = np.unique(np.round(np.arange(10.0, 0.2999, -0.02), 4))[::-1]   # 10 -> 0.3 T, 20 mT\n",
+          "assert B_vec.max() <= B_SESSION_CAP\n",
+          "I_TRIP = 1e-9\n",
+          "# Fixed sensitivity: 50 uV = 5 kOhm FS at 10 nA (R(B=0) ~ 250-300 Ohm near the CNP side; MR + SdH maxima at 10 T size the headroom).\n",
+          "sr1.sensitivity(50e-6)\n",
+          "print(f\"B grid: {len(B_vec)} pts, {B_vec[0]} -> {B_vec[-1]} T; sr1 sens {sr1.sensitivity()} V, tau {sr1.time_constant()} s (settle_s {magnet.settle_s} s = dwell)\")\n",
+          "\n",
+          "mc = dict(meas_config); mc[\"Si (V)\"] = k_si(); mc[\"sample_temperature:\"] = _T0\n",
+          "mc[\"comments\"] = f\"sdh-spot-check hole: n = {n_spot:+.2f}e12, D = {D_spot:+.2f} V/nm (run-5 cal), (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}), B 10 -> 0.3 T, 20 mT, sr1 50 uV\"\n",
+          "s = sweep.AsyncStation(mc)\n",
+          "s.add_comment('sdh-spot-check')\n",
+          "s.add_comment(f'hole side: n = {n_spot:+.2f}e12 cm^-2, D = {D_spot:+.2f} V/nm; (Vtg, Vbg) = ({Vtg_spot:+.4f}, {Vbg_spot:+.4f}); '\n",
+          "              f'B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio {CAL[\"c_bg\"]/CAL[\"c_tg\"]:.3f}, n_offset {CAL[\"n_offset\"]:+.3f}e12, D_offset {CAL[\"D_offset\"]:+.3f}')\n",
+          "s.ramp(k_bg.volt, Vbg_spot); s.ramp(k_tg.volt, Vtg_spot)\n",
+          "interruptible_sleep(10)\n",
+          "\n",
+          "# row layout: [time, B, T_sample, k_tg.curr, k_bg.curr, sr0.X, sr0.P, sr1.X, sr1.P]\n",
+          "s.fp(T_sample).fp(k_tg.curr).fp(k_bg.curr)\n",
+          "s.fp(sr0.X).fp(sr0.P).fp(sr1.X).fp(sr1.P)\n",
+          "s.plot(magnet.field, sr1.X); s.plot(magnet.field, sr0.X); s.plot('time', k_tg.curr); s.plot('time', k_bg.curr)\n",
+          "\n",
+          "def leak_guard(station, data):\n",
+          "    i_tg, i_bg = abs(float(data[3])), abs(float(data[4]))\n",
+          "    if i_tg > I_TRIP or i_bg > I_TRIP:\n",
+          "        print(f\"LEAK TRIP at B={float(data[1]):+.3f} T: |I_tg|={i_tg:.3e}, |I_bg|={i_bg:.3e} A\")\n",
+          "        station.interrupt_requested = True\n",
+          "s.register_run_after(leak_guard, ())\n",
+          "\n",
+          "s.sweep(magnet.field, B_vec, delay=0)\n",
+          "# gates stay at the spot; field ends at 0.3 T — no park here.\n",
+          "print(f\"done: B = {magnet.field():+.3f} T, (Vtg, Vbg) = ({k_tg.volt():+.4f}, {k_bg.volt():+.4f})\")\n"
+        ]
+      },
+      {
+        "id": "4231f087",
+        "before": "## Operator — handoff\n\nReturned the rig to its bring-up state before restarting the agent instance: state0 replayed, gates 0 V, field 0 T. Readback below.",
+        "after": [
+          "## Operator — handoff\n",
+          "\n",
+          "Returned the rig to its bring-up state before restarting the agent instance: state0 replayed, gates 0 V, field 0 T. Readback below."
+        ]
+      },
+      {
+        "id": "12d8d10a",
+        "before": "# Operator — handoff: return to the bring-up state (state0) with the field at 0 T. Blocks ~3 min from 0.3 T.\nfrom sharpelab_nb.closeout import close_out\nclose_out(\n    (magnet.field, 0.0),\n    restore=state0,\n    gates=[(k_tg.volt, 0.0), (k_bg.volt, 0.0), (k_si, 0.0)],\n    extra_readback={\"T_sample\": T_sample, \"T_vaporizer\": T_vaporizer,\n                    \"sample_range\": heater.sample_range, \"vaporizer_range\": heater.vaporizer_range,\n                    \"PS_on\": magnet.persistent_switch_on, \"output_enabled\": magnet.output_enabled,\n                    \"Si_V\": dc205.voltage, \"dc205_range\": dc205.voltage_range, \"dc205_output\": dc205.output},\n)",
+        "after": [
+          "# Operator — handoff: return to the bring-up state (state0) with the field at 0 T. Blocks ~3 min from 0.3 T.\n",
+          "from sharpelab_nb.closeout import close_out\n",
+          "close_out(\n",
+          "    (magnet.field, 0.0),\n",
+          "    restore=state0,\n",
+          "    gates=[(k_tg.volt, 0.0), (k_bg.volt, 0.0), (k_si, 0.0)],\n",
+          "    extra_readback={\"T_sample\": T_sample, \"T_vaporizer\": T_vaporizer,\n",
+          "                    \"sample_range\": heater.sample_range, \"vaporizer_range\": heater.vaporizer_range,\n",
+          "                    \"PS_on\": magnet.persistent_switch_on, \"output_enabled\": magnet.output_enabled,\n",
+          "                    \"Si_V\": dc205.voltage, \"dc205_range\": dc205.voltage_range, \"dc205_output\": dc205.output},\n",
+          ")"
+        ]
+      },
+      {
+        "id": "3de6b6f9",
+        "before": "## Operator — kernel-binding probe, re-run after the handoff\n\nSame kernel, nothing restarted. HERA's probe cell ([16], `KERNEL PROBE: BOUND`) re-run here so the incoming instance sees the binding confirmed; the [VERIFY] record in `session_notes.md` stands.",
+        "after": [
+          "## Operator — kernel-binding probe, re-run after the handoff\n",
+          "\n",
+          "Same kernel, nothing restarted. HERA's probe cell ([16], `KERNEL PROBE: BOUND`) re-run here so the incoming instance sees the binding confirmed; the [VERIFY] record in `session_notes.md` stands."
+        ]
+      },
+      {
+        "id": "371d6534",
+        "before": "# === Kernel-binding probe (read-only) ===\n# First E1 act after the grant: confirms the nb-collab execute path lands on the\n# operator's instrument-carrying kernel (the one that ran Setup + SAFETIES), not\n# a fresh python3 kernel. Touches no instrument — namespace only.\nimport os\n_need = ['magnet', 'heater', 'sr0', 'sr1', 'sr2', 'sr3', 'k_2400_tg', 'k_2400_bg',\n         'dc205', 'k_tg', 'k_bg', 'k_si', 'T_sample', 'T_vaporizer', 'meas_config',\n         'WIRING', 'state0', 'cal', 'B_SESSION_CAP', 'T_SESSION_CAP', 'tg_lims', 'bg_lims']\n_missing = [n for n in _need if n not in globals()]\nprint(f\"pid {os.getpid()} | main_dir {main_dir if 'main_dir' in globals() else '<unset>'}\")\nprint(f\"present: {len(_need) - len(_missing)}/{len(_need)} | missing: {_missing}\")\nprint(\"KERNEL PROBE:\", \"BOUND\" if not _missing else \"UNBOUND\")",
+        "after": [
+          "# === Kernel-binding probe (read-only) ===\n",
+          "# First E1 act after the grant: confirms the nb-collab execute path lands on the\n",
+          "# operator's instrument-carrying kernel (the one that ran Setup + SAFETIES), not\n",
+          "# a fresh python3 kernel. Touches no instrument — namespace only.\n",
+          "import os\n",
+          "_need = ['magnet', 'heater', 'sr0', 'sr1', 'sr2', 'sr3', 'k_2400_tg', 'k_2400_bg',\n",
+          "         'dc205', 'k_tg', 'k_bg', 'k_si', 'T_sample', 'T_vaporizer', 'meas_config',\n",
+          "         'WIRING', 'state0', 'cal', 'B_SESSION_CAP', 'T_SESSION_CAP', 'tg_lims', 'bg_lims']\n",
+          "_missing = [n for n in _need if n not in globals()]\n",
+          "print(f\"pid {os.getpid()} | main_dir {main_dir if 'main_dir' in globals() else '<unset>'}\")\n",
+          "print(f\"present: {len(_need) - len(_missing)}/{len(_need)} | missing: {_missing}\")\n",
+          "print(\"KERNEL PROBE:\", \"BOUND\" if not _missing else \"UNBOUND\")"
+        ]
+      }
+    ]
+  }
+}

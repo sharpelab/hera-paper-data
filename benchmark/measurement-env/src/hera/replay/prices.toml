@@ -1,0 +1,36 @@
+# USD per 1M tokens, standard tier, developers.openai.com/api/docs/pricing as read on
+# `asof`. Codex reports tokens, not cost; `hera.replay.codex.cost_usd` prices them here.
+# OpenAI's input_tokens includes the cached ones: uncached = input - cached.
+asof = "2026-09-22"
+
+[models."gpt-6-astra"]
+input = 10.00
+cached = 1.00
+output = 50.00
+
+[models."gpt-5.6-sol"]
+input = 4.00
+cached = 0.40
+output = 20.00
+
+[models."gpt-5.6-terra"]
+input = 2.00
+cached = 0.20
+output = 12.00
+
+[models."gpt-5.6-luna"]
+input = 0.20
+cached = 0.02
+output = 1.20
+
+# GPT-6 Sol and Luna (launched 2026-09-22), from the launch coverage, not yet the pricing page;
+# cached input at the announced 90 % read discount.
+[models."gpt-6-sol"]
+input = 2.00
+cached = 0.20
+output = 10.00
+
+[models."gpt-6-luna"]
+input = 0.10
+cached = 0.01
+output = 0.50

@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+# hera-mksession — build a hera-tactical measurement session dir
+# deterministically: scaffolding (data/ + hera_scratch/ + session_notes.md),
+# dated notebooks, device + rig cards. Replaces hand-cp'ing a session dir. Run
+# on the rig.
+#
+# Usage: hera-mksession [--autonomy | --measure-policy POLICY] \
+#                       <session-dir> <rig> <device> [brief]
+#   <session-dir>  e.g. ~/VTI_local_data/zack/20260615-QC0426
+#   <rig>          rig under hera/rig-cards/ + the rig base notebook, e.g. VTI
+#                  -> hera/templates/base/<rig>_measure.ipynb + hera/rig-cards/<rig>.md
+#   <device>       device dir under hera/templates/, e.g. QC0426
+#                  -> hera/templates/<device>/device_card.md
+#   [brief]        optional: a brief .md to deploy as ./hera_session.md
+#
+# The deployed measure/ana notebooks carry agent-filled SLOT cells (tagged
+# metadata.hera.slot); hera-session fills them from the device card at
+# bootstrap. This script scaffolds, copies, and substitutes the <DEVICE>/<RIG>
+# title tokens — it does not fill the device-fact slots.
+#
+#   --measure-policy POLICY  stamp nb.metadata.hera.policy on the built measure
+#                            notebook (default: leave the template's value as-is,
+#                            normally append_only). POLICY ∈ {append_only,
+#                            append_exec, edit_no_exec, edit_exec}.
+#   --autonomy               sugar for --measure-policy append_exec: the round-3
+#                            autonomous policy — HERA may execute its own appended
+#                            measure cells but never edit/delete them.
+set -euo pipefail
+
+usage() {
+    echo "usage: hera-mksession [--autonomy | --measure-policy POLICY] <session-dir> <rig> <device> [brief]" >&2
+}
+
+measure_policy=""
+pos=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --autonomy)              measure_policy="append_exec"; shift ;;
+        --measure-policy)        measure_policy=${2:?--measure-policy needs a value}; shift 2 ;;
+        --measure-policy=*)      measure_policy=${1#*=}; shift ;;
+        --) shift; while [[ $# -gt 0 ]]; do pos+=("$1"); shift; done ;;
+        -*) echo "unknown option: $1" >&2; usage; exit 2 ;;
+        *)  pos+=("$1"); shift ;;
+    esac
+done
+set -- "${pos[@]}"
+
+[[ $# -ge 3 && $# -le 4 ]] || { usage; exit 2; }
+sess=$1; rig=$2; device=$3; brief=${4:-}
+repo=${MEASUREMENT_ENV:-$HOME/measurement_env}
+
+# Validate the policy value up front (before any copy) — keep this list in
+# step with ALL_POLICIES in src/tools/nb_collab.py.
+if [[ -n "$measure_policy" ]]; then
+    case "$measure_policy" in
+        append_only|append_exec|edit_no_exec|edit_exec) ;;
+        *) echo "invalid --measure-policy: $measure_policy (want append_only|append_exec|edit_no_exec|edit_exec)" >&2; exit 2 ;;
+    esac
+fi
+
+base_measure="$repo/hera/templates/base/${rig}_measure.ipynb"
+base_ana="$repo/hera/templates/base/ana.ipynb"
+device_card="$repo/hera/templates/$device/device_card.md"
+rig_card="$repo/hera/rig-cards/$rig.md"
+d=$(date +%Y%m%d)
+measure="$sess/${d}_measure.ipynb"
+ana="$sess/${d}_ana.ipynb"
+
+[[ -f "$base_measure" ]] || { echo "no rig base measure notebook: $base_measure" >&2; exit 1; }
+[[ -f "$base_ana"     ]] || { echo "no base ana notebook: $base_ana" >&2; exit 1; }
+[[ -f "$device_card"  ]] || { echo "no device card: $device_card" >&2; exit 1; }
+[[ -f "$rig_card"     ]] || { echo "no rig card: $rig_card" >&2; exit 1; }
+[[ -e "$measure"      ]] && { echo "refusing to clobber: $measure exists" >&2; exit 1; }
+[[ -z "$brief" || -f "$brief" ]] || { echo "no brief file: $brief" >&2; exit 1; }
+
+# the whole point: data/ (sweep basedir) AND hera_scratch/ (tactical scratch) — both
+mkdir -p "$sess/data" "$sess/hera_scratch"
+
+cp "$base_measure"  "$measure"
+cp "$base_ana"      "$ana"
+
+# Stamp the autonomous (or other) policy onto the measure notebook at build
+# time. This is the HARD GATE: nb-collab reads nb.metadata.hera.policy on every
+# connect and gates execute/edit/delete on it. We deliberately do NOT route this
+# through nb-collab — set-policy must never be part of the agent's in-session
+# tool surface (it could self-escalate). Ephemeral stdlib python via uv keeps it
+# build-time-only and dependency-light (no project/submodule build).
+if [[ -n "$measure_policy" ]]; then
+    uv run --no-project python - "$measure" "$measure_policy" <<'PY'
+import json
+import sys
+
+path, policy = sys.argv[1], sys.argv[2]
+with open(path, encoding="utf-8") as f:
+    nb = json.load(f)
+meta = nb.setdefault("metadata", {})
+hera = meta.get("hera")
+if not isinstance(hera, dict):
+    hera = {}
+hera["policy"] = policy
+meta["hera"] = hera
+with open(path, "w", encoding="utf-8") as f:
+    json.dump(nb, f, indent=1, ensure_ascii=False)
+    f.write("\n")
+print(f"stamped measure policy: {policy}")
+PY
+fi
+
+# Substitute the build-time title tokens the bases carry (<DEVICE>/<RIG>) on
+# both deployed notebooks. Mechanical and deterministic; the device-fact SLOT
+# cells (metadata.hera.slot) are filled separately by hera-session.
+uv run --no-project python - "$measure" "$ana" "$device" "$rig" <<'PY'
+import json
+import sys
+
+*paths, device, rig = sys.argv[1:]
+for path in paths:
+    with open(path, encoding="utf-8") as f:
+        nb = json.load(f)
+    for cell in nb["cells"]:
+        cell["source"] = [s.replace("<DEVICE>", device).replace("<RIG>", rig)
+                          for s in cell["source"]]
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(nb, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+PY
+
+cp "$device_card" "$sess/device_card.md"
+cp "$rig_card"     "$sess/rig_card.md"
+[[ -n "$brief" ]] && cp "$brief" "$sess/hera_session.md"
+
+# Blank session-notes log (the operational RECIPE FIX / TOOLING / PROTOCOL /
+# FEEDBACK stream hera-tactical appends to).
+cat > "$sess/session_notes.md" <<EOF
+# Session notes — $device / $rig
+
+Operational log (not a science notebook).
+EOF
+
+# Stamp corpus provenance: the git hash the corpus was deployed from, so the
+# per-run metrics extractor (hera-metrics, hera/docs/run-metrics-spec.md) can
+# join each run to a corpus version. A commit hash carries no scientific lean —
+# blinding-safe in the agent-visible session dir. Absent when the corpus isn't
+# a git checkout; dirty=true when the deploy included uncommitted corpus.
+if commit=$(git -C "$repo" rev-parse HEAD 2>/dev/null); then
+    dirty=false
+    [[ -n "$(git -C "$repo" status --porcelain 2>/dev/null)" ]] && dirty=true
+    created=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    cat > "$sess/corpus_provenance.json" <<EOF
+{"corpus_commit": "$commit", "corpus_dirty": $dirty, "created_at": "$created", "rig": "$rig", "device": "$device"}
+EOF
+    echo "stamped corpus provenance: $commit (dirty=$dirty)"
+else
+    echo "warn: corpus dir is not a git checkout ($repo) — no provenance stamp" >&2
+fi
+
+echo "built: $sess"
+ls -1 "$sess"

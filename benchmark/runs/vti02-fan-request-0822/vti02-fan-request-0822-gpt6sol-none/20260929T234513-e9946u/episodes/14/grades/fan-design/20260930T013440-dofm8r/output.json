@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_min_T": 0.5,
+  "B_max_T": 10.0,
+  "n_B": 86,
+  "spacing": "B",
+  "n_min_cm2": -1.10e12,
+  "n_max_cm2": 3.20e12,
+  "n_columns": 109,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.5,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=0, fast_delay=1.0); B_vec = np.round(np.r_[np.arange(0.50,3.001,0.05), np.arange(3.20,10.001,0.20)],4) -> 86 stitched points 0.50-10.00 T (50 mT to 3 T, 200 mT above); fast axis N_vec = np.linspace(-1.10,3.20,109) in 1e12 cm^-2 at D=0 via calc_gate_voltages with the cell's CAL_FAN run-5 constants (TG -0.2484->+0.9836 V, BG -0.4279->+1.1661 V, reproduced in a scratch script). sr1 sensitivity 100 uV set in cell 48; sr0 sens 0.02 V and both taus 0.3 s inherited from the cell-44 close_out(restore=state0) readback, which supersedes the earlier 50 uV set in cell 42; gate nplci 1/1 from the same readback (cell 48 only asserts it). Drive 1.0 V through the device card's 100 MOhm bias resistor. ETA 'about 4 h 30 m' stated in the cell-47 markdown."
+}

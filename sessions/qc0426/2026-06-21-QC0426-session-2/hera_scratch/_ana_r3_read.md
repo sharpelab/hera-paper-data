@@ -1,0 +1,8 @@
+**Read:** HOLE side, n=−3.5×10¹², base T — **resolution-limited, no FS count extractable (a fork, not a number).**
+
+- **Onset is high** (~3 T; sdh_onset returns nan/1.1 T inconsistently): no clean oscillations below ~3 T. Consistent with the warm electron-T (~8 K) — the SdH amplitude is thermally suppressed at low B, so oscillations only emerge at high field.
+- **Short 1/B record → coarse resolution.** Usable window ~3–8 T → 1/B span ~0.21, δf ~ 5 T (best ~2.7 T extending to 2 T). The high-field oscillations are large (±50–100 Ω) but **few and irregular** — not the many clean periods a sharp FFT needs.
+- **FFT peak wanders across extraction choices** — 4 T / 36 T / 19 T / 24 T as cutoff goes 1.5→4 T, and 10→19 T as bg-degree goes 3→7. The low-F (~4 T) content is residual MR-background (degree-poly can't fully remove the strong B^1.8 MR); the "blob" sits ~10–20 T with no sharp, stable line, and little power at F_L=36 T. **By STYLE rule 14 this is a fork to report, not a frequency to refine.**
+- **No robust tone, no Luttinger partition** can be claimed here. This does **not** distinguish ABA (pair summing to F_L) from ABC (single tone at F_L) — both are unresolved at this T/record-length.
+
+**Implication:** the hole side at this density is a resolution-limited cannot-tell. Next: the electron-side mirror (run 4, in flight) tests whether the other side is cleaner; if both are limited, the read pivots to the **Step-6 high-field Streda/Chern offset** (bigger gaps, resolvable at warm T) or a resolution-limited cannot-tell with the onset/mobility number — a device-quality/rig statement, not more low-field fans. The Step-4 fan is **not** yet justified (a fan inherits the spot check's acquisition; a fan here would be equally resolution-limited).

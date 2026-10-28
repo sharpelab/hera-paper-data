@@ -1,0 +1,25 @@
+# === Heater settle calibration — DOWN ladder (6->0 V). 12.5 min/step window. ===
+import os, time as _t
+_lf = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+assert _t.time() - os.path.getmtime(_lf) < 120, "Probe1 logfile stale — thermometry worker down"
+print(f"start: heater {heater.volt()} V, Probe1 T {temperature()*1e3:.1f} mK (note: 6 V may still be settling)")
+assert abs(heater.volt() - 6.0) < 0.01, "expected heater held at 6 V from the up-ladder"
+
+N, delay = 150, 5                 # 12.5 min per step at 5 s resolution
+ladder = [5, 4, 3, 2, 1, 0]       # 6->5, 5->4, ..., 1->0 (DOWN)
+
+for target in ladder:
+    heater.volt(float(target))    # the 1 V DOWN step
+    _t.sleep(1)
+    cur = heater.curr()
+    print(f"step ->{target} V: heater.curr {cur:.3e} A")
+    meas_config["comment"] = f"heater-settle DOWN {target+1}->{target}V, T(t) {delay}s x{N}"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('heater-settle-calibration')
+    s.add_comment(f'DOWN step {target+1}->{target}V; record T(t) {delay}s x{N}; Probe1')
+    s.fp(temperature); s.fp(fridge_temperature); s.fp(heater.volt); s.fp(heater.curr)
+    s.plot('time', temperature)
+    s.sweep(k_tg.volt, np.full(N, 0.0), delay=delay)
+    print(f"  ->{target} V done: T {temperature()*1e3:.0f} mK")
+
+print("DOWN ladder done. Heater at 0 V (parked) -> cooling to base.")

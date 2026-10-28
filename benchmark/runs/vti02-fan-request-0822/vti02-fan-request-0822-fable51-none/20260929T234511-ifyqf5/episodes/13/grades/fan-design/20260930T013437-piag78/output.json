@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 0.4,
+  "B_max_T": 10.0,
+  "n_B": 49,
+  "spacing": "B",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 131,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.583,
+  "flags": [],
+  "notes": "Cell 48 (trailing code, with markdown cell 47): s.multimegasweep([magnet.field], [np.round(np.arange(0.4, 10.0001, 0.2), 3)] = 49 rows slow, uniform in B) x fast (k_tg.volt, k_bg.volt) from calc_gate_voltages(np.linspace(-1.25, 3.25, 131), D=0, run-5 CAL c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), slow_delay=3.0, fast_delay=1.0. Sweep records sr0.X/P and sr1.X/P plus k_tg.curr and k_bg.curr. The cell sets sr1.sensitivity(100e-6); sr0 sensitivity 0.02 V, both time constants 0.3 s, and nplci 1.0 on both Keithleys are inherited from cell 44's close_out(restore=state0) readback (the latest state record before the appended cells; the answer only asserts nplci == 1). Drive 1.0 V from the same readback through the device card's 100 MOhm bias resistor (the cell prints amplitude/100e6 -> 10 nA). Stated time '~3h35m' in cell 47 (the cell's own printed price formula gives ~3.32 h)."
+}

@@ -1,0 +1,171 @@
+ .claude/agent-memory/chiron/MEMORY.md                                       | 129 +++--
+ .claude/agent-memory/chiron/rounds.md                                       |  77 ---
+ .gitignore                                                                  |   1 -
+ CLAUDE.md                                                                   |  15 +-
+ docs/api/hera-analysis.md                                                   |  42 +-
+ extensions/jupyterlab-cell-index/README.md                                  |  34 +-
+ extensions/jupyterlab-cell-index/package.json                               |   4 +-
+ extensions/jupyterlab-cell-index/pyproject.toml                             |   4 +-
+ extensions/jupyterlab-cell-index/src/index.ts                               |  92 +---
+ extensions/jupyterlab-cell-index/style/base.css                             |  27 +-
+ extensions/jupyterlab-cell-index/testbed/generate_notebook.py               |  28 +-
+ extensions/jupyterlab-cell-index/testbed/launch.sh                          |   2 +-
+ hera/CLAUDE.md                                                              |  11 +-
+ hera/campaigns/stacking/aaron-shield-instructions.md                        |  76 ---
+ hera/campaigns/stacking/deviations.md                                       |  25 -
+ hera/campaigns/stacking/prereg-protocol.md                                  | 115 -----
+ hera/campaigns/stacking/raman-hashes.md                                     |  11 -
+ hera/campaigns/stacking/vti-01/intake-facts.md                              |  58 ---
+ hera/chiron.md                                                              |  12 +-
+ hera/docs/brief-QC0426.md                                                   |  55 +-
+ hera/docs/brief-vti-01.md                                                   | 133 -----
+ hera/docs/brief-vti-02.md                                                   | 134 -----
+ hera/docs/eng-backlog.md                                                    | 273 ++--------
+ hera/docs/extending-the-corpus.md                                           |   8 +-
+ hera/docs/raman-public-data.md                                              |  71 ---
+ hera/docs/run-metrics-spec.md                                               | 318 ------------
+ hera/docs/triage-changelog.md                                               | 110 ----
+ hera/docs/triage-scoreboard.md                                              |  18 -
+ hera/docs/triage-workflow.md                                                |  11 +-
+ hera/docs/vti/2026-07-18-capstone2-triage-log.md                            |  47 --
+ hera/hera_tactical.md                                                       |  25 +-
+ hera/iris.md                                                                |   1 +
+ hera/{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/.gitignore       |   0
+ hera/{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/FUTURE_WORK.md   |   0
+ hera/{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/README.md        |   5 -
+ .../{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/compare_qc0426.py |   4 -
+ .../{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/crossing_model.py |   4 -
+ hera/models/{trilayer_fs_count => aba_trilayer}/ll_spectrum.py              |  30 +-
+ hera/{docs/vti/aba-trilayer-qc0426 => models/aba_trilayer}/validate.py      |   4 -
+ hera/models/raman_stacking/FUTURE_WORK.md                                   |  28 --
+ hera/models/raman_stacking/README.md                                        |  64 ---
+ hera/models/raman_stacking/dryrun/README.md                                 |  19 -
+ hera/models/raman_stacking/dryrun/fig_maps.png                              | Bin 169864 -> 0 bytes
+ hera/models/raman_stacking/dryrun/fig_spectra_wall.png                      | Bin 107813 -> 0 bytes
+ hera/models/raman_stacking/dryrun/fusion/README.md                          |  20 -
+ hera/models/raman_stacking/dryrun/fusion/device.md                          |  31 --
+ hera/models/raman_stacking/dryrun/fusion/raman_contract.md                  |  49 --
+ hera/models/raman_stacking/dryrun/fusion/registration.png                   | Bin 99731 -> 0 bytes
+ hera/models/raman_stacking/dryrun/fusion/result.md                          | 237 ---------
+ hera/models/raman_stacking/dryrun/fusion/transport_contract.md              |  50 --
+ hera/models/raman_stacking/dryrun/result.md                                 | 230 ---------
+ hera/models/raman_stacking/flg37_map_validation.png                         | Bin 93125 -> 0 bytes
+ hera/models/raman_stacking/map_tools.py                                     |  77 ---
+ hera/models/raman_stacking/metrics.py                                       | 140 ------
+ hera/models/raman_stacking/raman_io.py                                      | 154 ------
+ hera/models/raman_stacking/validate.py                                      | 261 ----------
+ hera/models/tetralayer_fs_count/JULIA_CROSSCHECK.md                         | 130 -----
+ hera/models/tetralayer_fs_count/README.md                                   | 216 --------
+ hera/models/tetralayer_fs_count/fs_count_b0.py                              | 662 -------------------------
+ hera/models/tetralayer_fs_count/lf_crosscheck.py                            | 114 -----
+ hera/models/tetralayer_fs_count/real_eval.py                                | 413 ---------------
+ hera/models/tetralayer_fs_count/rpl19_load.py                               | 134 -----
+ hera/models/tetralayer_fs_count/synth_eval.py                               | 614 -----------------------
+ hera/models/tetralayer_fs_count/synth_fan.py                                | 280 -----------
+ hera/models/tetralayer_fs_count/synth_to_house.py                           | 418 ----------------
+ hera/models/trilayer_fs_count/README.md                                     | 117 ++---
+ hera/models/trilayer_fs_count/aba_LL_fan.png                                | Bin 155889 -> 151591 bytes
+ hera/models/trilayer_fs_count/aba_bands_linecut.png                         | Bin 83032 -> 70104 bytes
+ hera/models/trilayer_fs_count/aba_wannier.png                               | Bin 42523 -> 41705 bytes
+ hera/models/trilayer_fs_count/abc_bands_contour.png                         | Bin 166805 -> 82240 bytes
+ hera/models/trilayer_fs_count/abc_bands_linecut.png                         | Bin 48422 -> 42212 bytes
+ hera/models/trilayer_fs_count/fs_count_b0.py                                | 200 ++------
+ hera/models/trilayer_fs_count/ll_sequence.py                                |   4 +-
+ hera/models/trilayer_fs_count/luttinger_vs_n.png                            | Bin 108710 -> 66602 bytes
+ hera/models/trilayer_fs_count/plots.py                                      | 105 ++--
+ hera/nb-collab/README.md                                                    |  30 --
+ hera/recipes/STYLE.md                                                       |  29 --
+ hera/recipes/device-init/gate-current-sanity-check.md                       |   7 +-
+ hera/recipes/device-init/gate-leakage-survey.md                             |  17 +-
+ hera/recipes/investigations/raman-stacking-id.md                            | 324 ------------
+ hera/recipes/investigations/stacking-raman-transport-fusion.md              | 185 -------
+ hera/recipes/investigations/tetralayer-stacking-fs-count.md                 | 342 -------------
+ hera/recipes/investigations/trilayer-stacking-fs-count.md                   |  63 ++-
+ hera/recipes/investigations/trilayer-stacking-id.md                         |   2 +-
+ hera/recipes/measurements/gatemap.md                                        |   6 +-
+ hera/recipes/measurements/landau-fan.md                                     |  21 +-
+ hera/recipes/measurements/nD-map.md                                         |  13 +-
+ hera/recipes/measurements/sdh-spot-check.md                                 |  81 +--
+ hera/recipes/measurements/temperature-dependence-vti.md                     |  58 ---
+ hera/recipes/measurements/temperature-dependence.md                         |  29 +-
+ hera/recipes/utils/session-closeout-toploader.md                            |  17 -
+ hera/recipes/utils/session-closeout-vti.md                                  |  22 -
+ hera/recipes/utils/session-closeout.md                                      |  71 ---
+ hera/rig-cards/EXAMPLE.md                                                   |  17 +
+ hera/rig-cards/README.md                                                    |  19 +-
+ hera/rig-cards/VTI.md                                                       |  61 +--
+ hera/rig-cards/toploader.md                                                 |  59 ++-
+ hera/session_template.md                                                    |   5 -
+ hera/templates/QC0426/device_card.md                                        |  39 +-
+ hera/templates/base/VTI_measure.ipynb                                       | 118 +----
+ hera/templates/base/ana.ipynb                                               |  13 +-
+ hera/templates/base/pink_measure.ipynb                                      | 431 ----------------
+ hera/templates/base/toploader_measure.ipynb                                 |  54 +-
+ hera/templates/stacking-campaign/README.md                                  |  51 --
+ hera/templates/stacking-campaign/brief.template.md                          | 158 ------
+ hera/templates/stacking-campaign/device_card.template.md                    |  94 ----
+ hera/templates/stacking-campaign/frame-words.grep                           |  13 -
+ hera/templates/stacking-campaign/intake-facts.template.md                   |  64 ---
+ hera/templates/vti-01/device_card.md                                        | 104 ----
+ hera/templates/vti-02/device_card.md                                        | 104 ----
+ lib/measureme/sweep/async_station_test.py                                   |  85 ----
+ lib/measureme/sweep/sweep.py                                                |  44 +-
+ lib/measureme/sweep/sweep_test.py                                           | 118 -----
+ pink.toml.example                                                           |  21 -
+ pyproject.toml                                                              |  11 +-
+ scripts/install.sh                                                          |   3 -
+ src/core/config.py                                                          |  34 +-
+ src/drivers/leiden_qcs.py                                                   | 366 --------------
+ src/gui/managed_process.py                                                  |  29 +-
+ src/gui/qt/base_launcher.py                                                 |  15 +-
+ src/gui/qt/jupyter_panel.py                                                 |  22 +-
+ src/gui/qt/pink_launcher.py                                                 |  65 ---
+ src/gui/qt/qcs_panel.py                                                     | 144 ------
+ src/gui/qt/worker_panel.py                                                  |   5 -
+ src/hera/analysis.py                                                        | 725 ++++-----------------------
+ src/hera/benchmark.py                                                       | 786 -----------------------------
+ src/hera/classify.py                                                        |  20 +-
+ src/hera/replay.py                                                          |  22 +-
+ src/hera/trajectory.py                                                      | 109 +---
+ src/hera/watch.py                                                           | 218 +-------
+ src/sharpelab_nb/__init__.py                                                |   5 -
+ src/sharpelab_nb/closeout.py                                                | 200 --------
+ src/sharpelab_nb/closeout_test.py                                           | 256 ----------
+ src/sharpelab_nb/keithley.py                                                |  98 ----
+ src/sharpelab_nb/thermometry.py                                             |  67 ---
+ src/tools/hera_utilization.py                                               | 225 ---------
+ src/tools/hera_watch.py                                                     |  13 +-
+ src/tools/nb_collab.py                                                      | 290 +----------
+ src/tools/run_metrics.py                                                    | 964 ------------------------------------
+ src/workers/lakeshore.py                                                    |   5 +-
+ src/workers/magnet.py                                                       |  23 +-
+ src/workers/pink_scraper.py                                                 | 343 -------------
+ src/workers/qcs_heater.py                                                   | 308 ------------
+ tests/hera/conftest.py                                                      |   8 +-
+ tests/hera/test_analysis.py                                                 |  77 +--
+ tests/hera/test_analysis_helpers.py                                         | 181 +------
+ tests/hera/test_benchmark.py                                                | 673 -------------------------
+ tests/hera/test_classify_offline.py                                         |  63 ++-
+ tests/hera/test_hera_watch_cli.py                                           |  18 -
+ tests/hera/test_render.py                                                   |   9 +-
+ tests/hera/test_sdh_onset_archives.py                                       | 153 ------
+ tests/hera/test_trajectory.py                                               |   2 +-
+ tests/hera/test_watch.py                                                    | 290 -----------
+ tests/test_hera_utilization.py                                              | 130 -----
+ tests/test_nb_collab.py                                                     | 493 +-----------------
+ tests/test_pink_config.py                                                   |  41 --
+ tests/test_pink_scraper_worker.py                                           | 191 -------
+ tests/test_qcs_heater.py                                                    | 499 -------------------
+ tests/test_qcs_panel.py                                                     | 149 ------
+ tests/test_qt_launcher.py                                                   |  89 +---
+ tools/hera-metrics                                                          |   9 -
+ tools/hera-mkkit                                                            | 246 ---------
+ tools/hera-mksession                                                        |  17 -
+ tools/hera-session.md                                                       |  19 +-
+ tools/hera-tactical                                                         |   6 +-
+ tools/hera-utilization                                                      |   6 -
+ toploader.toml.example                                                      |  10 -
+ uv.lock                                                                     |  48 +-
+ vendor/jupyterlab_cell_index-0.1.0-py3-none-any.whl                         | Bin 0 -> 12687 bytes
+ vendor/jupyterlab_cell_index-0.2.0-py3-none-any.whl                         | Bin 13708 -> 0 bytes
+ 170 files changed, 787 insertions(+), 17781 deletions(-)

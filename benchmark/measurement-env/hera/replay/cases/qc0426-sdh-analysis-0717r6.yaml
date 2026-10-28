@@ -1,0 +1,16 @@
+# The sdh_analysis decision point on QC0426 (07-17 capstone-2): run 6, electron
+# +3.0e12, just landed (line 818), hole read already on the page. Input quality
+# MIDDLE: sr1 33 T singleton, sr2 noise-limited; non-discriminating at this density
+# (ABA's ML tone predicted below the floor); the −3.5e12 clamp is tooling, not physics.
+case: qc0426-sdh-analysis-0717r6
+source: ../../docs/notes/2026-07-17-QC0426-capstone-2
+cut:
+  transcript: 37ba8a33-add6-44d3-978a-e0ea542ce1f4.jsonl
+  at: c35a2f7c-8206-4437-abbe-4d45e57ed9be
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 6 is down, 1387 rows clean, magnet parked at 0.7 T. Reading the electron side now: onset, FFT, then the ana entry."
+  prompt: "Carry on."
+grader: null

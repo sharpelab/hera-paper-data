@@ -1,0 +1,63 @@
+import numpy as np, time
+from sharpelab_nb import gates
+
+# ---- (n,D) calibration from run 0 (ana cells 11-13) ----
+C_TG, C_BG, N_OFF = 1.7027e-3, 2.2024e-3, -0.1445     # F/m^2, F/m^2, 1e12 cm^-2
+N_TARGET, D_TARGET = -3.4, 0.0                          # hole side, D=0
+Vtg, Vbg = gates.calc_gate_voltages(N_TARGET, D_TARGET, C_TG, C_BG, N_OFF, 0.0)
+Vtg, Vbg = float(Vtg), float(Vbg)
+assert -6.0 <= Vtg <= 7.0 and -4.5 <= Vbg <= 4.5, f"gate target out of range: Vtg={Vtg}, Vbg={Vbg}"
+
+# ---- field window, uniform in 1/B (Step 2 feasibility) ----
+B_LO, B_HI = 0.1, 2.0
+F_L = (6.62607e-34 / (4 * 1.602177e-19)) * (abs(N_TARGET) * 1e16)   # Tesla
+dinvB = 1.0 / (3.0 * F_L)
+N = int(round((1 / B_LO - 1 / B_HI) / dinvB)) + 1
+field_vec = field_invB(B_LO, B_HI, N)
+assert 0 <= field_vec.min() and field_vec.max() <= 8.0
+
+# ---- preconditions (assumed, not set) ----
+assert heater.sample_temperature() < 2.0, f"T high: {heater.sample_temperature()}"
+assert k_2410.volt() == 0, f"Si not at 0: {k_2410.volt()}"
+T0 = heater.sample_temperature()
+
+# ---- high-|n| metallic bias + position gates/field ----
+sr1.amplitude(2.0)                  # 2 V / 100 MOhm = 20 nA
+time.sleep(1)
+dc205_volt(Vtg); k_bg.volt(Vbg)
+magnet.settle_s = 0.2               # field-sweep dwell; lock-in delay carries settling
+magnet.field(B_LO)
+time.sleep(3)
+
+# ---- sensitivity: autorange Rxx, explicit Hall/current ----
+sr0.sensitivity(5e-2)               # 20 nA * 1e6 = 20 mV
+sr3.sensitivity(2e-5)               # R_xy(B_hi)=B/(n e) ~ 0.37 kOhm -> 7.3 uV
+for s in (sr1, sr2):
+    s.autorange(max_changes=5)
+time.sleep(2)
+I = sr0.X() / meas_config['sr0_gain']
+print(f"n={N_TARGET}e12 D=0 -> Vtg={Vtg:.3f} Vbg={Vbg:.3f} | B {B_LO}->{B_HI}T N={N} d(1/B)={dinvB:.5f} F_L={F_L:.1f}T")
+print(f"I_drain={I*1e9:+.2f} nA")
+for ch in ['sr1', 'sr2', 'sr3', 'sr0']:
+    s = globals()[ch]; x = s.X(); se = s.sensitivity()
+    print(f"  {ch}: X={x:+.3e}  sens={se:.1e} ({abs(x)/se*100:.0f}% FS)  R={x/I if I else float('nan'):+.1f} ohm")
+assert abs(sr1.X()) < 0.9 * sr1.sensitivity() and abs(sr2.X()) < 0.9 * sr2.sensitivity(), "Rxx overloaded at B_lo"
+
+# ---- station + 1/B field sweep ----
+meas_config['comments'] = (f"sdh-spot-check HOLE n={N_TARGET}e12 D=0 (Vtg={Vtg:.3f},Vbg={Vbg:.3f}); "
+                           f"B {B_LO}-{B_HI}T uniform-1/B N={N} d(1/B)={dinvB:.5f}; F_L={F_L:.1f}T; bias 2V/20nA; "
+                           f"src T2/drn B7/sr1 T3-T4/sr2 B4-B5/sr3 T5-B6(Hall)")
+meas_config['sample_temperature:'] = T0
+meas_config['bias_voltage'] = sr1.amplitude()
+for k, ch in [('sr0_sens', 'sr0'), ('sr1_sens', 'sr1'), ('sr2_sens', 'sr2'), ('sr3_sens', 'sr3')]:
+    meas_config[k] = globals()[ch].sensitivity()
+s = async_station(meas_config)
+s.add_comment('sdh-spot-check')
+s.add_comment(f'HOLE n={N_TARGET}e12 D=0; F_L={F_L:.1f}T; uniform-1/B {B_LO}-{B_HI}T N={N} d(1/B)={dinvB:.5f}')
+s.fp(sr0.X).fp(sr1.X).fp(sr1.P).fp(sr2.X).fp(sr2.P).fp(sr3.X).fp(sr3.P).fp(k_2400.curr).fp(k_2410.curr)
+s.plot(magnet.field, sr1.X)
+res = s.sweep(magnet.field, field_vec, delay=2.5)
+
+magnet.settle_s = 3.0               # restore default
+T1 = heater.sample_temperature()
+print(f"DONE run id={res.id} | T {T0:.3f}->{T1:.3f} K | field now {magnet.field():.3f} T (left high for electron sweep-down)")
