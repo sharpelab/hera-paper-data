@@ -1,0 +1,7 @@
+## HERA — resolve the censored onset before the electron Landau fan
+
+`sdh-spot-check` Verify and `landau-fan` cost-floor gate require a measured onset. Run 6 at n=+3.2 has a censored onset on its adequately sampled B≥1 T segment; its coarser data below 1 T cannot resolve F_L=33.1 T. This short extension repeats the same density, range and settling on a different grid, overlaps 1–1.5 T for consistency, and provides the lower-field record needed to price the single electron fan. Read-only preflight verifies the committed card validators and the handoff state before moving anything.
+
+361 points at uniform Δ(1/B)=0.007407 T⁻¹ give 4.08 points per 33.1 T period (3.63 at the secondary-ridge +0.337 density offset); the upper field is 1.5 T. Start from the measured handoff 0 T: positioning 0→0.3 T costs 2.19 min, measured traverse 0.3→1.5 T has an 8.76 min bare ramp floor. Runs 6/7 show ≈3.08 s fixed cost per field point after subtracting ΔB/0.137 T/min; 361 points add 18.5 min. Allow 35 min including preflight and margin. Preserve 50 µV sensitivity and ≥3 s driver settle (10τ at 24 dB/oct); this is an onset measurement, not a stacking verdict. Gates remain at the shared electron point, field at 1.5 T for the following fan.
+
+Check the first 25 points and every 10 min for current, clipping, temperature and leakage; abort on anomalies and read actual state. All acquired channels are plotted. Magnet interrupt does **not** stop an in-progress supply ramp on this VTI; contact Zack for a supply stop if needed. The field steps are small and within the 10 T cap.

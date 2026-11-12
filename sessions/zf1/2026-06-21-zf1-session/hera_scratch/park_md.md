@@ -1,0 +1,3 @@
+## HERA — session close / park (optional)
+
+**Result: zf1 (bottom device) is a superconductor** at n≈−5.0×10¹¹, D≈−0.67 V/nm — full call in the ana notebook. This cell parks gates to 0 and zeroes the DC bias for a clean rest (heater already at 0 / re-cooling; magnet at nominal 0 with remanence). **Skip it** if you'd rather hold at SC1 for an immediate follow-up — the two highest-value ones: (1) reproduce the dip on a second voltage pair (7-31) to rule out a probe-local artifact, and (2) re-run the Tc ladder once the temperature worker is restarted, for a quantitative Tc. Both are quick from the current state.

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.25,
+  "B_max_T": 0.949,
+  "n_B": 234,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.42,
+  "flags": [],
+  "notes": "Cell 48 is a 1D field sweep s.sweep(magnet.field, np.round(np.arange(0.25, 0.9501, 0.003), 4), delay=0) -> 234 pts, 0.25 -> 0.949 T uniform in B, at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages with the cell's own run-5 CAL (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) giving (Vtg, Vbg) = (+0.9836, +1.1661). It records sr0.X/P and sr1.X/P plus k_tg.curr and k_bg.curr; the cell sets sr1.sensitivity(50e-6), while sr0 sens/tau (0.02 V / 0.3 s), sr1 tau (0.3 s), drive_V 1.0 and nplci 1/1 are inherited from the cell-44 close_out(restore=state0) readback (the cell re-asserts nplci == 1). bias_resistor 100e6 from meas_config (cell 23) and the device card. Stated ETA ~25 min in the cell-47 markdown. n_fans = 1 counts the single fan the markdown points to, but no fan cell is actually issued here -- the markdown calls the fan 'the next cell' and says this probe pins its B_lo = max(measured onset, 0.8 T); no further density columns of this same 1D sweep are named, hence probe_only."
+}

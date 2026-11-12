@@ -1,0 +1,22 @@
+{
+  "RPL10": {
+    "device": "RPL10",
+    "top_hbn_nm": 26.0,
+    "bottom_hbn_nm": 40.5,
+    "default_plot_kind": "gate_map",
+    "default_x_axis_name": "k_bg_volt",
+    "default_y_axis_name": "k_tg_volt",
+    "gate_coupling_note": "Back gate is more weakly coupled than top gate because the bottom hBN is thicker. Diagonal features in gate space can look skewed relative to n/D coordinates.",
+    "nd_transform_note": "Use gate-space coordinates for output, but remember that humans often reinterpret these maps in carrier density n and displacement field D. Approximate n scales with Vbg/dbg + Vtg/dtg and D scales with Vtg/dtg - Vbg/dbg."
+  },
+  "RPL19": {
+    "device": "RPL19",
+    "top_hbn_nm": 16.0,
+    "bottom_hbn_nm": 25.5,
+    "default_plot_kind": "gate_map",
+    "default_x_axis_name": "k_bg_volt",
+    "default_y_axis_name": "k_tg_volt",
+    "gate_coupling_note": "RPL19 has a thinner top dielectric than bottom dielectric, so top-gate motion changes the state more strongly than an equal back-gate step.",
+    "nd_transform_note": "Use gate-space coordinates for output, but treat diagonal slopes as gate-space projections of simpler structure in n/D. Approximate n scales with Vbg/dbg + Vtg/dtg and D scales with Vtg/dtg - Vbg/dbg."
+  }
+}

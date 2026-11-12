@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 145,
+  "spacing": "invB",
+  "n_min_cm2": 1.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 41,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.75,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.8): B_vec = np.minimum(field_invB(1.0, 10.0, 145), B_SESSION_CAP=10.0) (clip is a no-op; d(1/B)=1/160 per T, f_Nyq 80 T), fast axis calc_gate_voltages over np.linspace(1.6, 3.2, 41)e12 at D = 0 with the cell's own run-5 calibration (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013), giving V_tg +0.5252 to +0.9836 V and V_bg +0.5730 to +1.1661 V, inside the validators. The cell sets sr1.sensitivity(50e-6); sr0 sensitivity 0.02 V, both taus 0.3 s, drive 1.0 V and nplci 1/1 are inherited from the close_out(restore=state0) readback in cell 44 (exec 23), the latest state record before the appended cells. bias_resistor 100e6 from meas_config (cell 23). The sweep records k_tg.curr and k_bg.curr via s.fp(); the cell asserts nplci == 1/1 rather than setting it. Run time from cell 47's header line: ETA ~4 h 45 m (its own model totals 4.5 h)."
+}

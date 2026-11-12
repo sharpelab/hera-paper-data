@@ -1,0 +1,16 @@
+# Runs 5-7: constant-D n-linecuts. R4 = (sr830_3_X/100)/1nA.
+n11 = np.linspace(-8, -1, 71)
+fig, ax = plt.subplots(1, 2, figsize=(13, 4.6))
+for rid, D0 in {5:-0.4, 6:-0.5, 7:-0.6}.items():
+    rr = open_run(f'data/{rid}')
+    R4 = (rr.col('sr830_3_X')/100.0)/1e-9
+    lk = max(np.abs(rr.col('k_tg_curr')).max(), np.abs(rr.col('k_bg_curr')).max())
+    ax[0].plot(n11, R4, '.-', label=f'D={D0:+.2f}  (leak<{lk*1e12:.0f}pA)')
+    ax[1].semilogy(n11, np.clip(R4,0.5,None), '.-', label=f'D={D0:+.2f}')
+    if D0 == -0.6:
+        jm = np.argmin(R4[(n11>=-6.5)&(n11<=-2)]); nb = n11[(n11>=-6.5)&(n11<=-2)]
+        print(f'D=-0.6 dip: R_min {R4[(n11>=-6.5)&(n11<=-2)].min():.1f} Ohm at n={nb[jm]:+.2f}e11')
+ax[0].set(xlabel='n (1e11 cm^-2)', ylabel='4T R_xx (Ohm)', ylim=(0,120), title='n-linecuts (linear)')
+ax[1].set(xlabel='n (1e11 cm^-2)', ylabel='4T R_xx (Ohm)', title='log')
+for a in ax: a.legend(); a.grid(alpha=0.3)
+plt.tight_layout(); plt.show()

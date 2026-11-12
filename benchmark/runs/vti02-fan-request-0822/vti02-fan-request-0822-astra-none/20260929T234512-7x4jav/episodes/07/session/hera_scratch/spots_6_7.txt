@@ -1,0 +1,28 @@
+run 6: R range -32.95..529.63 ohm; I nA 9.843..9.935; max raw voltage 5.22 uV / 50 uV FS
+FFT peak candidates [1.11, 7.78, 14.44, 22.22, 29.99, 58.87]
+k_2400_tg_curr: -1.2339e-10..1.2193e-10
+k_2400_bg_curr: -6.6788e-11..1.173e-10
+T_sample: 1.165..1.292
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.6  [censored@edge, 2x->14.1T, 3x->22.2T, 4x->29.5T]
+  tone   22.2 T: onset  1.33 T  dF  1.53 T  snr_max  100.6  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   49.7  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   87.5  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   63.1  [censored@edge, near-residual, 3x->9.5T]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   34.8  [censored@edge]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   22.9  [censored@edge, ~3x3.0T]
+  tone    5.2 T: onset  0.30 T  dF  0.31 T  snr_max   52.8  [censored@edge]
+run 7: R range -0.38..586.87 ohm; I nA 9.809..9.931; max raw voltage 5.76 uV / 50 uV FS
+FFT peak candidates [6.67, 4.44, 12.22, 18.88, 28.88, 34.44]
+k_2400_tg_curr: -2.1583e-10..1.1138e-11
+k_2400_bg_curr: -6.8073e-11..1.201e-10
+T_sample: 1.175..1.291
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.8  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)

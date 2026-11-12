@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.3,
+  "B_max_T": 10.0,
+  "n_B": 321,
+  "spacing": "invB",
+  "n_min_cm2": 1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 101,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 1.2,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 14.5,
+  "flags": [],
+  "notes": "Cell 48 (appended, with markdown cell 47): s.multimegasweep([magnet.field],[field_invB(0.3,10.0,321)] slow, [k_tg.volt,k_bg.volt] fast from calc_gate_voltages over np.linspace(1.2,3.2,101)e12 at D=0 with the run-5 calibration committed in-cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), slow_delay=1.0, fast_delay=1.2. Recomputed axes in a scratch script: d(1/B)=0.01010 /T, Vtg [+0.411,+0.984] V, Vbg [+0.425,+1.166] V, inside the SAFETIES validators. Lock-ins recorded are sr0 (X,P) and sr1 (X,P); the cell sets sr1.sensitivity(50e-6), while sr0 sens 0.02 V, sr0 tau 0.3 s and sr1 tau 0.3 s are inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells. nplci 1/1 for both Keithleys is asserted (not set) in cell 48 and matches the same readback. Drive 1.0 V (close_out drive_V) through the device card's 100 MOhm bias resistor; headline run time '14 h 30 m' from cell 47 (13.4 h computed)."
+}

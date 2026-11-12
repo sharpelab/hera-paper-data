@@ -1,0 +1,14 @@
+# The fan-design decision point on QC0426 (06-19 session 3): the cut sits after
+# the multimegasweep signature read, before the design statement.
+case: qc0426-fan-design
+source: ../../docs/notes/2026-06-19-QC0426-session-3
+cut:
+  transcript: 226a2e70-8449-42b4-800c-7fee0e907e29.jsonl
+  at: 9e2f2705-fd95-4c6b-acad-33b27d01bcfc
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Signature confirmed. Designing the fan now."
+  prompt: "Carry on."
+grader: null

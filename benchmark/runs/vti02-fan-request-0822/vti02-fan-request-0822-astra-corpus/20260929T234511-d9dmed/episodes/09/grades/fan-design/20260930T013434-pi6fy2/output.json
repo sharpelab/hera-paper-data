@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.017617880804576,
+  "B_max_T": 6.4689868523317715,
+  "n_B": 101,
+  "spacing": "invB",
+  "n_min_cm2": 2.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 11,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 2.17,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[field_invB(1.017617880804576, 6.4689868523317715, 101)] slow, [k_tg.volt,k_bg.volt],[Vtgs,Vbgs] fast, slow_delay=1.0, fast_delay=3.0); gates from calc_gate_voltages(np.linspace(3.2,2.8,11), D=0, FAN_CAL c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) — run-5 calibration, verified in a scratch script to give TG 0.869016..0.983621 V, BG 1.017844..1.166125 V. Densities are the cell's own nominal frame (geometry prior on absolute scale; cell 47 notes a possible ~1.2 density scale factor, left unscaled here). Inherited lock-in/NPLC state is the executed close_out(restore=state0) readback in cell 44 (sr0 sens 0.02 V, sr0/sr1 tau 0.3 s, tg/bg nplci 1.0); cell 48 sets sr1.sensitivity(50e-6). Excitation sr1.amplitude 1 V asserted in cell 48, bias resistor meas_config['bias_resistor']=100e6. Wall clock 'ETA ~07:33 (≈2h10m)' from the cell-47 header."
+}

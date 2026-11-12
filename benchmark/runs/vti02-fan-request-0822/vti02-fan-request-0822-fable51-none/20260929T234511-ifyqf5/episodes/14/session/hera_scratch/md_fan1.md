@@ -1,0 +1,9 @@
+## HERA — Fan 1: D = 0 Landau fan, full n-window, both carrier signs (`landau-fan`, plan step 4)
+
+**Why now.** The spot checks (runs 6, 7 — analysis in ana) show SdH resolvable from ≈ 1.5 T at base T: run 6 (electron, n = +3.2×10¹²) carries two fundamentals, ≈ 7.2 T and ≈ 30 T with harmonics (a two-band-like spectrum; their sum ≈ 37 T vs F_L = 33.1 T means the absolute n-scale — still the 9.5 nm prior — is likely ~10 % low, or the 30 T tone is partly harmonic); run 7 (hole, n = −1.2×10¹²) is multi-tone near the CNP. Neither is a stacking read: that needs the **ν-ladder** (which |ν| gaps, crossings or a single clean ladder) and **F(n) per band** (slope = absolute-n calibration = the lever-arm check). Both come from one fan.
+
+**Design.** Slow axis B 0.4 → 10 T in 0.2 T (49 rows, starts where the magnet sits, ends at 10 T so Fan 2 rides down — no re-traverse). Fast axis the run-5 D = 0 line, n = −1.25 … +3.25×10¹² in 0.03×10¹² (151 pts, co-swept V_tg/V_bg via `multimegasweep`; both gates inside the validators, asserted in-cell). Full coverage of the D = 0 window inside the box — nothing excluded; hole side is TG-limited at −1.27. sr1 fixed at 100 µV (10 kΩ FS): spot checks peaked at 590 Ω at 10 T; only ν = 0 near n = 0 at high B should exceed FS (rail = gap, accepted). fast_delay 1 s / slow_delay 3 s as run 5 (1.17 s/pt measured). Leak guard 1 nA on both gates. Gates park at 0 at the end; field left at 10 T.
+
+**Price.** Bare 9.6 T traverse 70 min + 49 rows × (151 × 1.17 s + settle + flyback ≈ 185 s) ≈ 2.5 h → 3.7 h; realistic 4 h.
+
+**Checkpoints.** (1) First two rows (~12 min): rail? leakage? R(n) shape vs run 5 at low B. (2) Hourly: re-form the partial fan (`fan_grids`), look for the ladder / crossings; abort if the channel rails broadly or the map is featureless above 3 T (then the read is resolution-limited and Fan 2 is redesigned rather than paid for).

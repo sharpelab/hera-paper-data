@@ -1,0 +1,246 @@
+#!/usr/bin/env bash
+# hera-mkkit — instantiate and check a campaign session kit (brief + device
+# card) from the frozen templates under hera/templates/<campaign>/.
+#
+# Usage:
+#   hera-mkkit new   <campaign> <alias> [--facts FILE]
+#   hera-mkkit check <campaign> <alias>
+#
+#   new    copies  hera/templates/<campaign>/brief.template.md
+#                    -> hera/docs/brief-<alias>.md
+#          and     hera/templates/<campaign>/device_card.template.md
+#                    -> hera/templates/<alias>/device_card.md,
+#          substitutes {{ALIAS}} (and, with --facts, every fact) and resolves
+#          the IF-SI-GATE and value-keyed <!-- IF-KEY-value --> conditional
+#          blocks. Refuses to clobber. Without
+#          --facts the slots and conditional markers stay for hand-fill;
+#          `check` catches leftovers.
+#   check  fails on unfilled {{SLOT}}s, unresolved conditional markers, a
+#          device-id mismatch, or a blinding-grep hit (hera/blinding.md base
+#          pattern + the campaign's frame-words.grep) in the instantiated kit.
+#
+# Facts file format (see hera/templates/<campaign>/intake-facts.template.md):
+# `KEY: value` scalar lines (trailing `#` comments stripped; empty values
+# ignored) and `## KEY` sections spliced in whole, re-indented to the slot
+# line. Content above a `---` line is header and ignored.
+set -euo pipefail
+
+usage() {
+    echo "usage: hera-mkkit new <campaign> <alias> [--facts FILE]" >&2
+    echo "       hera-mkkit check <campaign> <alias>" >&2
+}
+
+[[ $# -ge 1 ]] || { usage; exit 2; }
+cmd=$1; shift
+
+facts=""
+pos=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --facts)   facts=${2:?--facts needs a value}; shift 2 ;;
+        --facts=*) facts=${1#*=}; shift ;;
+        -*) echo "unknown option: $1" >&2; usage; exit 2 ;;
+        *)  pos+=("$1"); shift ;;
+    esac
+done
+set -- "${pos[@]}"
+[[ $# -eq 2 ]] || { usage; exit 2; }
+campaign=$1; alias=$2
+
+# Repo root: $MEASUREMENT_ENV, else relative to this script (symlink-resolved),
+# else the rig default.
+if [[ -n "${MEASUREMENT_ENV:-}" ]]; then
+    repo=$MEASUREMENT_ENV
+else
+    script_dir=$(cd "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")" && pwd)
+    if [[ -d "$script_dir/../hera/templates" ]]; then
+        repo=$(cd "$script_dir/.." && pwd)
+    else
+        repo=$HOME/measurement_env
+    fi
+fi
+
+tpl_dir="$repo/hera/templates/$campaign"
+brief_tpl="$tpl_dir/brief.template.md"
+card_tpl="$tpl_dir/device_card.template.md"
+brief_out="$repo/hera/docs/brief-$alias.md"
+card_out="$repo/hera/templates/$alias/device_card.md"
+
+case "$cmd" in
+
+new)
+    [[ -f "$brief_tpl" ]] || { echo "no brief template: $brief_tpl" >&2; exit 1; }
+    [[ -f "$card_tpl"  ]] || { echo "no device-card template: $card_tpl" >&2; exit 1; }
+    [[ -e "$brief_out" ]] && { echo "refusing to clobber: $brief_out exists" >&2; exit 1; }
+    [[ -e "$card_out"  ]] && { echo "refusing to clobber: $card_out exists" >&2; exit 1; }
+    [[ -z "$facts" || -f "$facts" ]] || { echo "no facts file: $facts" >&2; exit 1; }
+
+    mkdir -p "$(dirname "$card_out")"
+    uv run --no-project python - "$alias" "$facts" \
+        "$brief_tpl" "$brief_out" "$card_tpl" "$card_out" <<'PY'
+import re
+import sys
+
+alias, facts_path = sys.argv[1], sys.argv[2]
+pairs = [(sys.argv[3], sys.argv[4]), (sys.argv[5], sys.argv[6])]
+
+scalars = {"ALIAS": alias}
+blocks = {}
+if facts_path:
+    with open(facts_path, encoding="utf-8") as f:
+        text = f.read()
+    # Drop the header (everything through the first '---' line), if present.
+    parts = re.split(r"(?m)^---\s*$", text, maxsplit=1)
+    body = parts[1] if len(parts) == 2 else text
+    cur = None
+    for line in body.splitlines():
+        m = re.match(r"^## +([A-Z0-9_]+)\s*$", line)
+        if m:
+            cur = m.group(1)
+            blocks[cur] = []
+            continue
+        if cur is not None:
+            blocks[cur].append(line)
+            continue
+        m = re.match(r"^([A-Z0-9_]+):\s*(.*)$", line)
+        if m:
+            val = re.sub(r"\s+#.*$", "", m.group(2)).strip()
+            if val:
+                scalars[m.group(1)] = val
+    blocks = {k: "\n".join(v).strip("\n") for k, v in blocks.items()}
+    if scalars["ALIAS"] != alias:
+        sys.exit(f"facts ALIAS ({scalars['ALIAS']}) != CLI alias ({alias})")
+
+si = scalars.get("SI_GATE", "").lower() or None
+if si is not None and si not in ("yes", "no"):
+    sys.exit(f"SI_GATE must be yes|no, got: {si}")
+
+MATERIAL_DESC = {"3lgr": "trilayer graphene", "4lgr": "tetralayer graphene"}
+mat = scalars.get("MATERIAL")
+if mat is not None:
+    if mat.lower() not in MATERIAL_DESC:
+        sys.exit(f"MATERIAL must be 3LGr|4LGr, got: {mat}")
+    scalars["MATERIAL_DESC"] = MATERIAL_DESC[mat.lower()]
+
+# Generic value-keyed conditionals: <!-- IF-KEY-value --> ... <!-- END-IF-KEY-value -->
+# (single-level, no nesting). Resolved only when KEY is a known fact: the block
+# is kept iff the fact's value matches (case-insensitive); unknown-KEY markers
+# stay for `check` to catch. IF-SI-GATE (no value; keep-if-yes) is handled
+# separately above and never matches here (SI is not a fact key).
+_IF = re.compile(r"^<!-- IF-([A-Z0-9_]+)-([A-Za-z0-9]+) -->$")
+_ENDIF = re.compile(r"^<!-- END-IF-([A-Z0-9_]+)-([A-Za-z0-9]+) -->$")
+
+for tpl, out in pairs:
+    with open(tpl, encoding="utf-8") as f:
+        lines = f.read().splitlines()
+
+    # Resolve IF-SI-GATE blocks (only when SI_GATE is known).
+    if si is not None:
+        resolved, in_block = [], False
+        for line in lines:
+            s = line.strip()
+            if s == "<!-- IF-SI-GATE -->":
+                in_block = True
+                continue
+            if s == "<!-- END-IF-SI-GATE -->":
+                in_block = False
+                continue
+            if in_block and si == "no":
+                continue
+            resolved.append(line)
+        lines = resolved
+
+    # Resolve generic value-keyed conditional blocks.
+    resolved, skipping, open_block = [], False, None
+    for line in lines:
+        s = line.strip()
+        m = _IF.match(s)
+        e = _ENDIF.match(s)
+        if m and m.group(1) in scalars:
+            open_block = (m.group(1), m.group(2))
+            skipping = scalars[m.group(1)].lower() != m.group(2).lower()
+            continue
+        if e and open_block == (e.group(1), e.group(2)):
+            open_block, skipping = None, False
+            continue
+        if skipping:
+            continue
+        resolved.append(line)
+    lines = resolved
+
+    # Block slots: a line that is exactly indent + {{KEY}} for a known block
+    # key is replaced by the block, re-indented.
+    out_lines = []
+    for line in lines:
+        m = re.match(r"^(\s*)\{\{([A-Z0-9_]+)\}\}\s*$", line)
+        if m and m.group(2) in blocks:
+            indent = m.group(1)
+            for bl in blocks[m.group(2)].splitlines():
+                out_lines.append(indent + bl if bl.strip() else "")
+            continue
+        out_lines.append(line)
+    text = "\n".join(out_lines) + "\n"
+
+    # Scalar slots, inline. Unknown keys stay for `check` to catch.
+    text = re.sub(r"\{\{([A-Z0-9_]+)\}\}",
+                  lambda m: scalars.get(m.group(1), m.group(0)), text)
+
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(text)
+    print(f"wrote: {out}")
+
+leftover = False
+for _, out in pairs:
+    with open(out, encoding="utf-8") as f:
+        t = f.read()
+    slots = sorted(set(re.findall(r"\{\{[A-Z0-9_]+\}\}", t)))
+    markers = sorted(set(re.findall(r"<!-- (?:END-)?(IF-[A-Z0-9_-]+) -->", t)))
+    if slots or markers:
+        leftover = True
+        print(f"  hand-fill remaining in {out}: "
+              + ", ".join(slots + [m + " markers" for m in markers]))
+if leftover:
+    print("then run: hera-mkkit check", file=sys.stderr)
+PY
+    echo "next: hera-mkkit check $campaign $alias"
+    ;;
+
+check)
+    fail=0
+    for f in "$brief_out" "$card_out"; do
+        [[ -f "$f" ]] || { echo "MISSING: $f" >&2; fail=1; }
+    done
+    [[ $fail -eq 0 ]] || exit 1
+
+    if grep -nE '\{\{[A-Z0-9_]+\}\}' "$brief_out" "$card_out"; then
+        echo "FAIL: unfilled slots" >&2; fail=1
+    fi
+    if grep -nE '<!-- (END-)?IF-' "$brief_out" "$card_out"; then
+        echo "FAIL: unresolved conditional markers" >&2; fail=1
+    fi
+    if ! grep -q "^- \*\*Device id\*\*: \`$alias\`" "$card_out"; then
+        echo "FAIL: device-id in $card_out does not match '$alias'" >&2; fail=1
+    fi
+
+    # Blinding greps last: base pattern per hera/blinding.md, plus the
+    # campaign's frame words. Any hit is a frame leak.
+    base='round[ -]?[0-9]|replicat|benchmark|ground[ -]?truth|known answer|as before|cooldown [0-9]'
+    if grep -niE "$base" "$brief_out" "$card_out"; then
+        echo "FAIL: blinding-grep hit (base pattern, hera/blinding.md)" >&2; fail=1
+    fi
+    fw="$tpl_dir/frame-words.grep"
+    if [[ -f "$fw" ]] && grep -niE -f "$fw" "$brief_out" "$card_out"; then
+        echo "FAIL: blinding-grep hit (campaign frame words)" >&2; fail=1
+    fi
+
+    if [[ $fail -eq 0 ]]; then
+        echo "OK: $brief_out"
+        echo "OK: $card_out"
+    else
+        exit 1
+    fi
+    ;;
+
+*)
+    usage; exit 2 ;;
+esac

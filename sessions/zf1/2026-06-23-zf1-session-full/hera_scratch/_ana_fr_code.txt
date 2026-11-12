@@ -1,0 +1,25 @@
+NB,NV=16,25; Vdc=np.linspace(-5,5,NV); Idc=Vdc/1e8*1e9
+def load(rid):
+    r=open_run(f'data/{rid}')
+    B=r.col_at(r.col_indices('magnet_field')[0])[:NB*NV].reshape(NB,NV)[:,0]*1e3
+    R=((r.col('sr830_3_X')/100.0)/1e-9)[:NB*NV].reshape(NB,NV)
+    return B,R
+Bn,Rn=load(11); Bp,Rp=load(12)
+B_all=np.concatenate([Bn,Bp[::-1]]); R_all=np.vstack([Rn,Rp[::-1]])
+Rnorm=np.median(R_all[np.abs(B_all)>5]); thr=0.5*Rnorm
+def ic(tr):
+    p=Idc>=0; n=Idc<=0
+    Ip,Rp_=Idc[p][np.argsort(Idc[p])],tr[p][np.argsort(Idc[p])]
+    In,Rn_=Idc[n][np.argsort(-Idc[n])],tr[n][np.argsort(-Idc[n])]
+    a=Ip[np.argmax(Rp_>thr)] if (Rp_>thr).any() else 0.0
+    b=In[np.argmax(Rn_>thr)] if (Rn_>thr).any() else 0.0
+    return (abs(a)+abs(b))/2
+Ic=np.array([ic(R_all[i]) for i in range(len(B_all))]); im=np.argmax(Ic)
+Bc=2.75e-3; xi=np.sqrt(2.07e-15/(2*np.pi*Bc))*1e9
+print(f'eff-zero B={B_all[im]:+.2f} mT, Ic_max={Ic[im]:.0f} nA; B_c_perp~2.5-3 mT; xi~{xi:.0f} nm (order-of-mag)')
+fig,ax=plt.subplots(1,2,figsize=(13,4.8))
+im0=ax[0].pcolormesh(B_all,Idc,np.clip(R_all,0,60).T,cmap='inferno',shading='nearest')
+ax[0].set(xlabel='B_perp (mT)',ylabel='I_dc (nA)',title='dV/dI(I_dc,B): supercurrent diamond'); fig.colorbar(im0,ax=ax[0],label='dV/dI (Ohm)')
+ax[1].plot(B_all,Ic,'o-'); ax[1].axvline(B_all[im],color='r',ls='--',lw=.8,label=f'eff-zero {B_all[im]:+.1f}mT')
+ax[1].set(xlabel='B_perp (mT)',ylabel='I_c (nA)',title='I_c(B): single dome, no oscillations'); ax[1].legend(); ax[1].grid(alpha=.3)
+plt.tight_layout(); plt.show()

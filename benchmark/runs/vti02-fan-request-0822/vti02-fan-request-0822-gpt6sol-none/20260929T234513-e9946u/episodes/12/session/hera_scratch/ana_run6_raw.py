@@ -1,0 +1,10 @@
+r6 = run(6)
+print(summarize_run(r6))
+fig = plot_raw(r6)
+plt.show()
+fig, ax = plt.subplots(1, 2, figsize=(10, 3))
+for a, name in zip(ax, ("k_2400_tg_curr", "k_2400_bg_curr")):
+    a.plot(r6.col("magnet_field"), r6.col(name) * 1e12, lw=0.8)
+    a.set(xlabel="B (T)", ylabel=f"{name} (pA)")
+fig.tight_layout()
+plt.show()

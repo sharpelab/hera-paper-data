@@ -1,0 +1,3 @@
+## HERA — Close-out (`session-closeout` + VTI variant): return-to-initial
+
+Investigation complete — the call (ABAB, strong) is in the ana notebook with the full evidence chain. Per the brief's ask: replay `state0` (bring-up acquisition + gates; excitation parks at the standing 1 V), heaters off via the labeled LS335 callable (ranges already 0 from the ladder's finally), gates to 0 (Si through `k_si`/`smart_voltage`, never raw), **field explicitly to 0 T** — the session-start field — as the `field=` argument (7 → 0 T, ~51 min blocking; the readback prints the handoff record). No mux this cooldown. Sample at ~30 K cooling passively toward base with heaters off; T recovery is bath-limited and independent of this cell.

@@ -1,0 +1,19 @@
+## HERA — Step 4: Landau fan, electron side, D = 0 (`landau-fan-vti`, investigation `tetralayer-stacking-fs-count`)
+
+**Why this fan:** one density per side cannot separate "ABAB pair + sum tone" from "ABCA singleton + harmonic comb" (ana, runs 6–7). At +3.2×10¹² the spot check shows 7.3 T and 29.4 T tones. The model's ABAB pair is 7.3 + 25.8 T and ABCA's single tone is 33.1 T. The fan reads each tone's n-dependence and the partition sum f₁ + f₂ = F_L across density in one object. The 7.3 T tone either follows its own Onsager curve (ABAB partner) or stays locked at ¼ of the dominant tone (a harmonic comb). **Side:** electron. Within the TG limit the hole side reaches only −1.27×10¹², which is the recipe's near-CNP exception regime where the ABAB pair is balanced and beat-like. The electron side is the only one that reaches the |n| ≳ 2–3×10¹² design window.
+
+**Design (the floored proposal).**
+- **Field window.** B_lo = 1.0 T is the `sdh_onset` value on run 6's 10 mT record. It is censored, because the light tone is still alive at the record edge; below 1 T, run 6 was sampled at 50 mT, which is too coarse for a 7 T tone. B_hi = 7.5 T sits just below the QH-scale jump at ~7.7 T in run 6 (ν ≈ 17 at n_hi). Rows above that add harmonics, not resolution: δF changes by only 0.04 T, and stopping at 7.5 T instead of 10 T saves ~25 min.
+- **B axis.** Uniform in 1/B with Δ(1/B) = 1/(3·F_L(n_hi)) = 0.0099 T⁻¹ gives **N_B = 89**. The Nyquist frequency is 50.8 T, which clears F_L = 33.6 T including a ×1.2 scale error and the region-B density offset (+0.43×10¹²).
+- **n axis.** **N_n = 38** over n = 1.60 → 3.25×10¹². Steps are Δn = 0.045×10¹², i.e. 2.2 points per Landau level at B_lo, so the ray-Nyquist floor holds. n_hi keeps 2 mV under the TG limit.
+- **Resolution.** The light tone's record gives δF = 1.15 T. The dominant tone's record (from its ~1.8 T onset) gives δF = 2.3 T, so it separates from F_L by more than 2δF wherever the ABAB heavy tone is predicted at 0.79–0.82·F_L, i.e. n ≳ 2.3×10¹². The partner gets ≥ 5 periods at n ≳ 2.8×10¹² and ~3–4 periods at 1.6–2.4×10¹². The low-n columns buy trajectory lever arm, not standalone reads.
+- **Dynamic range.** Sensitivity stays at 50 µV (5 kΩ full scale), as in runs 6–7. Their worst case was 590 Ω, and the low-n × 7.5 T corner is estimated at ≲ 1.5 kΩ, leaving ≥ 3× headroom.
+- **Settling.** τ changes from 0.3 s to **0.1 s** (24 dB) on sr0 and sr1, with a 1.0 s dwell. That is 10τ, the same settled fraction as the spot checks (3 s at τ = 0.3), at √3 wider noise bandwidth; runs 6–7 tone SNR was 50–130. This halves the grid cost against 3 s/pt. `close_out(restore=state0)` puts τ back to 0.3 s.
+- **Price.** 1.10 s/pt at a 1.0 s dwell (run 5) × 3382 points = 62 min. Traverse 1 → 7.5 T at 0.137 T/min (runs 6–7) = 47 min. Row overhead (3 s magnet settle + 2 s slow_delay + 1.3 s flyback) = 10 min. Positioning 0 → 1 T = 7 min. Session actuals run +5–10% over estimates.
+
+**Excluded coverage:** the hole side (limited by the gate cap), n < 1.6×10¹² (the ABAB/ABCA templates merge within the scale prior), and B > 7.5 T (QH regime). Guards: a leak trip at 1 nA, a T trip at 2 K, and a rail warning at 0.9 of full scale. Gates park at 0 on exit, and the field stays at 7.5 T for the next step (the LK mass split or a firming fan), so the magnet is never re-traversed.
+
+**Checkpoints:**
+- **First rows** (~10 min, B = 1.0 T): sr1 is not railed, the gate currents sit at their pA offsets, I_drain ≈ 9.9 nA, and the R(n) profile matches run 6 at 3.2×10¹² (≈ 10–60 Ω). Abort on any failure.
+- **Row ~51** (~1 h, B ≈ 2 T): Landau-level fan lines visible in the raw map's high-n columns. If they are absent while run 6 had them, abort; that saves ~75 min.
+- **Row ~77** (~1 h 35 m, B ≈ 4.1 T): a partial per-column FFT on [1.0, 4.1] T to check the dominant tone against F_L across n. Continue unless the channel rails.

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.0,
+  "B_max_T": 1.3,
+  "n_B": 261,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.583,
+  "flags": [],
+  "notes": "Trailing cells 47 (markdown) + 48 (code): a 1D low-field extension of run 6's electron spot, s.sweep(magnet.field, np.round(np.arange(0.0, 1.3001, 0.005), 4), delay=0) = 261 uniform 5 mT points at n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the run-5 CAL committed in the cell -> Vtg = +0.9836 V, Vbg = +1.1661 V, both inside the SAFETIES limits). No fan is issued and no further ladder densities are named anywhere (markdown, session_notes.md, hera_scratch/md_onset_pin.md); the stated next step is the fan itself, positioning down from 1.3 T. Lock-in/NPLC state inherited from cell 44's close_out(restore=state0) readback (sr0_sens 0.02, sr0_tau 0.3, sr1_tau 0.3, tg/bg_nplci 1.0); cell 48 sets sr1 sensitivity to 50 uV. Excitation drive_V 1.0 V from the same readback, bias_resistor 100e6 from meas_config (cell 23). Run time ~35 min from the cell-47 ETA line."
+}

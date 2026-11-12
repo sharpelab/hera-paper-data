@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 1.0, 1.5, 2.0, 2.040816, 2.083333, 2.12766, 2.173913, 2.222222, 2.272727, 2.325581, 2.380952, 2.439024, 2.5, 2.564103, 2.631579, 2.702703, 2.777778, 2.857143, 2.941176, 3.030303, 3.125, 3.225806, 3.333333, 3.448276, 3.571429, 3.703704, 3.846154, 4.0, 4.166667, 4.347826, 4.545455, 4.761905, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 111,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 7.5,
+  "flags": [],
+  "notes": "Cell 48 (trailing unexecuted cell) issues s.multimegasweep([magnet.field],[fan_B],[k_tg.volt,k_bg.volt],[fan_tg,fan_bg], slow_delay=3., fast_delay=3.); fan_B = np.r_[0.,1.,1.5,field_invB(2.,5.,31),np.arange(5.25,10.001,0.25)] (54 rows, evaluated in a scratch script), a stitched vector: three low-field context rows, 31 rows uniform in 1/B over 2-5 T, then 0.25 T steps to 10 T. Density axis fan_n = np.linspace(-1.2,3.2,111)*1e16 m^-2 = -1.2e12..+3.2e12 cm^-2 at D*=0, gate voltages built in-cell from the run-5 calibration constants _FCAL committed in the same cell (c_tg=2.7960593e-3, c_bg=2.1606965e-3 F/m^2, n_offset, D_offset=-0.013 V/nm) and cross-checked against GateCalibration. sr1 sensitivity set to 100 uV in the answer (inherited 2e-6 from cell 44 close_out restore readback); sr0 sensitivity 0.02 V and both tau 0.3 s inherited from that same cell-44 readback and only asserted, not set. NPLC 1/1 for both Keithley current reads asserted from cell-44 readback. Drive 1 V at 13.777 Hz on sr1 through meas_config['bias_resistor']=100e6. Markdown cell 47 states ~7h30m ETA."
+}

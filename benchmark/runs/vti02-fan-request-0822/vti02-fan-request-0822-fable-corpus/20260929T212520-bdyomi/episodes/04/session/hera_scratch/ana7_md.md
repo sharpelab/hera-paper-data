@@ -1,0 +1,5 @@
+## Run 7 — SdH spot check, hole side (`sdh-spot-check`): n = −1.2×10¹², D = 0, B 10→0.3 T (measured ride-down)
+
+**Read:** oscillatory but **multi-tone and mutually harmonic-confounded** — the investigation's stated near-CNP low-|n| exception regime (model: close, balanced ABAB hole pair 5.3 / 7.1 T, beat-like on short 1/B records; an ABCA hole singleton at this density carries m* ≈ 1 mₑ, LK-dead at this rig's T_e ≈ 8 K). Tracked tones 4.7 / 6.6 / 8.5 / 9.4 / 12.3 / 14.8 / 26.2 T with 2×/3×/4× cross-flags in both directions; F_L = 12.4 T; per-tone δF 0.8–1.5 T. No usable partition read, and the hole side is TG-limited to |n| ≤ 1.27×10¹² at D = 0 — it cannot reach the |n| ≳ 2–3×10¹² regime where the templates separate. Uninformative for the call, not contradicting it.
+
+**Step-3 verdict → Step 4 (fan design inputs):** the **electron side carries the fan**. Onset < 0.3 T (censored, run 6); fastest credible content ≈ 1.2·F_L(n_max) ≈ 40 T (scale prior) → inherit Δ(1/B) ≤ 0.010; τ = 0.3 s / 24 dB/oct settling floor; sensitivity anchor: run 6 max 522 Ω at n_max, run 7 max 576 Ω at the fan's low-n × high-B corner (|n| = 1.2×10¹², 10 T).

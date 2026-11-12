@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.017617880804576,
+  "B_max_T": 6.4689868523317715,
+  "n_B": 113,
+  "spacing": "invB",
+  "n_min_cm2": 2.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 11,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 2.25,
+  "flags": [],
+  "notes": "Cell 48 (trailing code, with markdown 47): s.multimegasweep([magnet.field],[field_invB(1.017617881, 6.468986852, 113)] slow, [k_tg.volt,k_bg.volt] fast from calc_gate_voltages(np.linspace(2.8,3.2,11), D=0, CAL_FAN run-5 calibration c_tg=.002796, c_bg=.002161, n_offset=-.0894, D_offset=-.013) -> TG 0.8690..0.9836 V, BG 1.0178..1.1661 V; slow_delay=1, fast_delay=0 passed explicitly (a further 3 s interruptible_sleep runs in the register_run_before hook at every point, not as a sweep delay). Cell 48 sets sr0 sensitivity 20 mV and sr1 50 uV; tau 0.3 s for both and NPLC=1 on both Keithleys are inherited and verified by the cell's asserts, last recorded by the cell-44 close_out(restore=state0) readback. Drive 1 V / 13.777 Hz through meas_config['bias_resistor']=100 MOhm. ETA 'approximately 2h15m' stated in markdown 47."
+}

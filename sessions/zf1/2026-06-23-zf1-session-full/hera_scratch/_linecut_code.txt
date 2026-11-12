@@ -1,0 +1,47 @@
+# === Step 1->2 — constant-D n-linecuts: locate the SC candidate arc (favorable sign D<0) ===
+# B=0 (magnet untouched, still pristine). One cell -> three runs (D = -0.4, -0.5, -0.6 V/nm).
+from sharpelab_nb.gates import stack_capacitance, calc_gate_voltages, calc_nD
+
+# --- silent-precondition reads (expected vs actual) ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T : {_T:.4f} K     (expect base, mK)")
+print(f"magnet B   : {_B:.3e} T   (expect ~0 — NOT energised; still pristine)")
+print(f"k_tg.volt  : {k_tg.volt()} V  ;  k_bg.volt : {k_bg.volt()} V   (expect 0)")
+assert _T < 0.1, "probe not at base — investigate"
+assert abs(_B) < 5e-3, "magnet not near zero — keep pristine for the candidate locate"
+
+# Session calibration from run-4 CNP fit: c_bg/c_tg = 1.189, CNP intercept b = +0.0895 V.
+c_tg = stack_capacitance([(23.6, 3.0)])
+c_bg = 1.189 * c_tg
+n_offset = -calc_nD(0.0, 0.0895, c_tg, c_bg)[0]
+D_offset = 0.0     # assumed (no +/-D-symmetry feature located yet)
+
+ns = np.linspace(-0.8, -0.1, 71)   # 1e12 cm^-2  (= -8e11 .. -1e11), hole side
+D_list = [-0.4, -0.5, -0.6]        # V/nm, favorable sign (holes -> WSe2)
+
+sr830_1.amplitude(0.1)             # 1 nA AC (locator, SC-safe)
+k_tg.nplci(1); k_bg.nplci(1)
+
+for D0 in D_list:
+    vtg, vbg = calc_gate_voltages(ns, D0*np.ones_like(ns), c_tg, c_bg, n_offset=n_offset, D_offset=D_offset)
+    vtg, vbg = sanitize_tg_bg(vtg, vbg, tg_lims, bg_lims)
+    print(f"D={D0:+.2f} V/nm: {len(vtg)}/{len(ns)} pts in validators  "
+          f"Vtg[{vtg.min():+.2f},{vtg.max():+.2f}] Vbg[{vbg.min():+.2f},{vbg.max():+.2f}]")
+
+    meas_config["comment"] = f"constant-D n-linecut D={D0:+.2f} V/nm, n[-8,-1]e11, B=0 (SC candidate locate)"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('cnp-and-dline-calibration')
+    s.add_comment(f'SC-locate constant-D n-linecut: D={D0:+.2f} V/nm; n[-8,-1]e11; c_bg/c_tg=1.189; B=0')
+
+    s.ramp(k_tg.volt, vtg[0]); s.ramp(k_bg.volt, vbg[0]); time.sleep(5)
+    s.fp(temperature)
+    s.fp(k_tg.volt).fp(k_tg.curr)
+    s.fp(k_bg.volt).fp(k_bg.curr)
+    for lia in (sr830_1, sr830_2, sr830_3):
+        s.fp(lia.X).fp(lia.P)
+    s.plot(k_bg.volt, k_tg.curr)
+    s.plot(k_bg.volt, sr830_3.X)
+    s.multisweep([k_tg.volt, k_bg.volt], [vtg, vbg], delay=1.2)
+
+# park gates
+s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)

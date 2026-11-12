@@ -1,0 +1,35 @@
+connected: http://localhost:8888 path=aaron/20260624-3-zf1/20260624_measure.ipynb cells=35
+  executing code @ 34 id=b7813731 kernel=59053853-0954-42c3-a402-cd4684b61e3a
+C:\Users\toploader\measurement_env\src\tools\nb_collab.py:706: UserWarning: We recommend installing `jupyter_kernel_client` for a better execution behavior.
+  result = client.execute_cell(idx, kc, timeout=timeout)
+C:\Users\toploader\measurement_env\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+status: error
+execution_count: 17
+--- output ---
+T: 0.03413 B: -2.0975e-05 gates: 0.0 0.0 dc205_1: 0.0
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+Cell In[17], line 17
+     15 c_tg = stack_capacitance([(23.6,3)]); c_bg = c_tg*1.1833
+     16 n_off = -calc_nD(0.1634,0.0,c_tg,c_bg)[0]
+---> 17 Vtg_op, Vbg_op = [float(x) for x in calc_gate_voltages([-0.55],[-0.6],c_tg,c_bg,n_offset=n_off)]
+     18 print("operating point: Vtg=%.3f Vbg=%.3f" % (Vtg_op, Vbg_op))
+     20 # AC excitation 1 nA (0.1 V / 100 MOhm); DC bias via dc205_1 / 100 MOhm: +/-15 V -> +/-150 nA
+
+File ~\measurement_env\src\sharpelab_nb\gates.py:82, in calc_gate_voltages(n, D, c_tg, c_bg, n_offset, D_offset)
+     61 def calc_gate_voltages(
+     62     n: Any,
+     63     D: Any,
+   (...)     67     D_offset: float = 0.0,
+     68 ) -> tuple[Any, Any]:
+     69     """Convert (n, D) to gate voltages — inverse of :func:`calc_nD`.
+     70 
+     71     Args:
+   (...)     80         (Vtg, Vbg) gate voltages (V).
+     81     """
+---> 82     n_si = (n - n_offset) * 1e16  # m^-2
+     83     D_si = (D - D_offset) * 1e9  # V/m
+     84     Vtg = (0.5 * _E * n_si + _EPS0 * D_si) / c_tg
+
+TypeError: unsupported operand type(s) for -: 'list' and 'float'

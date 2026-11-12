@@ -1,0 +1,8 @@
+## HERA — Heater settle calibration: DOWN ladder (6→0 V) + asymmetry test
+
+Up-ladder result (settle = time for |dT/dt| < 2 mK/min, Probe1):
+0→1 V **~1.9 min** · 1→2 V **~6.8 min** · 2→3 V **~6.6 min** · 3→4 V **~7.8 min** · 4→5 V **>7.2 min** · 5→6 V **>8.3 min** (top two outran the 8.3-min window — slow tail). Settle grows strongly with heater level.
+
+**Reverse ladder** to test up/down asymmetry: step the heater **down** 6→5, 5→4, …, 1→0 V, recording T(t) per step until it settles. Two changes from the up-ladder: **(1) longer window — 12.5 min/step** (150 pts @ 5 s) so the slow tails are actually captured this time (the up-ladder's high-V steps were truncated); (2) start from the held 6 V. **Note:** 6 V was still settling when the up-ladder ended (T ~388 mK climbing toward the card's ~423 mK), so the 6→5 step starts from a not-fully-equilibrated 6 V — fine for measuring the *cooling* settle dynamics, just flagged. The down-steps are **cooling** moves (fridge cooling power does the work) — they may settle faster or slower than heating; that difference is the asymmetry.
+
+**Cost ~75 min** (6 × 12.5 min) — longer than the up-ladder because of the slow-tail discovery; interrupt anytime, partial traces are readable. Ends with heater parked at 0 V (cooling to base). I'll extract each down-settle with the same dT/dt criterion and put up-vs-down side by side at each voltage level. The 1–4 V steps compare cleanly both ways; at 5–6 V the up-values are lower bounds (window-limited), so the down-values there are actual-vs-lower-bound.

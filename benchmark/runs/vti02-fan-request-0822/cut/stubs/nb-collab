@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""nb-collab stand-in for replay episodes: the measure notebook takes appends
+and never executes.
+
+An `append --execute` on a measure notebook lands the cell through the real
+tool without the execute; `execute-cell`, `exec-all` and `wait` on a measure
+notebook do nothing. Each of those is the handoff that ends the episode, so it
+writes <episode>/episode-stop.json (the marker the PreToolUse hook reads). Every
+landed measure append is logged to <episode>/.claude/measure_appends.jsonl for
+the hera-watch stub, ahead of JupyterLab's save to disk. Every other invocation
+goes to the real tool unchanged.
+"""
+
+import json
+import os
+import re
+import subprocess
+import sys
+from datetime import datetime, timezone
+
+MEASURE_SUFFIX = "_measure.ipynb"
+EXECUTE_SUBCOMMANDS = ("execute-cell", "exec-all", "wait")
+# nb-collab options that take a value (src/tools/nb_collab.py), so the marker's
+# cell_ids skips their arguments.
+VALUE_OPTIONS = {
+    "--markdown", "--code", "--markdown-file", "--code-file", "--summary", "--eta", "--server-url", "--token",
+    "--settle", "--timeout", "--poll", "--source", "--source-file", "--cell-id", "--confirm-timeout",
+}
+REAL = ["uv", "run", "--no-sync", "--project", os.path.join(os.path.expanduser("~"), "measurement_env"), "nb-collab"]
+APPENDED_ID = re.compile(r"\bid=([0-9a-f]{8})\b")
+APPENDED_CELL = re.compile(r"\bappended (\w+) @ \d+ id=([0-9a-f]{8})\b")
+
+
+def update_marker(path: str, **fields) -> None:
+    """The first handoff owns the marker; later ones only add what landed."""
+    record = {}
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            record = json.load(fh)
+        fields = {k: v for k, v in fields.items() if k not in record}
+    record.update(fields)
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(record, fh, indent=2)
+
+
+def positional_ids(args: list) -> list:
+    ids, skip = [], False
+    for t in args:
+        if skip:
+            skip = False
+        elif t.startswith("-"):
+            skip = t in VALUE_OPTIONS
+        elif not t.endswith(".ipynb"):
+            ids.append(t)
+    return ids
+
+
+def main() -> int:
+    args = sys.argv[1:]
+    sub = args[0] if args else ""
+    on_measure = any(a.endswith(MEASURE_SUFFIX) for a in args) and not ({"--help", "-h"} & set(args))
+    handoff = on_measure and (sub in EXECUTE_SUBCOMMANDS or (sub == "append" and "--execute" in args))
+    if not (on_measure and (handoff or sub == "append")):
+        os.execvp(REAL[0], REAL + args)
+    marker = os.path.join(os.environ.get("HERA_EPISODE_DIR") or os.getcwd(), "episode-stop.json")
+    invocation = " ".join(["nb-collab", *args])
+    if handoff:
+        update_marker(marker, timestamp=datetime.now(timezone.utc).isoformat(), tool="nb-collab",
+                      command=invocation, invocation=invocation,
+                      cell_ids=positional_ids(args[1:]) if sub != "append" else [], tool_use_id=None)
+    if sub != "append":
+        print("episode complete")
+        return 0
+    kept, skip = [], False
+    for a in args:
+        if skip:
+            skip = False
+        elif a == "--execute":
+            continue
+        elif a == "--timeout" and "--execute" in args:
+            skip = True
+        else:
+            kept.append(a)
+    p = subprocess.run(REAL + kept, capture_output=True, text=True)
+    sys.stdout.write(p.stdout)
+    sys.stderr.write(p.stderr)
+    root = os.path.dirname(marker)
+    if p.returncode == 0 and os.path.isdir(os.path.join(root, ".claude")):
+        with open(os.path.join(root, ".claude", "measure_appends.jsonl"), "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"timestamp": datetime.now(timezone.utc).isoformat(), "cells": [
+                {"kind": k, "id": i} for k, i in APPENDED_CELL.findall(p.stdout)]}) + "\n")
+    if p.returncode == 0 and os.path.exists(marker):
+        update_marker(marker, append_landed={"invocation": invocation, "cell_ids": APPENDED_ID.findall(p.stdout)})
+    return p.returncode
+
+
+if __name__ == "__main__":
+    sys.exit(main())

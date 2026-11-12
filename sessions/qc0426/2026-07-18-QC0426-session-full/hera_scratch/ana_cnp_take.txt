@@ -1,0 +1,9 @@
+## Step 1 take — calibration contract (run 4)
+
+- **Ratio (data-calibrated):** c_bg/c_tg = **1.2852** — sr1 −1.2817 / sr2 −1.2887, 0.5% apart → one calibration for the device (cross-channel check passed; disagreement < per-channel scatter). Geometry sanity: prior ratio 15.6/12 = 1.300, fitted −1.1% — agreement, Verify passed.
+- **Scale (geometry prior):** c_tg anchored at the 15.6 nm hBN stack prior (1.703e-3 F/m²), c_bg = 2.188e-3 F/m² from the ratio. **Absolute n/D carry the geometry-prior uncertainty until the SdH/QH lever-arm upgrade** (two-tier provenance, recipe step 5).
+- **Offsets:** n_offset = −0.055×10¹² cm⁻² (intercept +0.051 V); D_offset = 0 — stated assumption, no D-symmetric feature examined yet. Fit quality: rms 20 mV ≈ 0.02×10¹² cm⁻² in n.
+- **CNP-vs-D magnitude read (domain-aware, not a stacking call):** ridge peak R rises ~10× moving away from the D=0 crossing on both sides — sr2 from ~0.5 kΩ to ~7 kΩ; sr1 from ~1.3 kΩ into its 10.9 kΩ sensitivity soft-clip ceiling (railed rows; position still fit-usable, magnitude truncated). A D-opened gap at CNP is **consistent-with ABC (or mixed ABA/ABC)** — per the investigation this feeds the per-channel read only; the FS count decides. The cap at ~10 kΩ (≪ MΩ) is itself consistent-with domain shunting — not evidence against ABC.
+- **D = 0 line:** realized |n| ≤ ~6.3×10¹² cm⁻² (TG-limited). Operating points for Step 3: n = ±6×10¹² cm⁻² at D = 0 → (V_tg, V_bg) = (+2.849, +2.216) / (−2.797, −2.176). **F_L = 62.0 T** at |n| = 6×10¹² cm⁻²; Nyquist Δ(1/B) ≤ 8.06e-3 /T.
+
+**Next:** Step 3 — SdH spot checks at n = ±6×10¹² cm⁻², D = 0 (`sdh-spot-check`, uniform-B sampling for this blocking magnet), electron side first.

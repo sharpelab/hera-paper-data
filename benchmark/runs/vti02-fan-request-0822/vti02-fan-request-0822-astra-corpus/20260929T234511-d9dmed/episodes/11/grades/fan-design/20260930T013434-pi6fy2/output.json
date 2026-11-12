@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.5,
+  "n_B": 268,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Appended cells 47 (markdown) and 48 (code, unexecuted): a single 1D field sweep s.sweep(magnet.field, B_vec, delay=0) with B_vec = 1/np.linspace(1/.3, 1/1.5, 268) -> 0.3 to 1.5 T uniform in 1/B, 268 points; gates parked once at calc_gate_voltages(3.2, 0, **CAL) with CAL=dict(c_tg=.002796, c_bg=.002161, n_offset=-.0894, D_offset=-.013) committed in the cell, i.e. n = +3.2e12 cm^-2, D_A = 0 V/nm (V_tg = 0.9836 V, V_bg = 1.1661 V). No fan is issued and no further densities are named anywhere (no hera_scratch/plan.md; md_onset.md matches cell 47), so this is an onset preflight, counted as the one landed sweep. sr1 sensitivity set to 50 uV in cell 48; sr0 sensitivity 0.02 V and both taus 0.3 s inherited from the cell-44 close_out(restore=state0) readback, which also gives tg/bg nplci = 1.0; drive 1 V at 13.777 Hz asserted in cell 48, 100 MOhm bias resistor from device_card.md. Stated ETA ~30 min in the cell-47 markdown."
+}

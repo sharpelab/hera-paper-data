@@ -1,0 +1,26 @@
+# === ABORT T-ladder: park heater, diagnose stale thermometry ===
+import os, time as _t
+
+heater.volt(0)                      # park heater -> cool down
+print("heater ->", heater.volt(), "V ; heater.curr", heater.curr(), "A")
+
+# 1) is temperature() frozen? sample over ~10 s
+vals = []
+for _ in range(5):
+    vals.append(round(float(temperature()), 5)); _t.sleep(2)
+print("temperature() x5 over 10 s:", vals, "->", "FROZEN" if len(set(vals)) == 1 else "moving")
+
+# 2) probe-MC logfile freshness (is the worker still writing?)
+lf = r"C:\Users\toploader\temperature_logs\Probe2_MixingCh_low.txt"
+try:
+    age = _t.time() - os.path.getmtime(lf)
+    print(f"probe-MC logfile age: {age:.0f} s (mtime {_t.ctime(os.path.getmtime(lf))})")
+    with open(lf) as f:
+        tail = f.readlines()[-2:]
+    print("last lines:", [l.strip() for l in tail])
+except Exception as e:
+    print("logfile read error:", e)
+
+# 3) are the other sensors live (or all frozen)?
+print("fridge_temperature:", fridge_temperature(), "K ; mag_temperature:", mag_temperature(), "K")
+print("--> dead worker if logfile age is large & value frozen; wrong-sensor/format if file is fresh but pinned.")

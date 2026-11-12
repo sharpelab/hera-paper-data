@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 111,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.75,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec],slow_delay=3.0,fast_delay=3.0); B_vec = np.r_[0., np.round(np.linspace(1.,6.,51),3)] = a B=0 baseline point stitched onto a uniform 0.1 T leg (52 rows). Densities are the cell's own n_vec = np.linspace(-1.2,3.2,111)*1e16 m^-2 at nominal D=0, converted to gate voltages with the run-5 calibration constants committed in the cell (c_tg=2.79606e-3, c_bg=2.16070e-3, n0=-0.0894e16 m^-2, D0=-0.013e9 V/m); endpoints V_tg -0.277..+0.984 V, V_bg -0.465..+1.166 V, inside the validators. Cell 48 sets sr1 sensitivity 100 uV and sr0 0.02 V; tau 0.3 s on both and nplci 1/1 are inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells. Drive 1 V at 13.777 Hz through the 100 Mohm bias resistor (meas_config, asserted in cell 48). Wall clock 6h45m from the cell-47 markdown ETA line.\n"
+}

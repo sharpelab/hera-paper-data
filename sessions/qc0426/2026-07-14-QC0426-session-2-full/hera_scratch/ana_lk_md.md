@@ -1,0 +1,3 @@
+## Runs 10–17 — LK-mass ladder (`temperature-dependence` Flavor B; operator-unblocked, see session notes)
+
+8 rungs riding the cooldown, T_measured = 26.6 → 1.27 K (hover acceptance — the untuned sample-loop PID overshoots ~+1.4 K and relaxes bath-limited, so rungs are quasi-stationary hovers at *measured* T, fp'd per point; rung labels nominal). Identical acquisition every rung: electron point n = +6e12, D = 0, B ∈ [4, 8] T uniform 9.5 mT, alternating direction, I_bias 20 nA, fixed sensitivities. Amplitudes = per-rung FFT peak heights in the f_s / f_B / f_top bands, leakage-floor corrected; LK model A = A₀·X/sinh X, X = 14.693·m*·T_eff/B_eff, B_eff = 5.33 T (harmonic mean), T_eff = √(T² + T_e0²).

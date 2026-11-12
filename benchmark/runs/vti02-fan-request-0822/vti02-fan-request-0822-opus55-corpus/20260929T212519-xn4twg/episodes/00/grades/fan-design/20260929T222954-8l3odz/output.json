@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.7, 0.715, 0.7306, 0.747, 0.764, 0.7819, 0.8007, 0.8203, 0.841, 0.8627, 0.8855, 0.9097, 0.9351, 0.962, 0.9906, 1.0208, 1.053, 1.0873, 1.1239, 1.163, 1.2049, 1.25, 1.2658, 1.2821, 1.2987, 1.3158, 1.3333, 1.3514, 1.3699, 1.3889, 1.4085, 1.4286, 1.4493, 1.4706, 1.4925, 1.5152, 1.5385, 1.5625, 1.5873, 1.6129, 1.6393, 1.6667, 1.6949, 1.7241, 1.7544, 1.7857, 1.8182, 1.8519, 1.8868, 1.9231, 1.9608, 2.0, 2.0408, 2.0833, 2.1277, 2.1739, 2.2222, 2.2727, 2.3256, 2.381, 2.439, 2.5, 2.5641, 2.6316, 2.7027, 2.7778, 2.8571, 2.9412, 3.0303, 3.125, 3.2258, 3.3333, 3.4483, 3.5714, 3.7037, 3.8462, 4.0, 4.1667, 4.3478, 4.5455, 4.7619, 5.0, 5.2632, 5.5556, 5.8824, 6.25, 6.6667, 7.1429, 7.6923, 8.3333, 9.0909, 10.0],
+  "n_min_cm2": 2.0e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 25,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 2.4,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.25,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=2.4). B_vec is a two-segment uniform-1/B stitch -- np.hstack of linspace(1/0.70,1/1.25,22)[:-1] and linspace(1/1.25,1/10.0,71), inverted and rounded to 4 dp -- giving 92 ascending rows from 0.70 to 10.0 T (d(1/B)=0.030 below 1.25 T, 0.010 above), hence reported as B_values rather than a uniform quadruple. Density fast axis: np.linspace(3.2, 2.0, 25) in 1e12 cm^-2 at D=0 via calc_gate_voltages with the session's run-5 calibration committed in the same cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), yielding Vtg +0.984 to +0.640 V and Vbg +1.166 to +0.721 V, inside the cell-18 validators. Recorded lock-in channels are sr0.X/P and sr1.X/P; sr1 sensitivity 50 uV is set in the appended cell, while sr1 tau 0.3 s and sr0 sens 0.02 V / tau 0.3 s are inherited from the close_out(restore=state0) readback in cell 44, as is nplci=1 on both Keithleys (re-asserted in cell 48's preconditions). Drive is sr1 at 1.0 V through the device card's 100 MOhm bias resistor; the stated ETA in the cell-47 markdown is about 3 h 15 m."
+}

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# nb — wrapper around the measurement-env's `nb` tool (sharpelab-nb's
+# notebook reader: summary / sections / cells / grep). Exec'd via uv so the
+# project env is loaded without the caller needing to know the project path.
+exec uv run --no-sync --project "${HOME}/measurement_env" nb "$@"

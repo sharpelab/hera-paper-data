@@ -1,0 +1,144 @@
+{
+  "grader": "fan-design",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "tier": "probe",
+  "flags": [],
+  "notes": "Trailing cells 47 (markdown) + 48 (code): a 1D field sweep s.sweep(magnet.field, field_invB(1.5, 0.4, 222), delay=0) at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages(3.2, 0., CAL=run-5 constants committed in the cell) -> (V_tg, V_bg) = (+0.984, +1.166) V; no fan is issued and no further densities are named (no hera_scratch/plan.md), so form is probe_only. Lock-in/NPLC values inherited from the cell-44 close_out(restore=state0) readback (sr0 20 mV / tau 0.3 s; sr1 2 uV before the cell sets 5e-6; tg/bg nplci 1.0); drive 1.0 V through the device card's 100 MOhm bias resistor. Stated budget is the markdown's ~35 min.",
+  "versions": {
+    "scorer": "field resolution: wiki Fan-design scorer rev 108 (2026-09-19); forms + cost model 2026-09-22; vti-02 box 2026-09-26; NPLC in the cost 2026-09-26"
+  },
+  "status": "graded",
+  "ok": null,
+  "device": "vti-02",
+  "case": "vti02-fan-request-0822",
+  "params": {
+    "g": 4,
+    "m": 3.0,
+    "m_recipe_floor": 2.0,
+    "b_cut_T": 2.0,
+    "b_cut_note": "electron onset over 76 uncensored columns, 08-21/22/24/25 runs 5-8, 0.8-2.9e12: median 1.53 T, p90 2.0 T, flat in n (1.26 + 0.16 |n| T, rms 0.32 T); 2.0 T is the p90. 08-21 run 5 alone read 2.37 T (5-sigma floor of a 6.7-ohm-noise record; 08-22 run 6 at the same density with 3.2-ohm noise: 1.36 / 1.91 T)",
+    "n_window_cm2": [
+      1300000000000.0,
+      3400000000000.0
+    ],
+    "B_hi_T": 8.0,
+    "n_scale": 0.886,
+    "n_scale_note": "the 08-22 session's own pin for its run-5 calibration frame, the frame the cut state commits to: 0.886 +- 0.03 (session_notes.md:25; e-side Luttinger, h-side integer ladder, fan QH minima)",
+    "window_note": "provisional, actual frame: floor = the density whose F_L holds 5 periods from the 2.0 T onset to 8 T (1.3e12; 0.9e12 on the median onset); top = the D = 0 line's gate-safe reach, V_tg <= 1.0 V (3.4e12 frame, 3.1e12 actual); 8 T from a 2.0 T onset gives dF 2.7 T against tones 6.2 T apart that run 5's FFT resolves at dF 3.1 and merges at dF 5 -- 10 T buys 8 % more 1/B record for 15 min of ramp each way",
+    "side_note": "the hole side's gate-safe reach at D = 0 is |n| ~1.1e12 (TG limit -0.3 V, device_card.md:52): F_L ~11 T holds 3-4 periods above a 0.7 T onset with a 0.6-0.9 F_L ladder tone (08-22 run 7); the electron side holds the ABAB tone set at every density in reach (08-21 run 5, 08-22 run 6)",
+    "cost_model": {
+      "ramp_T_per_min": 0.137,
+      "field_settle_s": 3.0,
+      "point_overhead_s": 0.2,
+      "gate_read_s_per_plc": 0.045,
+      "flyback_s": 4.0
+    }
+  },
+  "design": {
+    "spacing": "invB",
+    "field_mode": null,
+    "D": 0.0,
+    "slow_axis": "B",
+    "slow_delay_s": 0.0,
+    "fast_delay_s": 0.0,
+    "lockins": [
+      {
+        "name": "sr0",
+        "sensitivity_V": 0.02,
+        "sensitivity_set_in_answer": false,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      },
+      {
+        "name": "sr1",
+        "sensitivity_V": 5e-06,
+        "sensitivity_set_in_answer": true,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      }
+    ],
+    "gate_current_reads": [
+      {
+        "name": "k_2400_tg_curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      },
+      {
+        "name": "k_2400_bg_curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      }
+    ],
+    "excitation_V": 1.0,
+    "bias_resistor_ohm": 100000000.0,
+    "n_fans": 1,
+    "stated_wall_clock_h": 0.583
+  },
+  "scores": {
+    "field_reach": {
+      "B_max_ratio": 0.1875
+    },
+    "sampling": {
+      "columns": [
+        {
+          "n_cm2": 2835200000000.0,
+          "F_L_T": 29.313612629248002,
+          "rows_per_period_min": null,
+          "resolved_from_T": null,
+          "periods_in_window": 0.0
+        }
+      ]
+    },
+    "unscored": {
+      "side_choice": "probe only: no ladder declared, so the design has no density range",
+      "field_resolution": "probe only: no ladder declared, so the design has no density range",
+      "density_range": "probe only: no ladder declared, so the design has no density range"
+    },
+    "derived": {
+      "n_B": 222,
+      "n_columns": 1,
+      "n_columns_landed": 1,
+      "n_points": 222,
+      "B_range_T": [
+        0.4,
+        1.5
+      ],
+      "dB_T": [
+        0.001331719128329245,
+        0.018435754189944253
+      ],
+      "n_range_cm2": [
+        3200000000000.0,
+        3200000000000.0
+      ],
+      "dn_cm2": null,
+      "n_range_actual_cm2": [
+        2835200000000.0,
+        2835200000000.0
+      ],
+      "fast_delay_over_tau": {
+        "sr0": 0.0,
+        "sr1": 0.0
+      },
+      "I_bias_A": 1e-08,
+      "dwell_h": 0.0,
+      "stated_over_dwell": null,
+      "cost": {
+        "traverse_h": 0.13381995133819952,
+        "settle_h": 0.185,
+        "rows_h": 0.012333333333333335,
+        "estimated_wall_h": 0.3311532846715329,
+        "stated_wall_clock_h": 0.583,
+        "stated_over_estimated": 1.7605140186915884,
+        "model": {
+          "ramp_T_per_min": 0.137,
+          "field_settle_s": 3.0,
+          "point_overhead_s": 0.2,
+          "gate_read_s_per_plc": 0.045,
+          "flyback_s": 4.0
+        }
+      }
+    }
+  }
+}

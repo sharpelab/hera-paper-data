@@ -1,0 +1,3 @@
+**Read:** the dome-collapse gives a clean, linear B_c2(T) over 113–236 mK: **dB_c2/dT = −16 mT/K**, extrapolating to **B_c2(0) = 3.7 mT** and zero-field Tc = 231 mK (consistent with the measured 235–236). The GL coherence length **ξ_GL(0) = √(Φ₀/2πB_c2(0)) = 0.30 μm (298 nm)**.
+
+Caveats: (1) GL near-Tc linear extrapolation — the implied B_c2(0)=3.7 mT sits above the *direct* base field-kill B_c⊥≈1.8–2.2 mT (Step 0), i.e. mild low-T saturation, so ξ from the direct base field is ~0.43 μm; the two bracket **ξ ~ 0.3–0.4 μm**. (2) 5 points, 50ormal Tc criterion. Both consistent with the prior order-of-magnitude ξ~0.4 μm and confirm a **fragile 2D SC** (sub-μm ξ, few-mT critical fields).

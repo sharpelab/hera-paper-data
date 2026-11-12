@@ -1,0 +1,7 @@
+## HERA — Step 1 "map it tight": (n, D) zoom on the SC candidate
+
+The D=−0.6 linecut (run 7) showed a sharp isolated R_xx dip to **~5 Ω at n≈−4.8×10¹¹**, absent at D=−0.4/−0.5 — a D-tuned candidate at the favorable sign, in the expected band. Per `sc-characterization.md` ("then map it tight … n-step fine enough to resolve the ~5×10¹⁰ arc"), this is a rasterized **(n, D) polygon** bracketing the dip: **n ∈ [−6.0, −3.5]×10¹¹, D ∈ [−0.68, −0.45] V/nm**, 31 (n, fast) × 14 (D, slow), n-step ~0.08×10¹¹, pushing |D| to the gate edge (~0.68; ~8% of the polygon's −0.68 corner is gate-clipped — instrument-limited, expected). ~9 min.
+
+**Two changes from the locator cuts:** (1) **sr830_3 sensitivity raised to 20 µV** (full-scale ~200 Ω) so we can resolve whether R actually →0 at the dip rather than sitting at the 1 nA floor; (2) `nD-map` rasterized so we get the dome shape in 2D. Drive kept at 1 nA (SC-safe). **Magnet untouched** — still pristine; effective-zero-field optimization comes only after the base-T zero-field picture.
+
+**Goal:** confirm the dip is a localized 2D dome (not a 1D fluke), pin the (n, D) optimum, and see how low R goes. That optimum is where I'll point **bias spectroscopy (dV/dI vs I_dc)** next — the decisive SC test (critical current). Run when ready; watch gate currents pA, and the sr3 dip on the live plot. I'll first-rows-check off disk.

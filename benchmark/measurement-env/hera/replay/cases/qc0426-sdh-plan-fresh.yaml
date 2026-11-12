@@ -1,0 +1,13 @@
+# The qc0426-sdh-plan frontier, fresh start, corpus arm: a new instance picks the
+# session up from the brief, with the session dir as the archived agent left it.
+case: qc0426-sdh-plan-fresh
+source: ../../docs/notes/2026-06-19-QC0426-session-3
+cut:
+  transcript: 226a2e70-8449-42b4-800c-7fee0e907e29.jsonl
+  at: 30d5b569-7e40-41d4-9ad2-4eb2bc498291
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 120}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+fresh:
+  brief: briefs/qc0426-sdh-plan/corpus.md
+grader: sdh-field-resolution

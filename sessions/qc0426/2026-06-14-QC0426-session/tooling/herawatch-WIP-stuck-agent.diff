@@ -1,0 +1,402 @@
+diff --git a/src/hera/watch.py b/src/hera/watch.py
+index 07e7f65..f28067b 100644
+--- a/src/hera/watch.py
++++ b/src/hera/watch.py
+@@ -144,6 +144,59 @@ def build_model(
+     )
+ 
+ 
++def run_dir_ready(path: str | Path) -> bool:
++    """True once ``path`` is a run dir sweep has populated enough to model:
++    the directory exists and holds a ``metadata.json``. Sweep creates the
++    dir and writes metadata before the first row lands, so this is the
++    earliest point ``build_model`` can succeed."""
++    path = Path(path).expanduser()
++    return path.is_dir() and (path / "metadata.json").exists()
++
++
++def resolve_next_run(data_dir: str | Path) -> Path:
++    """Predict the next integer file_id dir sweep will allocate under
++    ``data_dir``. Sweep names run dirs by ascending integer (``data/117``,
++    ``118``, …); the next run is ``max(existing) + 1`` (or ``0`` if none).
++    Lets a watch be armed for a cell *before* it runs, without coupling to
++    sweep's id allocator — the dir is then waited for via ``wait_for_run``."""
++    data_dir = Path(data_dir).expanduser()
++    highest = -1
++    if data_dir.is_dir():
++        for child in data_dir.iterdir():
++            if child.is_dir() and child.name.isdigit():
++                highest = max(highest, int(child.name))
++    return data_dir / str(highest + 1)
++
++
++def wait_for_run(
++    path: str | Path,
++    *,
++    timeout: float = 1800.0,
++    poll: float = 5.0,
++    now_fn=time.time,
++    sleep_fn=time.sleep,
++    emit=None,
++) -> bool:
++    """Block until ``path`` becomes a modellable run dir (see
++    ``run_dir_ready``), or ``timeout`` seconds elapse. Returns True if the
++    dir appeared, False on timeout. ``timeout <= 0`` waits indefinitely.
++
++    This is the "arm before the operator starts the cell" gate: poll for the
++    data dir to appear instead of requiring it to exist up front."""
++    path = Path(path).expanduser()
++    if run_dir_ready(path):
++        return True
++    if emit is not None:
++        emit(f"# waiting for run dir {path} to appear …")
++    deadline = now_fn() + timeout if timeout > 0 else None
++    while True:
++        sleep_fn(poll)
++        if run_dir_ready(path):
++            return True
++        if deadline is not None and now_fn() >= deadline:
++            return False
++
++
+ def _str_list(v: Any) -> list[str]:
+     if isinstance(v, list):
+         return [x for x in v if isinstance(x, str)]
+@@ -475,18 +528,22 @@ def digest_once(model: RunModel, raw: bool = False, every: int = 25,
+ 
+ 
+ def watch(model: RunModel, *, raw: bool = False, every: int = 25,
+-          poll: float = 5.0, timeout: float = 570.0, once: bool = False,
++          poll: float = 5.0, timeout: float | None = 570.0, once: bool = False,
+           emit=print, now_fn=time.time, sleep_fn=time.sleep) -> int:
+     """Watch loop. Emits header, then per-landed-row lines until the run
+     completes, the timeout elapses, or (``once``) a single pass finishes.
+ 
++    ``timeout`` is a deadline in seconds; ``None`` (follow mode) watches
++    until completion with no deadline — for backgrounded multi-hour sweeps
++    that must not self-exit and force a re-arm.
++
+     Returns an exit code: 0 normal completion / once, 2 timeout.
+     """
+     for ln in header_lines(model, raw=raw):
+         emit(ln)
+ 
+     ncols = len(model.cols)
+-    deadline = now_fn() + timeout
++    deadline = (now_fn() + timeout) if timeout is not None else None
+ 
+     if once:
+         for ln in digest_once(model, raw=raw, every=every, now=now_fn()):
+@@ -525,7 +582,7 @@ def watch(model: RunModel, *, raw: bool = False, every: int = 25,
+         if complete:
+             emit(_footer(model))
+             return 0
+-        if now >= deadline:
++        if deadline is not None and now >= deadline:
+             emit(f"# timeout after {_fmt_dt(timeout)} — {rows}/{model.expected_rows} rows")
+             return 2
+         sleep_fn(poll)
+diff --git a/src/tools/hera_watch.py b/src/tools/hera_watch.py
+index b7c9cfb..318aa30 100644
+--- a/src/tools/hera_watch.py
++++ b/src/tools/hera_watch.py
+@@ -10,6 +10,14 @@ a completed run dir too (digest-then-exit), doubling as a post-run summary.
+     hera-watch data/3 --once          # digest current state, exit
+     hera-watch data/5 --channels sr1,sr2
+     hera-watch data/5 --raw           # skip gain division (escape hatch)
++    hera-watch data/7 --follow        # no deadline — backgrounded multi-hour run
++    hera-watch --next data            # arm the next run before the cell runs
++
++Long-run monitoring: when stdout is *not* a TTY (the agent backgrounds the
++watch), the deadline auto-lifts so the watch follows the sweep to completion
++without forcing a re-arm. On an interactive terminal the 570s default stays
++(below the harness's ~600s foreground cap). ``--follow`` / ``--timeout`` are
++explicit overrides either way.
+ """
+ from __future__ import annotations
+ 
+@@ -18,7 +26,7 @@ import os
+ import sys
+ from pathlib import Path
+ 
+-from hera.watch import build_model, watch
++from hera.watch import build_model, resolve_next_run, wait_for_run, watch
+ 
+ 
+ def _install_sigpipe_handler() -> None:
+@@ -41,13 +49,26 @@ def main(argv: list[str] | None = None) -> int:
+         description="Live run-dir digest: one line per landed sweep row "
+         "(gain-divided Rxx/I stats + progress/ETA) for an agent to tail.",
+     )
+-    p.add_argument("run_dir", help="sweep run directory (contains metadata.json + data.tsv)")
++    p.add_argument("run_dir", nargs="?",
++                   help="sweep run directory (contains metadata.json + data.tsv). "
++                   "May not exist yet — the watch waits for it to appear "
++                   "(see --wait-start). With --next, a data/ dir instead.")
++    p.add_argument("--next", action="store_true",
++                   help="treat run_dir as a data/ dir and watch the NEXT integer "
++                   "file_id sweep will allocate (arm before the cell runs)")
+     p.add_argument("--once", action="store_true",
+                    help="digest current state then exit (no watch loop)")
+     p.add_argument("--poll", type=float, default=5.0,
+                    help="poll interval in seconds while watching (default 5)")
+-    p.add_argument("--timeout", type=float, default=570.0,
+-                   help="stop watching after this many seconds (default 570, sub-CC-Bash-cap)")
++    p.add_argument("--timeout", type=float, default=None,
++                   help="stop watching after this many seconds. Default: 570 on an "
++                   "interactive TTY (sub-CC-Bash-cap), no deadline when backgrounded.")
++    p.add_argument("--follow", action="store_true",
++                   help="watch to completion with no deadline (multi-hour runs); "
++                   "overrides --timeout")
++    p.add_argument("--wait-start", type=float, default=1800.0,
++                   help="if run_dir doesn't exist yet, wait up to this many seconds "
++                   "for it to appear (default 1800; <=0 waits indefinitely)")
+     p.add_argument("--channels", default=None,
+                    help="comma-separated lock-in channels to include (e.g. sr1,sr2). Default: all.")
+     p.add_argument("--raw", action="store_true",
+@@ -58,7 +79,30 @@ def main(argv: list[str] | None = None) -> int:
+                    help="1D sweeps: emit a digest line every N new rows (default 25)")
+     args = p.parse_args(argv)
+ 
+-    run_dir = Path(args.run_dir)
++    if not args.run_dir:
++        p.error("run_dir is required")
++
++    run_dir = resolve_next_run(args.run_dir) if args.next else Path(args.run_dir)
++
++    # Effective deadline: --follow wins; else explicit --timeout; else 570s on
++    # an interactive TTY but no deadline when backgrounded (the agent case).
++    if args.follow:
++        timeout: float | None = None
++    elif args.timeout is not None:
++        timeout = args.timeout
++    elif sys.stdout.isatty():
++        timeout = 570.0
++    else:
++        timeout = None
++
++    # Arm before the run exists: poll for the dir to appear (--next always
++    # points at a not-yet-created dir; a plain target may also not exist yet).
++    if not wait_for_run(run_dir, timeout=args.wait_start, poll=args.poll,
++                        emit=lambda m: print(m, flush=True)):
++        print(f"error: run dir {run_dir} did not appear within "
++              f"{args.wait_start:.0f}s", file=sys.stderr)
++        return 2
++
+     channels = [c.strip() for c in args.channels.split(",") if c.strip()] if args.channels else None
+     try:
+         model = build_model(run_dir, channels=channels, bias_current=args.bias_current)
+@@ -72,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
+ 
+     return watch(
+         model, raw=args.raw, every=args.every, poll=args.poll,
+-        timeout=args.timeout, once=args.once,
++        timeout=timeout, once=args.once,
+     )
+ 
+ 
+diff --git a/tests/hera/test_hera_watch_cli.py b/tests/hera/test_hera_watch_cli.py
+new file mode 100644
+index 0000000..cc464e6
+--- /dev/null
++++ b/tests/hera/test_hera_watch_cli.py
+@@ -0,0 +1,90 @@
++"""CLI-level tests for tools.hera_watch — the argument/timeout plumbing.
++
++The engine (hera.watch) is covered by test_watch.py; here we pin the CLI's
++TTY-vs-background timeout resolution (T-1) and the --next / arm-before-run
++wiring (T-2), capturing the kwargs handed to watch() rather than running it.
++"""
++
++import json
++from pathlib import Path
++
++import pytest
++
++from tools import hera_watch
++
++
++def _write_run(d: Path):
++    d.mkdir(parents=True)
++    (d / "metadata.json").write_text(json.dumps({
++        "version": 2,
++        "comments": ["test"],
++        "columns": ["mag", "sr1_X", "sr1_P"],
++        "measurement_config": {"sr1": "a-b"},
++        "type": "1D",
++        "fast_params": ["mag"],
++        "fast_setpoints": [[0.0, 1.0]],
++        "start_time": 1000.0,
++    }))
++    (d / "data.tsv").write_text("0.0\t1e-6\t0.0\n")
++
++
++@pytest.fixture
++def capture_watch(monkeypatch):
++    """Replace watch() with a recorder; returns the captured kwargs dict."""
++    captured = {}
++
++    def fake_watch(model, **kwargs):
++        captured["model"] = model
++        captured.update(kwargs)
++        return 0
++
++    monkeypatch.setattr(hera_watch, "watch", fake_watch)
++    return captured
++
++
++def test_timeout_default_interactive_tty(tmp_path, monkeypatch, capture_watch):
++    _write_run(tmp_path / "3")
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: True)
++    assert hera_watch.main([str(tmp_path / "3")]) == 0
++    assert capture_watch["timeout"] == 570.0  # foreground stays capped
++
++
++def test_timeout_default_backgrounded(tmp_path, monkeypatch, capture_watch):
++    _write_run(tmp_path / "3")
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: False)
++    assert hera_watch.main([str(tmp_path / "3")]) == 0
++    assert capture_watch["timeout"] is None  # backgrounded -> follow forever
++
++
++def test_follow_flag_overrides_tty(tmp_path, monkeypatch, capture_watch):
++    _write_run(tmp_path / "3")
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: True)
++    assert hera_watch.main([str(tmp_path / "3"), "--follow"]) == 0
++    assert capture_watch["timeout"] is None
++
++
++def test_explicit_timeout_wins(tmp_path, monkeypatch, capture_watch):
++    _write_run(tmp_path / "3")
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: False)
++    assert hera_watch.main([str(tmp_path / "3"), "--timeout", "120"]) == 0
++    assert capture_watch["timeout"] == 120.0
++
++
++def test_next_resolves_to_next_id(tmp_path, monkeypatch, capture_watch):
++    data = tmp_path / "data"
++    _write_run(data / "5")          # highest existing id is 5
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: False)
++    # The next run is data/6; create it so wait_for_run resolves immediately.
++    _write_run(data / "6")
++    assert hera_watch.main(["--next", str(data)]) == 0
++    assert capture_watch["model"].path.name == "6"
++
++
++def test_missing_dir_times_out(tmp_path, monkeypatch, capsys):
++    monkeypatch.setattr(hera_watch.sys.stdout, "isatty", lambda: False)
++    # Tiny wait-start with a real (instant) sleep: the deadline trips on the
++    # first poll since the target never appears.
++    rc = hera_watch.main([str(tmp_path / "nope"), "--wait-start", "0.001",
++                          "--poll", "0"])
++    assert rc == 2
++    assert "did not appear" in capsys.readouterr().err
+diff --git a/tests/hera/test_watch.py b/tests/hera/test_watch.py
+index ce2d4e3..94d9c46 100644
+--- a/tests/hera/test_watch.py
++++ b/tests/hera/test_watch.py
+@@ -19,7 +19,10 @@ from hera.watch import (
+     fmt_sp,
+     header_lines,
+     read_rows,
++    resolve_next_run,
+     run_complete,
++    run_dir_ready,
++    wait_for_run,
+     watch,
+ )
+ 
+@@ -317,3 +320,93 @@ def test_watch_timeout(tmp_path):
+ def test_header_lines_raw_tag(model_117):
+     assert "RAW" not in "\n".join(header_lines(model_117))
+     assert "RAW" in "\n".join(header_lines(model_117, raw=True))
++
++
++def test_watch_follow_no_deadline(tmp_path):
++    # timeout=None must never self-exit; it follows the run to completion
++    # even past where a 570s deadline would have fired.
++    d = tmp_path / "run"
++    d.mkdir()
++    _write_meta(d)
++    (d / "data.tsv").write_text("\n".join(_row(0, n, 1e-6) for n in (-1.0, 0.0, 1.0)) + "\n")
++
++    clock = _Clock()
++    state = {"ticks": 0}
++
++    def fake_sleep(_):
++        clock.t += 10_000  # each tick blows way past any 570s deadline
++        state["ticks"] += 1
++        if state["ticks"] >= 3:
++            _write_meta(d, end_time=clock.t)  # only completes after a while
++
++    out = []
++    rc = watch(build_model(d), poll=0.0, timeout=None, emit=out.append,
++               now_fn=clock.now, sleep_fn=fake_sleep)
++    assert rc == 0  # completed, did not time out
++    assert not any("timeout" in l for l in out)
++    assert any(l.startswith("# complete") for l in out)
++
++
++# --------------------------------------------------------------------------
++# arm-before-run: run_dir_ready / wait_for_run / resolve_next_run
++# --------------------------------------------------------------------------
++
++
++def test_run_dir_ready(tmp_path):
++    d = tmp_path / "run"
++    assert not run_dir_ready(d)        # missing dir
++    d.mkdir()
++    assert not run_dir_ready(d)        # dir, no metadata yet
++    _write_meta(d)
++    assert run_dir_ready(d)            # modellable
++
++
++def test_resolve_next_run(tmp_path):
++    data = tmp_path / "data"
++    data.mkdir()
++    assert resolve_next_run(data) == data / "0"   # empty -> 0
++    for name in ("117", "118", "119", "notes"):
++        (data / name).mkdir()
++    # ignores non-integer dirs, picks max(existing)+1
++    assert resolve_next_run(data) == data / "120"
++
++
++def test_resolve_next_run_missing_dir(tmp_path):
++    assert resolve_next_run(tmp_path / "nope") == tmp_path / "nope" / "0"
++
++
++def test_wait_for_run_already_present(tmp_path):
++    d = tmp_path / "run"
++    d.mkdir()
++    _write_meta(d)
++    slept = []
++    assert wait_for_run(d, sleep_fn=slept.append)
++    assert slept == []  # returns immediately, no polling
++
++
++def test_wait_for_run_appears_after_polls(tmp_path):
++    d = tmp_path / "run"
++    clock = _Clock()
++    state = {"ticks": 0}
++
++    def fake_sleep(_):
++        clock.t += 5
++        state["ticks"] += 1
++        if state["ticks"] == 2:        # dir materializes on the 2nd poll
++            d.mkdir()
++            _write_meta(d)
++
++    assert wait_for_run(d, timeout=1000, poll=5.0,
++                        now_fn=clock.now, sleep_fn=fake_sleep)
++    assert state["ticks"] == 2
++
++
++def test_wait_for_run_times_out(tmp_path):
++    d = tmp_path / "run"  # never created
++    clock = _Clock()
++
++    def fake_sleep(_):
++        clock.t += 100
++
++    assert not wait_for_run(d, timeout=50, poll=5.0,
++                            now_fn=clock.now, sleep_fn=fake_sleep)

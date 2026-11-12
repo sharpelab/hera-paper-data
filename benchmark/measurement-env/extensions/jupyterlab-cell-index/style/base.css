@@ -1,0 +1,57 @@
+/*
+ * Render the cell's 0-based model index in the left prompt gutter.
+ *
+ * The value comes from `data-cell-index`, which the plugin computes from the
+ * notebook model order (see src/index.ts). This is deliberately NOT a CSS
+ * counter: counters follow DOM order, which is wrong under JupyterLab 4's
+ * windowed rendering. `attr()` just echoes a value JS already got right.
+ */
+.jp-Cell[data-cell-index],
+.jp-Cell[data-cell-time] {
+  /* Anchor the absolutely-positioned badges. Cells use flex internally for the
+   * collapser / prompt / input columns, so adding a positioning context here
+   * does not disturb their layout. */
+  position: relative;
+}
+
+.jp-Cell[data-cell-index]::before {
+  content: attr(data-cell-index);
+  position: absolute;
+  /* Flush at the cell's left edge, roughly on the prompt's first line rather
+   * than floating above it. The exact top offset is tuned to the light theme's
+   * prompt baseline; nudge if your theme/font differs. */
+  top: 14px;
+  left: 0;
+  padding-left: 20px;
+  text-align: left;
+  font-family: var(--jp-code-font-family, monospace);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--jp-ui-font-color3, #9e9e9e);
+  opacity: 0.75;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/*
+ * Below the index: the cell's landing time (`data-cell-time`), read from
+ * `metadata.hera.appended_at` (stamped by nb-collab at append). Viewer-local
+ * `HH:MM`, date-prefixed when not from the current day (see src/index.ts).
+ */
+.jp-Cell[data-cell-time]::after {
+  content: attr(data-cell-time);
+  position: absolute;
+  top: 26px;
+  left: 0;
+  padding-left: 20px;
+  text-align: left;
+  font-family: var(--jp-code-font-family, monospace);
+  font-size: 9px;
+  line-height: 1;
+  color: var(--jp-ui-font-color3, #9e9e9e);
+  opacity: 0.75;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.2,
+  "B_max_T": 4.0,
+  "n_B": 635,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 1.1667,
+  "flags": [],
+  "notes": "Trailing cell 48 (unexecuted) issues one 1D field sweep s.sweep(magnet.field, B_vec, delay=0) with B_vec = 1/np.linspace(1/0.20, 1/4.0, 635) -> 0.2 to 4.0 T uniform in 1/B, at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages(3.2, 0, **CAL) with the run-5 rounded calibration (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) -> (V_tg, V_bg) = (+0.984, +1.166) V. Cell 48 sets sr1.sensitivity(10e-6); sr0 sensitivity 0.02 and both taus 0.3 s are inherited from the close_out(restore=state0) readback in cell 44 (which had put sr1 back at 2e-6); nplci = 1 on both Keithleys from the same readback. No further densities are named as a ladder (the markdown only says a later Landau fan would start at 4 T); run 7 at n = -1.2e12 was already taken. ETA in the cell 47 markdown: ~1h10m."
+}

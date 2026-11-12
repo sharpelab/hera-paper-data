@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+# hera-archive — pull a HERA/IRIS session's artifacts + Claude transcripts
+# from a rig into the measurement-env repo's archive directory.
+#
+# Usage: hera-archive [options] <session-dir> [YYYY-MM-DD]
+#
+# <session-dir> is relative to the rig's measurement base path, e.g.
+#   toploader:  <user>/<device>_toploader
+#   vti:        <user>/<session-name>   (use --device for the archive name)
+#
+# Positional date defaults to today. Archive lands at
+# <repo>/hera/docs/notes/<date>-<device>-<name>/ (name defaults to "session").
+#
+# The session dir is mirrored WHOLESALE into a fresh archive (snapshot of disk
+# state), minus the junk excludes below. Anything an agent writes into the
+# session dir is captured — no per-file whitelist to keep in sync. Claude
+# transcripts live OUTSIDE the session dir and are pulled separately (step 2).
+# The hook's in-session snapshot (.transcripts/, always a prefix of the file
+# step 2 pulls) is excluded: it is the rig's insurance copy, not the archive's.
+#
+# The sync is additive (no --delete): re-running refreshes file contents (the
+# sync overwrites) but does NOT propagate source-side deletions, and leaves
+# dest-only paths — notably transcripts/ — intact. So a re-run over an existing
+# archive is NOT a true snapshot; delete the archive dir first for a clean
+# re-archive.
+#
+# Options:
+#   --rig RIG     Rig preset: toploader (default; host=toploader,
+#                 base=measurements) or vti (host=dgg-vti,
+#                 base=VTI_local_data).
+#   --device DEV  Device name for the archive folder. Default: session-dir
+#                 basename minus any _toploader suffix.
+#   --end DATE    Upper-bound (inclusive) for mtime filters on transcripts and
+#                 data/<run> dirs. Default: open-ended. NOTE: the main session
+#                 mirror is a whole-dir snapshot and is NOT mtime-windowed
+#                 (mtime windowing was a whitelist-era feature). The window
+#                 still applies to the two separately-pulled streams where it's
+#                 cheap: data/<run> dirs and Claude transcripts.
+#   --name NAME   Override the archive folder suffix. Default: "session".
+#                 Use e.g. --name iris-campaign for a multi-day archive.
+#   --no-data     Exclude the data/ subtree from the session mirror (e.g. when
+#                 the titan mirror already has the sweeps).
+#
+# Env vars:
+#   HERA_ARCHIVE_HOST — ssh host override (beats the --rig preset)
+
+set -euo pipefail
+
+end=""
+name="session"
+rig="toploader"
+device_override=""
+no_data=""
+positional=()
+while (( $# > 0 )); do
+    case "$1" in
+        --rig)    rig="$2"; shift 2 ;;
+        --device) device_override="$2"; shift 2 ;;
+        --end)    end="$2"; shift 2 ;;
+        --name)   name="$2"; shift 2 ;;
+        --rig=*)    rig="${1#--rig=}"; shift ;;
+        --device=*) device_override="${1#--device=}"; shift ;;
+        --end=*)  end="${1#--end=}"; shift ;;
+        --name=*) name="${1#--name=}"; shift ;;
+        --no-data) no_data=1; shift ;;
+        -h|--help)
+            sed -n '2,42p' "$0" | sed 's/^# \{0,1\}//'
+            exit 0 ;;
+        --) shift; positional+=("$@"); break ;;
+        -*) printf 'unknown option: %s\n' "$1" >&2; exit 2 ;;
+        *)  positional+=("$1"); shift ;;
+    esac
+done
+
+dir="${positional[0]:?usage: hera-archive [--rig RIG] [--device DEV] [--end DATE] [--name NAME] [--no-data] <session-dir> [YYYY-MM-DD]}"
+date="${positional[1]:-$(date +%Y-%m-%d)}"
+
+case "$rig" in
+    toploader) rig_host="toploader"; base="measurements" ;;
+    vti)       rig_host="dgg-vti";   base="VTI_local_data" ;;
+    *) printf 'unknown --rig: %s (toploader|vti)\n' "$rig" >&2; exit 2 ;;
+esac
+host="${HERA_ARCHIVE_HOST:-$rig_host}"
+
+# Junk excludes for the session mirror. These match relative paths anywhere in
+# the tree (tar --exclude / rsync --exclude semantics). Syncthing control
+# files, editor/runtime caches, checkpoints, any nested .git, and Windows
+# folder metadata (the rigs are Windows boxes).
+EXCLUDES=(
+    '.ipynb_checkpoints'
+    '__pycache__'
+    '*.pyc'
+    '.git'
+    '.stfolder'
+    '.stignore'
+    '.stversions'
+    '.syncthing.*'
+    '*.syncthing.*'
+    '*.tmp'
+    'desktop.ini'
+    '.transcripts'
+)
+[[ -n "$no_data" ]] && EXCLUDES+=('data')
+
+# mtime-window clause for the *separately-pulled* streams (transcripts, data
+# runs). Lower bound is the start date at 00:00; upper bound is end+1day at
+# 00:00 (end-day inclusive) when --end is supplied.
+mtime_filter="-newermt '$date 00:00:00'"
+if [[ -n "$end" ]]; then
+    end_excl=$(date -d "$end +1 day" +%Y-%m-%d)
+    mtime_filter="$mtime_filter ! -newermt '$end_excl 00:00:00'"
+fi
+
+script_real="$(readlink -f "${BASH_SOURCE[0]}")"
+# Land the archive in the CWD's git worktree when run from one — so Chiron,
+# launched in its triage worktree, archives there ready to commit (no manual
+# move). Fall back to the script's own repo when run outside a worktree.
+if ! repo_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null)"; then
+    repo_root="$(cd "$(dirname "$script_real")/.." && pwd)"
+fi
+device="${device_override:-$(basename "$dir" | sed 's/_toploader$//')}"
+archive="$repo_root/hera/docs/notes/$date-$device-$name"
+
+mkdir -p "$archive"/transcripts
+
+printf '==> Archive: %s\n' "$archive"
+printf '==> Source:  %s:%s/%s\n' "$host" "$base" "$dir"
+printf '==> Window:  %s%s (transcripts + data runs only)\n\n' "$date" "${end:+ → $end}"
+
+# ---------------------------------------------------------------------------
+# 1. Session dir — mirrored wholesale, minus junk excludes.
+#    Prefer rsync when present on BOTH ends (incremental, fast re-runs); else
+#    fall back to tar piped over ssh (universal — GNU tar is on every rig).
+# ---------------------------------------------------------------------------
+printf '==> Session dir (whole-tree mirror)\n'
+if ! ssh -n "$host" "test -d '$base/$dir'"; then
+    printf 'session dir not found: %s:%s/%s\n' "$host" "$base" "$dir" >&2
+    exit 1
+fi
+
+# Does the remote have rsync? (Local rsync is checked separately.)
+remote_rsync=""
+if command -v rsync >/dev/null 2>&1 \
+   && ssh -n "$host" "command -v rsync >/dev/null 2>&1"; then
+    remote_rsync=1
+fi
+
+if [[ -n "$remote_rsync" ]]; then
+    rsync_excludes=()
+    for e in "${EXCLUDES[@]}"; do rsync_excludes+=(--exclude="$e"); done
+    # Trailing slash on the source: copy the dir *contents* into the archive
+    # root, mirroring the rig's session-dir layout (rig_card.md, *.ipynb,
+    # device_card.md, hera_scratch/, iris/, data/, … all land at archive root).
+    # No --delete: this is an additive overwrite, not a destructive mirror. It
+    # leaves dest-only paths alone — notably transcripts/ (pulled in step 2,
+    # not part of the source tree), which --delete would wipe out. Cost: re-runs
+    # don't propagate source-side deletions; nuke the archive dir for a clean
+    # re-archive (see header). Do NOT re-add --delete/--delete-excluded here.
+    rsync -az "${rsync_excludes[@]}" \
+        -e ssh "$host:$base/$dir/" "$archive/"
+    printf '  ok (rsync)\n'
+else
+    # tar fallback: build the tarball remotely with excludes, stream it,
+    # unpack into the archive root. `-C "$base"` + the dir as the member path
+    # gives us a one-level prefix ("$dir/…") we strip with --strip-components.
+    depth=$(awk -F/ '{print NF}' <<< "$dir")
+    tar_excludes=""
+    for e in "${EXCLUDES[@]}"; do
+        tar_excludes+=" --exclude='$e'"
+    done
+    # shellcheck disable=SC2029  # intentional client-side expansion of excludes/paths
+    ssh -n "$host" "tar -C '$base' $tar_excludes -cf - '$dir'" \
+        | tar -x --strip-components="$depth" -C "$archive" -f -
+    printf '  ok (tar-over-ssh)\n'
+fi
+
+# ---------------------------------------------------------------------------
+# 1b. data/<run> mtime window (rsync/tar mirrored the WHOLE data/ tree above).
+#     If --end was given we prune runs outside the window so the archive
+#     reflects the requested bracket. Cheap: data/<run> dirs are flat and
+#     mtime-meaningful, unlike the rest of the tree. Skipped when --no-data.
+# ---------------------------------------------------------------------------
+if [[ -z "$no_data" && -n "$end" && -d "$archive/data" ]]; then
+    printf '\n==> Pruning data/<run> dirs outside the window\n'
+    keep=$(ssh -n "$host" "find '$base/$dir/data' -maxdepth 1 -mindepth 1 -type d $mtime_filter -printf '%f\n' 2>/dev/null" | sort -n || true)
+    for d in "$archive/data"/*/; do
+        [[ -d "$d" ]] || continue
+        run=$(basename "$d")
+        if ! grep -qxF "$run" <<< "$keep"; then
+            rm -rf "$d"
+            printf '  pruned: data/%s (outside window)\n' "$run"
+        fi
+    done
+fi
+
+# ---------------------------------------------------------------------------
+# 2. Claude transcripts. Live OUTSIDE the session dir (different source path),
+#    so they're pulled separately and stay mtime-windowed. Scoped to the
+#    session's OWN project dir (where tactical / iris ran). The shared
+#    measurement-env project (where hera-session init lands for *every*
+#    session) is deliberately NOT pulled: its transcripts can't be attributed
+#    to one session by mtime, so they'd pollute a single-session archive — and
+#    the deployed brief/cards already capture the init artifacts.
+# Claude Code names project dirs by replacing path separators (and other
+# non-alnums) with dashes. Match by suffix to avoid hard-coding the
+# conversion. A session not touched in the window doesn't get pulled.
+# ---------------------------------------------------------------------------
+printf '\n==> Claude transcripts (mtime in window)\n'
+device_suffix=$(echo "$dir" | sed 's|/|-|g; s|_|-|g')
+# `ssh -n` is required inside while-read loops (and inside $() captures within
+# them) so ssh doesn't consume the loop's stdin and starve subsequent reads.
+projects=$(ssh -n "$host" "ls .claude/projects/ 2>/dev/null" \
+    | grep -E "${device_suffix}\$" || true)
+if [[ -z "$projects" ]]; then
+    printf '  none found\n'
+else
+    while read -r proj; do
+        files=$(ssh -n "$host" "find .claude/projects/$proj -maxdepth 1 -name '*.jsonl' $mtime_filter 2>/dev/null" || true)
+        [[ -z "$files" ]] && { printf '  skip: %s (no transcripts in window)\n' "$proj"; continue; }
+        while read -r path; do
+            scp -q "$host:$path" "$archive/transcripts/"
+            printf '  ok:   %s/%s\n' "$proj" "$(basename "$path")"
+        done <<< "$files"
+    done <<< "$projects"
+fi
+if ! ls "$archive"/transcripts/*.jsonl >/dev/null 2>&1; then
+    printf '  WARNING: no transcript archived. The hook copies on the rig are\n'
+    printf '           %s/.transcripts/ and ~/.hera/transcripts/ — pull one by hand.\n' "$base/$dir"
+fi
+
+printf '\n==> Done. Layout:\n'
+du -sh "$archive"
+find "$archive" -mindepth 1 -maxdepth 2 -printf '  %P\n' | sort

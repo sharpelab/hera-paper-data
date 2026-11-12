@@ -1,0 +1,166 @@
+# vti02-pre-fan-0822 (the primary cut): the 08-22 session as the hole-side spot check (run 7) completed,
+# with nothing the agent did while it ran. No transcript entry holds that state, so
+# the cut lands on the completion result and this mask excises the window (the
+# procedure is hera/docs/replay-cut-workflow.md): the electron read landed in ana
+# (cells 14–15, their scratch copies, fan_read.py with the read's 0.886 scale), two
+# session-notes bullets, the fan draft, the run-7 interim read (spot_run7.png) and
+# its script. Also masked, what the agent's own files say about the fan design: the
+# recipe's field-step and resolution rules restated beside the spot-check grids, the
+# fan's B_lo and direction pre-announced. The executed grids stay. The append is the
+# operator's handoff: the rig returned to its bring-up state (state0, gates 0 V,
+# field 0 T) before the new instance starts, so the fan's field axis is free, then
+# the archived probe cell ([16]) re-run in the same kernel, so the brief's
+# kernel-binding check is visibly satisfied and no arm spends its episode on it.
+# The probe's main_dir output is the kernel's, on the rig PC (Windows), as cell [16]
+# printed it: notebook outputs are never path-rewritten, only a resumed transcript
+# is. Applied to every arm.
+drop:
+  - hera_scratch/cell_fan.py
+  - hera_scratch/md_fan.md
+  - hera_scratch/fan_read.py
+  - hera_scratch/ana_spot6_md.md
+  - hera_scratch/ana_spot6.py
+  - hera_scratch/spot_run6.png
+  - hera_scratch/spot_fft.py
+  - hera_scratch/spot_run7.png
+  - 20260822_ana.ipynb#a1d41a69
+  - 20260822_ana.ipynb#c056c015
+edits:
+  - notebook: 20260822_measure.ipynb
+    cell: 3a471ec7
+    old: "**10 mT from 1 to 10 T**: Δ(1/B) = 0.01/B² meets Nyquist on F_L (≤ 0.0139 T⁻¹) above 0.85 T and 1/3-Nyquist above 1.04 T; 921 points."
+    new: "**10 mT from 1 to 10 T**; 921 points."
+  - notebook: 20260822_measure.ipynb
+    cell: 3a471ec7
+    old: "the heavy-ABAB-vs-ABCA split is 7.5 T, the partner 5 periods need 1/B ≥ 0.67 T⁻¹ → B_lo ≤ 1.3 T at the 10 T cap."
+    new: "the heavy-ABAB-vs-ABCA split is 7.5 T."
+  - notebook: 20260822_measure.ipynb
+    cell: 3a471ec7
+    old: " δF = 1/(1/B_onset − 0.1): 1.1 T at a 1 T onset, 2.5 T at 2.5 T — both resolve the 7.5 T split."
+    new: ""
+  - file: hera_scratch/md_spot_e.md
+    old: "**10 mT from 1 to 10 T**: Δ(1/B) = 0.01/B² meets Nyquist on F_L (≤ 0.0139 T⁻¹) above 0.85 T and 1/3-Nyquist above 1.04 T; 921 points."
+    new: "**10 mT from 1 to 10 T**; 921 points."
+  - file: hera_scratch/md_spot_e.md
+    old: "the heavy-ABAB-vs-ABCA split is 7.5 T, the partner 5 periods need 1/B ≥ 0.67 T⁻¹ → B_lo ≤ 1.3 T at the 10 T cap."
+    new: "the heavy-ABAB-vs-ABCA split is 7.5 T."
+  - file: hera_scratch/md_spot_e.md
+    old: " δF = 1/(1/B_onset − 0.1): 1.1 T at a 1 T onset, 2.5 T at 2.5 T — both resolve the 7.5 T split."
+    new: ""
+  - notebook: 20260822_measure.ipynb
+    cell: e4294991
+    old: "#     Delta(1/B) = 0.01/B^2 <= 0.0139 T^-1 (Nyquist on F_L = 33 T at n = 3.2e12) for B >= 0.85 T; 1/3-Nyquist above 1.04 T.\n"
+    new: ""
+  - file: hera_scratch/cell_spot_e.py
+    old: "#     Delta(1/B) = 0.01/B^2 <= 0.0139 T^-1 (Nyquist on F_L = 33 T at n = 3.2e12) for B >= 0.85 T; 1/3-Nyquist above 1.04 T.\n"
+    new: ""
+  - notebook: 20260822_measure.ipynb
+    cell: d9aa37a5
+    old: "the session needs anyway (the fan starts at 1 T going up), and"
+    new: "the session needs anyway, and"
+  - notebook: 20260822_measure.ipynb
+    cell: d9aa37a5
+    old: "Grid: 20 mT uniform in B descending (Δ(1/B) = 0.02/B² ≤ 1/(2·12.4) = 0.040 for B ≥ 0.71 T), 486 pts"
+    new: "Grid: 20 mT uniform in B descending, 486 pts"
+  - file: hera_scratch/md_spot_h.md
+    old: "the session needs anyway (the fan starts at 1 T going up), and"
+    new: "the session needs anyway, and"
+  - file: hera_scratch/md_spot_h.md
+    old: "Grid: 20 mT uniform in B descending (Δ(1/B) = 0.02/B² ≤ 1/(2·12.4) = 0.040 for B ≥ 0.71 T), 486 pts"
+    new: "Grid: 20 mT uniform in B descending, 486 pts"
+  - notebook: 20260822_measure.ipynb
+    cell: 5bfd8912
+    old: "# gates stay at the spot; field ends at 0.3 T (the fan starts from its onset going up) — no park here."
+    new: "# gates stay at the spot; field ends at 0.3 T — no park here."
+  - notebook: 20260822_measure.ipynb
+    cell: 5bfd8912
+    old: "   # 10 -> 0.3 T, 20 mT: Delta(1/B) = 0.02/B^2 <= 1/(2 F_L = 24.8 T) = 0.040 for B >= 0.71 T"
+    new: "   # 10 -> 0.3 T, 20 mT"
+  - file: hera_scratch/cell_spot_h.py
+    old: "   # 10 -> 0.3 T, 20 mT: Delta(1/B) = 0.02/B^2 <= 1/(2 F_L = 24.8 T) = 0.040 for B >= 0.71 T"
+    new: "   # 10 -> 0.3 T, 20 mT"
+  - file: hera_scratch/cell_spot_h.py
+    old: "# gates stay at the spot; field ends at 0.3 T (the fan starts from its onset going up) — no park here."
+    new: "# gates stay at the spot; field ends at 0.3 T — no park here."
+  - file: session_notes.md
+    old: "- TOOLING — measured per-point cost on `s.sweep(magnet.field, ...)` at 10 mT steps: 10.3 s/pt (run 6: 921 pts in 2 h 04 m) = 4.4 s ramp + 3 s `settle_s` + ~3 s set/poll/read overhead — ~1.5× my pre-run estimate (3.8 s overhead). Rig-card Timing should carry \"blocking field set ≈ ramp + settle_s + 3 s\" for fine-step field sweeps.\n- PROTOCOL — the B_1−B_2 \"Rxx\" pair on this device straddles a flake corner (left side vs bottom pad): the channel carries a ρxy admixture (R falls 52 → 12 Ω by 0.5 T at n = 3.2e12). Harmless for SdH frequency reads; the device card could state that the provided pair is not a clean longitudinal pair.\n"
+    new: ""
+append:
+  - notebook: 20260822_measure.ipynb
+    cells:
+      - markdown: |
+          ## Operator — handoff
+
+          Returned the rig to its bring-up state before restarting the agent instance: state0 replayed, gates 0 V, field 0 T. Readback below.
+        duration: 2m
+      - code: |
+          # Operator — handoff: return to the bring-up state (state0) with the field at 0 T. Blocks ~3 min from 0.3 T.
+          from sharpelab_nb.closeout import close_out
+          close_out(
+              (magnet.field, 0.0),
+              restore=state0,
+              gates=[(k_tg.volt, 0.0), (k_bg.volt, 0.0), (k_si, 0.0)],
+              extra_readback={"T_sample": T_sample, "T_vaporizer": T_vaporizer,
+                              "sample_range": heater.sample_range, "vaporizer_range": heater.vaporizer_range,
+                              "PS_on": magnet.persistent_switch_on, "output_enabled": magnet.output_enabled,
+                              "Si_V": dc205.voltage, "dc205_range": dc205.voltage_range, "dc205_output": dc205.output},
+          )
+        output: |
+          -- restore (19 params)
+          -- gates
+          -- field -> 0.0
+
+          --- close-out readback ---
+          drive_V : 1.0  <Numbers 0.004<=v<=5.0>
+          drive_Hz : 13.777  <Numbers 0.001<=v<=102000.0>
+          sr0_sens : 0.02  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+          sr0_tau : 0.3  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+          sr0_slope : 24  <Enum: {24, 18, 12, 6}>
+          sr1_sens : 2e-06  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+          sr1_tau : 0.3  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+          sr1_slope : 24  <Enum: {24, 18, 12, 6}>
+          sr2_sens : 0.0001  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+          sr2_tau : 0.1  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+          sr2_slope : 24  <Enum: {24, 18, 12, 6}>
+          sr3_sens : 0.005  <Enum: {0.2, 0.5, 2e-09, 1, 1e-08, 5e-05, 2e-08, 0.0001, 0.05, 0.0002, 5e-06, 5e-08, 1e-06, 0.1, 5e-09, 2e-05, 0.02, 5e-07, 1e-05, 0.01, 2e-07, 0.005, 1e-07, 2e-06, 0.002, 0.001, 0.0005}>
+          sr3_tau : 0.1  <Enum: {0.3, 1, 3, 10, 10000.0, 0.0001, 30, 300, 30000.0, 3000.0, 3e-05, 0.03, 0.1, 0.0003, 100, 1e-05, 1000.0, 0.01, 0.003, 0.001}>
+          sr3_slope : 24  <Enum: {24, 18, 12, 6}>
+          tg_nplci : 1.0
+          bg_nplci : 1.0
+          V_tg : 0.0  <Numbers -0.3<=v<=1.0>
+          V_bg : 0.0  <Numbers -1.3<=v<=2.0>
+          V_si : 0.0  <Numbers -25.0<=v<=25.0>
+          field : 0.002724123287671233 T  <Numbers -10.0<=v<=10.0>
+          T_sample : 1.176
+          T_vaporizer : 0.949
+          sample_range : 0
+          vaporizer_range : 0
+          PS_on : True
+          output_enabled : True
+          Si_V : 0.0  <Numbers -25.0<=v<=25.0>
+          dc205_range : 2
+          dc205_output : 1
+        duration: 3m
+      - markdown: |
+          ## Operator — kernel-binding probe, re-run after the handoff
+
+          Same kernel, nothing restarted. HERA's probe cell ([16], `KERNEL PROBE: BOUND`) re-run here so the incoming instance sees the binding confirmed; the [VERIFY] record in `session_notes.md` stands.
+        duration: 1m
+      - code: |
+          # === Kernel-binding probe (read-only) ===
+          # First E1 act after the grant: confirms the nb-collab execute path lands on the
+          # operator's instrument-carrying kernel (the one that ran Setup + SAFETIES), not
+          # a fresh python3 kernel. Touches no instrument — namespace only.
+          import os
+          _need = ['magnet', 'heater', 'sr0', 'sr1', 'sr2', 'sr3', 'k_2400_tg', 'k_2400_bg',
+                   'dc205', 'k_tg', 'k_bg', 'k_si', 'T_sample', 'T_vaporizer', 'meas_config',
+                   'WIRING', 'state0', 'cal', 'B_SESSION_CAP', 'T_SESSION_CAP', 'tg_lims', 'bg_lims']
+          _missing = [n for n in _need if n not in globals()]
+          print(f"pid {os.getpid()} | main_dir {main_dir if 'main_dir' in globals() else '<unset>'}")
+          print(f"present: {len(_need) - len(_missing)}/{len(_need)} | missing: {_missing}")
+          print("KERNEL PROBE:", "BOUND" if not _missing else "UNBOUND")
+        output: |
+          pid 37460 | main_dir C:\Users\DGG\VTI_local_data\zack\20260822-vti-02
+          present: 22/22 | missing: []
+          KERNEL PROBE: BOUND
+        duration: 2s

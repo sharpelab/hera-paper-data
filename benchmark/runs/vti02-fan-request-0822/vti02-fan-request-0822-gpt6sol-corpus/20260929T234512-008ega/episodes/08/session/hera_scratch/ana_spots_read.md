@@ -1,0 +1,3 @@
+### Runs 6–7 — frequency read and next step
+
+These FFTs vary the low-field cutoff after polynomial background subtraction in B. They are **design evidence**, not a stacking verdict: run 6 shows content near 7 T and 22–30 T, while run 7 shows a broad near-5–12 T blend. In run 6 the 7 T onset finder is censored at the low edge (0.3 T), and the low-frequency FFT peak shifts with window, so it is unsafe to classify from this spot alone. The electron-side model at +3.2 predicts an ABAB pair near 7.5/25.6 T versus an ABCA singleton at F_L≈33.1 T; the full density-dependent fan is the next discriminant. Hole reach stops near −1.27×10¹² on D=0, where the model expects a close ABAB pair and heavy ABCA mass, so a hole fan would have weak separation.

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.5,
+  "B_max_T": 10.0,
+  "n_B": 193,
+  "spacing": "invB",
+  "n_min_cm2": 0.80e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 64,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 2.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 9.5,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep with field_invB(0.5, 10.0, 193) on the slow axis and [k_tg.volt, k_bg.volt] fast, slow_delay=2.0, fast_delay=2.1; gates from calc_gate_voltages over np.linspace(3.25, 0.80, 64) (1e12 cm^-2) at D=0 using the run-5 calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) - verified Vtg in [+0.296, +0.998] V, Vbg in [+0.276, +1.185] V, inside the SAFETIES limits. The sweep records sr0.X/P, sr1.X/P and k_tg.curr/k_bg.curr; sr1 sensitivity is set to 50 uV in the appended cell, while sr0 sens 0.02 V, both taus 0.3 s and both nplci 1.0 are inherited from the cell-44 close_out(restore=state0) readback, which also reports drive 1.0 V (bias resistor 100 MOhm, cells 32/34). The cost bullet states about 9.5 h for the sweep; the header line quotes ETA about 9h45m including ramps."
+}

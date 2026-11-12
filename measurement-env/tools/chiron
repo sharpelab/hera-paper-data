@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# chiron (hera-triage) — launch the post-session triage agent in a new
+# terminal, in a fresh triage WORKTREE off current `hera`. Dev-machine tool:
+# Chiron operates on the repo (and invokes hera-archive itself), never on a
+# rig.
+#
+# Usage:
+#   chiron --rig vti <user>/<session-dir> [YYYY-MM-DD]   # triage a session
+#   chiron cleanup                                       # consolidation pass
+#
+# Arguments are passed through verbatim as the archive target / mode in
+# the agent's first message.
+#
+# Why a worktree: Chiron drafts every change as commits on a `subtask/triage-*`
+# branch, then ff-merges onto `hera`. Rooting the agent in the main checkout
+# (which sits on `hera`) invites editing `hera` directly — the worktree gotcha.
+# This shim cuts the worktree off the *current* `hera` tip and launches there,
+# so Chiron starts where it's meant to work. Idempotent: re-running for the
+# same session reuses the existing worktree.
+set -euo pipefail
+
+repo="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+
+# Derive a stable per-session slug so re-runs reuse one worktree and two
+# sessions don't collide. cleanup mode is dated; a session uses its dir name.
+session=""
+skip=
+for a in "$@"; do
+    if [[ -n "$skip" ]]; then skip=; continue; fi
+    case "$a" in
+        --rig|--device|--end|--name) skip=1; continue ;;
+        cleanup) : ;;
+        */*) session="$(basename "$a")"; break ;;
+    esac
+done
+if [[ "${1:-}" == "cleanup" ]]; then
+    slug="triage-cleanup-$(date +%F)"
+elif [[ -n "$session" ]]; then
+    slug="triage-$session"
+else
+    slug="triage-$(date +%F)"
+fi
+branch="subtask/$slug"
+wt="$repo/.worktrees/$slug"
+
+# Create the worktree off current hera, or reuse it if a prior run made one.
+if [[ -d "$wt" ]]; then
+    : # reuse existing worktree (idempotent re-run)
+elif git -C "$repo" show-ref --verify --quiet "refs/heads/$branch"; then
+    git -C "$repo" worktree add "$wt" "$branch"          # branch exists, no worktree
+else
+    git -C "$repo" worktree add "$wt" -b "$branch" hera  # fresh off current hera
+fi
+
+exec newclaude "$wt" --agent chiron "Begin triage. Target: $*"

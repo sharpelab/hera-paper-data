@@ -1,0 +1,14 @@
+# The sc-survey decision point on zf1 (06-21): run 1 validated the 4T channel at 1 nA, the cell's
+# timing just read back (line 252). The investigation's expected SC region was read before the cut.
+case: zf1-sc-survey-0621
+source: ../../docs/notes/2026-06-21-zf1-session
+cut:
+  transcript: 93465c71-2430-42f8-bf38-8f7cda47b85e.jsonl
+  at: 744d0890-0a99-4fc2-820c-ee8c86d3c5fd
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Timing in hand. Designing the survey map now."
+  prompt: "Carry on."
+grader: sc-survey

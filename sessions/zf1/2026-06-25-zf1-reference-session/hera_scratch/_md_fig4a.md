@@ -1,0 +1,7 @@
+## HERA — Figure 4a: R(T,n) at B = B_eff0 + 1 mT (field member 1 of 3)
+
+Fig 3 done and quantitative (Tc≈235 mK at B_eff0, dome clean; promoted to ana). **Fig 4 = the same R(T,n) at three fixed fields** (B_eff0+{1,2,4 mT}; Fig 3 is the 0-field member) to show the dome collapsing with B. **This cell is the +1 mT member** (~B_c⊥/2 ≈ 1.8 mT, so the dome should be partially suppressed — lower Tc, smaller dome).
+
+**Identical settled method to run 5:** 1τ dwell (210 s) + small uniform-T steps (~3.7 mK), single ascending traverse, D=−0.64, AC 1 nA, 4T 0.1 mV. Field positioned **one-sided** to +0.634 mT and **read back** (logged in the run comment as both the controller field and the true sample field B−B_eff0); held fixed through the map. All Fig-4 members run **ascending** (same direction) so the residual lag is consistent across fields for a clean dome-vs-B comparison.
+
+**~12 h** (waits for base first, ~1 h cool from Fig 3's top). **Scale flag:** the full Fig 4 (three fields) is **~36–39 h** at full resolution. The dome weakens with B, so the +2 and +4 mT members have little/no SC to resolve — **I can trim those to fewer T-points (or a narrower n-line) to save ~half the time** without losing the B_c(T) trend. Tell me if you'd rather I trim the higher-field members; otherwise I'll run them at full res. Preconditions asserted (gates at optimum, heater off, field on target). **Watch the fridge MC.** Checkpoints: first steps, then ~hourly. Run cell when ready.

@@ -1,0 +1,7 @@
+## HERA — pin electron onset before committing the Landau fan
+
+`sdh-spot-check` → `landau-fan-vti`, as required by the fan's censored-onset branch. Runs 6/7 (ana read) show usable oscillations, but run 6's sub-1 T grid cannot establish onset; the Nyquist-safe helper result is censored at 1 T. Repeat the same +3.2e12 cm^-2, D≈0 point using uniform 1/B from 0.3 to 1.5 T, resolving F_L=33.09 T (and up to 40 T with 3 samples/period), with an overlap to run 6. This deliberately excludes higher fields already captured there. If this extension is again censored, report the bound and reassess rather than treating it as a measured onset.
+
+Preconditions: handoff B≈0, base T with fresh sample/vaporizer logs, both heaters off, Si=0, original drive 1 V/100 Mohm, tau=.3 s at 24 dB, NPLC=1, unchanged validators and pacing. Fixed 5 uV sensitivity gives 500 ohm full scale: run 6 stays below 100 ohm here, giving ≥5× headroom and better weak-signal resolution; abort at 90% range, |gate I|>1 nA, or sample T outside 1–1.5 K. All eight recorded channels are live-plotted. No Si move or heater change.
+
+Ramp arithmetic: handoff 0→1.5 T totals 1.5/0.137=10.95 min, including 0→0.3 positioning. Runs 6 and 7 give ~3.1 s non-ramp overhead per field point (both tau=.3 s and NPLC=1); 321 points add ~16.6 min, plus gates and margin. Check first 10 points and at completion; leave gates at the electron spot and field at 1.5 T for the fan design. The VTI supply continues to its commanded field if interrupted during a ramp; an emergency ramp stop requires the operator at the instrument.

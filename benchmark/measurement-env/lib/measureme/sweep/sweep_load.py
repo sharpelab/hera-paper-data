@@ -1,0 +1,125 @@
+import os
+import json
+from typing import Any, cast
+
+import numpy as np
+import numpy.typing as npt
+
+from sweep.types import (
+    MegasweepMetadata,
+    Metadata,
+    MultimegasweepMetadata,
+    SweepMetadata,
+    MultisweepMetadata,
+)
+
+
+def migrate_metadata(raw: dict[str, Any]) -> Metadata:
+    """Migrate v1 metadata to v2. V2 passes through unchanged."""
+    if raw.get("version", 0) >= 2:
+        return cast(Metadata, raw)
+
+    raw["version"] = 2
+    raw.setdefault("instruments", {})
+    fn = raw.get("function")
+
+    if fn == "measure":
+        t = raw.pop("time", 0.0)
+        raw.setdefault("start_time", t)
+        raw.setdefault("end_time", t)
+        raw.setdefault("interrupted", False)
+    elif fn == "multisweep":
+        if "param" in raw:
+            raw["params"] = raw.pop("param")
+    elif fn == "multimegasweep":
+        if "slow_param" in raw:
+            raw["slow_params"] = raw.pop("slow_param")
+        if "fast_param" in raw:
+            raw["fast_params"] = raw.pop("fast_param")
+
+    return cast(Metadata, raw)
+
+
+"""
+TODO:
+- allow pload to pass metadata to pload0d, pload1d, and pload2d?
+"""
+
+# Data dicts map column names to numpy arrays (or scalars for 0D),
+# plus special keys like 'measurement_config', 'xs', 'ys'.
+DataDict = dict[str, Any]
+
+
+def load_meta(file_path: str, i: int) -> Metadata:
+    with open(os.path.join(file_path, str(i), r"metadata.json"), "r") as fp:
+        return migrate_metadata(json.load(fp))
+
+
+def load(file_path: str, i: int) -> npt.NDArray[np.floating[Any]]:
+    path = os.path.join(file_path, str(i), "")
+    if os.path.isfile(path + r"data.tsv.gz"):
+        return np.loadtxt(path + r"data.tsv.gz")
+    else:
+        return np.loadtxt(path + r"data.tsv")
+
+
+def pload(file_path: str, i: int) -> DataDict:
+    meta = load_meta(file_path, i)
+    if meta["type"] == "0D":
+        return pload0d(file_path, i)
+    elif meta["type"] == "1D":
+        return pload1d(file_path, i)
+    elif meta["type"] == "2D":
+        return pload2d(file_path, i)
+    raise ValueError(f"Unknown type: {meta['type']}")
+
+
+def pload0d(file_path: str, i: int) -> DataDict:
+    data = load(file_path, i)
+    meta = load_meta(file_path, i)
+
+    data_dict: DataDict = {}
+    if "measurement_config" in meta:
+        data_dict["measurement_config"] = meta["measurement_config"]
+    for ind, col in enumerate(meta["columns"]):
+        data_dict[col] = data[ind]
+    return data_dict
+
+
+def pload1d(file_path: str, i: int) -> DataDict:
+    data = load(file_path, i)
+    meta = cast(SweepMetadata | MultisweepMetadata, load_meta(file_path, i))
+
+    data_dict: DataDict = {}
+    if "measurement_config" in meta:
+        data_dict["measurement_config"] = meta["measurement_config"]
+    if "setpoints" in meta:
+        data_dict["xs"] = np.array(meta["setpoints"])
+    for ind, col in enumerate(meta["columns"]):
+        data_dict[col] = data[:, ind]
+    return data_dict
+
+
+def pload2d(file_path: str, i: int, pad_nan: bool = True) -> DataDict:
+    data = load(file_path, i)
+    meta = cast(MegasweepMetadata | MultimegasweepMetadata, load_meta(file_path, i))
+
+    data_dict: DataDict = {}
+    if "measurement_config" in meta:
+        data_dict["measurement_config"] = meta["measurement_config"]
+    data_dict["xs"] = np.array(meta["fast_setpoints"])
+    data_dict["ys"] = np.array(meta["slow_setpoints"])
+    lenx = np.shape(meta["fast_setpoints"])[-1]
+    leny = np.shape(meta["slow_setpoints"])[-1]
+    for ind, col in enumerate(meta["columns"]):
+        d = data[:, ind]
+        if pad_nan:
+            data_dict[col] = np.pad(
+                d,
+                (0, lenx * leny - len(d)),
+                "constant",
+                constant_values=(np.nan, np.nan),
+            ).reshape((leny, lenx))
+        else:
+            data_dict[col] = np.pad(d, (0, lenx * leny - len(d))).reshape((leny, lenx))
+    return data_dict

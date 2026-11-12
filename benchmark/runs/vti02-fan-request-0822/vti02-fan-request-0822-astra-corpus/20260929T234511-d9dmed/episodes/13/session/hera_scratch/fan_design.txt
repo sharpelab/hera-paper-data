@@ -1,0 +1,25 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/fan_design.py:11: UserWarning: sdh_onset: near-residual tone 3.5 T would carry the onset (0.60 T) — excluded; onset_b = 1.00 T from the 7.1 T tone
+  o=sdh_onset(R,B,b_lo=.6,b_hi=5,bg_degree=degree,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/fan_design.py:11: UserWarning: sdh_onset: untracked tone(s): 3.5 T (never above threshold (max SNR 5.0 vs 5 across 1 windows))
+  o=sdh_onset(R,B,b_lo=.6,b_hi=5,bg_degree=degree,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/fan_design.py:13: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  print('FULL WINDOW',sdh_onset(R,B,r_full_scale=5000).summary())
+LOCAL ONSET degree 3 1.0032337937412368
+LOCAL ONSET degree 5 1.0032337937412368
+LOCAL ONSET degree 7 1.0097589367997284
+FULL WINDOW sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.1  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.9  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.7  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.7  [censored@edge]
+MODEL
+2.8 [6.037893165923708, 22.914234883338523] cycles [ 5.03157764 19.09519574] FL 28.94967387846701
+3.0 [6.67283218088602, 24.350516370918513] cycles [ 5.56069348 20.29209698] FL 31.017507726928944
+3.2 [7.305840923836385, 25.783051271011864] cycles [ 6.08820077 21.48587606] FL 33.08534157539088
+GRID 221 11 N 2431 delta_n 0.040000000000000036 delta_invB 0.003787878787878788 FLmax 33.08534157539088 deltaF 1.2
+GATES 0.8689917484653213 0.983594226936931 1.0179789804435653 1.1662808506666924 roundtrip max D 2.2551405187698492e-17
+TIME point 3.2 flyback 0.31548521843368416 fieldmin 43.7956204379562 basehours 3.1557387387642266 +10% 3.4713126126406495

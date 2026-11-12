@@ -1,0 +1,20 @@
+# E1 kernel-binding probe — READ-ONLY. No instrument writes, no sweeps.
+names = ['magnet','heater','sr0','sr1','sr2','sr3','k_2400','k_2410',
+         'dc205','dc205_volt','qsw','mux','meas_config']
+print("bound names :", {n: (n in globals()) for n in names})
+
+# live reads — must match bring-up if bound to the right kernel
+print("magnet.field()       =", round(magnet.field(), 4), "T   (expect ~0)")
+print("sample_temperature() =", round(heater.sample_temperature(), 3), "K  (expect ~1.15)")
+print("k_2410.volt() [Si]   =", k_2410.volt(), "V   (expect 0)")
+print("k_2400.volt() [BG]   =", k_2400.volt(), "V   (expect 0)")
+print("dc205.voltage() [TG] =", dc205.voltage(), "V   (expect 0)")
+
+# SAFETIES validators live in THIS kernel
+print("dc205_volt.vals  =", dc205_volt.vals)
+print("k_2400.volt.vals =", k_2400.volt.vals)
+print("k_2410.volt.vals =", k_2410.volt.vals)
+print("magnet.field.vals=", magnet.field.vals)
+
+# QSwitch / mux bound (no reset, no select — confirm object + settle only)
+print("mux.settle_s =", mux.settle_s, "| qsw serial =", qsw.IDN().get('serial', '?'))

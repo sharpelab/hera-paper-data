@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.3,
+  "n_B": 129,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.3,
+  "flags": [],
+  "notes": "Cell 48 is a 1D field sweep s.sweep(magnet.field, field_invB(0.3, 1.3, 129), delay=0) at a single column n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the run-5 calibration CAL committed in the cell); it records sr0.X/P and sr1.X/P plus k_tg.curr and k_bg.curr. The cell sets sr1.sensitivity(20e-6); all other lock-in and NPLC values are inherited from the cell-44 close_out(restore=state0) readback (sr0 20 mV / 0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0), which is the latest state record before the appended cells. Excitation 1.0 V (drive_V in the same readback) through the device card's 100 MOhm bias resistor. Cell 47's markdown states ~18 min for this sweep and describes a fan (landau-fan-vti, n 1.5->3.2e12, 51 pts, B_lo->10 T, 3.2-4.5 h) as a later landing, but no fan cell is issued here, so no further density columns are declared for this 1D ladder."
+}

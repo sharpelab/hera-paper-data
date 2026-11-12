@@ -1,0 +1,53 @@
+import numpy as np, time
+from sharpelab_nb import gates
+
+C_TG, C_BG, N_OFF = 1.7027e-3, 2.2024e-3, -0.1445
+h, e = 6.62607e-34, 1.602177e-19
+B_MAX, B_LO = 8.0, 1.4
+n_hi, n_lo = -3.5, -1.5                      # 1e12 cm^-2, hole, D=0
+
+F_L_max = (h / (4 * e)) * (abs(n_hi) * 1e16)
+dinvB = 1.0 / (3.0 * F_L_max)
+N_B = int(np.ceil((1 / B_LO - 1 / B_MAX) / dinvB)) + 1
+dn_ray = 4 * (e * B_LO / h) / 1e16
+N_n = int(np.ceil(abs(n_lo - n_hi) / (dn_ray / 2))) + 1
+B_vec = field_invB(B_MAX, B_LO, N_B)
+ns = np.linspace(n_hi, n_lo, N_n)
+Vtgs, Vbgs = gates.calc_gate_voltages(ns, ns * 0, C_TG, C_BG, N_OFF, 0.0)
+Vtgs, Vbgs = sanitize_tg_bg(np.asarray(Vtgs, float), np.asarray(Vbgs, float), tg_lims, bg_lims)
+assert len(Vtgs) == len(ns), "n-line clipped by validators — unexpected at D=0"
+assert B_vec.max() <= 8.0 and B_vec.min() >= B_LO and np.all(np.diff(B_vec) < 0), "B_vec bad"
+
+# preconditions
+assert abs(magnet.field() - 8.0) < 0.1, f"field not ~8T: {magnet.field()}"
+assert heater.sample_temperature() < 2.0, f"T high: {heater.sample_temperature()}"
+assert k_2410.volt() == 0
+T0 = heater.sample_temperature()
+
+# bias + fixed sensitivity (dynamic range: worst corner low-|n| x high-B)
+sr1.amplitude(2.0)
+sr0.sensitivity(5e-2); sr1.sensitivity(1e-4); sr2.sensitivity(1e-4); sr3.sensitivity(2e-4)
+dc205_volt(Vtgs[0]); k_bg.volt(Vbgs[0]); time.sleep(2)     # position at first fast point (field already 8T)
+print(f"FAN D=0 hole n[{n_hi},{n_lo}]e12 x{len(ns)} | B {B_MAX}->{B_LO}T x{N_B} d(1/B)={dinvB:.5f} F_L_max={F_L_max:.1f}T | dwell 1.8s")
+I = sr0.X() / meas_config['sr0_gain']
+for ch in ['sr1', 'sr2', 'sr3', 'sr0']:
+    s = globals()[ch]; x = s.X(); se = s.sensitivity()
+    print(f"  {ch}: {abs(x)/se*100:.0f}% FS  R={x/I if I else float('nan'):+.0f} ohm  sens={se:.0e}")
+assert abs(sr1.X()) < 0.9 * sr1.sensitivity() and abs(sr2.X()) < 0.9 * sr2.sensitivity(), "Rxx overload at worst corner (low-|n|,8T)"
+
+meas_config['comments'] = (f"landau-fan-vti HOLE D=0 n={n_hi}..{n_lo}e12 ({len(ns)}pts) x B {B_MAX}->{B_LO}T uniform-1/B "
+                           f"({N_B}pts d1/B={dinvB:.5f}); per-column SdH-FFT; F_L_max={F_L_max:.1f}T; bias 2V/20nA; "
+                           f"src T2/drn B7/sr1 T3-T4/sr2 B4-B5/sr3 T5-B6(Hall)")
+meas_config['sample_temperature:'] = T0
+for k, ch in [('sr0_sens', 'sr0'), ('sr1_sens', 'sr1'), ('sr2_sens', 'sr2'), ('sr3_sens', 'sr3')]:
+    meas_config[k] = globals()[ch].sensitivity()
+s = async_station(meas_config)
+s.add_comment('landau-fan-vti')
+s.add_comment(f'D=0 hole; n={n_hi} to {n_lo}e12; B={B_MAX} to {B_LO}T; per-column SdH-FFT fan')
+s.fp(sr0.X).fp(sr1.X).fp(sr1.P).fp(sr2.X).fp(sr2.P).fp(sr3.X).fp(sr3.P).fp(k_2400.curr).fp(k_2410.curr)
+s.plot(magnet.field, sr1.X)
+magnet.settle_s = 1.0
+res = s.multimegasweep([magnet.field], [B_vec], [dc205_volt, k_bg.volt], [Vtgs, Vbgs], slow_delay=1.0, fast_delay=1.8)
+magnet.settle_s = 3.0
+T1 = heater.sample_temperature()
+print(f"DONE run id={res.id} | T {T0:.3f}->{T1:.3f} K | field now {magnet.field():.3f} T")

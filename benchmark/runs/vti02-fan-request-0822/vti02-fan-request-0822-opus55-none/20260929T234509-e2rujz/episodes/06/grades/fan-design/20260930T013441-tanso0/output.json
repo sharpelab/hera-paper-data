@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_min_T": 1.0,
+  "B_max_T": 9.0,
+  "n_B": 89,
+  "spacing": "invB",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 181,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.67,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0): B_vec = np.unique(np.round(np.hstack((1/np.linspace(1,1/4,64), np.arange(4.2,9.0001,0.2))),4)) evaluates to 89 rows, 1.0 -> 9.0 T (1/B-uniform 1-4 T stitched to 0.2 T steps 4.2-9 T); fast axis n = np.arange(-1.25,3.25,0.025)e12 cm^-2, 181 pts at D = 0 via calc_gate_voltages with the run-5 session calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013; ratio data-calibrated, absolute scale = 9.5 nm geometry prior). Gate voltages check out inside TG/BG validators (Vtg -0.291..+0.998, Vbg -0.484..+1.185). sr1 sensitivity 100 uV is set in the cell; sr1/sr0 tau 0.3 s and sr0 sens 20 mV are inherited from the cell-44 close_out(restore=state0) readback, as are nplci tg/bg = 1 (the cell only asserts them). Drive 1 V @ 13.777 Hz (asserted in cell 48, readback in cell 44) through the 100 MOhm bias resistor (device card). Headline ETA in the cell-47 markdown is ~6h40m (priced 6.25 h + 7%)."
+}

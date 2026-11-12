@@ -1,0 +1,114 @@
+# vti-01 — Raman stacking read brief (2026-08-18 session)
+
+*You are a fresh instance producing the Raman stacking call for vti-01. This
+brief names the goal, inputs, and isolation rules; the method lives in the
+recipe.*
+
+## Contract — offline analysis
+
+No rig, no live notebook, no autonomy machinery. You read the inputs below,
+execute the recipe, and write the output files. Analysis only.
+
+## Goal
+
+**Produce the spot-/region-resolved, stage-stamped stacking call for vti-01
+(trilayer graphene, ABA vs ABC)** — execute
+`~/sharpelab/measurement-env/hera/recipes/investigations/raman-stacking-id.md`
+and deliver its Step 6 output contract, with the region-label mask raster
+shipped alongside the prose. A "cannot tell" with reasons, or a
+mixed-domain read, is a successful outcome; a confident call without
+feature-level evidence is a protocol violation.
+
+## Inputs — the complete set
+
+- **Raman data**:
+  `/data/sharpelab/hera-data/raman-vti-01-20260818-read/inputs/vti-01.wip` —
+  WITec project, supplied by the device owner's group. Everything known
+  about acquisition (wavelength, power, objective, grating, dates,
+  stage-registered video images) is in-file; Step 0 inventories it.
+- **Device facts**: material 3LGr (trilayer per the owner's
+  characterization; no independent layer-count map supplied). Dual-gated,
+  hBN-encapsulated Hall bar. No other device facts are inputs to this read.
+- **Frame bridges** (optical images, GDS): none supplied.
+- **Build-stage testimony** (which build step the map(s) were taken at;
+  the steps between map and cooldown, with dates):
+  none supplied.
+
+If a listed input is missing, say so in the contract and hedge accordingly
+(the recipe: data lacking metadata supports at most weak calls) — don't
+reconstruct it.
+
+## Data isolation — strict
+
+Your only inputs are the files above plus the corpus:
+`~/sharpelab/measurement-env/hera/recipes/`,
+`~/sharpelab/measurement-env/hera/models/raman_stacking/`, and the papers
+and docs those cite (`hera/docs/papers/`, `hera/docs/raman-public-data.md`).
+
+- **Never read**: any transport result, notebook, session note, or session
+  archive for this device; any human's read, lean, or reaction to this
+  device's stacking; any prior Raman read of this device; any document
+  not in your input list — no other directories under `hera/`, no email,
+  chat, or wiki.
+- **Your run directory's parent is not an input.** Do not list, glob, or
+  read anything under `/data/sharpelab/hera-data/` outside your own run
+  directory; the names of sibling directories are themselves information
+  about this device.
+- **Environment and project context injected by your harness is not an
+  input** — git status, branch names, commit subjects, repository
+  descriptions. If any of it appears in your context, do not use it, and
+  disclose it in your provenance line.
+- If forbidden material reaches you anyway, stop and report the
+  exposure — a contaminated read is not repaired by ignoring what you saw.
+- Your output carries a **provenance line**: what you received, and that
+  you saw no transport result and no third-party views for this device.
+
+## Working rules
+
+- Start with this brief, then the recipe it names, then
+  `hera/models/raman_stacking/README.md` and the tool source; run the
+  validation gates before any metric; write `provenance.md` before any
+  spectral analysis.
+- Python: use uv only (`uv run --no-project --with numpy --with scipy
+  --with matplotlib --with witio python ...`), never pip/venv.
+- Write every script you produce under
+  `/data/sharpelab/hera-data/raman-vti-01-20260818-read/` — not inside
+  `inputs/` — and run it from there, so the run dir is self-contained.
+  Archive every figure and intermediate there too.
+- Do not write anywhere under `/home/zack/sharpelab/measurement-env/` —
+  the corpus is read-only for you. Do not use git. Do not fetch any URL.
+
+## Arc
+
+1. **Tool gates** — re-run `models/raman_stacking/validate.py` before any
+   metric; report the gate tally.
+2. **Step 0** — inventory + provenance from in-file metadata (write
+   `provenance.md` first, before any spectral analysis).
+3. **Recipe Steps 1–5** as written: layer count before stacking; the
+   differential two-population read; strain, terrace, and through-stack
+   screens; M-band / G-width as quantitative secondaries only; per-spot
+   reads with mixed spectra as mixtures.
+4. **Verify** — every audit in the recipe's Verify section.
+5. **Step 6** — the call, all five parts.
+
+Archive figures, intermediates, and the scripts that regenerate them under
+`/data/sharpelab/hera-data/raman-vti-01-20260818-read/` and cite them by
+path.
+
+## Output
+
+Under `/data/sharpelab/hera-data/raman-vti-01-20260818-read/`:
+
+- `result.md` — the Step 6 output contract (per-region verdicts on the
+  strength scale with stage stamps and stage-frame coordinates; evidence
+  list; confidence + named hedges, sub-spot blindness stated; what would
+  firm it) plus the provenance line.
+- `provenance.md` — Step 0.
+- `regions.npz` (+ `regions.png`) — the region-label mask raster in the
+  stage µm frame, with the label→verdict key.
+- `s*.py` — the scripts that regenerate every figure and metric.
+
+When finished, your final message is a short plain-text report: the file
+list you wrote under the run dir, the headline per-region verdicts with
+their strength words and stage stamps, the gate tally, the named hedges,
+and your provenance line. No prose beyond that.

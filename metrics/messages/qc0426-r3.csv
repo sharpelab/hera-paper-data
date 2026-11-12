@@ -1,0 +1,61 @@
+timestamp_utc,label,text
+2026-06-16T09:41:48+00:00,handshake (draft),"cells have been run, go for autonomy"
+2026-06-16T10:05:19+00:00,logistics (draft),"nb-collab has been updated to fix this issue, execute your cell to verify, then I will regive the autonomy grant"
+2026-06-16T10:07:02+00:00,handshake (draft),go for autonomy
+2026-06-16T17:56:25+00:00,steering (draft),"Good run, want to do another mag up and down to collect some more data, and then while it's running chat a bit about some of your choices and do some additional analysis.
+
+For the sweep, lets sweep up on the hole side and down on the electron side, and lets energize the Si gate to +50V.
+
+Lets drop to E0 for the moment, I will regrant E1 after.
+
+In thread propose the two sweep params"
+2026-06-16T18:04:14+00:00,correction (draft),"That is not correct. The Si gate only talks to the contacts. The bottom gate on the device is thick graphite so it will totally screen the silicon gate. So there is no need to recheck the cnp, it will not (or at least should not) shift. This is to help make the contacts more conductive. You can recheck for safety though. I don't believe you that SdH onsets at 2 T. I wouldn't take non-uniform field resoltuion as it will make life harder for ffts. I think you only need to go up to 6 T. but we need finer field resolution. Try 50 mT steps. Actually, i would refine sweep a and b. with this finer resolution, this fan will take quite a while. Sweeping field is not that constly in this fridge. If it is faster, take the two fans concrurently for sweeping the field up. revise proposal in thread please thanks"
+2026-06-16T18:10:20+00:00,steering (draft),"you should go as high as we can on the gate limits on the electron side. maybe cut out 0.5. go up to 8E12, but keep the range symmetric on the hole side. revise proposal. Your questions 1) I think more density is generally more better in the limit of not time limited. 2) keep the cnp check 3) see previous. REFACTOR K THANKS"
+2026-06-16T18:15:08+00:00,expert-input (draft),"the reason to not go out further is a sampling question. If we push the high tone up even higher, we may need to sample more in B? disuss please"
+2026-06-16T18:18:39+00:00,steering (draft),so what is your final proposed measurement then based on this?
+2026-06-16T18:20:37+00:00,handshake (draft),"this is dr. sharpe, clearing your request. you are go for autonomy"
+2026-06-16T18:45:22+00:00,logistics (draft),"Okay, the k2410 has been manually ramped to 0.  One issue is that the range was set in initialization to 21, QC has set it to something higher.  Aaron suggests sending a clear to the k2410, if that doesn't work I can reset the GPIB bus.  Insert a cell to try a clear on the 2410"
+2026-06-16T18:50:34+00:00,correction (draft),"PROTOCOL VIOLATION.  You dropped to E0 on stop and then started executing cells without an E1 grant.  note the violation and stop executing cells until you receive an explicit grant.
+
+You must not take such coarse steps.  STOP"
+2026-06-16T18:52:37+00:00,steering (draft),We need to check the device state with a tg/bg sweep to ensure it hasn't been damaged.  insert the cell
+2026-06-16T19:04:35+00:00,edited-run (draft),"I ran the cell, with two modifications, the Si gate is currently at +50V.  In the future a line check is sufficient.  Aaron says the operating procedure here is 5mV steps but you need to pace it with the delay k_2410.volt.inter_delay = 0.05.  k_2410.volt.step needs to move to a operator consent required field.
+
+The device is looking fine.  we'll let this finish, verify and then go over some ground rules before reenabling E1"
+2026-06-16T19:07:49+00:00,steering (draft),Plot the gatemap for this check in the ana nb
+2026-06-16T19:11:38+00:00,expert-input (draft),"Aaron found the sr830 sensitivities are not set well for voltage measurements. We are applying a 5 nA bias current. We don't have any voltage preamps, so the voltage measurements are unity gain. We want to set the senitivity so that roughly 25k to 50k is saturating. this means we want to set the senseitivity to 125 uV to 250 uV! we are currently set to 2 mV!!!!!"
+2026-06-16T19:27:54+00:00,edited-run (draft),I executed your cell with 1 modification (remove the step delay).  I also note there is no time estimate in the meas or in the thread.
+2026-06-16T19:34:28+00:00,correction (draft),"While we wait for this sweep, a note on the ana nb.  After each sweep we should plot the raw data and then proceed with the analysis.  It helps tie the two notebooks together and better shows the analysis.  In thread, propose the additional cells you would add to the ana nb to make the current one follow this."
+2026-06-16T19:39:57+00:00,correction (draft),"I'm not sure about the helper, that's out of scope of a campaign, for this session you know the type of the data and can manually do the appropriate plot.  I think you should have insert access to the ana nb as well.
+
+go for b"
+2026-06-16T19:40:53+00:00,duplicate (draft),"I'm not sure about the helper, that's out of scope of a campaign, for this session you know the type of the data and can manually do the appropriate plot.  I think you should have insert access to the ana nb in the future ( session note )
+
+go for b"
+2026-06-16T20:58:36+00:00,steering (draft),"Lets do a line cut of the damage check gate map, leave Si at +50 as it is currently.  B=0"
+2026-06-16T21:03:29+00:00,correction (draft),"It's running, doens't look like it's flowing any current"
+2026-06-16T21:05:59+00:00,steering (draft),"Lets ramp Si down to 0, and repeat"
+2026-06-16T21:15:44+00:00,steering (draft),"I ran them then canceled, no current, verify then lets do a contact survey after you confirm"
+2026-06-16T21:22:12+00:00,handshake (draft),running
+2026-06-16T21:27:41+00:00,correction (draft),did you test t8?  are you saying we ran the full campaign with drain t7 = qsw line 12?
+2026-06-16T21:30:34+00:00,steering (draft),"run all the contacts, expect b1/b2 to be dead and t6 to be dead"
+2026-06-16T21:40:52+00:00,handshake (draft),it has completed
+2026-06-16T21:45:54+00:00,steering (draft),"running, queue the wait on the cells automatically to save a turn in the future"
+2026-06-16T21:55:19+00:00,handshake (draft),"b7 is good, proceed"
+2026-06-16T22:02:05+00:00,steering (draft),"Lets redo aaron's snake measurement, we'll continue in E0 for now."
+2026-06-16T22:07:27+00:00,steering (draft),"Aaron says it's fine.  Lets do two cells, first +50V and then his snake."
+2026-06-16T23:27:03+00:00,correction (draft),"I don't think we want to move on just yet, these curves are impossible to tell what's going on because they are well undersampled. I think we take the electron side at a higher density of points. Based on the high field data, we likely need at least double the data density to resolve these oscillations cleanly"
+2026-06-16T23:29:20+00:00,steering (draft),go down to 12.5 mT as it is free
+2026-06-16T23:31:36+00:00,correction (draft),running. your fft analysis didn't plot out to high enough frequencies to see a lot of the relevant structure
+2026-06-17T00:11:35+00:00,steering (draft),can you check on the incoming data? is it looking any good?
+2026-06-17T00:13:48+00:00,steering (draft),please plot this in the analysis notebook so i can see
+2026-06-17T00:16:36+00:00,expert-input (draft),great. you actually have the resolution to see quantum oscillations now!
+2026-06-17T00:29:26+00:00,expert-input (draft),"I agree that we should now look at F(n) across different densities. I think from the data we just took, we can see that the sdH does't cleanly onset until a bit above 1 T. Maybe as high as about 1.2 T. We need to plan a Landau fan. When we lower the densities, both of these frequencies will move down. If we take a fan from like 1-4T, should we be able to resolve them? do we need to go to slightly higher field?"
+2026-06-17T00:35:15+00:00,correction (draft),how long would your suggested fan take. How many points in density? You never say this clearly
+2026-06-17T00:42:46+00:00,steering (draft),"Let's do your suggested 31 pt in n, 1.2->4 T sweep. 12.5 mT spacing. What is the final cost"
+2026-06-17T00:54:35+00:00,steering (draft),can you write a plotting cell in the analysis notebook that plots the fan as in it comes in
+2026-06-17T00:57:02+00:00,correction (draft),"I don't need FFT, just want to look at the rxx itself"
+2026-06-17T00:57:55+00:00,correction (draft),it is not plotting anything
+2026-06-17T01:17:35+00:00,steering (draft),can you plot some linecuts of the data
+2026-06-17T01:20:32+00:00,correction (draft),can you plot them in 1/B space and detrend? it is not obvious we are seeing qo
+2026-06-17T05:40:34+00:00,logistics (draft),do your write up and close out the session

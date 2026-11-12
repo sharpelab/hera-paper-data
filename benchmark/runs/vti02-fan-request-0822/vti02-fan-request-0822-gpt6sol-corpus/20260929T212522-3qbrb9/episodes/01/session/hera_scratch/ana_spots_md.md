@@ -1,0 +1,3 @@
+## Runs 6–7 — both-side SdH spot checks (`sdh-spot-check`)
+
+Raw Rxx is formed from sr1_X divided by the measured drain current (sr0_X/−1e6), then plotted before the FFT. Run 6 at n = +3.2×10¹² cm⁻², D = 0 covers 0–10 T in 10 mT steps above 1 T; run 7 at n = −1.2×10¹², D = 0 covers 10→0.3 T in 20 mT steps. Both completed without clipping (Rxx maxima ≈ 530/587 Ω against 5 kΩ full scale), with stable ~10 nA drain current; the Keithley-current excursions are isolated read noise around pA to ~100 pA levels, below the 1 nA trip. The FFT windows below are an exploratory side comparison, not a stacking verdict; the calibrated lever-arm **ratio** comes from run 5, while F_L still inherits its geometry-prior scale.

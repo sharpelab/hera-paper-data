@@ -1,0 +1,42 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:29: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  onset=sdh_onset(R,B,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_review.py:29: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.6 vs 5 across 3 windows))
+  onset=sdh_onset(R,B,r_full_scale=5000)
+RUN 6: 921 points, interrupted=False, wall=120.36 min, R range -32.95..529.63 ohm, I range 9.843..9.935 nA
+T_sample range 1.165 1.292 median 1.249
+k_2400_tg_curr range -1.233946e-10 1.219286e-10 median -1.036976e-12
+k_2400_bg_curr range -6.678831e-11 1.172982e-10 median 2.637932e-11
+columns ['time', 'magnet_field', 'T_sample', 'k_2400_tg_curr', 'k_2400_bg_curr', 'sr0_X', 'sr0_P', 'sr1_X', 'sr1_P']
+FFT 1.0 ..10 T peaks: [(np.float64(7.78), np.float64(9163.0)), (np.float64(14.44), np.float64(5839.0)), (np.float64(22.22), np.float64(5659.0)), (np.float64(29.99), np.float64(4463.9)), (np.float64(58.87), np.float64(1469.7))] Rayleigh 1.1111111111111112
+FFT 1.5 ..10 T peaks: [(np.float64(7.06), np.float64(21314.0)), (np.float64(14.11), np.float64(11358.4)), (np.float64(29.99), np.float64(10343.4)), (np.float64(22.94), np.float64(9017.4)), (np.float64(58.22), np.float64(1847.5))] Rayleigh 1.7647058823529411
+FFT 2.0 ..10 T peaks: [(np.float64(5.0), np.float64(43894.3)), (np.float64(29.99), np.float64(16413.5)), (np.float64(15.0), np.float64(15089.0)), (np.float64(22.49), np.float64(12360.5)), (np.float64(59.99), np.float64(3135.3))] Rayleigh 2.5
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.1  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.9  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.7  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.7  [censored@edge]
+RUN 7: 486 points, interrupted=False, wall=95.68 min, R range -0.38..586.87 ohm, I range 9.809..9.931 nA
+T_sample range 1.175 1.291 median 1.249
+k_2400_tg_curr range -2.158295e-10 1.113763e-11 median -1.023921e-10
+k_2400_bg_curr range -6.807326e-11 1.200978e-10 median 2.4750165e-11
+columns ['time', 'magnet_field', 'T_sample', 'k_2400_tg_curr', 'k_2400_bg_curr', 'sr0_X', 'sr0_P', 'sr1_X', 'sr1_P']
+FFT 1.0 ..10 T peaks: [(np.float64(6.67), np.float64(49471.2)), (np.float64(4.44), np.float64(41472.1)), (np.float64(12.22), np.float64(17627.6)), (np.float64(18.88), np.float64(6516.0)), (np.float64(28.88), np.float64(1369.3))] Rayleigh 1.1111111111111112
+FFT 1.5 ..10 T peaks: [(np.float64(5.29), np.float64(92554.3)), (np.float64(12.35), np.float64(46288.0)), (np.float64(21.17), np.float64(12733.9)), (np.float64(28.23), np.float64(3155.8)), (np.float64(33.52), np.float64(1995.3))] Rayleigh 1.7647058823529411
+FFT 2.0 ..10 T peaks: [(np.float64(5.0), np.float64(91017.4)), (np.float64(12.5), np.float64(66945.1)), (np.float64(22.49), np.float64(19262.1)), (np.float64(37.49), np.float64(3911.2)), (np.float64(32.49), np.float64(2912.8))] Rayleigh 2.5
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.9  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)
+TIMING 5 wall s 4873.096790790558 dt percentiles [1.09279084 1.09848475 1.11677394 5.767944  ]
+delays 1.0 3.0 NPLC not snapshotted; state0=1
+TIMING 6 wall s 7221.631066083908 dt percentiles [ 7.45405524  7.46350455  7.48344011 24.98704034]
+TIMING 7 wall s 5740.815255403519 dt percentiles [11.81689205 11.82755518 11.84562864 11.8711946 ]

@@ -1,0 +1,9 @@
+## HERA — Step 3: field-kill / effective-zero (FIRST MAGNET ENERGISATION)
+
+Run 9 gave the supercurrent (I_c ≈ 30 nA). Two strong hallmarks now hold at base T / B=0; the decisive remaining confirmation is the **field response** — a small B⊥ that quenches the low-R / supercurrent while the normal state is ~unchanged counts **strong** for SC and rules out a B-insensitive low-R artifact (`field-sweep-1d.md`, investigation Step 3).
+
+**This is the first time we energise the magnet this session** — all base-T zero-field work is done, so it's the right point, but it leaves pristine field (injects ~mT remanence; expected and fine). **Field discipline (brief):** one-sided, monotonically toward 0 — ramp to the −50 mT extreme, settle, then sweep **−50 mT → 0** (|B| only decreasing). −50 mT is well inside the 100 mT cap and should be past B_c⊥ (mT-scale for proximity SC).
+
+**Measurement:** zero-bias dV/dI (I_dc = 0) vs B⊥ at the SC optimum (gates held at V_tg=−5.39, V_bg=+4.00). dV/dI should rise from ~0 (SC, near effective-zero) to the normal ~55 Ω as |B| grows → that rise is B_c⊥ and the kill; the minimum locates the effective-zero (offset from nominal 0 by the ~2 mT trapped flux). 41 pts (1.25 mT step).
+
+**Also a calibration:** no field ramp yet this session, so I'm pricing conservatively — initial 60 s settle after the −50 mT ramp, **delay 20 s per step**, T monitored every point. If T stays at base, the settle is adequate and I'll tighten it for the follow-ups (Ic(B) map / Fraunhofer); if T spikes near 0 (ramp heating is worst there), I'll lengthen it. ~15–20 min (magnet ramp_rate printed at the top). **Interrupt note:** a kernel interrupt during a field move leaves the supply ramping to its last target — recovery is calling `magnet.field()` again. Run when ready; I'll first-rows-check T + the kill onset off disk.

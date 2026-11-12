@@ -1,0 +1,55 @@
+# === Step 1 — pristine-field gate map (gatemap): coarse reconnaissance + cap-ratio ===
+# Axis-aligned raw (V_tg, V_bg); MAGNET UNTOUCHED (pristine field). TG slow / BG fast.
+
+# --- silent-precondition reads (expected vs actual) ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T : {_T:.4f} K       (expect base, mK)")
+print(f"magnet B   : {_B:.3e} T     (expect ~0 — NOT energised; pristine field)")
+print(f"k_tg.volt  : {k_tg.volt()} V        (expect 0)")
+print(f"k_bg.volt  : {k_bg.volt()} V        (expect 0)")
+assert _T < 0.1, "probe not at base — investigate before a 2 h map"
+assert abs(_B) < 5e-3, "magnet not near zero — Step 1 REQUIRES pristine field; do not energise"
+
+# Standard gate-current integration for the map (legs left nplci at 10).
+k_tg.nplci(1)
+k_bg.nplci(1)
+
+# AC sense drive -> ~1 nA at the device (0.1 V through 100 MOhm; device card).
+sr830_1.amplitude(0.1)
+
+# Map extent: full validator envelope inset 0.2 V. TG (-7,+6); BG (-4,+4.2).
+V_tg = np.linspace(-6.8, 5.8, 41)   # slow (larger span -> slow to avoid big fast ramp-backs)
+V_bg = np.linspace(-3.8, 4.0, 61)   # fast (smaller span; 0.13 V/pt resolves the CNP)
+
+meas_config["comment"] = "Step1 pristine-field gatemap 41x61, TG[-6.8,5.8] BG[-3.8,4.0], B=0 (not energised), cap-ratio + reconnaissance"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('gatemap')
+s.add_comment('Step 1 pristine-field reconnaissance + cap-ratio (cnp-and-dline-calibration)')
+s.add_comment(f'TG slow [{V_tg[0]:+g},{V_tg[-1]:+g}] x{len(V_tg)}; BG fast [{V_bg[0]:+g},{V_bg[-1]:+g}] x{len(V_bg)}; B=0')
+
+# Move to the start corner (negative, co-polarized -> cool) and settle.
+s.ramp(k_tg.volt, V_tg[0])
+s.ramp(k_bg.volt, V_bg[0])
+time.sleep(10)
+
+s.fp(temperature)
+s.fp(k_tg.volt).fp(k_tg.curr)
+s.fp(k_bg.volt).fp(k_bg.curr)
+for lia in (sr830_1, sr830_2, sr830_3):
+    s.fp(lia.X).fp(lia.P)
+
+# Live leakage watch (interrupt if a gate current leaves its pA baseline) + signal.
+s.plot(k_bg.volt, k_bg.curr)
+s.plot(k_bg.volt, k_tg.curr)
+for lia in (sr830_2, sr830_3):
+    s.plot(k_bg.volt, lia.X)
+
+try:
+    s.megasweep(
+        k_tg.volt, V_tg,
+        k_bg.volt, V_bg,
+        slow_delay=3, fast_delay=1,
+    )
+finally:
+    s.ramp(k_bg.volt, 0)
+    s.ramp(k_tg.volt, 0)

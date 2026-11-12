@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.0,
+  "n_B": 118,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.333,
+  "flags": [],
+  "notes": "Cell 48 (only appended code cell) is a 1D sweep s.sweep(magnet.field, field_invB(0.3, 1.0, 118), delay=0) at a single spot n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages with the run-5 cal committed in the cell (CAL c_tg=2.796e-3, c_bg=2.161e-3, n_off=-0.0894, D_off=-0.013 -> Vtg +0.9836, Vbg +1.1661); no further probe densities are named, so form is probe_only. Inherited instrument state comes from cell 44 close_out(restore=state0) readback (sr0 sens 0.02 V / tau 0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0, drive_V 1.0); the cell itself sets sr1.sensitivity(50e-6). Bias resistor 100 MOhm from device_card.md; stated ETA is the markdown's '≈20 min'. A Landau fan (B 1->10 T uniform 1/B, 91 rows, n 3.2->1.6e12, 51 cols) exists only as a draft in hera_scratch/cell_fan.py and is referenced by the markdown but is not landed in the notebook; n_fans=1 counts the one landed sweep."
+}

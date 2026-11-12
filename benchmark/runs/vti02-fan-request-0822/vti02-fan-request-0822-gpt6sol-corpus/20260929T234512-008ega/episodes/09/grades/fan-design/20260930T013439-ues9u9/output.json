@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.9,
+  "B_max_T": 10.0,
+  "n_B": 102,
+  "spacing": "invB",
+  "n_min_cm2": 2.5e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 18,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 2.4,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.0,
+  "flags": [],
+  "notes": "Cell 48 (appended, unexecuted): multimegasweep slow [magnet.field] over field_invB(0.9, 10.0, 102) (verified endpoints 0.900/10.000 T, 102 pts, uniform in 1/B), fast [k_tg.volt, k_bg.volt] from calc_gate_voltages over np.linspace(2.50, 3.20, 18)e12 cm^-2 at D = 0 using the cell's own CAL_FAN constants (gatemap run-5 region-A calibration; TG +0.783..+0.984 V, BG +0.907..+1.167 V reproduced in a scratch script), slow_delay=0, fast_delay=2.4. Lock-in/NPLC state inherited from the executed close_out(restore=state0) in cell 44, whose readback prints sr0_sens 0.02 V, sr0_tau 0.3 s, sr1_tau 0.3 s, tg/bg_nplci 1.0; cell 48 itself sets sr1.sensitivity(50e-6). Drive 1.0 V asserted in the precondition block; 100 MOhm bias resistor from device_card.md line 64. Stated ETA '~3 h' in the cell-47 markdown."
+}

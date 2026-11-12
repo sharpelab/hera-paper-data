@@ -1,0 +1,15 @@
+# The sc-survey decision point on zf1 (06-20, the first session): gate C passed, the TG leg
+# (run 1) read, notebook helpers just listed (line 281). The agent never read the investigation's
+# expected-region line, so it designs the survey blind.
+case: zf1-sc-survey-0620
+source: ../../docs/notes/2026-06-20-zf1-session
+cut:
+  transcript: 67a7da89-81bd-40d3-a18f-a63c1b100583.jsonl
+  at: bb9f30cd-49fc-4d92-8991-e30cf4ca5e9e
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Helpers checked. Designing the survey gatemap now."
+  prompt: "Carry on."
+grader: sc-survey

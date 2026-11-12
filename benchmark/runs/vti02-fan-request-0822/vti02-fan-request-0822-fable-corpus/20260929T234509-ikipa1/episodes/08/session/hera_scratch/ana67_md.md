@@ -1,0 +1,3 @@
+## Runs 6–7 — SdH spot checks at D = 0 (`sdh-spot-check`): electron n = +3.2×10¹², hole n = −1.2×10¹²
+
+Both complete (921 / 486 pts, no interrupt, leakage < trip throughout). Raw first, then the 1/B read. Channel arithmetic: R = sr1_X / |I_drain|, I_drain = sr0_X / (−10⁶) ≈ 9.9 nA — the measured drain current, not the nominal bias. F_L = (h/4e)·n: **33.1 T** (run 6), **12.4 T** (run 7). The onset/FFT read uses the fine 10 mT segment (B ≥ 1 T) on run 6 — the 50 mT segment below 1 T undersamples a 7 T tone below B ≈ 0.85 T (Δ(1/B) Nyquist), so sub-1 T tracking on run 6 is grid-limited, not physics.

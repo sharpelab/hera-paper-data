@@ -1,0 +1,173 @@
+{
+  "schema": "hera-replay-run/1",
+  "case": {
+    "path": "/home/zack/sharpelab/measurement-env/hera/replay/cases/vti02-fan-request-0822-gpt6sol-corpus.yaml",
+    "case": "vti02-fan-request-0822-gpt6sol-corpus",
+    "runner": "codex",
+    "source": "../../docs/notes/2026-08-22-vti-02-session",
+    "cut": {
+      "transcript": "b0c3c413-7523-44ec-a7c1-d3680081c6cb.jsonl",
+      "at": "3a4cf818-834e-4a30-b0fa-b6e764f242cc"
+    },
+    "mask": "masks/vti02-pre-fan-0822.yaml",
+    "corpus": {
+      "sha": "13b07e9",
+      "harness": "8bf4e7d",
+      "condition": "full",
+      "prompt": "corpus"
+    },
+    "run": {
+      "model": "gpt-6-sol",
+      "effort": "high",
+      "n": 10,
+      "timeout_s": 1800,
+      "stall_s": 600
+    },
+    "fresh": {
+      "brief": "briefs/vti02-fan-request-0822/corpus.md"
+    },
+    "grader": "fan-design"
+  },
+  "started_at": "2026-09-29T23:45:13+00:00",
+  "n": 15,
+  "parallel": null,
+  "start": {
+    "mode": "fresh",
+    "first_message": {
+      "source": "/home/zack/sharpelab/measurement-env/hera/replay/cases/briefs/vti02-fan-request-0822/corpus.md",
+      "sha256": "cdb1795282ec04a70ecada8bdc0c6a32211b0de45d64828999ecc1b9829f7917",
+      "lines": 148
+    }
+  },
+  "episode_source": {
+    "mode": "cut",
+    "dir": "/data/sharpelab/hera-data/replay/runs/vti02-fan-request-0822-gpt6sol-corpus/20260929T234512-008ega/cut",
+    "cut": {
+      "source": "/home/zack/sharpelab/measurement-env/hera/docs/notes/2026-08-22-vti-02-session",
+      "transcript": "transcripts/b0c3c413-7523-44ec-a7c1-d3680081c6cb.jsonl",
+      "session_id": "b0c3c413-7523-44ec-a7c1-d3680081c6cb",
+      "uuid": "3a4cf818-834e-4a30-b0fa-b6e764f242cc",
+      "index": 1037,
+      "timestamp": "2026-08-23T12:11:33.483000+00:00",
+      "tool": "Bash"
+    }
+  },
+  "image": {
+    "tag": "hera-agent:8bf4e7d.c13b07e9p-full",
+    "id": "sha256:194d62c195b5b728afcb971ec0afc0bcde416de207ac5dd344c06ff690ac622a",
+    "metadata": {
+      "corpus_sha": "13b07e9898b973aa34066587c27ac61db13c26cc",
+      "condition": "full",
+      "harness_sha": "8bf4e7d251f6005378cb0e2781781e7af10ef74c",
+      "prompt_source": "corpus",
+      "corpus_paths": [
+        "hera/recipes",
+        "hera/crops",
+        "hera/models",
+        "hera/docs/tetralayer-stacking-extraction-survey.md",
+        "hera/docs/stacking-extraction-survey.md",
+        "hera/docs/raman-public-data.md",
+        "hera/docs/notebook-indexes",
+        "hera/docs/iris",
+        "hera/docs/papers",
+        "hera/hera_tactical.md",
+        "hera/iris.md"
+      ],
+      "whitelist": [
+        "CLAUDE.md",
+        "README.md",
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        "src/gui",
+        "src/sharpelab_nb",
+        "src/tools",
+        "src/workers",
+        "src/drivers",
+        "src/hera/__init__.py",
+        "src/hera/analysis.py",
+        "src/hera/assets",
+        "src/hera/cache.py",
+        "src/hera/classify.py",
+        "src/hera/models.py",
+        "src/hera/overlay.py",
+        "src/hera/prompt.py",
+        "src/hera/provider.py",
+        "src/hera/providers",
+        "src/hera/render.py",
+        "src/hera/sidecar.py",
+        "src/hera/watch.py",
+        "lib",
+        "vendor",
+        "docs/api",
+        "jupyter-config",
+        "tools/nb",
+        "tools/nb-collab",
+        "tools/menv",
+        "hera/CLAUDE.md",
+        "hera/recipes",
+        "hera/crops",
+        "hera/models",
+        "hera/rig-cards",
+        "hera/device-cards",
+        "hera/templates",
+        "hera/vti",
+        "hera/blinding.md",
+        "hera/session_template.md",
+        "hera/hera_tactical.md",
+        "hera/iris.md",
+        "hera/docs/tetralayer-stacking-extraction-survey.md",
+        "hera/docs/stacking-extraction-survey.md",
+        "hera/docs/raman-public-data.md",
+        "hera/docs/notebook-indexes",
+        "hera/docs/iris",
+        "hera/docs/papers"
+      ],
+      "strip": [],
+      "claude_version": "2.1.283",
+      "codex_version": "0.157.1",
+      "docker_dir_sha256": "57555b224a00f63c55d50d6b88694219e849d5880d845c0fa365b038d2b98c08",
+      "built_at": "2026-09-27T02:24:02Z"
+    }
+  },
+  "docker": {
+    "client": "29.8.1",
+    "server": "29.8.1"
+  },
+  "hostname": "edhar",
+  "credential": "HERA_CODEX_AUTH_JSON",
+  "runner": "codex",
+  "harness": {
+    "git_head": "58d02e641961fd33ae744eb6e271fea08ead7a92",
+    "dirty": [],
+    "code_hash": "168ca18578055489a628f44ecda468e4d5528554b8ff35b7e08940e5aceb7c15",
+    "paths": [
+      "src/hera/replay",
+      "hera/docker"
+    ]
+  },
+  "job": {
+    "id": "20260929T234507-7led0l",
+    "label": "vti02-fan-request-0822 tranche 2 round 1",
+    "host": "edhar"
+  },
+  "ended_at": "2026-09-30T01:33:24+00:00",
+  "interrupted": false,
+  "statuses": {
+    "00": "ok",
+    "01": "ok",
+    "02": "ok",
+    "03": "ok",
+    "04": "ok",
+    "05": "ok",
+    "06": "ok",
+    "07": "ok",
+    "08": "ok",
+    "09": "ok",
+    "10": "ok",
+    "11": "ok",
+    "12": "ok",
+    "13": "ok",
+    "14": "ok"
+  }
+}

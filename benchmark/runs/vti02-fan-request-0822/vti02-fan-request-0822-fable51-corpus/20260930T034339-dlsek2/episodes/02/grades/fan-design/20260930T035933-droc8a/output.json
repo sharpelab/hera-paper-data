@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 8.0,
+  "n_B": 134,
+  "spacing": "invB",
+  "n_min_cm2": 1.0e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 68,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.2,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.0,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field], [field_invB(0.7, 8.0, N_B)], [k_tg.volt, k_bg.volt], [Vtgs, Vbgs], slow_delay=3.0, fast_delay=1.2); N_B = ceil((1/0.7-1/8)*3*34)+1 = 134 and N_n = 68 evaluated in a scratch script, matching the cell's own markdown. Densities from np.linspace(3.25, 1.00, 68)e12 cm^-2 at D = 0 via calc_gate_voltages with the run-5 CAL committed in the cell (Vtg 0.353-0.998, Vbg 0.351-1.185 V, inside tg_lims/bg_lims). sr1 sensitivity set in the cell (50 uV); sr0/sr1 tau 0.3 s, sr0 sens 0.02 V, both Keithley nplci 1.0 and drive 1.0 V are the close_out(restore=state0) readback in cell 44 (latest state record before the appended cells); 100 MOhm bias resistor from device_card.md. Markdown states ETA ~5 h."
+}

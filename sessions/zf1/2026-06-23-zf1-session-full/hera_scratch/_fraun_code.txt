@@ -1,0 +1,37 @@
+# === Step 3 — Ic(B)/Fraunhofer: dV/dI vs (I_dc, B_perp), both polarities ===
+# Two one-sided megasweeps (|B| decreasing toward 0). SC optimum; B=0 start.
+
+print("magnet ramp_rate (T/s):", magnet.ramp_rate(), " field:", magnet.field(), "T")
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T {_T:.4f} K ; magnet {_B:.3e} T ; dc205 {dc205_1.volt()} V")
+assert _T < 0.1, "probe not at base"
+assert abs(_B) < 5e-3, "magnet not near 0 at start (run-10 left it at 0)"
+
+VTG_OP, VBG_OP = -5.39, +4.00
+Vdc = np.linspace(-5.0, 5.0, 25)          # +/-50 nA (brackets Ic~30 nA)
+sides = [("neg", np.linspace(-0.006, 0.0, 16), -0.006),
+         ("pos", np.linspace(+0.006, 0.0, 16), +0.006)]
+sr830_1.amplitude(0.1); sr830_3.sensitivity(20e-6); k_tg.nplci(1); k_bg.nplci(1)
+
+for i, (side, B_vec, B_start) in enumerate(sides):
+    meas_config["comment"] = f"Ic(B)/fraunhofer {side}: B {B_start*1e3:+.0f}mT->0, Idc+/-50nA, opt n=-5.2e11 D=-0.645"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('fraunhofer')
+    s.add_comment(f'Ic(B) {side} side: B {B_start*1e3:+.0f}mT->0; Idc+/-50nA; opt Vtg-5.39 Vbg+4.00')
+    if i == 0:
+        s.ramp(k_tg.volt, VTG_OP); s.ramp(k_bg.volt, VBG_OP)
+    dc205_1.volt(0)
+    print(f"[{side}] ramping magnet to {B_start*1e3:+.0f} mT ...")
+    magnet.field(B_start); time.sleep(30)
+    print(f"[{side}] at {magnet.field():.5f} T ; T = {temperature():.4f} K")
+    s.fp(temperature); s.fp(magnet.field)
+    s.fp(k_tg.volt).fp(k_tg.curr); s.fp(k_bg.volt).fp(k_bg.curr); s.fp(dc205_1.volt)
+    for lia in (sr830_1, sr830_2, sr830_3):
+        s.fp(lia.X).fp(lia.P)
+    s.plot(dc205_1.volt, sr830_3.X)
+    s.megasweep(magnet.field, B_vec, dc205_1.volt, Vdc, slow_delay=6, fast_delay=1)
+
+# Park: dc bias 0, magnet 0, gates 0.
+dc205_1.volt(0)
+magnet.field(0.0)
+s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)

@@ -1,0 +1,3 @@
+### Run 6 — frequency read and take
+
+The drain current holds at about 9.9 nA and both gate currents stay well below the 1 nA trip. The Rxx trace oscillates strongly at high field. Windowed 1/B spectra contain a high-frequency component around 30 T and a low-frequency component around 5–9 T, but the lower peak and additional features shift when the field window changes. This establishes a useful electron-side fan target, **not** a subband count or stacking verdict: harmonics, spatially mixed regions A/B, and nonstationary oscillations remain live explanations. A density-resolved fan is the next discrimination step (plan step 1).

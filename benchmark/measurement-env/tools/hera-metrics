@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# hera-metrics — per-run HERA metrics extractor (hera/docs/run-metrics-spec.md).
+# Dev-machine analysis tool: reads the run manifest and writes per-run outputs
+# in hera-paper/analysis/ (--paper-root / HERA_PAPER). Unlike the rig shims,
+# it resolves its OWN repo from the symlink target rather than hard-coding
+# ~/measurement_env, so it works from any checkout/worktree on the dev box.
+set -euo pipefail
+repo="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
+exec uv run --no-sync --project "$repo" hera-metrics "$@"

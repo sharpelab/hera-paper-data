@@ -1,0 +1,3 @@
+## Run 6 — electron SdH spot check, n = +3.20×10¹² cm⁻², D = 0 (`sdh-spot-check`)
+
+Raw TSV first: the B = 0→10 T sweep completed 921/921 points; plot |Rxx| and both gate currents before extracting frequencies. Drain current stays near 9.9 nA, |Rxx| reaches 530 Ω, and gate currents remain below 0.13 nA (run 6). The spectrum contains a ~7 T component and higher components around 22–30 T, but integer harmonics and a possible sum tone overlap; this one-density cut is not a stacking verdict. `sdh_onset` marks the ~7 T tone censored at the 0.3 T analysis edge, so its die-off is unmeasured; the 50 mT sampling below 1 T is too coarse for the fastest tone there. The fan will sample that region with an inverse-field grid and track each component across density.

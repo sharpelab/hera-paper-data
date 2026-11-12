@@ -1,0 +1,12 @@
+# vti-02 stacking investigation — live plan
+
+Goal: make an independent, region-resolved ABAB / ABCA / ABCB call from this cooldown's transport only. Region means the two CNP contributions in the hardwired B_1–B_2 longitudinal pair; no other contact pair is wired.
+
+1. Bring-up, VERIFY, Gate C. Completed in measure cells 30–34, data/0–3: validators and liveness passed, no nA gate leakage.
+2. CNP and D-line calibration. Completed in measure cells 35–38 and ana cells 12–13, data/5: two parallel ridges, calibrated c_bg/c_tg=0.773; absolute capacitance still anchored to the 9.5 nm geometry prior. Region B's CNP is offset by about −0.43e12 cm⁻² in region-A coordinates. D=0 offset −0.013 V/nm.
+3. SdH feasibility and field scale. Completed in measure cells 39–42, data/6–7. Both carrier sides show sizable oscillatory Rxx with no sustained leakage; FFT components depend on field window and mix fundamentals/harmonics. Treat these as proof of resolvability, not a stacking verdict.
+4. Landau fan at D=0 (next). Sweep the calibrated region-A density line −1.1 to +3.2e12 cm⁻², 0.025e12 steps, field 0.5 to 10 T in 16 rows with tighter 0.5 T spacing through 6 T. This includes both CNPs and the high-density electron SdH point. Use measured drain current for Rxx and plot raw B/n grid before fan tracing. Compare quantum-oscillation branch slopes, sequence, and crossings to ABAB's two bilayer-like sectors, ABCA's single low-energy sector, and ABCB's mixed pattern; separate the two spatial CNP contributions before calling either. A fan that only shows overlapping branches without region assignment triggers a targeted zoom or a calibrated cannot-tell.
+5. If the first fan identifies branch structure but not the regional split, take a narrower density/field zoom or a modest D contrast within the validators, priced from the first fan. Do not infer stacking from the D gap alone or from an FFT peak without density evolution. If the channel rails, leakage exceeds 1 nA, or temperature/field conditions drift, stop and re-read state before redesign.
+6. Promote each run's raw and interpreted plots to ana, then write the final per-region call with run ids, numbers, uncertainty, and absent measurements. Close out with field/gates/heaters at zero and record readback.
+
+Current state: operator handoff returned field, gates, and heaters to zero; kernel binding was rechecked in measure cell 46. E1 grant remains engaged per session_notes.md. The fan starts from near zero field and will end at 10 T, so any follow-up can use the descending field leg.

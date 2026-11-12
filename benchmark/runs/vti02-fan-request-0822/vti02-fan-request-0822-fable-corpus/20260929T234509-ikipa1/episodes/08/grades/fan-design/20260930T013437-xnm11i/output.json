@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.0,
+  "n_B": 71,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.25,
+  "flags": [],
+  "notes": "Cell 48 (the only appended code cell) is a 1D field sweep s.sweep(magnet.field, np.round(np.arange(0.30,1.0001,0.01),4), delay=0) = 71 pts, 0.3->1.0 T uniform in B, at the single spot n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages with the run-5 calibration committed in the cell (Vtg = +0.9836, Vbg = +1.1661). No fan cell is issued and no further densities are named anywhere (no hera_scratch/plan.md), so form is probe_only; the markdown calls it an onset extension that will pin the future fan's B_lo and states ~15 min. Lock-in and NPLC state inherited from the cell-44 close_out(restore=state0) readback (sr0 20 mV/0.3 s, sr1 2 uV/0.3 s, tg/bg nplci 1.0); the cell resets sr1 sensitivity to 50 uV. Drive 1.0 V from the same readback, 100 MOhm bias resistor from device_card.md line 64."
+}

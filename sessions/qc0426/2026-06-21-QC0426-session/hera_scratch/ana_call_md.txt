@@ -1,0 +1,17 @@
+## STACKING CALL — QC0426 (trilayer graphene), VTI, 2026-06-21
+
+**Region probed:** four-terminal pairs **sr1 (T3–T4)** and **sr2 (B4–B5)**, source T2 / drain B7, D≈0. The two pairs agree throughout (one coherent region; no mosaic info — only this region was contacted).
+
+**1. Verdict (STYLE strength scale): ABA (Bernal) — WEAK. Equivalently: ≥2 Fermi surfaces indicated → simple ABC disfavored, but ABA not decisively confirmed and spin-split-ABC not excluded.**
+
+**2. Evidence (feature-level):**
+- **Density pinned independently:** low-field Hall slope n=2.96e12 cm⁻² vs gate 3.00e12 (1.3%) → **F_L = 31 T at n=3e12** is firm (not just a band). CNP line V_tg=−1.306·V_bg+0.225, ratio matches geometry to 0.5%.
+- **A dominant SdH tone tracks F ≈ F_L(n)** across n=0.7–3.0e12, D≈0 (fan Run 4: dominant/F_L median ≈ 1.0; spot check Run 2 ≈30 T at n=3e12). → one Fermi surface carries ~the full Luttinger density (the BL pocket of ABA, or the single ABC pocket — these coincide, as expected).
+- **Robust sub-F_L tones** in the high-quality hole spot check (Run 2, sens 1e-4, cutoff/degree-stable, in **both** sr1 & sr2): **11.8 & 16 T** at n=3e12; 11.8+16 ≈ 28 ≈ F_L (Luttinger-consistent pair). The fan shows F_L/2-region content with a ~2:1 relation to the F_L tone. These sub-F_L tones cannot be sub-harmonics of a single F_L pocket → **indicate additional Fermi-surface content beyond one pocket.**
+- **Forward-model (`fs_count_b0`) overlay** at n=3e12, D=0: ABA [1.5, 29.5] T (tiny ML + BL≈F_L); ABC [31] T single. The data's dominant tone matches ABA-f_BL/ABC-single; the observed sub-F_L tones are **larger** than ABA's predicted ~1.5 T ML (band-parameter dependent — count + Luttinger sum are the robust discriminators, not the model's exact frequencies).
+
+**3. Confidence: WEAK.** Hedges: (a) the **decisive small ML partner** (ABA, predicted ~1–2 T) is **below resolution** — the <6 T band is dominated by the MR-background artifact; (b) the sub-F_L tones could be **harmonics or spin/valley-splitting** of a single ABC pocket rather than a second orbital band; (c) the **LK effective-mass cross-check** (two distinct masses ⇒ two genuine bands — the clean discriminator) is **unavailable: `temperature-dependence` is blocklisted this session**; (d) **D_offset=0 is unexamined** (D=0 not physically located; finite D shifts the ML/BL partition); (e) the **Streda LL-filling** read was inconclusive (no clean integer-ν ladder; `run4_streda.png`); (f) single region.
+
+**4. What would firm it:** (i) **LK mass** at the two coexisting frequencies (needs `temperature-dependence`, blocklisted — flag for operator / next session: this is the single most decisive remaining test); (ii) a **low-frequency-resolved spot check** hunting the ~1–2 T ML partner (longer 1/B record, finer low-F, better background removal); (iii) **locate D=0** (symmetric ±D feature) and repeat at verified D=0; (iv) high-field **Streda/Chern complement** on a uniform-B (Streda-optimized) fan (recipe Step 6); (v) a finer-sensitivity fan to sharpen the sub-F_L tones.
+
+**5.** Per the investigation's output contract, this is a **calibrated "leaning, not decisive"** with stated resolution/scope limits — a valid outcome. A confident ABA *or* ABC call is **not** supported by feature-level evidence here; the binding limitations are the unresolved ML partner (<2 T) and the blocklisted LK-mass test.

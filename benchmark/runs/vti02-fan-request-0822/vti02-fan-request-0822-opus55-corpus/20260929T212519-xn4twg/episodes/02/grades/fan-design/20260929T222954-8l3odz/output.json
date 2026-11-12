@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 103,
+  "spacing": "invB",
+  "n_min_cm2": 1.80e12,
+  "n_max_cm2": 3.22e12,
+  "n_columns": 31,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.33,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, with markdown cell 47): s.multimegasweep([magnet.field],[field_invB(1.0,10.0,103)],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=2.1); fast axis from calc_gate_voltages(np.linspace(3.22,1.80,31), D=0, run-5 CAL c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) -> Vtg +0.9894..+0.5825, Vbg +1.1735..+0.6471; n in 1e12 cm^-2 per calc_gate_voltages docstring. Cell 48 sets sr1 50 uV and sr0 20 mV; taus 0.3 s inherited from cell 44 close_out(restore=state0) readback (sr0_tau/sr1_tau 0.3), which also shows tg/bg nplci 1.0. Drive 1.0 V through the 100 MOhm bias resistor (cell 48 print). ETA \"~3h20m\" from markdown 47. The autorange hook was registered only on cell 34's station, so it is not in force here."
+}

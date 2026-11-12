@@ -1,0 +1,36 @@
+# THE CALL — QC0426 stacking order (trilayer-stacking-fs-count, Step 7)
+
+> **[REVISED late 2026-07-19]** — the sr1/ABC verdict demoted from *strong* to *consistent-with* after the leakage-proof LK refit (correction cell below) showed the beat exclusion inconclusive at current precision; ladder v2 (runs 16–21+) and the Streda read are the firming path. ABA verdicts unaffected (ML/BL mass distinctness sharpened).
+
+## 1. Per-region verdicts (STYLE strength scale)
+
+- **sr2 / B4–B5 (electron side): ABA (strong).** Two coexisting Fermi surfaces resolved: the ML+BL pair with Luttinger partition f_ML + f_BL = F_L holding at **1.000 ± 0.059 across 80 density columns** (run 9), both branches co-locating with the model Onsager curves, and **two distinct LK masses** (ML 0.015–0.017, BL 0.042–0.047 — leakage-proof refit) confirming two genuine bands.
+- **sr1 / T3–T4 (electron side): mixed-domain with an ABC component (consistent-with).** A singleton riding F_L(n) across the full window, dominant over the pair tones at high n (runs 6, 9); at mid-n (n_true 3.5–4.6) a resolved BL+FL doublet shows ABA content mixed in. The FL mass (0.054–0.056 ± 0.007–0.010) **no longer excludes** a Shoenberg mixing/breakdown tone (parents' sum 0.059–0.062, overlapping within ~1σ). The ABC reading rests on: the B-window split (FL falls with B; breakdown grows with B), FL dominance over its would-be parents, and spatial/side selectivity (FL-dominance confined to one channel, one carrier sign; the hole side has the strongest pairs and no FL-dominant channel).
+- **Hole side (both channels): ABA (strong).** Independent Luttinger-consistent pair {11.0–11.4, 54.4–54.5}, partition ≈ F_L(hole scale) (runs 7–8). ABC component on the hole side: **uninformative** (~72 T supra-F_L tone unassigned — fork).
+- **Device-level: ABA-dominant, with a candidate ABC domain in the T3–T4-probed segment (consistent-with, pending the firming steps).** Corroborated (not evidenced) by the D-opened CNP gap capping ~10 kΩ (run 4) — domain-shunting-consistent.
+
+## 2. Evidence (each tone: F, coordinates, backing artifact)
+
+| tone | F (T) | where | n-dependence | LK m* (refit) | assignment |
+|---|---|---|---|---|---|
+| ML | 13.4 (at n_true 6.6e12) | both channels, e-side; 11.0–11.4 h-side | own Onsager curve 2→11 T, model-ML-shaped (run 9) | 0.015–0.017 | ABA ML pocket |
+| BL | 55.2 (e), 54.4 (h) | sr2 e-side (sr1 mid-n only); both h-side | own curve below F_L, model-BL-shaped | 0.042–0.047 | ABA BL pocket |
+| F_L tone | 66.3 (e) | dominant sr1; present sr2 | rides F_L(n) exactly, all columns | 0.054–0.056 | ABC-domain pocket **or** pair mixing tone — unresolved fork (see verdict 2) |
+| combs | 2×, 3×, k×ML; 2×66.3 | both | track k·f exactly | — | harmonics, dropped |
+| unassigned | 33.9 (e); ~32.8 at n_true≈4.1; 98.9 (e, sr1); ~72 (h) | various | — | — | forks, reported not refined |
+
+Scale provenance: global rescale **1.106×** geometry prior, pinned two ways 0.5% apart (sr2 Luttinger sum; low-B Hall); hole side self-consistent at 1.06×. Data: runs 4–15 (+16–21 v2 ladder); analyses: ana cells 13–31; forward model `fs_count_b0.py` (topology/partition trusted, absolutes not).
+
+## 3. Confidence + hedges
+
+High confidence in the FS **count** for the ABA regions. The sr1 F_L-tone origin is the open fork — mass-inconclusive at current precision. Standing hedges: e/h scale asymmetry (1.106 vs 1.06, unexplained ~4%); wide model absolute bars; unassigned tones (table); domain geometry not localizable by transport; δF 1.4–5.3 T bounds per measurement; ML amplitude non-monotonicity at the ladder base (unexplained, flagged).
+
+## 4. What would firm it (reordered)
+
+1. **Ladder v2 refit** (runs 16–21+, X-designed top, multi-cosine extraction) — tighter FL mass against the parents' sum.
+2. **Streda/Chern high-field read (Step 6)** — mass-free, independent: ABA offset QH sequence vs ABC ν = ±6-centred zero-LL; partially available in the fan's ≥6 T rows plus one deeper fan.
+3. Per-channel CNP-gap-vs-D systematics; Raman fusion if optical maps exist; mK campaign if ABC firms.
+
+## 5. Contract note
+
+Region-resolved, evidence-cited, hedged. The ABA calls carry feature-level evidence at *strong*; the ABC component is honestly *consistent-with* — the "cannot tell yet on the F_L-tone origin" is stated as such, per the contract's licence.

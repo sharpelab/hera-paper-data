@@ -1,0 +1,15 @@
+# === Does it settle? Hold heater at 6 V (NO step), record T(t) until it plateaus. ===
+import os, time as _t
+_lf = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+assert _t.time() - os.path.getmtime(_lf) < 120, "Probe1 logfile stale — thermometry worker down"
+assert abs(heater.volt() - 6.0) < 0.01, "expected heater held at 6 V"
+print(f"heater {heater.volt()} V held (no step); T now {temperature()*1e3:.1f} mK, fridge {fridge_temperature()*1e3:.1f} mK")
+
+meas_config["comment"] = "heater-settle FIXED-6V hold: does T plateau? (no step, ~30 min, interrupt when flat)"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('heater-settle-calibration')
+s.add_comment('FIXED 6V hold settle test; NO step; record T(t) until plateau')
+s.fp(temperature); s.fp(fridge_temperature); s.fp(heater.volt); s.fp(heater.curr)
+s.plot('time', temperature)
+s.sweep(k_tg.volt, np.full(180, 0.0), delay=10)   # ~30 min; interrupt when the live plot is flat
+print("done. T now", temperature()*1e3, "mK")

@@ -1,0 +1,7 @@
+## HERA — 1 nA confirmation cut (validate 4T SNR before the survey map)
+
+Gate C passed at 40 pA: current path 5-4 alive (pinned at I_bias), 2T 5-4 a clean CNP (42.7 kΩ at BG = −0.017 V), and the 4T channel sr3 (30-31) is **real** — its smoothed CNP coincides with the 2T CNP — but starved to 2–8 nV (SNR ~2–3) by the low drive. Leakage healthy (|I_tg|≤57 pA, |I_bg|≤43 pA). Per your call, raising the AC drive to the device-card nominal **0.1 V / 1 nA** and re-ranging the lock-ins, then repeating the same BG cut as a direct before/after on the 4T SNR.
+
+**Sensitivities I've set** (signals scale 25×): sr1 (current) 2 mV [≈1 mV signal], sr2 (2T) 100 µV [CNP ≈43 µV], sr3 (4T) 20 µV — tuned for the **low-Rxx / metallic regime** where SC candidates live; the CNP peak may clip, which is fine (we don't need CNP Rxx). **Eyeball the live monitor for overload** on the first few points and stop/adjust if any channel rails.
+
+**Success criterion:** sr3 (4T) shows a clean CNP feature ~25× above the run-0 noise and a readable metallic baseline. If it does, the next proposal is the pristine-field axis-aligned survey gatemap reusing these exact settings (it doubles as the cap-ratio / CNP-slope substrate, investigation Step 1). If sr3 is still ugly at 1 nA, the 30-31 pair is suspect (note: device-card active-pairs lists 7-31, not 30-31) and I'll propose trying 7-31. Does **not** touch the field controller. ~3–4 min + ramp.

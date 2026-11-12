@@ -1,0 +1,34 @@
+# THE CALL — QC0426 stacking order (trilayer-stacking-fs-count, Step 7)
+
+## 1. Per-region verdicts (STYLE strength scale)
+
+- **sr2 / B4–B5 (electron side): ABA (strong).** Two coexisting Fermi surfaces resolved: the ML+BL pair with Luttinger partition f_ML + f_BL = F_L holding at **1.000 ± 0.059 across 80 density columns** (run 9), both branches co-locating with the model Onsager curves, and **two distinct LK masses** (0.019 ± 0.001 vs 0.057 ± 0.005 — runs 10–15) confirming two genuine bands.
+- **sr1 / T3–T4 (electron side): mixed-domain with an ABC component (strong).** A singleton riding F_L(n) across the full window with **no BL branch** (runs 6, 9), whose LK mass **0.057 ± 0.011 excludes magnetic breakdown/mixing** (parents' summed mass ≥ 0.076; beat exclusion — a tone this light cannot be a beat) and is consistent with the ABC pocket (model 0.043, semi-quantitative). The weak co-present 13.4 T tone = ABA-domain leakage along the shared current path.
+- **Hole side (both channels): ABA (strong).** Independent Luttinger-consistent pair {11.0–11.4, 54.4–54.5}, partition ≈ F_L(hole scale) (runs 7–8). ABC component on the hole side: **uninformative** (a ~72 T tone sits above F_L on both channels — unassigned fork, below).
+- **Device-level: mixed-stacking mosaic — ABA majority with at least one ABC domain in the segment probed by T3–T4.** Consistent with the B = 0 observation that the CNP gap opens under D (run 4: ridge peak R up ~10× both D signs, capping ~10 kΩ ≪ MΩ — domain-shunting-consistent, used only as corroboration per the investigation).
+
+## 2. Evidence (each tone: F, coordinates, backing artifact)
+
+| tone | F (T) | where | n-dependence | LK m* | assignment |
+|---|---|---|---|---|---|
+| ML | 13.4 (at n_true 6.6e12) | both channels, e-side; 11.0–11.4 h-side | own Onsager curve 2→11 T, model-ML-shaped (run 9 overlay) | 0.019 | ABA ML pocket |
+| BL | 55.2 (e), 54.4 (h) | sr2 e-side; both h-side | own curve below F_L, model-BL-shaped | 0.057 | ABA BL pocket |
+| F_L tone | 66.3 (e) | dominant sr1; present sr2 | rides F_L(n) exactly, all columns | 0.052–0.057 | ABC-domain pocket (breakdown excluded) |
+| combs | 2×, 3×, k×ML; 2×66.3 | both | track k·f exactly | — | harmonics, dropped |
+
+Scale provenance: global rescale **1.106×** geometry prior, pinned two independent ways 0.5% apart (sr2 Luttinger sum 68.6 T; low-B Hall 6.60×10¹²); hole side self-consistent at 1.06×. All tones read against the pinned F_L (scale-first discipline). Data: runs 4–15; analyses: ana cells 13–29; forward model `fs_count_b0.py` (topology/partition trusted, absolutes not).
+
+## 3. Confidence + hedges
+
+High confidence in the FS **count** per region (the load-bearing quantity). Hedges: (a) e/h scale asymmetry 1.106 vs 1.06 — unexplained at the ~4% level (two-band Hall caveat; possible D_offset ≠ 0, unexamined); (b) model absolute masses/frequencies carry wide hopping-parameter bars — assignments rest on topology, partition, and mass *distinctness*, not absolutes; (c) unassigned tones, reported not refined (STYLE rule 14): 33.9 T (sr2, e-side), 98.9 ≈ 1.5×66.3 (sr1, e-side; possible spin-split), ~72 T above F_L (both channels, h-side); (d) domain geometry (which physical segment is ABC, its size) is not localizable by transport alone; (e) δF ≈ 1.4–2.7 T bounds all frequency claims.
+
+## 4. What would firm it
+
+- **Streda/Chern high-field read** (Step 6): the fan's ≥6 T rows carry developing QH structure — the ABA offset sequence vs ABC ν = ±6 zero-LL check is an analysis-only follow-up on existing data plus one deeper fan at 8 T.
+- **Per-channel CNP-gap-vs-D systematics** (from run 4 + a targeted D-line cut) — the ABC domain should gap where sr1 probes.
+- **Raman cross-check** (`stacking-raman-transport-fusion`) if optical maps exist for this flake.
+- A mK-rig session for the ABC domain's correlated-phase physics (the interesting outcome branch).
+
+## 5. Contract note
+
+A confident call **with** feature-level evidence is delivered: every claimed tone carries its frequency, coordinates, n-track, mass, and artifact. The "cannot tell" branch was not needed. Per the investigation's Next: the ABC-leaning outcome makes this device a flat-band/correlated candidate — the low-T campaign decision passes to the operator.

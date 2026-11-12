@@ -1,0 +1,8 @@
+## HERA — TG leakage/SNR leg @ 0.5 nA, before the candidate map
+
+Gate C (run 0) passed: device alive, 4T Rxx (sr3, 30-31) live, no leakage on BG, CNP at k_bg≈0. Two gaps to close cheaply before committing to the ~hours Step-1 gate map:
+
+1. **TG extremes untested this session** — run 0 only swept BG at k_tg=0. The map's slow axis will drive TG to −7 / +6 for the first time. The **negative** side is the riskier one (device card: hBN leakage onset is *higher* on +V, so −7 V sits nearer onset). Walk TG **0 → −7 V** from zero with gate leakage live-plotted at pA resolution (nplci=10) — confirm the committed −7 V validator is still safe this cooldown *before* the map drives it 80× over. (The +6 V side — the safer polarity — is validator-trusted and will be confirmed live in the map's first rows + checkpoint.)
+2. **Validate the 0.5 nA drive** — bump `sr830_1.amplitude` 0.004 → **0.05 V** (40 pA → 0.5 nA; the card's nominal is 1 nA, 0.5 nA is the SC-friendly value from `sc-characterization` Step 2). This leg runs away from the CNP into the metallic **low-Rxx band** — exactly where run 0's 40 pA noise floor (~26–68 Ω) buried the signal. Expect the 4T noise floor to drop to ~5 Ω, confirming candidate-low-Rxx will be resolvable on the map.
+
+**Preconditions** (asserted): T base (<100 mK), |B|<5 mT, gates printed. **Watch the live gate-current plot** — if |I_tg| climbs toward the 100 pA line / rolls into nA, interrupt (`nb-collab interrupt`); that's leakage onset and we back off the TG validator. `try/finally` parks TG→0 and resets nplci→1. **~3 min** (71 pts × ~1.7 s + park-back ramp).

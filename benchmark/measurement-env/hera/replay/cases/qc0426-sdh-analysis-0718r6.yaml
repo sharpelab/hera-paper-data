@@ -1,0 +1,16 @@
+# The sdh_analysis decision point on QC0426 (07-18): run 6, electron +6.6e12, the
+# clip-free redo, just landed (line 620). Input quality GOOD: three tones in both
+# channels; onset censored at the 2 T edge; the live read wrongly called the 55 T
+# tone absent in sr1.
+case: qc0426-sdh-analysis-0718r6
+source: ../../docs/notes/2026-07-18-QC0426-session-full
+cut:
+  transcript: 5b0bcf83-c113-4c47-aced-a6dc5d1b6ca4.jsonl
+  at: b8e4e2b3-6e45-4370-a472-fd7d7bbae9bb
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 6 is down, 1112 rows, no clip flags. Reading it now: raw MR and Hall, onset, FFT, then the ana entry."
+  prompt: "Carry on."
+grader: null

@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.4,
+  "B_max_T": 1.5,
+  "n_B": 231,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.45,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) is a 1D field sweep s.sweep(magnet.field, field_invB(.4,1.5,231), delay=0) at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages(3.2, 0., CAL run5) giving (V_tg, V_bg) = (+0.984, +1.166) V; no further densities are named anywhere (cell 47 markdown and hera_scratch/md_onset.md only say gates stay at this point and B at 1.5 T for a fan direction chosen later), so form is probe_only and no fan is issued. Lock-in state inherited from cell 44 close_out(restore=state0) readback (sr0_sens 0.02 V, sr0/sr1 tau 0.3 s, sr1_sens 2e-6 V), with cell 48 setting sr1.sensitivity(50e-6); NPLC 1 on both Keithleys from the same readback. Stated time 27 min from the cell-47 header; an in-cell comment says 227 points while the code builds 231."
+}

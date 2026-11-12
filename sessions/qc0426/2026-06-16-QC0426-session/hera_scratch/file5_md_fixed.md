@@ -1,0 +1,3 @@
+## Raw — file 5: hole-side spot check (n=−8×10¹², D=0, Si=+50 V, 200 µV) — CURRENT COLLAPSED
+
+First spot-check sweep (raw-first). Drain current = **4.99 nA at the first point** (gates fresh, B=0), then **collapses to ~16 pA within ~27 s and stays there**. **NOT a p-n junction** (corrected — file 6, electron side, collapses identically; see below): it is a **time-dependent current collapse when the device is *held* at high |n| (±8×10¹², gates ≈ ±3.7/±2.9 V)** — charge trapping / gate hysteresis. Reversible / device undamaged (file 4 fast gatemap read 5 nA at these same gates; file 2 *held* n=−4×10¹² conducted throughout). R_xx/R_xy here are not meaningful (no current).

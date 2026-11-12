@@ -1,0 +1,1 @@
+**Read:** textbook supercurrent — dV/dI≈0 plateau for |I_dc|≲25 nA, sharp **switching peaks (~155 Ω) at ±36 nA**, normal (~50 Ω) beyond; fwd/bwd overlap (**non-hysteretic**), symmetric. Zero-bias dV/dI 1.75 Ω, field at B_eff0 (true 0.001 mT). Matches the handoff (Ic≈26–28 nA). Clean → proceed to the 2D dV/dI(I_dc, T) (Fig 5).

@@ -1,0 +1,47 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:38: UserWarning: sdh_onset: tone 7.2 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.70 T is the record edge, not a measured die-off
+  onset=sdh_onset(resistance,b,b_lo=0.7,r_full_scale=5000,bg_degree=3)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:38: UserWarning: sdh_onset: tone 7.0 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.70 T is the record edge, not a measured die-off
+  onset=sdh_onset(resistance,b,b_lo=0.7,r_full_scale=5000,bg_degree=3)
+run 6
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    electron side: n = +3.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (+0.9836, +1.1661); B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    921 of 921 (complete)
+  swept:   magnet_field 0 → 10 (monotonic)
+run 6 wall min 120.36051776806514 median dt 7.4635045528411865 median overhead beyond 0.137T/min 3.0833128643034877
+R signed range -32.947456304556134 529.6319160820163 I nA 9.84293 9.93544 T 1.165 1.292
+phase sr1 quantiles [-176.496   -9.834    0.942   32.838  177.51 ]
+run 7
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    hole side: n = -1.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (-0.2770, -0.4650); B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    486 of 486 (complete)
+  swept:   magnet_field 10 → 0.3 (monotonic)
+run 7 wall min 95.6802542567253 median dt 11.827555179595947 median overhead beyond 0.137T/min 3.0675551795959386
+R signed range -0.3754571869434766 586.8675532668536 I nA 9.8086 9.930670000000001 T 1.175 1.291
+phase sr1 quantiles [ -6.24   -3.405  -1.191   1.44  101.31 ]
+run 6 window 1.0 peaks [(np.float64(7.78), np.float64(0.55)), (np.float64(14.44), np.float64(0.36)), (np.float64(22.22), np.float64(0.34)), (np.float64(29.99), np.float64(0.27)), (np.float64(58.87), np.float64(0.09))]
+run 6 window 1.5 peaks [(np.float64(7.06), np.float64(0.78)), (np.float64(14.11), np.float64(0.53)), (np.float64(29.99), np.float64(0.47)), (np.float64(22.94), np.float64(0.41)), (np.float64(58.22), np.float64(0.08))]
+run 6 window 2.0 peaks [(np.float64(7.5), np.float64(1.0)), (np.float64(29.99), np.float64(0.6)), (np.float64(15.0), np.float64(0.6)), (np.float64(22.49), np.float64(0.45)), (np.float64(59.99), np.float64(0.11))]
+run 6 sdh_onset: onset_b = 0.70 T (tone 7.2 T) over B [0.70, 10.00] T
+  tone   29.5 T: onset  1.77 T  dF  2.16 T  snr_max  115.0  [revives-below-gap, ~4x7.2T, 2x->58.5T]
+  tone    7.2 T: onset  0.70 T  dF  0.75 T  snr_max   94.4  [censored@edge, ~2x3.8T, 2x->14.4T, 3x->22.1T, 4x->29.5T, 13x->94.8T]
+  tone   14.4 T: onset  1.84 T  dF  2.25 T  snr_max  102.0  [revives-below-gap, ~2x7.2T]
+  tone   94.8 T: onset  5.38 T  dF 11.63 T  snr_max   38.0  [revives-below-gap, ~13x7.2T]
+  tone   58.5 T: onset  3.87 T  dF  6.31 T  snr_max   52.2  [~2x29.5T]
+  tone   22.1 T: onset  1.41 T  dF  1.64 T  snr_max   53.5  [~3x7.2T]
+  tone    3.8 T: onset  0.70 T  dF  0.75 T  snr_max   27.0  [censored@edge, near-residual, 2x->7.2T]
+  tone    5.4 T: onset  0.70 T  dF  0.75 T  snr_max    7.1  [censored@edge, marginal]
+run 7 window 1.0 peaks [(np.float64(6.67), np.float64(1.0)), (np.float64(4.44), np.float64(0.84)), (np.float64(12.22), np.float64(0.36)), (np.float64(18.88), np.float64(0.13)), (np.float64(28.88), np.float64(0.03))]
+run 7 window 1.5 peaks [(np.float64(5.29), np.float64(1.0)), (np.float64(12.35), np.float64(0.5)), (np.float64(21.17), np.float64(0.14)), (np.float64(28.23), np.float64(0.03)), (np.float64(33.52), np.float64(0.02))]
+run 7 window 2.0 peaks [(np.float64(5.0), np.float64(1.0)), (np.float64(12.5), np.float64(0.75)), (np.float64(22.49), np.float64(0.21)), (np.float64(37.49), np.float64(0.04)), (np.float64(32.49), np.float64(0.03))]
+run 7 sdh_onset: onset_b = 0.70 T (tone 7.0 T) over B [0.70, 10.00] T
+  tone    7.0 T: onset  0.70 T  dF  0.75 T  snr_max   56.9  [censored@edge, 4x->29.2T, 11x->76.1T]
+  tone   12.3 T: onset  1.28 T  dF  1.47 T  snr_max  113.7  [2x->24.6T, 3x->38.7T]
+  tone    5.0 T: onset  0.70 T  dF  0.75 T  snr_max   67.0  [censored@edge, near-residual, 4x->19.2T]
+  tone   19.2 T: onset  1.93 T  dF  2.40 T  snr_max   25.6  [~4x5.0T]
+  tone   29.2 T: onset  2.54 T  dF  3.41 T  snr_max   29.3  [revives-below-gap, ~4x7.0T]
+  tone   76.1 T: onset  5.17 T  dF 10.72 T  snr_max   14.6  [~11x7.0T]
+  tone   38.7 T: onset  4.24 T  dF  7.37 T  snr_max   46.8  [revives-below-gap, ~3x12.3T]
+  tone   24.6 T: onset  2.54 T  dF  3.41 T  snr_max   41.9  [revives-below-gap, ~2x12.3T]
+run5 point dt quantiles [1.09276266 1.09836173 1.11627679] turnaround 5.774155974388123 wall min 81.2182798465093

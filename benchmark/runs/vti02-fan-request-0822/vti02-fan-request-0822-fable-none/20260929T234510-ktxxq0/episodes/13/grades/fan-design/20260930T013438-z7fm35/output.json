@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 0.4,
+  "B_max_T": 10.0,
+  "n_B": 161,
+  "spacing": "B",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 131,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 2.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 8.75,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep with magnet.field slow over B_vec = np.round(np.arange(0.4, 10.0+1e-9, 0.06), 4) -> 161 rows, uniform in B; fast axis k_tg.volt + k_bg.volt co-swept from calc_gate_voltages over np.linspace(-1.25, 3.25, 131)e12 cm^-2 at D = 0 V/nm using the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); slow_delay 2.0, fast_delay 1.0. sr1 sensitivity set to 200 uV in the answer cell; sr1 tau 0.3 s and sr0 sens 0.02 V / tau 0.3 s inherited from the close_out(restore=state0) readback in cell 44, the latest state record. NPLC 1 for both Keithleys asserted in-cell and shown in that same readback. Drive 1.0 V through the 100 MOhm bias resistor (meas_config cell 23, cell-44 drive_V). Stated run time 8 h 45 m in the cell-47 markdown."
+}

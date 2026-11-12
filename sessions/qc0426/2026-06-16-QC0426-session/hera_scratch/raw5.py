@@ -1,0 +1,12 @@
+# Raw — file 5: hole-side spot check (n=-8e12, D=0, Si=+50V, sens 200uV)
+m=load_meta(5);ci={c:i for i,c in enumerate(m['columns'])};d=load1d(5)
+B=d[:,ci['magnet_mag']];Ib=5e-9;I=d[:,ci['sr0_X']]/m['measurement_config']['sr0_gain']
+fig,ax=plt.subplots(1,3,figsize=(15,4))
+ax[0].plot(B,I*1e9,'C3');ax[0].axhline(5,ls=':',c='k',label='5 nA bias target')
+ax[0].set(xlabel='B (T)',ylabel='I_drain (nA)',title='drain current — BLOCKED');ax[0].legend()
+ax[1].plot(B,d[:,ci['sr1_X']]/Ib,label='sr1');ax[1].plot(B,d[:,ci['sr2_X']]/Ib,label='sr2')
+ax[1].set(xlabel='B (T)',ylabel='V/I_bias (ohm, nominal)',title='Rxx (not meaningful — no current)');ax[1].legend()
+ax[2].plot(B,d[:,ci['sr3_X']]/Ib,'C2');ax[2].set(xlabel='B (T)',ylabel='V/I_bias (ohm, nominal)',title='Rxy (nominal)')
+fig.suptitle('Raw — file 5: HOLE side n=-8e12, Si=+50V — current blocked (16 pA): p-n junction (n-contacts + p-channel)')
+plt.tight_layout();plt.show()
+print("drain I median:",f"{np.median(I)*1e9:.3f} nA"," -> hole side blocked at Si=+50V (n-doped contacts + p-channel = p-n junction).")

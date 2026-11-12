@@ -1,0 +1,38 @@
+[influxdb]
+url = "https://metrics.aaronsharpe.science"
+token = ""
+org = "dgg"
+bucket = "vti"
+
+[hardware]
+lakeshore_gpib = "GPIB0::10::INSTR"
+temperature_log_dir = 'C:\Users\DGG\temperature_logs'
+ami1700_addr = "TCPIP0::192.168.0.100::7180::SOCKET"
+terranova_addr = "ASRL8::INSTR"
+lakeshore218_gpib = "GPIB0::15::INSTR"
+fastbi_host = "192.168.0.10"
+
+# Reading status (raw RDGST, 0 = valid) is written whether or not the sample
+# input has a valid temperature — a pulled probe reads 0 K and publishes no
+# temperature, and must not show as a dead worker.
+[health.lakeshore]
+metrics = ["sample reading status"]
+threshold = 90
+
+[health.he_level]
+metrics = ["He level"]
+threshold = 90
+
+[health.probe_pressure]
+metrics = ["probe space pressure"]
+threshold = 90
+
+# Both Lakeshore 218 channels are listed: the panel is green only while each
+# one is publishing.
+[health.l218]
+metrics = ["magnet temperature", "gm temperature"]
+threshold = 90
+
+[health.magnet]
+metrics = ["magnetic field"]
+threshold = 90

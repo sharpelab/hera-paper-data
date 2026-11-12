@@ -1,0 +1,189 @@
+{
+ "run_id": "qc0426-r10",
+ "manifest": {
+  "run_id": "qc0426-r10",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-21",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-21-QC0426-session-2",
+  "rig_session_dir": "zack/20260621.2-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": true,
+  "session_end_override": "2026-06-22T15:47:42+00:00",
+  "caveats": [
+   "archived-2026-07-06",
+   "post-session-extension"
+  ]
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-22T05:45:44+00:00",
+  "t_transcript_last": "2026-06-22T22:07:27+00:00",
+  "transcript_span_h": 16.36183249996768,
+  "session_h": 10.032606111102634,
+  "t_final_decision": "2026-06-22T15:46:08.467030+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 10.006624730560514,
+  "t_first_sweep": "2026-06-22T06:01:32+00:00",
+  "t_last_sweep_end": "2026-06-22T15:41:14+00:00",
+  "sweep_span_h": 9.66164961245325,
+  "measuring_h": 8.990095307098494,
+  "longest_sweep_h": 3.9592523792054917
+ },
+ "sweeps": {
+  "n_sweeps": 6,
+  "by_recipe": {
+   "gatemap": {
+    "n": 1,
+    "hours": 1.235
+   },
+   "landau-fan-vti": {
+    "n": 1,
+    "hours": 3.959
+   },
+   "reentry-baseline": {
+    "n": 1,
+    "hours": 0.036
+   },
+   "sdh-spot-check": {
+    "n": 3,
+    "hours": 3.759
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.9304927903316672,
+  "hil": 0.9356779114979814,
+  "frac_measuring": 0.9304927903316672,
+  "frac_hera_court": 0.06396564338510925,
+  "frac_human_court": 0.005541566283223529,
+  "hera_court_h": 0.6180136336220635,
+  "human_court_h": 0.0535406717326906,
+  "n_lands": 25,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 489.35688400268555,
+    "hera_s": 462.74169754981995,
+    "human_s": 26.6151864528656,
+    "land": 1782108686.133291,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 1107.1089737415314,
+    "hera_s": 991.092188835144,
+    "human_s": 116.01678490638733,
+    "land": 1782114151.32553,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 122.99252486228943,
+    "hera_s": 108.54544258117676,
+    "human_s": 14.447082281112671,
+    "land": 1782120756.795237,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 334.89785742759705,
+    "hera_s": 315.86164689064026,
+    "human_s": 19.036210536956787,
+    "land": 1782124662.855772,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 363.2392592430115,
+    "hera_s": 346.6081051826477,
+    "human_s": 16.63115406036377,
+    "land": 1782128604.629102,
+    "next_slug": "landau-fan-vti"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 544,
+  "n_api_requests": 243,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 271,
+  "message_counts": {
+   "human": 3,
+   "loop_tick": 19,
+   "task_notification": 8,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 240,
+  "tool_calls": {
+   "Bash": 64,
+   "Write": 55,
+   "Bash[nb-collab]": 34,
+   "ScheduleWakeup": 26,
+   "Read": 22,
+   "Edit": 15,
+   "Bash[hera-notify]": 10,
+   "Bash[hera-watch]": 8,
+   "Bash[nb]": 6
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 22299,
+    "out": 330517,
+    "cr": 69898734,
+    "cw5": 0,
+    "cw1h": 1770538,
+    "n_requests": 243
+   }
+  },
+  "cost_usd_est": 61.03,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-21-QC0426-session-2/20260621_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-21-QC0426-session-2/20260621_ana.ipynb",
+  "n_cells": 51,
+  "n_hera_cells": 25,
+  "n_slot_cells": 5,
+  "n_human_cells": 21,
+  "n_hera_executed": 12,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 29,
+  "n_ana_figures": 11
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-22T15:46:08.467030+00:00",
+   "excerpt": "**Read \u2014 FS-count call (electron-side region, contacts T3\u2013T4 / B4\u2013B5):**\n\n**1. Per-region verdict:** `sr1 (T3\u2013T4): consistent-with ABC (weak)` \u00b7 `sr2 (B4\u2013B5): c"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 65,
+  "scratch_by_ext": {
+   ".md": 23,
+   ".png": 8,
+   ".py": 34
+  },
+  "scratch_loc": 1054,
+  "n_scratch_figures": 8,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 3,
+  "n_interrupts": 0,
+  "longest_unattended_h": 9.912411666644944,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

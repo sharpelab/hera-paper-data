@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 10.0,
+  "n_B": 133,
+  "spacing": "invB",
+  "n_min_cm2": 2.10e12,
+  "n_max_cm2": 3.20e12,
+  "n_columns": 45,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 2.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.75,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=2.0, fast_delay=1.8): B_vec = np.round(field_invB(0.70, 10.0, 133), 4) (verified 0.7->10.0 T, 133 pts) on the slow axis, gates fast from calc_gate_voltages over np.linspace(2.10, 3.20, 45)e12 at D = 0 with the run-5 CAL dict committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); gate voltages verified inside TG/BG validators. Cell 48 sets sr1.sensitivity(50e-6); sr1 tau 0.3 s / 24 dB, sr0 sens 0.02 V and tau 0.3 s, drive 1.0 V and tg/bg nplci = 1 are all inherited from the cell-44 close_out(restore=state0) readback, the latest state record before the appended cells (the markdown's claim that 50 uV is 'inherited from the spot checks' is stale — close_out restored sr1 to 2 uV — but the cell sets it explicitly). Bias resistor 100e6 ohm from the cell's own I_bias arithmetic (sr1.amplitude()/100e6). ETA 4h45m from the cell-47 markdown header."
+}

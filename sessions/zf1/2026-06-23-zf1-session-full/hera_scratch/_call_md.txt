@@ -1,0 +1,34 @@
+# ★ THE CALL — zf1 (bottom device): SUPERCONDUCTOR (strong)
+
+Gate-tuned proximity superconductivity in Bernal bilayer graphene / WSe₂, located and characterised in one base-T session (B ≤ 100 mT). Per `sc-characterization.md` output contract.
+
+## 1. Verdict (STYLE strength scale)
+**Region SC1: superconductor (strong)** — a single SC dome on the hole side at the favorable displacement-field sign. Not failed-SC/anomalous-metal (R_xx reaches ~0 and a true supercurrent exists), not a QAH/metal mimic (see §3).
+
+## 2. Evidence (each hallmark with coordinates + benchmark)
+| Hallmark | Result | (n, D, B, T) | Run | Benchmark |
+|---|---|---|---|---|
+| 4-wire R_xx → 0 | **0.09 Ω** (resolution-limited zero) | n=−5.2×10¹¹ cm⁻², D=−0.645 V/nm, B=eff-zero, T=34 mK | 8 | s41586 vanishing ρxx |
+| Supercurrent / I_c | zero-bias plateau, **I_c ≈ 30 nA**, coherence peaks ±38 nA, symmetric, non-hysteretic | same (n,D), B≈0, base T | 9 | s41586 Fig 1d I_c~20 nA |
+| (n,D) dome, favorable sign | low-R dome, **D<0** (holes→WSe₂); absent at D=−0.4/−0.5, on by −0.6 | n −4…−6×10¹¹, \|D\|≳0.5 | 5–8 | s41586 SC arc \|D\|≳0.5 |
+| Field-kill | **B_c⊥ ≈ 2.5–3 mT**; I_c(B) single dome mirrored about eff-zero (B=−0.4 mT); ξ ~ 0.3 µm (o.o.m.) | base T | 10–12 | kill mirrors = genuine SC |
+| T-dependence | I_c(T) → 0 at **onset Tc ≈ 0.30 K** (0.28–0.32), broad 2D transition | at optimum, B≈0 | 14–33 | s41586 Tc scale |
+| Phase coherence | **no** Fraunhofer oscillations → uniform 2D SC, *not* a weak-link | base T | 11–12 | over-read guard (searched-absent) |
+
+Supporting: cap ratio **c_bg/c_tg = 1.19** confirms the device-card prior (CNP slope, ratio tier; absolute n/D = geometry-prior). Gate leakage clean (pA) to the full validator envelope.
+
+## 3. Confidence + hedges
+**Confidence: HIGH** that zf1 superconducts. The constellation is complete and mutually consistent — {R_xx→0, supercurrent lobe, field-kill, I_c(T)→0 at Tc} — the investigation's minimum, all present, matching s41586 proximitized-BLG phenomenology.
+**QAH/metal excluded on transport grounds** (R_xy not wired this session, so excluded indirectly): a QAH state has no zero-bias *supercurrent* plateau and its R_xx→0 is not quenched by ~3 mT; a good metal has ohmic dV/dI. Both are ruled out by the I_c lobe + the field-kill + the T-collapse together.
+**Specific hedges:** (a) Tc carries open-loop-heater electron-T uncertainty — and the session's thermometry ran on a **dead probe (Probe2, frozen 3.3 days)** until caught at the T-ladder and re-pointed to Probe1; the onset is anchored by the clean passive-cooldown branch + flat-normal 329 mK traces, but a clean Tc/T_BKT ladder is owed. (b) **T_BKT (zero-resistance) not extracted** (needs V∝Iᵅ, α=3). (c) Absolute n/D scale is geometry-prior (ratio confirmed). (d) Dome optimum is **gate-limited** — \|D\| reachable only to ~0.68 V/nm and the dome *deepened toward that edge*: the true optimum (and stronger SC) may lie beyond reach this cooldown. (e) Single R_xx contact pair (30-31), not reproduced on a second 4T pair.
+
+## 4. What would firm it → decisive
+- R_xy on a transverse contact pair (direct QAH exclusion).
+- Working thermometry from the start + a dense Tc ladder with the V∝Iᵅ BKT read (T_BKT) and a %-criterion Tc.
+- Reproduce R_xx→0 + I_c on a second 4T pair.
+- Push \|D\| past 0.68 V/nm (if the gate envelope allows) to find the true dome optimum.
+- Normal-state fermiology (Landau fan / SdH-FFT) for the parent phase — **needs Tesla-scale field, a higher-field round** (out of this round's 100 mT cap).
+- In-plane B_c∥ / Pauli-limit reads — **rotator / in-plane work is blocklisted this campaign**.
+
+## 5. Bottom line
+**zf1 (bottom device) is a superconductor** — gate-tuned proximity SC in BBG/WSe₂ at the hole-side, favorable-D dome (n ≈ −5.2×10¹¹ cm⁻², D ≈ −0.645 V/nm), with I_c ≈ 30 nA, B_c⊥ ≈ 3 mT, ξ ~ 0.3 µm, uniform-2D character, and onset Tc ≈ 0.30 K. The full base-T + low-field transport constellation is present and self-consistent. **Verdict: superconductor (strong)**; the path to *decisive* is R_xy + a clean Tc ladder + a second-contact reproduction (§4), none requiring more than a follow-up session.

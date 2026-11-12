@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 2.5,
+  "n_B": 295,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.917,
+  "flags": [],
+  "notes": "Cell 48 is a single 1D field sweep s.sweep(magnet.field, field_invB(.3, 2.5, 295), delay=3.) at one density: calc_gate_voltages(3.2, 0, CAL run-5) -> (V_tg, V_bg) = (+0.9836, +1.1661) V, i.e. n = +3.2e12 cm^-2, D = 0; no further densities are named in the cell, its markdown (cell 47), or hera_scratch (no plan.md), so form is probe_only and no fan is issued. Lock-in state inherited from cell 44's close_out(restore=state0) readback (sr0 sens 20 mV, tau 0.3 s; sr1 tau 0.3 s), with only sr1 sensitivity set in the answer (20 uV); nplci = 1 on both Keithleys asserted (not set) in the same cell. Drive 1 V through the device card's 100 MOhm bias resistor; stated run time '~55 min' in cell 47."
+}

@@ -1,0 +1,14 @@
+# The sdh_analysis decision point on vti-01 (08-18): run 11, the low-B ML hunt at n = −1.74e12
+# (B 2.5→0.5 T), just landed (line 1227); fan (run 10) read on the page.
+case: vti01-sdh-analysis-r11
+source: ../../docs/notes/2026-08-18-vti-01-session
+cut:
+  transcript: 18ed1c71-d971-4290-b0c2-752d15437e88.jsonl
+  at: 54b0bed4-0577-4743-9bce-e995639a3909
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 11 is down, 401 rows. Reading the low-B record now: FFT at low bg_degree, then the ana entry."
+  prompt: "Carry on."
+grader: null

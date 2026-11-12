@@ -1,0 +1,35 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 0.0,
+  "B_max_T": 8.0,
+  "n_B": 81,
+  "spacing": "B",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 181,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.67,
+  "flags": [
+    {"kind": "autorange_left_on", "severity": "minor", "note": "autorange_sr830s registered via s.register_run_before on sr1 for the whole fan (floor 10 uV); sr1 sensitivity can change mid-fan"}
+  ],
+  "notes": "Cell 48 (trailing, unexecuted) issues s.multimegasweep with magnet.field slow and k_tg.volt/k_bg.volt fast, slow_delay=3.0, fast_delay=1.0. B_vec = np.arange(0.0, 8.0+1e-9, 0.1) is 81 rows uniform in B; n_vec = np.arange(-1.25, 3.25+1e-9, 0.025) is 181 columns in 1e12 cm^-2 converted by calc_gate_voltages at D = 0 with the cell's own run-5 CAL (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013); re-running that conversion puts every Vtg/Vbg inside the TG/BG validator limits. sr1 sensitivity is set to 10 uV in the cell; sr0 sens 0.02 V, both taus 0.3 s, and nplci 1/1 are inherited from the cell 44 close_out(restore=state0) readback, the latest state record before the appended cells, and sr0 is only the phase reference for the autorange hook, not ranged. Excitation 1.0 V at 13.777 Hz is asserted in the cell, driving through the device card's 100 MOhm bias resistor; the cell 47 markdown states ETA about 6 h 40 m."
+}

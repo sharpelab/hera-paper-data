@@ -1,0 +1,34 @@
+# Cap-ratio from the 4T CNP slope + (n, D) projection + candidate band.
+from scipy.ndimage import gaussian_filter1d
+from sharpelab_nb.gates import stack_capacitance, calc_nD
+
+# CNP ridge: per TG row, BG of max 4T R; robust 2-sigma-rejected linear fit.
+Vbg_cnp = np.array([V_bg[int(np.argmax(gaussian_filter1d(np.clip(R4[i],1,None),1.0)))] for i in range(NT)])
+strength = np.array([ (gaussian_filter1d(np.clip(R4[i],1,None),1.0).max())/(np.median(np.clip(R4[i],1,None))+1e-9) for i in range(NT)])
+keep = (strength>3) & (Vbg_cnp>V_bg[1]) & (Vbg_cnp<V_bg[-2]); idx = np.where(keep)[0]
+for _ in range(5):
+    m, b = np.polyfit(V_tg[idx], Vbg_cnp[idx], 1)
+    r = Vbg_cnp[idx]-(m*V_tg[idx]+b); k = np.abs(r)<2.5*np.std(r)
+    if k.all(): break
+    idx = idx[k]
+ratio = -1.0/m
+print(f'CNP fit (4T): V_bg = {m:.4f}*V_tg + {b:+.4f}   rms {np.std(Vbg_cnp[idx]-(m*V_tg[idx]+b)):.3f} V  ({len(idx)}/{NT} rows)')
+print(f'CAP RATIO c_bg/c_tg = -1/m = {ratio:.3f}   (geometry prior 1.18)  -> prior CONFIRMED (ratio tier)')
+
+c_tg = stack_capacitance([(23.6,3.0)]); c_bg = ratio*c_tg
+n_off = -calc_nD(0.0, b, c_tg, c_bg)[0]
+n, D = calc_nD(V_tg[:,None]*np.ones((1,NB)), np.ones((NT,1))*V_bg[None,:], c_tg, c_bg, n_offset=n_off)
+n11 = n*10.0  # 1e11 cm^-2
+cand = (n11<=-4)&(n11>=-6)&(np.abs(D)>=0.5)&(D<0)   # favorable sign (holes -> WSe2, house convention)
+
+fig, ax = plt.subplots(1, 2, figsize=(14, 5.4))
+im = ax[0].pcolormesh(V_bg, V_tg, np.clip(R4,1,None), norm=LogNorm(5,2200), cmap='inferno', shading='nearest')
+ax[0].plot(m*V_tg+b, V_tg, 'c--', lw=1.5, label=f'CNP fit  c_bg/c_tg={ratio:.3f}')
+ax[0].legend(loc='upper right'); ax[0].set(title='4T R_xx + CNP fit', xlabel='V_bg (V)', ylabel='V_tg (V)')
+fig.colorbar(im, ax=ax[0], label='Ohm')
+tp = ax[1].tripcolor(n11.ravel(), D.ravel(), np.clip(R4,1,None).ravel(), norm=LogNorm(5,2200), cmap='inferno', shading='gouraud')
+if cand.any(): ax[1].scatter(n11[cand], D[cand], s=20, facecolors='none', edgecolors='cyan', lw=1)
+ax[1].axvspan(-6,-4,color='cyan',alpha=0.08); ax[1].set(title='4T R_xx in (n, D)  — cyan = candidate band', xlabel='n (1e11 cm^-2)', ylabel='D (V/nm)')
+fig.colorbar(tp, ax=ax[1], label='Ohm')
+plt.tight_layout(); plt.show()
+print(f'accessible |D|max = {np.abs(D).max():.2f} V/nm; candidate (D<0) cells: {cand.sum()}; 4T R there (coarse/floor-limited): {R4[cand].min():.0f}-{R4[cand].max():.0f} Ohm' if cand.any() else 'no candidate cells')

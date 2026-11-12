@@ -1,0 +1,7 @@
+## HERA — resolve the electron onset before committing the Landau fan
+
+`sdh-spot-check` / `landau-fan-vti` cost-floor precheck: run 6's default onset is censored at 0.3 T and its 50 mT sampling below 1 T aliases the fastest expected tone. Reproduce n=+3.2×10¹² cm⁻², D≈0 with a uniform-1/B low-field overlap; this isolates grid artifacts and pins which low-field rows are worth buying in the fan. It is an in-arc prerequisite, not a new stacking call.
+
+Nyquist: F_L=33.09 T (39.70 T with +20% scale), Δ(1/B)=0.00797 T⁻¹ gives >3 samples per fastest fundamental. B=0.4–1.5 T, 231 points; this excludes the high-field comb, already captured by run 6, and the uninformative near-zero-field background. Magnet travel from actual handoff zero through 1.5 T costs 1.5/0.137=11.0 min; run-6 blocking overhead ~3.08 s ×231 adds 11.9 min. Allow 27 min including gates, freshness reads and margin. Fixed 50 µV retains run-6 sensitivity; blocking settle≥3 s =10τ, no time-constant or ramp-step changes.
+
+Preconditions print exact validators, base temperature/freshness, heaters off, PS/output on, Si=0/range2, drive, lock-in filters and gate pacing. Every followed channel is plotted. Review the first landed points and completion for leakage, clipping and contact current; 1 nA gate-current guard is inherited from runs 0–7. Leave gates at the measured point and B at 1.5 T for a fan direction chosen from the result. **VTI magnet caveat:** a kernel interrupt does not halt an in-flight supply ramp; operator action at the supply is required if that is needed.

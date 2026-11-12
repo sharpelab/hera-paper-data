@@ -1,0 +1,17 @@
+# vti-02 stacking investigation — live plan (handoff, 2026-08-23)
+
+## Completed
+
+1. Bring-up and VERIFY: measure cells 31–32, green; E1 grant recorded in `session_notes.md`. Handoff cells 44 and 46 returned field/gates to zero and confirmed the same bound kernel.
+2. Gate C: runs 0–3, provided T_0→B_3 current and B_1−B_2 voltage alive; no 1 nA leakage trip.
+3. CNP and D line: run 5 after run 4 clipped. Two parallel resistance ridges, A and B; A gives c_bg/c_tg=0.773 and n_offset=−0.089×10¹² cm⁻²; R_CNP symmetry gives D_offset≈−0.013 V/nm. Absolute density still inherits the 9.5 nm top-hBN geometry prior. Region B has ≈0.43×10¹² cm⁻² different local doping along this trajectory.
+4. SdH spots: run 6 at A n=+3.2×10¹² cm⁻², D=0, 0→10 T has strong oscillations (R up to 530 Ω), with ∼7 T and ∼30 T spectral content that may include harmonics or a second region. Run 7 at A n=−1.2×10¹², D=0, 10→0.3 T also oscillates but the allowed D=0 hole range is narrow. Both gate currents stayed below 1 nA; field ended at 0.3 T, then operator returned to 0 T at handoff.
+
+## Next steps
+
+5. **Electron Landau fan (`landau-fan`)**: from the handed-off B≈0 and gates 0, map 2→10 T in 0.2 T rows against A n=+0.6→+3.2×10¹² cm⁻² at calibrated D=0 (41 density points, 41 field rows). Use the run-5 ratio/offset; convert to paired TG/BG voltages and assert every point within committed validators. One fast line crosses the 0.43×10¹² local density shift between A/B, allowing slopes/intercepts of distinct Landau trajectories to be tested. It excludes holes and |n|<0.6: hole-side D=0 coverage is small and low-n high-field insulating peaks could clip. Price from run 5 (1.17 s/point with 1 s dwell) and the fixed magnet slew: ~58 min field traverse + 1681×~2.8 s point/settle + margins ≈2 h 40 m. First two rows: leakage, live channels, rail; revisit near B=4, 6, 8 T; abort on leakage/rail or if trajectories wash out. End at 10 T to use the expensive field traverse for a descending follow-up.
+6. **Read the fan before choosing a second pass**: re-form with `fan_grids`/`resistance_grids`; plot raw R(B,n), raw current and leakage first. Fit visible peak/minimum trajectories, check their n(B) slopes against νe/h and whether two families sum to a single density or track A/B offsets. Look for ABAB two bilayer-like families, ABCA one dominant chiral family, or ABCB mixed signatures. Do not call stacking from an FFT peak alone; run 6's 7 T tone has harmonics near 14/22/30 T and run 5 shows a second series region.
+7. **Adaptive follow-up**: if the fan separates families, measure a shorter D or hole-side cut on the return field ramp to distinguish bands from mosaic domains and test the predicted intercept. If the fan is featureless or strongly mixed, inspect sensitivity/temperature and report the limitation rather than forcing a stacking label. Every additional measurement is priced and preflighted in its proposing cell.
+8. **Verdict and close-out**: append a per-contact-pair verdict (including calibrated `cannot tell` if needed), run-id evidence and hedges as the final ana cell. Ask `return-to-initial`, then run the close-out cell (field 0, TG/BG/Si 0 at committed pacing, heaters off, readback) and record it in `session_notes.md`.
+
+Only B_1−B_2 is wired for Rxx. Region A/B are inferred series regions under that one contact pair, not separately measured contact pairs; a region-resolved call may therefore be limited by contact mixing.

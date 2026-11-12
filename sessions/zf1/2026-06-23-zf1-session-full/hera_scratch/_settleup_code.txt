@@ -1,0 +1,28 @@
+# === Heater settle calibration — UP ladder (0->6 V, 1 V steps). Record T(t) per step. ===
+import os, time as _t
+_lf = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+assert _t.time() - os.path.getmtime(_lf) < 120, "Probe1 logfile stale — thermometry worker down"
+_T0 = float(temperature())
+print(f"start: heater {heater.volt()} V, Probe1 T {_T0*1e3:.1f} mK, fridge {fridge_temperature()*1e3:.1f} mK")
+assert heater.volt() == 0, "heater must start at 0 V for the 0->1 step"
+assert _T0 < 0.060, "sample not at stable base (still cooling?) — wait before the 0->1 step"
+
+N, delay = 100, 5                 # ~8.3 min per step at 5 s resolution
+ladder = [1, 2, 3, 4, 5, 6]       # 0->1, 1->2, ..., 5->6 (UP)
+
+for target in ladder:
+    heater.volt(float(target))    # the 1 V UP step (qcodes sub-steps at 5 mV; blocks until at target)
+    _t.sleep(1)
+    cur = heater.curr()
+    assert abs(cur) > 1e-9, f"heater drawing ~0 A at {target} V — open line"
+    meas_config["comment"] = f"heater-settle UP {target-1}->{target}V, T(t) {delay}s x{N}"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('heater-settle-calibration')
+    s.add_comment(f'UP step {target-1}->{target}V; record T(t) {delay}s x{N}; Probe1')
+    s.fp(temperature); s.fp(fridge_temperature); s.fp(heater.volt); s.fp(heater.curr)
+    s.plot('time', temperature)
+    # hold k_tg at 0 (where it is) and record T(t) while the fridge settles after the step
+    s.sweep(k_tg.volt, np.full(N, 0.0), delay=delay)
+    print(f"  ->{target} V: settled-window T {temperature()*1e3:.0f} mK, heater.curr {cur:.3e} A")
+
+print("UP ladder done. Heater HELD at 6 V (equilibrated) for the reverse ladder. Park heater.volt(0) if pausing.")

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 91,
+  "spacing": "invB",
+  "n_min_cm2": 1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 43,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.83,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[field_invB(1.0,10.0,91)], [k_tg.volt,k_bg.volt], calc_gate_voltages over np.linspace(3.2,1.2,43)e12 at D=0 with the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3), slow_delay=fast_delay=3.0 s. Cell 48 sets sr1.sensitivity(50e-6); sr0 sensitivity 0.02 V and both tau = 0.3 s / 24 dB are inherited from the cell-44 close_out(restore=state0) readback, which the cell also re-asserts. NPLC 1 for both Keithley gate-current reads from the same readback (tg_nplci/bg_nplci = 1.0), asserted in the cell. Drive 1.0 V @ 13.777 Hz through the 100 MOhm bias resistor (device_card.md:64). Stated total in cell 47 is about 4h50m."
+}

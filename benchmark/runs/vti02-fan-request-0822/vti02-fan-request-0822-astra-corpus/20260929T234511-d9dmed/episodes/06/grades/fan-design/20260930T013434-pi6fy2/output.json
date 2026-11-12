@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.4,
+  "B_max_T": 1.5,
+  "n_B": 222,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-06, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.583,
+  "flags": [],
+  "notes": "Trailing cells 47 (markdown) + 48 (code): a 1D field sweep s.sweep(magnet.field, field_invB(1.5, 0.4, 222), delay=0) at n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages(3.2, 0., CAL=run-5 constants committed in the cell) -> (V_tg, V_bg) = (+0.984, +1.166) V; no fan is issued and no further densities are named (no hera_scratch/plan.md), so form is probe_only. Lock-in/NPLC values inherited from the cell-44 close_out(restore=state0) readback (sr0 20 mV / tau 0.3 s; sr1 2 uV before the cell sets 5e-6; tg/bg nplci 1.0); drive 1.0 V through the device card's 100 MOhm bias resistor. Stated budget is the markdown's ~35 min."
+}

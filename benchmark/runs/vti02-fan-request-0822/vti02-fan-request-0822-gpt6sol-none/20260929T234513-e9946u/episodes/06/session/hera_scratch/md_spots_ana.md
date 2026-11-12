@@ -1,0 +1,5 @@
+## Runs 6–7 — SdH spot checks before the Landau fan
+
+Raw four-probe resistance and current are reconstructed with the recorded gains; the right panels use `sdh_fft` over 2–10 T. Run 6 is the D ≈ 0 electron point at n = +3.2×10¹² cm⁻²; run 7 is the D ≈ 0 hole point at n = −1.2×10¹² cm⁻² (run 5 calibration). Both completed without clipping: sr1 was 50 µV full scale, and the largest signal was ≈ 0.6 kΩ at ≈ 10 nA, or ~6 µV. Gate-current offsets stayed far below the 1 nA trip.
+
+**Read for the next measurement:** run 6 has clear field oscillations, with an ≈ 7.5 T tone and peaks near 15, 22.5, and 30 T that can be its harmonics. The full-density frequency from the run-5 calibration is ≈ 33 T, so assigning the 30 T peak to a separate pocket would be premature. Run 7 has a lower-frequency ≈ 5–6 T component and structure around 12–15 T, also unresolved by a single fixed-density trace. The hardwired B₁–B₂ pair averages two doping-offset CNP ridges separated by ≈ 0.43×10¹² cm⁻² (run 5); a density–field fan is needed to distinguish branches, harmonics, and this series-region offset. These runs alone support **no stacking verdict**.

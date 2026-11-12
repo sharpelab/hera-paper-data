@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# iris — launch the IRIS collaborator agent in a new terminal, kicking off
+# with a bootstrap prompt so the agent reads previous state (or builds it
+# from cold) without the user having to type anything first.
+# Run from inside a measurement directory (e.g.
+# ~/measurements/<user>/<device>_toploader/).
+#
+# HERA_SESSION_DIR pins the transcript-backup hook to THIS session dir (the cwd
+# at launch) — fixed for the life of the session, immune to any later cd. $PWD
+# is the session dir since iris is launched from inside it. See
+# hera-transcript-hook.
+# Bills the award's hera-rig workspace (see hera-key); a missing key aborts.
+key="$(hera-key rig)" || exit 1
+exec newclaude . --agent iris --env "HERA_SESSION_DIR=$PWD" \
+    --env "ANTHROPIC_API_KEY=$key" \
+    --model "${HERA_MODEL:-opus}" \
+    "Read previous state and get set up."

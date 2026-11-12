@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# hera-transcript-hook — Claude Code Stop / PreCompact hook.
+#
+# Snapshots the LIVE session transcript on every turn to locations that survive
+# a ~/.claude/projects/<cwd>/ deletion — the failure mode that lost the
+# 2026-06-23 zf1 HERA transcript despite a clean shutdown (the project dir was
+# removed *after* exit; the conversation log lived nowhere else).
+#
+# GATED ON $HERA_SESSION_DIR. The hook is registered globally in
+# ~/.claude/settings.json, so it fires on every Claude session on the box — but
+# only HERA/IRIS sessions are launched with HERA_SESSION_DIR set (by the iris
+# shim and the hera-session->tactical handoff). With the var unset this is an
+# immediate no-op, so ad-hoc / other-user sessions are untouched and never pay
+# uv startup. The var is set at launch and fixed for the session's life — immune
+# to any later cd, unlike $cwd, which drifts as the agent moves into scratch
+# dirs. Two copies, both scoped to HERA sessions by the gate:
+#
+#   1. $HERA_SESSION_DIR/.transcripts/<session_id>.jsonl
+#      colocated with the run's data, so it rides into hera-archive's wholesale
+#      mirror automatically. The session dir is under the Syncthing-synced
+#      measurements tree, so this copy inherits that backup.
+#
+#   2. ~/.hera/transcripts/<session_id>.jsonl
+#      a second copy keyed by session id, OUTSIDE the session dir and outside
+#      ~/.claude — survives even if the session dir is deleted/moved or Claude
+#      GCs its projects/ entry. Defense in depth; cheap.
+#
+# Reads the hook JSON on stdin (uses fields: session_id, transcript_path).
+# NEVER blocks the agent: every failure path is swallowed and we exit 0.
+#
+# Path flavors: transcript_path arrives native (POSIX on Linux, C:\... on
+# Windows per the hooks spec). HERA_SESSION_DIR is whatever the launcher's bash
+# passed ($PWD / <session-dir>) — an msys path like /c/Users/... on Windows,
+# which native python can't stat. We do NOT hand-roll the conversion: if a path
+# isn't directly usable we hand it to the real `cygpath -w` (present on the rig,
+# absent on Linux where it's never needed). cygpath handles UNC paths, spaces,
+# drive-relative, and already-native paths correctly — a regex would not.
+set -uo pipefail
+
+# Gate: only HERA/IRIS sessions set HERA_SESSION_DIR (via the launchers). Any
+# other Claude session this globally-registered hook fires on must no-op — and
+# do it here, before paying uv/python startup.
+[[ -n "${HERA_SESSION_DIR:-}" ]] || exit 0
+
+# No uv -> silently no-op (don't spam a half-provisioned box).
+command -v uv >/dev/null 2>&1 || exit 0
+
+uv run --no-project python -c '
+import sys, json, os, shutil, subprocess, pathlib
+
+def cygwin_to_native(p):
+    """Last-resort conversion via the real cygpath; identity if unavailable."""
+    cyg = shutil.which("cygpath")
+    if not cyg:
+        return p
+    try:
+        out = subprocess.run([cyg, "-w", p], capture_output=True, text=True)
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except Exception:
+        pass
+    return p
+
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+
+sid = d.get("session_id")
+tp = d.get("transcript_path")
+# Convert ONLY if the raw path is not already usable — native paths untouched.
+if tp and not os.path.isfile(tp):
+    tp = cygwin_to_native(tp)
+if not sid or not tp or not os.path.isfile(tp):
+    sys.exit(0)
+
+dests = [pathlib.Path(os.path.expanduser("~/.hera/transcripts")) / (sid + ".jsonl")]
+
+sess = os.environ.get("HERA_SESSION_DIR")
+if sess and not os.path.isdir(sess):
+    sess = cygwin_to_native(sess)
+if sess and os.path.isdir(sess):
+    dests.append(pathlib.Path(sess) / ".transcripts" / (sid + ".jsonl"))
+
+for dst in dests:
+    try:
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(tp, dst)
+    except Exception:
+        pass
+
+sys.exit(0)
+' || true
+
+exit 0

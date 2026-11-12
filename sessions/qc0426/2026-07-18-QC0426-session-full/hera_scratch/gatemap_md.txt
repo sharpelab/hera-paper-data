@@ -1,0 +1,13 @@
+## HERA — Step 1: B = 0 gate map (input to CNP / (n, D) calibration)
+
+Recipes: `measurements/gatemap.md` (axis-aligned first map, raw gate voltages — no calibration assumed) feeding `device-init/cnp-and-dline-calibration.md`; Step 1 of `investigations/trilayer-stacking-fs-count.md`.
+
+**What:** 101 (BG slow, −4.5 → +4.5 V, 90 mV steps) × 101 (TG fast, −3 → +3 V, 60 mV steps) megasweep over the **full validator window** at B = 0, base T, Si = 0. Gate C found the CNP near (0, 0), so this window brackets it with maximal margin; the geometry-prior CNP slope (−c_bg/c_tg ≈ −1.3) exits the TG window at |V_bg| ≳ 2.3 V — those rows will be edge-clipped and excluded from the fit (recipe step 1 guard), while the full BG span still buys the D-range for spotting gap opening and insulating arms.
+
+**Coverage trade (stated):** 101×101 rather than the canonical 201×201 — at this rig's 1.2 s dwell floor (τ = 0.3 s, 24 dB/oct) the dense map costs ~15 h; 60/90 mV steps put ~8–10 points across the ~0.5–1 V-wide CNP ridge seen in runs 0–3, which is sufficient for the smoothed-argmax + polyfit extraction. Price of full density: +11 h; buy it later as a targeted denser map only if fit residuals demand.
+
+**Sensitivity:** sr1/sr2 → 5e-5 (headroom to R ≈ 10 kΩ for a gapped CNP at finite D; runs 0–3 peaked at 2.1 kΩ on-axis), sr3 stays 2e-5 (Hall, ~0 at B = 0). sr0 1e-2. Drive unchanged, 5 nA.
+
+**Price:** 1.25 s/pt (0.25 s NPLC-1 readback + 1.0 s fast_delay; dwell ≥ card 1.2 s floor) → 136 s/row (incl. 7 s flyback + 3 s slow_delay) × 101 rows ≈ **3.9 h nominal, 4–4.5 h realistic** (rig-card 5–10% overrun rule; timing calibrated against runs 0–3 for the NPLC-10 class). Expected done ~03:00.
+
+**Checkpoints:** first rows (leakage / clipping / dead channel — cheapest kill), then periodic digest reads (~hourly): per-row R_max should trace a continuous ridge; abort/adjust if sr1/sr2 rail (fs → 1) over many rows or gate current departs the pA offsets. E1 auto-bucket: in-envelope, inside committed validators.

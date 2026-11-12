@@ -1,0 +1,317 @@
+{
+ "run_id": "zf1-r6",
+ "manifest": {
+  "run_id": "zf1-r6",
+  "device": "zf1",
+  "rig": "toploader",
+  "date": "2026-06-25",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-25-zf1-session",
+  "rig_session_dir": "Isaac/b1c2_toploader",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": [
+   "notebook-named-20260624"
+  ]
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-25T05:39:03+00:00",
+  "t_transcript_last": "2026-06-25T18:13:03+00:00",
+  "transcript_span_h": 12.56675416668256,
+  "session_h": 12.56675416668256,
+  "t_final_decision": "2026-06-25T13:33:45.940352+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 7.91174426443047,
+  "t_first_sweep": "2026-06-25T05:44:34+00:00",
+  "t_last_sweep_end": "2026-06-25T13:30:31+00:00",
+  "sweep_span_h": 7.765848855310016,
+  "measuring_h": 5.4033509990904065,
+  "longest_sweep_h": 3.9070145363940134
+ },
+ "sweeps": {
+  "n_sweeps": 21,
+  "by_recipe": {
+   "bias-spectroscopy": {
+    "n": 1,
+    "hours": 0.143
+   },
+   "cnp-and-dline-calibration": {
+    "n": 3,
+    "hours": 0.176
+   },
+   "field-sweep-1d": {
+    "n": 3,
+    "hours": 0.163
+   },
+   "gate-current-sanity-check": {
+    "n": 4,
+    "hours": 0.576
+   },
+   "gatemap": {
+    "n": 1,
+    "hours": 3.907
+   },
+   "nD-map": {
+    "n": 1,
+    "hours": 0.273
+   },
+   "temperature-dependence": {
+    "n": 8,
+    "hours": 0.164
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.6957836934201705,
+  "hil": 0.7237361631311413,
+  "frac_measuring": 0.6957836934201705,
+  "frac_hera_court": 0.2655938483762233,
+  "frac_human_court": 0.03862245820360617,
+  "hera_court_h": 2.0625616833898754,
+  "human_court_h": 0.29993617282973395,
+  "n_lands": 20,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 9.655325889587402,
+    "hera_s": 9.655325889587402,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 11.04492473602295,
+    "hera_s": 11.04492473602295,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 7.388063192367554,
+    "hera_s": 7.388063192367554,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "gate-current-sanity-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 475.9022104740143,
+    "hera_s": 342.22795486450195,
+    "human_s": 133.67425560951233,
+    "land": 1782368719.1726,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 545.0177161693573,
+    "hera_s": 513.8115394115448,
+    "human_s": 31.2061767578125,
+    "land": 1782383431.910726,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 5,
+    "idle_s": 29.396371126174927,
+    "hera_s": 29.396371126174927,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 6,
+    "idle_s": 33.053351640701294,
+    "hera_s": 33.053351640701294,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "cnp-and-dline-calibration"
+   },
+   {
+    "after_sweep": 7,
+    "idle_s": 348.9461998939514,
+    "hera_s": 309.91868567466736,
+    "human_s": 39.02751421928406,
+    "land": 1782384470.822243,
+    "next_slug": "nD-map"
+   },
+   {
+    "after_sweep": 8,
+    "idle_s": 332.78354358673096,
+    "hera_s": 278.6112756729126,
+    "human_s": 54.17226791381836,
+    "land": 1782385771.983754,
+    "next_slug": "bias-spectroscopy"
+   },
+   {
+    "after_sweep": 9,
+    "idle_s": 529.7000494003296,
+    "hera_s": 299.99569606781006,
+    "human_s": 229.70435333251953,
+    "land": 1782386639.297407,
+    "next_slug": "field-sweep-1d"
+   },
+   {
+    "after_sweep": 10,
+    "idle_s": 200.07928490638733,
+    "hera_s": 118.79304528236389,
+    "human_s": 81.28623962402344,
+    "land": 1782387232.903076,
+    "next_slug": "field-sweep-1d"
+   },
+   {
+    "after_sweep": 11,
+    "idle_s": 70.8856291770935,
+    "hera_s": 70.8856291770935,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "field-sweep-1d"
+   },
+   {
+    "after_sweep": 12,
+    "idle_s": 797.4150218963623,
+    "hera_s": 286.7156071662903,
+    "human_s": 510.699414730072,
+    "land": 1782388015.125785,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 13,
+    "idle_s": 490.62218284606934,
+    "hera_s": 490.62218284606934,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 14,
+    "idle_s": 490.59579515457153,
+    "hera_s": 490.59579515457153,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 15,
+    "idle_s": 490.6690468788147,
+    "hera_s": 490.6690468788147,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 16,
+    "idle_s": 610.5903911590576,
+    "hera_s": 610.5903911590576,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 17,
+    "idle_s": 850.5780189037323,
+    "hera_s": 850.5780189037323,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 18,
+    "idle_s": 1090.6078860759735,
+    "hera_s": 1090.6078860759735,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   },
+   {
+    "after_sweep": 19,
+    "idle_s": 1090.0612692832947,
+    "hera_s": 1090.0612692832947,
+    "human_s": 0.0,
+    "land": null,
+    "next_slug": "temperature-dependence"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 388,
+  "n_api_requests": 164,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 178,
+  "message_counts": {
+   "human": 3,
+   "loop_tick": 0,
+   "task_notification": 21,
+   "admin": 2,
+   "interrupt": 0
+  },
+  "n_tool_calls": 152,
+  "tool_calls": {
+   "Bash": 51,
+   "Read": 36,
+   "Bash[nb-collab]": 32,
+   "Bash[hera-watch]": 12,
+   "Write": 11,
+   "Edit": 4,
+   "Bash[nb]": 3,
+   "Bash[hera-notify]": 3
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 15857,
+    "out": 264653,
+    "cr": 39210418,
+    "cw5": 0,
+    "cw1h": 372627,
+    "n_requests": 164
+   }
+  },
+  "cost_usd_est": 30.03,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-25-zf1-session/20260624_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-25-zf1-session/20260624_ana.ipynb",
+  "n_cells": 43,
+  "n_hera_cells": 20,
+  "n_slot_cells": 3,
+  "n_human_cells": 20,
+  "n_hera_executed": 10,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 32,
+  "n_ana_figures": 7
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-25T13:33:45.940352+00:00",
+   "excerpt": "# VERDICT \u2014 zf1 (Bernal BLG + WSe\u2082, bottom device): SUPERCONDUCTOR (decisive)\n\n*Per the `sc-characterization` output contract. Campaign question: does this devi"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 19,
+  "scratch_by_ext": {
+   ".png": 7,
+   ".py": 12
+  },
+  "scratch_loc": 519,
+  "n_scratch_figures": 7,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 3,
+  "n_interrupts": 0,
+  "longest_unattended_h": 11.782679722242886,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

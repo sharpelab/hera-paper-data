@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.0,
+  "B_max_T": 1.3,
+  "n_B": 261,
+  "spacing": "B",
+  "n_cm2": [3.25e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.42,
+  "flags": [],
+  "notes": "Cell 48 is a 1D field sweep s.sweep(magnet.field, np.round(np.arange(0.0, 1.3001, 0.005), 4), delay=0) = 261 pts uniform in B, at n = +3.25e12 cm^-2, D = 0 (calc_gate_voltages with the in-cell run-5 CAL -> Vtg +0.9979, Vbg +1.1847; verified in a scratch run). No fan sweep is issued: cell 47's markdown specifies the fan it intends to land next (landau-fan-vti, D = 0, n = +1.00 -> +3.25e12, 76 columns, uniform 1/B at 0.009 T^-1, B_lo = measured onset, B_max = 8 T, ~5 h) but the appended code cell only lands the probe; no further densities of a probe ladder are named, hence probe_only. Sweep records sr0.X/P and sr1.X/P; sr1 sensitivity set to 100 uV in cell 48, sr1 tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s and nplci 1/1 inherited from the executed close_out(restore=state0) in cell 44 (printed readback). drive 1.0 V through the 100 MOhm bias resistor (cell 32 print, I_bias = amp/100e6). Stated time: header ETA '~25 min'; the body prices the same run at ~23 min."
+}

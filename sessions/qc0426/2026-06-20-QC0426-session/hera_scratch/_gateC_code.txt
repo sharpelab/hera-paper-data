@@ -1,0 +1,31 @@
+# Gate C — contact-config liveness (first-session branch; no designated refs).
+from drivers.QSwitch import channel_list_to_state
+
+# preconditions (state this cell assumes but does not set)
+assert abs(magnet.field()) < 0.05, f"field not ~0: {magnet.field()}"
+assert heater.sample_temperature() < 2.0, f"sample T high: {heater.sample_temperature()}"
+assert k_2410.volt() == 0 and k_2400.volt() == 0 and dc205.voltage() == 0, "gates not at 0 V"
+
+# route the provided contact configuration (device card)
+mux.select({"source": "T2", "drain": "B7",
+            "sr1+": "T3", "sr1-": "T4",
+            "sr2+": "B4", "sr2-": "B5",
+            "sr3+": "T5", "sr3-": "B6"})
+
+frag = mux.mc_fragment()
+print("routing  :", frag["qswitch_routing"])
+raw = frag["qswitch_state"]
+st = channel_list_to_state(raw) if isinstance(raw, str) else list(raw)
+si = sorted({ln for (ln, tap) in st if ln in (11, 16)})
+print("Si standing-closure lines present:", si, " (expect [11, 16])")
+
+# liveness: lock-in reads at the current (unknown-density) operating point
+ib = sr1.amplitude() / meas_config["bias_resistor"]
+print(f"\nI_bias = {ib*1e9:.3f} nA  (sr1.amplitude={sr1.amplitude()} V / {meas_config['bias_resistor']:.0e} ohm)")
+isr0 = sr0.X() / meas_config["sr0_gain"]          # drain current (gain-divided)
+print(f"sr0 (drain current): I = {isr0*1e9:+.3f} nA   X={sr0.X():+.3e} sens={sr0.sensitivity()}")
+for ch in ['sr1', 'sr2', 'sr3']:
+    s = globals()[ch]
+    V = s.X()
+    R = V / isr0 if isr0 != 0 else float('nan')
+    print(f"{ch}: X={V:+.3e} V  Y={s.Y():+.3e}  R={s.R():.3e}  -> R4t~{R:+.0f} ohm  sens={s.sensitivity()}")

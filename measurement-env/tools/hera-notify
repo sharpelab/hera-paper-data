@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# hera-notify — Slack notification for live measurement sessions
+# (measurebot plumbing; config in ~/.config/measurebot/.env). Explicit
+# --user/--channel targets only; see src/tools/hera_notify.py.
+exec uv run --no-sync --project "${HOME}/measurement_env" hera-notify "$@"

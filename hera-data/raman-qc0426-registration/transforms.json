@@ -1,0 +1,133 @@
+{
+ "config": {
+  "path": "models/raman_stacking/configs/qc0426.toml",
+  "sha256": "f053024e2fd454d36bf329fe55b4b8cde8f53363b9181287371375dfed6857b5"
+ },
+ "flake_to_stack": {
+  "anchor_spread_at_ref_um": 0.527,
+  "anchors": {
+   "left": {
+    "dev_ref_shift_um": 0.056,
+    "n_px": 466,
+    "score": 0.664,
+    "t": [
+     4.575,
+     -1.43
+    ],
+    "theta_deg": 358.007
+   },
+   "lower": {
+    "dev_ref_shift_um": 0.0,
+    "n_px": 554,
+    "score": 0.812,
+    "t": [
+     4.519,
+     -1.43
+    ],
+    "theta_deg": 358.007
+   },
+   "mid": {
+    "dev_ref_shift_um": 0.527,
+    "n_px": 453,
+    "score": 0.402,
+    "t": [
+     4.528,
+     -1.433
+    ],
+    "theta_deg": 360.245
+   },
+   "right": {
+    "dev_ref_shift_um": 0.0,
+    "n_px": 526,
+    "score": 0.4,
+    "t": [
+     4.519,
+     -1.43
+    ],
+    "theta_deg": 358.007
+   },
+   "upper": {
+    "dev_ref_shift_um": 0.333,
+    "n_px": 809,
+    "score": 0.435,
+    "t": [
+     4.515,
+     -1.497
+    ],
+    "theta_deg": 359.153
+   }
+  },
+  "center": [
+   -2.754888,
+   -1.179583
+  ],
+  "flip": false,
+  "hit_frac": 0.9405,
+  "scale": 1.0,
+  "score": 0.591,
+  "t": [
+   4.518813,
+   -1.429656
+  ],
+  "theta_deg": -1.992734
+ },
+ "gds_to_device": {
+  "census": {
+   "n_contacts": 15,
+   "n_gates": 2,
+   "n_leads": 17
+  },
+  "center": [
+   27.242945,
+   51.031971
+  ],
+  "flip": false,
+  "iou": 0.7897,
+  "scale": 1.01901,
+  "t": [
+   -0.078145,
+   -2.402478
+  ],
+  "theta_deg": 0.000124,
+  "uncertainty": {
+   "theta_deg": 0.1,
+   "tx_um": 0.05,
+   "ty_um": 0.05
+  }
+ },
+ "stack_to_device": {
+  "anchor_residual_um": 0.545,
+  "center": [
+   -0.525546,
+   -0.980919
+  ],
+  "flip": false,
+  "scale": 1.0,
+  "score": 69.55,
+  "t": [
+   6.549601,
+   -5.501151
+  ],
+  "theta_deg": -1.0,
+  "theta_unc_deg": 0.5
+ },
+ "variants": [
+  "central",
+  "anchor:left",
+  "anchor:lower",
+  "anchor:mid",
+  "anchor:right",
+  "anchor:upper",
+  "sd_th-0.50",
+  "sd_th+0.50",
+  "fs_th-0.30",
+  "fs_th+0.30",
+  "fs_t(-0.75,+0.00)",
+  "fs_t(+0.75,+0.00)",
+  "fs_t(+0.00,-0.75)",
+  "fs_t(+0.00,+0.75)",
+  "ext:0725-balanced",
+  "ext:0725-gap",
+  "ext:0725-top"
+ ]
+}

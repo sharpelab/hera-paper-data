@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_values": [0.05, 0.054, 0.058, 0.062, 0.066, 0.07, 0.074, 0.078, 0.082, 0.086, 0.09, 0.094, 0.098, 0.102, 0.106, 0.11, 0.114, 0.118, 0.122, 0.126, 0.13, 0.134, 0.138, 0.142, 0.146, 0.15, 0.154, 0.158, 0.162, 0.166, 0.17, 0.174, 0.178, 0.182, 0.186, 0.19, 0.194, 0.198, 0.202, 0.206, 0.21, 0.214, 0.218, 0.222, 0.226, 0.23, 0.234, 0.238, 0.242, 0.246, 0.25, 0.254, 0.258, 0.262, 0.266, 0.27, 0.274, 0.278, 0.282, 0.286, 0.29, 0.294, 0.298, 0.302, 0.306, 0.31, 0.314, 0.318, 0.322, 0.326, 0.33, 0.334, 0.338, 0.342, 0.346, 0.35, 0.354, 0.358, 0.362, 0.366, 0.37, 0.374, 0.378, 0.382, 0.386, 0.39, 0.394, 0.398, 0.402, 0.406, 0.41, 0.414, 0.418, 0.422, 0.426, 0.43, 0.434, 0.438, 0.442, 0.446, 0.45, 0.454, 0.458, 0.462, 0.466, 0.47, 0.474, 0.478, 0.482, 0.486, 0.49, 0.494, 0.498, 0.502, 0.506, 0.51, 0.514, 0.518, 0.522, 0.526, 0.53, 0.534, 0.538, 0.542, 0.546, 0.55, 0.554, 0.558, 0.562, 0.566, 0.57, 0.574, 0.578, 0.582, 0.586, 0.59, 0.594, 0.598, 0.61, 0.62, 0.63, 0.64, 0.65, 0.66, 0.67, 0.68, 0.69, 0.7, 0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.8, 0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87, 0.88, 0.89, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.01, 1.02, 1.03, 1.04, 1.05, 1.06, 1.07, 1.08, 1.09, 1.1, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.2, 1.21, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3, 1.31, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41, 1.42, 1.43, 1.44, 1.45, 1.46, 1.47, 1.48, 1.49, 1.5, 1.51, 1.52, 1.53, 1.54, 1.55, 1.56, 1.57, 1.58, 1.59, 1.6],
+  "B_min_T": 0.05,
+  "B_max_T": 1.6,
+  "n_B": 238,
+  "spacing": "stitched",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "ladder_stated_h_per_column": null,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Trailing cells 47 (md) + 48 (code): a 1D sdh-spot-check field sweep, s.sweep(magnet.field, B_vec, delay=0), at the run-6 electron spot n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the run-5 cal c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013, giving Vtg=+0.9836, Vbg=+1.1661). B_vec is stitched: np.arange(0.05, 0.6001, 0.004) joined to np.arange(0.61, 1.6001, 0.01), which evaluates to 238 points (the markdown states 239). Its stated purpose is to pin B_lo for a later Landau fan; no fan cell is issued and no further density columns are named (there is no hera_scratch/plan.md), so form is probe_only. Cell 48 sets sr1.sensitivity(50e-6); all other instrument state is inherited from cell 44's close_out(restore=state0) readback (sr0 20 mV / 0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0, drive_V 1.0); the 100 MOhm bias resistor is from device_card.md line 64, and the ~30 min ETA from the cell-47 markdown."
+}

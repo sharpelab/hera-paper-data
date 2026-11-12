@@ -1,0 +1,14 @@
+# The sdh_analysis decision point on vti-01 (08-18): run 9, electron spot check n = +1.7e12
+# D = 0, same grid as run 8, just landed (line 968); the hole read is on the page.
+case: vti01-sdh-analysis-r9
+source: ../../docs/notes/2026-08-18-vti-01-session
+cut:
+  transcript: 18ed1c71-d971-4290-b0c2-752d15437e88.jsonl
+  at: 34a61f0b-fc86-4010-8f59-b23396ce7cab
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 9 is down, 746 rows clean. Reading the electron side now: onset, FFT, then the ana entry."
+  prompt: "Carry on."
+grader: null

@@ -1,0 +1,7 @@
+### Read and next step
+
+Runs 6/7 have peak |X₁|=5.22/5.76 µV on 50 µV sensitivity, measured drain current 9.843–9.935/9.809–9.931 nA, and peak Rxx=530/587 Ω. Gate-current magnitudes remain below 216 pA and mount temperature spans 1.165–1.292 K. Oscillatory transport is live. Signed Rxx reaches −33 Ω in run 6 and phase rotates near voltage zeros: keep the signed data and do not interpret every minimum as a longitudinal quantum-Hall state without Hall/symmetrization information.
+
+The onset helper reports 0.30 T (censored at its analysis edge) in run 6 and 0.71 T in run 7. Its multiple tone/harmonic flags and the window-dependent spectra preclude a reliable band count from these two traces. In particular, a finite oscillation onset is not established by the censored electron result. The nominal full-density fourfold frequencies would be 33.1/12.4 T; using these as an absolute lever-arm calibration would assume the very degeneracy and band assignment being tested.
+
+Proceed to plan step 4: a near-zero-D density fan on the single wired B₁–B₂ pair. Track branches, crossings and their density intercepts, test whether extra branches share a CNP or follow the second run-5 ridge, and only then consider stacking. The two gate-map ridges are candidate inhomogeneity features, not separately contacted regions and not proof of a series mosaic. Current verdict for B₁–B₂ remains **cannot tell (weak)**. A D-dependent CNP resistance alone does not select ABAB, ABCA or ABCB.

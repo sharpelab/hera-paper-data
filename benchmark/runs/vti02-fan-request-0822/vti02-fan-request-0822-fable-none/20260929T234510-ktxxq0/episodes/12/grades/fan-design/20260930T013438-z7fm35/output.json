@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 0.0,
+  "B_max_T": 10.0,
+  "n_B": 101,
+  "spacing": "B",
+  "n_min_cm2": -1.25e12,
+  "n_max_cm2": 3.20e12,
+  "n_columns": 201,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 8.5,
+  "flags": [],
+  "notes": "Appended cells 47 (markdown) + 48 (code): multimegasweep with slow [magnet.field] = np.arange(0, 10.0001, 0.1) (101 rows, uniform in B) and fast [k_tg.volt, k_bg.volt] from calc_gate_voltages over n = np.linspace(-1.25, 3.20, 201) x 1e12 cm^-2 at D = 0, using the session's run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013). slow_delay/fast_delay = 1.0 s each. Cell 48 sets sr1.sensitivity(200e-6); all other lock-in state is inherited from the cell-44 close_out(restore=state0) readback (sr0 20 mV / tau 0.3 s, sr1 tau 0.3 s, drive 1.0 V), which also reports tg/bg nplci = 1.0 (the fan cell only asserts it). Bias resistor 100 MOhm from the cell-32/34 I_bias = amplitude/100e6 convention. ETA 8h30m from the cell-47 header (text says 8-8.5 h). No autorange hook is registered on the fan."
+}

@@ -1,0 +1,7 @@
+**Read (corrected, sr2 = 4T Rxx) — NO superconducting candidate; cleaner than the sr3 view.**
+
+- **4T Rxx is kΩ-scale everywhere:** 3.1–44 kΩ, metallic background ~3.7 kΩ, CNP ridge to ~44 kΩ. The lowest 3×3-smoothed value is **3.1 kΩ** (high-density hole corner, n≈−8e12 — ordinary metal, ~0.8× the median), and **zero points fall below 2 kΩ**. Nothing collapses toward the Rxx → 0 of a superconductor anywhere in the accessible (n, D).
+- **(n, D) calibration holds:** CNP slope −1.22 (cap ratio 1.22, vs prior 1.18 — agrees ~3%, consistent with the sr3 fit). CNP at Vbg=0 ≈ Vtg 0. Coverage n ≈ −8→+8 e12 cm⁻², D ≈ −0.76→+0.68 V/nm.
+- **New feature (flag, not a candidate):** a horizontal band at k_bg ≈ 0 (constant back-gate, TG-independent) — *high* resistance, so not SC. Constant-V_bg (not constant-n or -D) → likely a back-gate-tied feature/artifact (charge trap, contact, or hysteresis at that V_bg); noted for follow-up, doesn't bear on the SC call.
+
+**Verdict (Step 1, corrected):** no candidate low-Rxx region at base T, B≈0, over the full gate-accessible (n, D). To make the not-SC call decisive (and to test whether the 0.5 nA AC map could have *smeared* a fragile sub-0.5 nA-Ic supercurrent), the next measurement is a bias-spectroscopy point check at the lowest-Rxx point — dV/dI vs I_dc on **sr2**. Carry the hedge: electron T ~40 mK sits near the low Tc of BLG-WSe₂ proximity SC, so a sub-Tc state could be thermally unresolvable (a base-T limit). Tesla-scale fermiology that would firm the normal-state read is out of reach under the 100 mT cap (defer).

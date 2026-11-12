@@ -1,0 +1,15 @@
+# The sdh_analysis decision point on QC0426 (07-14 session 2): run 5, hole −6.4e12,
+# just landed (line 570). Input quality BAD: 1/B-uniform grid with 8 points above 6 T
+# and a 93 T alias ceiling; one 55 T tone is all the record carries.
+case: qc0426-sdh-analysis-0714r5
+source: ../../docs/notes/2026-07-14-QC0426-session-2-full
+cut:
+  transcript: cb2e3b4c-dfd7-45be-9263-972a6096f33b.jsonl
+  at: 7d752731-2827-424c-9db3-13a6d6ed2502
+corpus: {sha: 8bf4e7d, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 5 is down, 721 rows, not interrupted. Reading it now: raw MR and Hall, onset, FFT, then the ana entry."
+  prompt: "Carry on."
+grader: null

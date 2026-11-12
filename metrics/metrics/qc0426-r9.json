@@ -1,0 +1,179 @@
+{
+ "run_id": "qc0426-r9",
+ "manifest": {
+  "run_id": "qc0426-r9",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-21",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-21-QC0426-session",
+  "rig_session_dir": "zack/20260621-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": true,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-21T10:53:46+00:00",
+  "t_transcript_last": "2026-06-22T04:15:43+00:00",
+  "transcript_span_h": 17.36589444445239,
+  "session_h": 17.36589444445239,
+  "t_final_decision": "2026-06-22T04:12:45.637147+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 17.31642670750618,
+  "t_first_sweep": "2026-06-21T11:11:08+00:00",
+  "t_last_sweep_end": "2026-06-22T04:03:53+00:00",
+  "sweep_span_h": 16.879283521374067,
+  "measuring_h": 15.839953182670806,
+  "longest_sweep_h": 11.048298177984027
+ },
+ "sweeps": {
+  "n_sweeps": 5,
+  "by_recipe": {
+   "gatemap": {
+    "n": 1,
+    "hours": 0.583
+   },
+   "landau-fan-vti": {
+    "n": 1,
+    "hours": 11.048
+   },
+   "sdh-spot-check": {
+    "n": 3,
+    "hours": 4.209
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.9384256839227111,
+  "hil": 0.9461599909320298,
+  "frac_measuring": 0.9384256839227111,
+  "frac_hera_court": 0.05339989834303237,
+  "frac_human_court": 0.008174417734256575,
+  "hera_court_h": 0.9013520241445965,
+  "human_court_h": 0.13797831455866497,
+  "n_lands": 29,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 1057.515756368637,
+    "hera_s": 856.774343252182,
+    "human_s": 200.74141311645508,
+    "land": 1782043223.101755,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 343.0471475124359,
+    "hera_s": 264.0879635810852,
+    "human_s": 78.95918393135071,
+    "land": 1782048797.417408,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 660.4345667362213,
+    "hera_s": 603.2992599010468,
+    "human_s": 57.13530683517456,
+    "land": 1782054500.530498,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 1680.591748714447,
+    "hera_s": 1520.7057201862335,
+    "human_s": 159.8860285282135,
+    "land": 1782061100.052366,
+    "next_slug": "landau-fan-vti"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 515,
+  "n_api_requests": 230,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 231,
+  "message_counts": {
+   "human": 1,
+   "loop_tick": 29,
+   "task_notification": 5,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 195,
+  "tool_calls": {
+   "Bash": 69,
+   "ScheduleWakeup": 35,
+   "Bash[nb-collab]": 30,
+   "Read": 21,
+   "Edit": 11,
+   "Bash[hera-notify]": 8,
+   "Write": 8,
+   "Bash[nb]": 7,
+   "Bash[hera-watch]": 6
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 15820,
+    "out": 359598,
+    "cr": 75561056,
+    "cw5": 0,
+    "cw1h": 501207,
+    "n_requests": 230
+   }
+  },
+  "cost_usd_est": 51.86,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-21-QC0426-session/20260621_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-21-QC0426-session/20260621_ana.ipynb",
+  "n_cells": 55,
+  "n_hera_cells": 29,
+  "n_slot_cells": 5,
+  "n_human_cells": 21,
+  "n_hera_executed": 13,
+  "n_hera_unexecuted": 1,
+  "n_ana_cells": 23,
+  "n_ana_figures": 5
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-21T15:05:13.832199+00:00",
+   "excerpt": "**Read (hole side, n=\u22123e12, D\u22480 \u2014 ABC disfavored, ABA not yet decisive):** Clean SdH, onset **0.31 T**, no clip. **Density independently confirmed**: low-field "
+  },
+  {
+   "source": "ana-nb",
+   "t": "2026-06-22T04:12:45.637147+00:00",
+   "excerpt": "## STACKING CALL \u2014 QC0426 (trilayer graphene), VTI, 2026-06-21\n\n**Region probed:** four-terminal pairs **sr1 (T3\u2013T4)** and **sr2 (B4\u2013B5)**, source T2 / drain B7"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 28,
+  "scratch_by_ext": {
+   ".npy": 1,
+   ".png": 7,
+   ".py": 12,
+   ".txt": 8
+  },
+  "scratch_loc": 605,
+  "n_scratch_figures": 7,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 1,
+  "n_interrupts": 0,
+  "longest_unattended_h": 17.283731666670906,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:47+00:00"
+}

@@ -1,0 +1,8 @@
+**Read (run 6, electron n = +3.2×10¹²):** Strong SdH, high SNR, deep minima (QH-like structure above ~7.5 T). Tone set on the clean B ≥ 1 T leg: **{7.5, 14.9, 22.4, 29.8} T ≈ {1,2,3,4} × 7.45 T**, comb members visible to ~8×, with the **4× line the strongest** — not a monotone harmonic comb. Two hypotheses survive at one density:
+
+1. **ABAB pair + breakdown sum tone**: light f₁ ≈ 7.5, heavy f₂ ≈ 22.4, and f₁+f₂ = 29.9 (the symmetry-allowed inter-block breakdown orbit at F_L). Internally Luttinger-closed with one global density scale ≈ 0.90 (inside the lever-arm prior 0.8–1.2). Model pair at prior scale: {7.31, 25.78} T; measured partition 0.25/0.75 vs model 0.22/0.78 at n_eff = 2.9×10¹².
+2. **Single ~7.45 T pocket with strong harmonics**: but a lone 7.45 T pocket carries only 0.23·F_L at g = 4 — a Luttinger-sum violation — and the 4× ≫ 3× amplitude ordering is unnatural for pure harmonics.
+
+The 22.4 T tone sits within δF of exactly 3×7.45 — the harmonic-screen trap the investigation names ("never discard a tone as a harmonic when doing so breaks the partition sum"). **One density cannot decide; the fan's n-dependence does**: the model's ABAB heavy/light ratio drifts 3.5 → 4.8 → 17 over n = 3.2 → 2.0 → 1.0×10¹², while a harmonic stays pinned at exactly 3.000.
+
+**Onset is unmeasured**: the carrying tone is censored at the record edge, and the sub-1 T leg (50 mT) cannot Nyquist a 7.5 T tone below ~0.9 T — the censored low tones (3.0/4.2/5.1/9.5 T) are alias candidates from that leg, not claimed. Run 8 (low-field extension, 2.5 mT) pins the onset for the fan's B_lo and doubles as the grid-change reproduction check on those tones.

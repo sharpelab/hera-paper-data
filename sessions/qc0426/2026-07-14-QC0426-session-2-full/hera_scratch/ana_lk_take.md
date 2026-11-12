@@ -1,0 +1,12 @@
+**Read — LK verdict: the f_top fork RESOLVES, differently per region.**
+
+- **T3–T4 (sr1): f_top is a breakdown/intermodulation orbit, not a band.** m_top = 0.061–0.064 m_e ≈ m_s + m_B = 0.066–0.067 within 5 % (a composite orbit damps with the *sum* of its parents' masses). With the pair (m_s = 0.030(3), m_B = 0.036(5)) carrying the density partition, this region is **pure ABA — verdict upgraded to strong, fork closed for this region**.
+- **B4–B5 (sr2): f_top carries its own mass — a genuine third Fermi surface.** m_top = 0.055–0.058(1) vs m_s + m_B = 0.094–0.096: a 40 % gap, robust to the T_e0 assumption (masses shift < 5 % between T_e0 = 0 and 8 K), to the mount→device gradient and B_eff choice (both cancel in same-run branch comparisons), and to possible f_s-band contamination (using sr1's cleaner m_s = 0.030 still gives sum = 0.077 ≠ 0.056). A third FS at F_L with a BL-like mass is the **ABC-domain singleton** signature → **B4–B5: mixed ABA + ABC domains (upgraded from consistent-with to moderate)**. Beat exclusion note: m_top is not lighter than m_B, so the *decisive* beat exclusion does not fire — the mass-sum mismatch is what carries the discrimination here.
+- **T_e0 is unconstrained** (≤ ~8 K consistent): with m* ≈ 0.03–0.06, X(8 K, 5.33 T) < 0.15 and the LK curve is intrinsically flat below ~5 K — the low-rung saturation is *not* evidence of an electron-bath floor. The rig card's T_e ≈ 8 K is neither confirmed nor refuted by this ladder.
+- **Mass-labeling tension to carry forward**: m_s and m_B are similar (0.030 vs 0.036 on sr1) — not the naive light-Dirac/heavy-parabolic split. At E_F ≈ 100 meV the SWMcC ML band is not massless, but a quantitative check needs band masses from the forward model (not currently emitted — model TODO logged).
+
+**FINAL CALL (supersedes the Step 7 hedge 3):**
+- **T3–T4: ABA (strong)** — pair + partition + Onsager + f_top identified as breakdown/intermod by mass sum.
+- **B4–B5: ABA majority + ABC minority domain (moderate)** — same pair + partition, plus a third F_L pocket with its own distinct mass.
+- **Pure ABC: excluded everywhere.** QC0426 is a **predominantly Bernal (ABA) trilayer with at least one rhombohedral (ABC) domain in the B4–B5 region** — the mosaic outcome the recipe warns is common.
+- Firming path: extend the ladder to 35–40 K (pins the mass-curve knees), the FS-count model emitting band masses at E_F for the labeling check, and a Streda/zero-LL read for the ABC domain.

@@ -1,0 +1,187 @@
+{
+ "run_id": "qc0426-r4",
+ "manifest": {
+  "run_id": "qc0426-r4",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-17",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-17-QC0426-session",
+  "rig_session_dir": "zack/20260617-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-17T20:22:53+00:00",
+  "t_transcript_last": "2026-06-18T18:22:49+00:00",
+  "transcript_span_h": 21.998916111124885,
+  "session_h": 21.998916111124885,
+  "t_final_decision": "2026-06-18T10:48:56.863567+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 14.434230157534282,
+  "t_first_sweep": "2026-06-17T20:37:12+00:00",
+  "t_last_sweep_end": "2026-06-18T09:45:43+00:00",
+  "sweep_span_h": 13.142097254329258,
+  "measuring_h": 12.525003575748867,
+  "longest_sweep_h": 7.1890309619903565
+ },
+ "sweeps": {
+  "n_sweeps": 6,
+  "by_recipe": {
+   "gate-current-sanity-check": {
+    "n": 1,
+    "hours": 0.054
+   },
+   "gatemap": {
+    "n": 1,
+    "hours": 1.073
+   },
+   "landau-fan": {
+    "n": 1,
+    "hours": 7.189
+   },
+   "sdh-spot-check": {
+    "n": 3,
+    "hours": 4.21
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.9530445052537481,
+  "hil": 0.9599864156448296,
+  "frac_measuring": 0.9530445052537481,
+  "frac_hera_court": 0.03972423576388544,
+  "frac_human_court": 0.0072312589823665474,
+  "hera_court_h": 0.5220597697628869,
+  "human_court_h": 0.09503390881750319,
+  "n_lands": 20,
+  "gaps": [
+   {
+    "after_sweep": 1,
+    "idle_s": 416.183438539505,
+    "hera_s": 312.6488826274872,
+    "human_s": 103.53455591201782,
+    "land": 1781729138.399533,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 709.1097295284271,
+    "hera_s": 684.4716732501984,
+    "human_s": 24.63805627822876,
+    "land": 1781733788.134945,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 225.08121395111084,
+    "hera_s": 55.59143853187561,
+    "human_s": 169.48977541923523,
+    "land": 1781734585.327222,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 319.5454173088074,
+    "hera_s": 290.7403390407562,
+    "human_s": 28.805078268051147,
+    "land": 1781742425.481902,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 5,
+    "idle_s": 551.617443561554,
+    "hera_s": 535.9628376960754,
+    "human_s": 15.654605865478516,
+    "land": 1781750047.635327,
+    "next_slug": "landau-fan"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 0,
+  "n_assistant_entries": 425,
+  "n_api_requests": 188,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 203,
+  "message_counts": {
+   "human": 4,
+   "loop_tick": 0,
+   "task_notification": 12,
+   "admin": 0,
+   "interrupt": 1
+  },
+  "n_tool_calls": 186,
+  "tool_calls": {
+   "Bash": 44,
+   "Bash[nb-collab]": 34,
+   "Read": 25,
+   "Write": 25,
+   "Edit": 19,
+   "TaskUpdate": 14,
+   "Bash[hera-watch]": 8,
+   "Bash[nb]": 7,
+   "TaskCreate": 7,
+   "ToolSearch": 2,
+   "AskUserQuestion": 1
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 11641,
+    "out": 302562,
+    "cr": 46034226,
+    "cw5": 0,
+    "cw1h": 2157495,
+    "n_requests": 188
+   }
+  },
+  "cost_usd_est": 52.21,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-17-QC0426-session/20260617_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-17-QC0426-session/20260617_ana.ipynb",
+  "n_cells": 47,
+  "n_hera_cells": 20,
+  "n_slot_cells": 0,
+  "n_human_cells": 27,
+  "n_hera_executed": 10,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 21,
+  "n_ana_figures": 6
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-18T10:48:56.863567+00:00",
+   "excerpt": "# STACKING CALL \u2014 QC0426 trilayer graphene: **ABA (Bernal)**, strong\n\n*Independent FS-count determination per `investigations/trilayer-stacking-fs-count.md`,\nfr"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 43,
+  "scratch_by_ext": {
+   ".md": 14,
+   ".png": 7,
+   ".py": 22
+  },
+  "scratch_loc": 968,
+  "n_scratch_figures": 7,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 4,
+  "n_interrupts": 1,
+  "longest_unattended_h": 21.826192222237587,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:46+00:00"
+}

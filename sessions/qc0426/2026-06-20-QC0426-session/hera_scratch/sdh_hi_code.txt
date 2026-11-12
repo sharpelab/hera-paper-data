@@ -1,0 +1,51 @@
+import numpy as np, time
+from sharpelab_nb import gates
+
+C_TG, C_BG, N_OFF = 1.7027e-3, 2.2024e-3, -0.1445
+N_TARGET = -3.4
+Vtg, Vbg = gates.calc_gate_voltages(N_TARGET, 0.0, C_TG, C_BG, N_OFF, 0.0)
+Vtg, Vbg = float(Vtg), float(Vbg)
+
+# high-field continuation: sweep UP 2->8 T (no re-traverse), uniform-1/B
+B_START, B_END = 2.0, 8.0
+F_L = (6.62607e-34 / (4 * 1.602177e-19)) * (abs(N_TARGET) * 1e16)
+dinvB = 0.00469
+N = int(round((1 / B_START - 1 / B_END) / dinvB)) + 1
+field_vec = field_invB(B_START, B_END, N)
+assert 2.0 <= field_vec.min() and field_vec.max() <= 8.0
+
+# preconditions
+assert abs(magnet.field() - 2.0) < 0.06, f"field not ~2T: {magnet.field()}"
+assert heater.sample_temperature() < 2.0, f"T high: {heater.sample_temperature()}"
+assert k_2410.volt() == 0
+dc205_volt(Vtg); k_bg.volt(Vbg); time.sleep(2)
+assert abs(dc205.voltage() - Vtg) < 0.02 and abs(k_2400.volt() - Vbg) < 0.02, "gates not at hole point"
+T0 = heater.sample_temperature()
+
+# sensitivities sized for 8 T maxima (Rxx MR ~700Ω, R_xy ~1.5kΩ)
+sr1.amplitude(2.0)
+sr0.sensitivity(5e-2); sr1.sensitivity(2e-5); sr2.sensitivity(2e-5); sr3.sensitivity(5e-5)
+magnet.settle_s = 0.2
+time.sleep(2)
+I = sr0.X() / meas_config['sr0_gain']
+print(f"hole HIGH-FIELD n={N_TARGET}e12 D=0 Vtg={Vtg:.3f} Vbg={Vbg:.3f} | B {B_START}->{B_END}T N={N} d(1/B)={dinvB} F_L={F_L:.1f}T")
+print(f"I={I*1e9:+.2f} nA  field={magnet.field():.3f} T")
+for ch in ['sr1', 'sr2', 'sr3', 'sr0']:
+    s = globals()[ch]; x = s.X(); se = s.sensitivity()
+    print(f"  {ch}: {abs(x)/se*100:.0f}% FS  R={x/I if I else float('nan'):+.1f} ohm  sens={se:.0e}")
+assert abs(sr1.X()) < 0.9 * sr1.sensitivity() and abs(sr2.X()) < 0.9 * sr2.sensitivity(), "Rxx overload at 2T"
+
+meas_config['comments'] = (f"sdh-spot-check HOLE high-field n={N_TARGET}e12 D=0 (Vtg={Vtg:.3f},Vbg={Vbg:.3f}); "
+                           f"B {B_START}-{B_END}T uniform-1/B N={N} d(1/B)={dinvB}; F_L={F_L:.1f}T; continues run1(0.1-2T); bias 2V/20nA")
+meas_config['sample_temperature:'] = T0
+for k, ch in [('sr0_sens', 'sr0'), ('sr1_sens', 'sr1'), ('sr2_sens', 'sr2'), ('sr3_sens', 'sr3')]:
+    meas_config[k] = globals()[ch].sensitivity()
+s = async_station(meas_config)
+s.add_comment('sdh-spot-check')
+s.add_comment(f'HOLE high-field n={N_TARGET}e12 D=0; B {B_START}-{B_END}T; continues run1')
+s.fp(sr0.X).fp(sr1.X).fp(sr1.P).fp(sr2.X).fp(sr2.P).fp(sr3.X).fp(sr3.P).fp(k_2400.curr).fp(k_2410.curr)
+s.plot(magnet.field, sr1.X)
+res = s.sweep(magnet.field, field_vec, delay=2.5)
+magnet.settle_s = 3.0
+T1 = heater.sample_temperature()
+print(f"DONE run id={res.id} | T {T0:.3f}->{T1:.3f} K | field now {magnet.field():.3f} T")

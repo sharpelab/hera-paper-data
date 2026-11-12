@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.2,
+  "B_max_T": 1.0,
+  "n_B": 161,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.5,
+  "flags": [],
+  "notes": "Appended cells are 47 (markdown) and 48 (code, unexecuted): a 1D sdh-spot-check field sweep s.sweep(magnet.field, B_vec, delay=0) with B_vec = 1.0/np.arange(1.0, 5.0001, 0.025) — 161 pts descending 1.0 -> 0.2 T, uniform in 1/B — at the run-6 electron spot n = +3.2e12 cm^-2, D = 0 (calc_gate_voltages with the cell's run-5 CAL gives Vtg = +0.9836, Vbg = +1.1661 V); the magnet is first ramped 0 -> 1.0 T by magnet.field(1.0). No fan and no further density columns are named — the stated next step is the fan itself, so form is probe_only. Cell 48 sets sr1.sensitivity(50e-6); sr1 tau 0.3 s, sr0 sens 0.02 V / tau 0.3 s and both Keithley nplci = 1.0 are inherited from the cell-44 close_out(restore=state0) readback, which is the latest state record before the appended cells (consistent with the run-6/7 metadata snapshots). Drive 1.0 V from the same readback; 100 MOhm bias resistor per device_card.md:64. Stated time '~30 min' from the cell-47 markdown timestamp line."
+}

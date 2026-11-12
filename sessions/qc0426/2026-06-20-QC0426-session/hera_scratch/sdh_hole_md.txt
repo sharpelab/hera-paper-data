@@ -1,0 +1,9 @@
+## HERA — Step 3 · SdH spot check, HOLE side (n = −3.4e12, D = 0)
+
+`trilayer-stacking-fs-count` Step 2→3. **Feasibility (Step 2):** F_L = (h/4e)·n = 35.2 T at |n|=3.4e12 (the fastest possible tone, single 4-fold pocket). Nyquist it: Δ(1/B) = 1/(3·F_L) = 0.00948 T⁻¹. Window B = 0.1→2.0 T uniform **in 1/B** (`field_invB`, densest in B at low field → captures the onset for free), 1/B span 9.5 T⁻¹ → N = 1001, ~334 periods of an F_L tone, FFT freq resolution Δf ≈ 0.105 T. This Δ(1/B) carries to the fan (Step 4).
+
+**Why hole first:** the ML/BL pockets are more balanced on the hole side at equal |n| (a prior, not a rule — electron side gets its own spot check next). n = 3.4e12 sits at the Onsager-model validity ceiling (3.5e12), so the overlay stays available for the read. The FS-count combinatorics (one tone at F_L = ABC; a pair summing to F_L = ABA) is read per Rxx channel (sr1 T3-T4, sr2 B4-B5) from the 1/B FFT.
+
+**Acquisition:** high-|n| metallic bias **2 V / 20 nA** (Rxx ~tens of Ω); voltage channels **autorange** at the operating point (then verified < 90% FS — cell aborts if Rxx overloads), Hall sr3 fixed 2e-5 (covers R_xy(2T) ~0.37 kΩ), current sr0 5e-2. Dwell **2.5 s (~8τ, 24 dB/oct settling floor)** — non-negotiable for the small ML tone (under-settling buries it). `magnet.settle_s` → 0.2 s for the sweep (lock-in dwell carries settling), restored after.
+
+**~62 min** (dwell-dominated; field traverses 1.9 T at 0.137 T/min ≈ 14 min). **Checkpoint at ~row 320 (~20 min, ~B 0.4 T):** oscillations emerging above onset? channels un-railed? rate on track → continue; else interrupt. Field is left at 2.0 T for the electron spot check (sweep down — no re-traverse). Leakage (BG/Si curr) monitored.

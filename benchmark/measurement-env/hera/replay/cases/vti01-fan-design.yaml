@@ -1,0 +1,14 @@
+# The fan-design decision point on vti-01 (08-18, the locked test device): the run-9 read
+# just landed in ana (line 1010); no fan parameter is stated before the cut. Frozen corpus.
+case: vti01-fan-design
+source: ../../docs/notes/2026-08-18-vti-01-session
+cut:
+  transcript: 18ed1c71-d971-4290-b0c2-752d15437e88.jsonl
+  at: 2d539d16-d09d-4d4d-b38e-93b4375bf064
+corpus: {sha: d8e1337, condition: full}
+run: {model: claude-sonnet-5, effort: medium, n: 5, timeout_s: 1800, stall_s: 600, max_turns: 60}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+resume:
+  close: "Run 9's read is on the page. Designing the fan now."
+  prompt: "Carry on."
+grader: null

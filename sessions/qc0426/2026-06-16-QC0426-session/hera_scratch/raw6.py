@@ -1,0 +1,12 @@
+# Raw — file 6: electron-side spot check (n=+8e12, D=0, Si=+50V, sens 200uV)
+m=load_meta(6);ci={c:i for i,c in enumerate(m['columns'])};d=load1d(6)
+B=d[:,ci['magnet_mag']];Ib=5e-9;I=d[:,ci['sr0_X']]/m['measurement_config']['sr0_gain'];t=d[:,ci['time']]
+fig,ax=plt.subplots(1,3,figsize=(15,4))
+ax[0].plot(B,I*1e9,'C3');ax[0].axhline(5,ls=':',c='k',label='5 nA target')
+ax[0].set(xlabel='B (T)',ylabel='I_drain (nA)',title='drain current vs B — BLOCKED (no recovery at B=0)');ax[0].legend()
+ax[1].plot(t-t[0],I*1e9,'C0');ax[1].set(xlabel='time (s)',ylabel='I_drain (nA)',title='I vs time (collapsed before pt0)')
+ax[2].plot(B,d[:,ci['sr1_X']]/Ib,label='sr1');ax[2].plot(B,d[:,ci['sr3_X']]/Ib,label='sr3')
+ax[2].set(xlabel='B (T)',ylabel='V/I_bias (ohm, nominal)',title='R (not meaningful)');ax[2].legend()
+fig.suptitle('Raw — file 6: ELECTRON side n=+8e12, Si=+50V — ALSO blocked (16 pA): time-dependent collapse at held high |n|, NOT a p-n junction, NOT field')
+plt.tight_layout();plt.show()
+print('file6 drain I median %.3f nA (electron side also blocked -> confirms held-high-|n| collapse, not Si-side-specific)'%(np.median(I)*1e9))

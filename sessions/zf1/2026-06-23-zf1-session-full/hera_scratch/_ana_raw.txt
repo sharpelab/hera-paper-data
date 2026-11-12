@@ -1,0 +1,23 @@
+# Run 4 raw re-form (raw before interpretation). R = (X/gain)/I_bias; gain 100, I_bias 1 nA.
+import numpy as np, matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+from hera.analysis import open_run, summarize_run
+
+run4 = open_run('data/4')
+print(summarize_run(run4))
+itg = np.abs(run4.col('k_tg_curr')); ibg = np.abs(run4.col('k_bg_curr'))
+print(f'leakage max |I|:  k_tg {itg.max():.2e} A   k_bg {ibg.max():.2e} A   (both << 1 nA, clean to corners)')
+
+NT, NB = 41, 61
+V_tg = np.linspace(-7.0, 6.0, NT); V_bg = np.linspace(-4.0, 4.2, NB)
+R4 = ((run4.col('sr830_3_X')[:NT*NB]/100.0)/1e-9).reshape(NT, NB)   # 4T longitudinal, 30-31
+R2 = ((run4.col('sr830_2_X')[:NT*NB]/100.0)/1e-9).reshape(NT, NB)   # 2T, 5-4
+
+fig, ax = plt.subplots(1, 2, figsize=(13, 5))
+im = ax[0].pcolormesh(V_bg, V_tg, np.clip(R4,1,None), norm=LogNorm(5,2200), cmap='inferno', shading='nearest')
+ax[0].set(title='4T R_xx (sr3, 30-31)  [rails ~2.18k at CNP]', xlabel='V_bg (V)', ylabel='V_tg (V)')
+fig.colorbar(im, ax=ax[0], label='R_xx (Ohm)')
+im = ax[1].pcolormesh(V_bg, V_tg, np.clip(R2,1,None), norm=LogNorm(3e3,7e5), cmap='magma', shading='nearest')
+ax[1].set(title='2T R (sr2, 5-4)', xlabel='V_bg (V)', ylabel='V_tg (V)')
+fig.colorbar(im, ax=ax[1], label='R_2T (Ohm)')
+plt.tight_layout(); plt.show()

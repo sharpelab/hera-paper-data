@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.0,
+  "n_B": 141,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.25,
+  "flags": [],
+  "notes": "Appended cells 47 (md) + 48 (code): a 1D sdh-spot-check field sweep, s.sweep(magnet.field, np.unique(np.round(np.arange(0.3, 1.0001, 0.005), 4)), delay=0) = 141 uniform-B points 0.3->1.0 T, at the run-6 electron spot n = +3.2e12 cm^-2, D = 0 via calc_gate_voltages with the in-cell run-5 CAL (Vtg, Vbg re-set by s.ramp); no further densities are named (it is a low-field extension of the same spot, and no plan.md exists in hera_scratch), so probe_only. Recorded lock-ins sr0.X/P and sr1.X/P; cell 48 sets sr1.sensitivity(50e-6), all other lock-in state and both Keithley nplci = 1.0 inherited from the cell-44 close_out(restore=state0) readback (sr0_sens 0.02, sr0_tau 0.3, sr1_tau 0.3, drive_V 1.0); 100 MOhm bias resistor from device_card.md line 64. Stated ETA is ~15 min in the cell-47 markdown; no fan sweep is issued (the markdown frames this as pinning B_lo before the fan)."
+}

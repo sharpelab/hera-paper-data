@@ -1,0 +1,1 @@
+*Erratum to the cell above: the sentence should read "restores `state0` (drive, lock-in ranging, …)" — the literal `state0` was eaten by shell quoting at append time (logged in session_notes). No effect on the executed code or the readback.*

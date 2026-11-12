@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 7.0,
+  "n_B": 172,
+  "spacing": "invB",
+  "n_min_cm2": 1.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 49,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.2,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.75,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, unexecuted): s.multimegasweep([magnet.field],[field_invB(0.7,7.0,172)],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.2); gates from calc_gate_voltages over np.linspace(1.60,3.20,49)e12 at D=0 V/nm using the session's run-5 calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013); roundtrip calc_nD confirms n=1.60e12, D=0 at the first column and Vtg 0.525-0.984 V, Vbg 0.573-1.166 V stay inside the cell-18 validator limits. sr1 sensitivity 50 uV is set in the cell; sr0 sensitivity 0.02 V and both taus (0.3 s) are inherited from the cell-44 close_out(restore=state0) readback, which also records drive 1.0 V and tg/bg nplci = 1.0 (the cell only asserts these, does not set them). Bias resistor 100 MOhm from device_card.md line 64. Wall clock from the cell-47 markdown 'approximately 4 h 45 m'."
+}

@@ -1,0 +1,9 @@
+## Runs 6–7 — SdH spot checks at D = 0 (`sdh-spot-check`): electron n = +3.2×10¹², hole n = −1.2×10¹²
+
+**Raw first (fig 1), then onset + 1/B FFT vs the forward model (fig 2).** Channel: sr1 (B_1–B_2), gain-divided, I_bias = 10 nA, 50 µV FS = 5 kΩ; both runs peak ≤ 12 % FS — no clipping.
+
+**Run 6 (electron, n = +3.2×10¹², F_L = 33.1 T) — clean and decisive-shaped.** Dominant tone **7.1 T** with SNR ≈ 40, matching the model's ABAB light pocket (7.31 T at this n) to 3 %. Tones at 14.1 / 29.5 T are its 2× / 4× harmonics. The **22.1 T tone is the fork**: it sits within its own δF (1.6 T) of both 3×7.1 = 21.3 T (harmonic) and the ABAB heavy pocket (model 25.8 T) — single-record unresolvable, exactly the recipe's "never eat the heavy tone with a ratio-only screen" case (ABAB heavy/light ratio is 3.50 at this n). Luttinger: 7.1 + 22.1 = 29.2 T = 0.88·F_L — closes at a global density scale 0.88, inside the 0.8–1.2 lever-arm prior; 7.1 alone (≪ F_L) cannot close it. **Onset is censored at the 0.3 T analysis edge**, but the record below 1 T is a 50 mT grid that under-Nyquists the 7.1 T tone (< 2 pts/period at ≤ 0.7 T), so the sub-1 T "tones" at 3.0/4.2/5.1/9.5 T are alias-suspect and the honest onset statement is **≤ ~1 T, unpinned below** — the fan's B_lo needs the low-field extension (next cell).
+
+**Run 7 (hole, n = −1.2×10¹², F_L = 12.4 T) — the designed-for near-CNP exception regime, uninformative for the call.** Broad merged humps (model ABAB pair 5.9/6.5 T — close and balanced, beat-like on this record; ABCA m* ≈ 1.1 mₑ is LK-dead at T_e ≈ 8 K). No tone read survives the harmonic screen. As priced in the proposal: a preview, not evidence.
+
+**Verdict for Step 4: fan on the electron side.** n-window where the templates separate and trajectories decide (heavy/light ratio drifts 4.8 → 3.5 over n = 2 → 3.2×10¹² while a harmonic stays at 3.0; model table printed below is the design authority). Inherit sr1 50 µV; Δ(1/B) ≤ 1/(3·F_L(n_max)) ≈ 0.010 T⁻¹.

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_min_T": 0.5,
+  "B_max_T": 10.0,
+  "n_B": 121,
+  "spacing": "invB",
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 101,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.5,
+  "flags": [],
+  "notes": "Cell 48 (`landau-fan`, unexecuted trailing cell) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0). B_vec is stitched from three legs (1/B-uniform d(1/B)=0.05 over 0.5-1 T, d(1/B)=0.01 over 1-5 T, then 0.25 T steps to 10 T) giving 121 ascending rows 0.5->10.0 T (verified in a scratch script); the bulk of the vector is 1/B-uniform so spacing is reported as invB. Fast axis is np.linspace(-1.2, 3.2, 101)e12 cm^-2 at D = 0 V/nm via calc_gate_voltages with the session's run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); absolute scale still the 9.5 nm geometry prior, as the cell notes. sr1 sensitivity 500 uV is set in the answer cell; sr1/sr0 tau 0.3 s and sr0 sens 0.02 V, nplci 1/1, and drive 1.0 V are inherited from the cell-44 close_out(restore=state0) readback (cell 46 is read-only). Bias resistor 100 MOhm from meas_config (cell 23) and device card. ETA '≈5h30m' stated in the cell-47 markdown."
+}

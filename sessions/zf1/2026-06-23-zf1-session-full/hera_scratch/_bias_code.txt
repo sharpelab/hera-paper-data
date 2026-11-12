@@ -1,0 +1,44 @@
+# === Step 2 — bias spectroscopy: dV/dI vs I_dc at the SC candidate optimum ===
+# Operating point n=-5.2e11, D=-0.645 V/nm -> (Vtg=-5.39, Vbg=+4.00). B=0 (pristine).
+
+# --- silent-precondition reads ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T  : {_T:.4f} K     (expect base, mK)")
+print(f"magnet B    : {_B:.3e} T   (expect ~0 — pristine)")
+print(f"gates now   : k_tg {k_tg.volt()} V  k_bg {k_bg.volt()} V")
+print(f"dc205_1.volt: {dc205_1.volt()} V   (expect ~0)")
+assert _T < 0.1, "probe not at base"
+assert abs(_B) < 5e-3, "magnet not near zero — keep pristine"
+
+VTG_OP, VBG_OP = -5.39, +4.00        # SC dome optimum from run-8 zoom
+sr830_1.amplitude(0.1)               # 1 nA AC (state survives it; << expected Ic)
+sr830_3.sensitivity(20e-6)           # full-scale ~200 Ohm at 1 nA -> resolves 0..normal
+k_tg.nplci(1); k_bg.nplci(1)
+
+# Bias axis: I_dc = V_dc / 100 MOhm.  +/-15 V -> +/-150 nA. Round-trip (hysteresis check).
+Vdc = np.linspace(-15.0, 15.0, 151)
+Vdc_rt = np.hstack((Vdc, Vdc[::-1]))
+
+meas_config["comment"] = "bias-spec dV/dI vs Idc at SC optimum n=-5.2e11 D=-0.645 (Vtg-5.39 Vbg+4.00), Idc +/-150nA round-trip, B=0"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('bias-spectroscopy')
+s.add_comment('SC candidate dV/dI: op (Vtg=-5.39,Vbg=+4.00) n=-5.2e11 D=-0.645; Idc +/-150nA RT; Iac=1nA; B=0')
+
+# Move to operating point, then DC bias to the sweep start; settle.
+s.ramp(k_tg.volt, VTG_OP); s.ramp(k_bg.volt, VBG_OP)
+s.ramp(dc205_1.volt, Vdc_rt[0])
+time.sleep(10)
+
+s.fp(temperature)
+s.fp(k_tg.volt).fp(k_tg.curr)
+s.fp(k_bg.volt).fp(k_bg.curr)
+s.fp(dc205_1.volt)
+for lia in (sr830_1, sr830_2, sr830_3):
+    s.fp(lia.X).fp(lia.P)
+s.plot(dc205_1.volt, sr830_3.X)      # dV/dI vs bias (live)
+
+try:
+    s.sweep(dc205_1.volt, Vdc_rt, delay=1)
+finally:
+    s.ramp(dc205_1.volt, 0)          # device card: dc205 -> 0 before ending
+    s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)

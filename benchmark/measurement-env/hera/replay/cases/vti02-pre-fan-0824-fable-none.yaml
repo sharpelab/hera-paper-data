@@ -1,0 +1,17 @@
+# The vti02-pre-fan-0824 frontier (the secondary cut), Fable 5 × none: a fresh instance picks the 08-24
+# session up from the live no-corpus brief, in the session dir as the archived agent
+# left it after reading the gate map and before writing the fan design, masked of the
+# fan design its plan.md pre-announces. Corpus and tactical prompt from the live
+# no-corpus deploy, code from the current harness.
+case: vti02-pre-fan-0824-fable-none
+source: ../../docs/notes/2026-08-24-vti-02-session
+cut:
+  transcript: b5a3eb9f-cdfc-4ca8-9117-05ee65c5cb30.jsonl
+  at: 22c6ddf4-57f2-4c9d-a0ca-0bb63ecd0525
+corpus: {sha: 039b0f5, harness: 8bf4e7d, condition: none, prompt: corpus}
+mask: masks/vti02-pre-fan-0824.yaml
+run: {model: claude-fable-5, effort: high, n: 10, timeout_s: 1800, stall_s: 600, max_turns: 120}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+fresh:
+  brief: briefs/vti02-pre-fan-0824/none.md
+grader: fan-design

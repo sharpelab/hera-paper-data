@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.7,
+  "B_max_T": 10.0,
+  "n_B": 110,
+  "spacing": "invB",
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 89,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.83,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field], [field_invB(0.7, 10.0, 110)] slow, [k_tg.volt, k_bg.volt] fast from calc_gate_voltages(np.linspace(-1.20, 3.20, 89), D=0, **CAL run-5 cal committed in the cell), slow_delay=3.0, fast_delay=1.0; verified in a scratch run (B 0.7->10.0, Vtg -0.277->+0.984 V, Vbg -0.465->+1.166 V). Cell 48 sets sr1 sensitivity 200 uV; sr0 sens 0.02 V and both taus 0.3 s, plus nplci 1/1 and drive 1.0 V, are inherited from the executed close_out(restore=state0) readback in cell 44 (latest state record before the answer). Bias resistor 100 MOhm from the device card; headline time '4h50m' from the cell-47 header."
+}

@@ -1,0 +1,31 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0, 9.0, 10.0],
+  "spacing": "B",
+  "n_min_cm2": -1.1e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 173,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": null,
+  "flags": [],
+  "notes": "Trailing cell 48 (markdown 47): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=0, fast_delay=2.1) with B_vec = np.r_[np.arange(.5,6.01,.5), np.arange(7.,10.01,1.)] (16 rows, two legs of different spacing) and gates from calc_gate_voltages(np.linspace(-1.1,3.2,173), D=0, CAL_FAN) using the session's own run-5 calibration constants (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013), so densities are the cell's own region-A frame in 1e12 cm^-2; region-B CNP sits ~-0.43e12 in that frame. The cell sets sr1 sensitivity to 100 uV; sr0 sens 0.02 V and both taus 0.3 s are inherited from cell 44's close_out(restore=state0) readback, which supersedes the run 6-7 snapshots. NPLC 1/1 is asserted (not set) in the cell's precondition; drive 1.0 V through the 100 MOhm bias resistor (cell 44 readback, meas_config bias_channel sr1). The markdown prices 73 min of field traverse and ~105 min of gate points plus turnaround but states no single total, so stated_wall_clock_h is null."
+}

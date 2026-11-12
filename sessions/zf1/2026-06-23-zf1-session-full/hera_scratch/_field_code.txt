@@ -1,0 +1,46 @@
+# === Step 3 — field-kill / effective-zero: zero-bias dV/dI vs B_perp (FIRST ENERGISATION) ===
+# Gates held at SC optimum; I_dc=0. One-sided sweep -50 mT -> 0 (|B| decreasing only).
+
+print("magnet ramp_rate (T/s):", magnet.ramp_rate(), "  current field:", magnet.field(), "T")
+
+# --- silent-precondition reads ---
+_T = temperature(); _B = magnet.field()
+print(f"probe MC T  : {_T:.4f} K     (expect base, mK)")
+print(f"magnet B    : {_B:.3e} T   (expect ~0 — pristine; we energise BELOW)")
+print(f"dc205_1.volt: {dc205_1.volt()} V  (expect ~0, I_dc=0)")
+assert _T < 0.1, "probe not at base"
+assert abs(_B) < 5e-3, "magnet not near zero at start — re-check before energising"
+
+VTG_OP, VBG_OP = -5.39, +4.00
+sr830_1.amplitude(0.1); sr830_3.sensitivity(20e-6)
+k_tg.nplci(1); k_bg.nplci(1)
+
+meas_config["comment"] = "field-kill: zero-bias dV/dI vs B_perp, SC optimum (Vtg-5.39 Vbg+4.00), B -50mT->0 one-sided, Idc=0"
+s = sweep.AsyncStation(meas_config)
+s.add_comment('field-sweep-1d')
+s.add_comment('SC field-kill/effective-zero: zero-bias dV/dI vs Bperp; -50mT->0; opt n=-5.2e11 D=-0.645')
+
+# operating point + zero DC bias
+s.ramp(k_tg.volt, VTG_OP); s.ramp(k_bg.volt, VBG_OP)
+dc205_1.volt(0)
+
+# ENERGISE to the -50 mT extreme, then settle (first field move; conservative).
+print("ramping magnet to -50 mT ...")
+magnet.field(-0.050)          # blocks until holding
+time.sleep(60)                # thermal settle after the big ramp
+print("at", magnet.field(), "T ; T =", temperature(), "K")
+
+s.fp(temperature)
+s.fp(magnet.field)
+s.fp(k_tg.volt).fp(k_tg.curr)
+s.fp(k_bg.volt).fp(k_bg.curr)
+s.fp(dc205_1.volt)
+for lia in (sr830_1, sr830_2, sr830_3):
+    s.fp(lia.X).fp(lia.P)
+s.plot(magnet.field, sr830_3.X)
+
+# Sweep one-sided toward 0 (|B| monotonically decreasing).
+s.sweep(magnet.field, np.linspace(-0.050, 0.0, 41), delay=20)
+
+# Leave magnet at 0 (holds; ~mT remanence now present). Park gates.
+s.ramp(k_tg.volt, 0); s.ramp(k_bg.volt, 0)

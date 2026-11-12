@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 10.0,
+  "n_B": 321,
+  "spacing": "invB",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.1, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 4.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 1.67,
+  "flags": [],
+  "notes": "Appended cells 47 (md) + 48 (code, unexecuted) land a 1D field sweep, not a fan: s.sweep(magnet.field, np.round(field_invB(0.30, 10.0, 321), 5), delay=0) at n = +3.2e12 cm^-2, D = 0 from calc_gate_voltages with the session's run-5 calibration (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); re-checked in scratch as B 0.3 -> 10.0 T, 321 pts, d(1/B) = 0.01010. No further 1D densities are named (the earlier spot checks, run 6 electron +3.2e12 and run 7 hole -1.2e12, are already in the archive), so form is probe_only; the markdown designs but does not issue the Step-4 fan (descending field_invB(10, 1, 91) x 65-point n-line 3.2 -> 1.2e12 at D = 0, priced ~4 h 50 m). Stated run time for the landed leg is ~1h40m (ETA 07:14) in cell 47. sr1 50 uV and sr0 100 mV are set in cell 48; tau 0.3 s for both is inherited from the cell-44 close_out(restore=state0) readback (sr0_tau/sr1_tau 0.3), which also shows tg/bg nplci = 1.0. Drive is ramped to 4.0 V in cell 48 across meas_config bias_resistor 100e6 (40 nA). Recorded per point: sr0.X/P, sr1.X/P, k_tg.curr, k_bg.curr, T_sample."
+}

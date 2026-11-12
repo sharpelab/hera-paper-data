@@ -1,0 +1,59 @@
+{
+  "device": "RPL19",
+  "scan_id": "18",
+  "scan_limits": {
+    "vbg_min": -8.0,
+    "vbg_max": 6.5,
+    "vtg_min": -1.0,
+    "vtg_max": 1.0
+  },
+  "context": {
+    "temperature_mK": 50,
+    "magnetic_field_T": 0.0,
+    "bias_nA": 1.0,
+    "notes": "Four-layer rhombohedral graphene; top hBN ~16 nm, bottom hBN ~25.5 nm."
+  },
+  "findings": [
+    {
+      "id": "cnp_diagonal",
+      "title": "Charge neutrality line",
+      "description": "Diagonal high-resistance feature likely the charge neutrality point.",
+      "region_gate": {
+        "kind": "line_segment",
+        "vbg_start": -1.5,
+        "vtg_start": 1.0,
+        "vbg_end": 1.9,
+        "vtg_end": -1.0
+      }
+    },
+    {
+      "id": "superconducting_candidate",
+      "title": "Possible superconducting pocket",
+      "description": "Banana-shaped low-resistance region hitting noise floor; candidate superconducting phase.",
+      "region_gate": {
+        "kind": "point",
+        "vbg": -5.25,
+        "vtg": 0.5
+      }
+    },
+    {
+      "id": "vertical_contact_feature",
+      "title": "Vertical high-resistance band",
+      "description": "Vertical feature likely from a back-gated contact going insulating.",
+      "region_gate": {
+        "kind": "vertical_band",
+        "vbg": 0.0
+      }
+    },
+    {
+      "id": "tg_voltage_limit",
+      "title": "Top-gate voltage limit",
+      "description": "Usable top-gate voltage range is anomalously low, possibly due to coupling to spurious graphene."
+    }
+  ],
+  "follow_ups": [
+    "Check Rxx phase for +/-90 deg swings near the superconducting candidate.",
+    "Study anomalous Hall or SdH oscillations to pin phase transitions.",
+    "Fit CNP to refine capacitance ratio for n/D transforms."
+  ]
+}

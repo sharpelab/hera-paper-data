@@ -1,0 +1,7 @@
+## HERA — resolve the fan's low-field sampling requirement
+
+`sdh-spot-check` grid-change/low-field extension, required by `landau-fan` step 1 and the governing tetralayer investigation. Runs 6–7 are live and unclipped, but the electron onset is background-sensitive (ana 14–15) and the 50 mT sampling below 1 T cannot resolve F_L. Repeat n=+3.2×10¹² cm⁻², D=0 with the same run-5 conversion; sample 1.5→0.4 T uniformly in 1/B. This is the one prerequisite to fixing and landing the fan, not another survey.
+
+222 points give Δ(1/B)=0.00830 T⁻¹, 3.0 samples per 39.7 T tone (F_L plus 20% scale allowance); nominal partner ≈7.31 T has 13.4 periods. Upper-window overlap with run 6 checks reproducibility. Below 1.5 T the observed |Rxx| is <60 Ω; 5 µV sensitivity gives 500 Ω full scale at 10 nA, over 8× headroom with improved low-field resolution. Keep τ=.3 s / 24 dB; driver settle=3 s supplies 10τ per point. No temperature or Si move.
+
+Ramp math: from actual zero to 1.5 T, then 1.5→0.4 T totals 2.6 T / .137 T/min = 19 min; 222×3.1 s ≈11.5 min, using run 6's measured 7.46 s per 10 mT point minus 4.38 s ramp. Allow setup/reads for a 35 min budget. Ends at 0.4 T, gates at the spot, to position the fan once its lower edge is established. First checkpoint after 10 points (current, rail, leakage); second at 1 T and at completion (onset and overlap). The monitor is armed before execution. A trip stops acquisition; on this magnet kernel interrupt does not stop a field ramp, so any magnet concern requires operator action and actual-state readback.

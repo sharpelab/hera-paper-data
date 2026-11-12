@@ -1,0 +1,112 @@
+#!/bin/bash
+# Launch a new terminal running Claude Code.
+# - Linux:   Alacritty
+# - macOS:   Ghostty (via `open -na`, since LaunchServices is the only reliable launcher)
+# - Windows: Alacritty (Git Bash / MSYS)
+#
+# Usage: newclaude [--agent NAME] [--model MODEL] [-f <file>] [--env KEY=VAL]... [directory] [prompt]
+#
+# Flags can appear in any order, before or after the directory.
+# --model: bare aliases (opus/fable/sonnet) expand to their 1M-context variants;
+#          anything else passes through verbatim.
+
+claude_args=()
+prompt=""
+dir=""
+envs=()
+
+# newclaude always opens a NEW top-level session — scrub the parent's per-session
+# Claude identity so a nested launch doesn't inherit it. CLAUDE_CODE_CHILD_SESSION
+# leaking makes an interactive child skip its ~/.claude/projects/<cwd>/<id>.jsonl
+# transcript (lost the zf1 2026-06-23/24 HERA logs).
+strip=(-u CLAUDECODE -u CLAUDE_CODE_CHILD_SESSION -u CLAUDE_CODE_SESSION_ID -u CLAUDE_CODE_ENTRYPOINT)
+
+# Parse flags
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --agent)
+            claude_args+=(--agent "$2")
+            shift 2
+            ;;
+        --model)
+            case "$2" in
+                opus)   claude_args+=(--model "claude-opus-4-8[1m]") ;;
+                fable)  claude_args+=(--model "claude-fable-5[1m]") ;;
+                sonnet) claude_args+=(--model "claude-sonnet-4-6[1m]") ;;
+                *)      claude_args+=(--model "$2") ;;
+            esac
+            shift 2
+            ;;
+        -f)
+            prompt="$(cat "$2")"
+            shift 2
+            ;;
+        --env)
+            envs+=("$2")
+            shift 2
+            ;;
+        *)
+            if [[ -z "$dir" ]]; then
+                dir="$1"
+            elif [[ -z "$prompt" ]]; then
+                prompt="$1"
+            fi
+            shift
+            ;;
+    esac
+done
+
+dir="${dir:-$HOME}"
+
+if [[ -n "$prompt" ]]; then
+    claude_args+=("$prompt")
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS: Ghostty's --working-directory isn't honored when launched via
+    # `open -na --args`, so we cd inside a bash -c wrapper. Env vars also
+    # don't cross the `open -na` boundary, so they're baked into the cmd string.
+    cmd="cd $(printf '%q' "$dir") && exec env ${strip[*]}"
+    for kv in "${envs[@]}"; do
+        cmd+=" $(printf '%q' "$kv")"
+    done
+    cmd+=" claude"
+    for arg in "${claude_args[@]}"; do
+        cmd+=" $(printf '%q' "$arg")"
+    done
+    open -na Ghostty.app --args -e bash -c "$cmd"
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    # Windows (Git Bash). alacritty flattens any multi-word argument when it
+    # builds the ConPTY child command line, so a multi-word prompt — or a
+    # `bash -lc "<string>"` wrapper — gets split and mangled (bash sees
+    # `-c env` and the rest as positional params, dumping the environment
+    # and exiting instantly). argv[0] (the bash.exe path) IS quoted
+    # correctly, so we launch "$BASH" explicitly (avoiding the WSL bash stub
+    # on PATH) and stage the real command — with all its quoting — in a temp
+    # script whose path is a single space-free token. bash parses the
+    # quoting from the file, not from argv, so nothing is split.
+    tmpdir="${TMPDIR:-/tmp}"
+    # Reap stale launchers from prior runs. Race-free: only files older than
+    # 5 min are touched, so a concurrent invocation's fresh script is never
+    # clobbered, and we never unlink the file bash is reading.
+    find "$tmpdir" -maxdepth 1 -name 'newclaude.*.sh' -mmin +5 -delete 2>/dev/null
+    script="$(mktemp "$tmpdir/newclaude.XXXXXX.sh")"
+    {
+        echo '#!/usr/bin/env bash'
+        printf 'cd %q || exit 1\n' "$dir"
+        printf 'exec env %s' "${strip[*]}"
+        for kv in "${envs[@]}"; do printf ' %q' "$kv"; done
+        printf ' claude'
+        for arg in "${claude_args[@]}"; do printf ' %q' "$arg"; done
+        printf '\n'
+    } > "$script"
+    alacritty -e "$(cygpath -w "$BASH")" "$script" &
+else
+    # Linux: alacritty's -e passes argv through to the child, so
+    # `env -u CLAUDECODE KEY=VAL claude ARGS` works directly.
+    # setsid -f + stdio redirect: alacritty is one-process-per-window
+    # and inherits the script's stdio, so a bare `&` blocks any caller
+    # (e.g. Claude Code's Bash tool) reading those pipes until the
+    # window closes. Detaching severs the FDs.
+    setsid -f alacritty --working-directory "$dir" -e env "${strip[@]}" "${envs[@]}" claude "${claude_args[@]}" </dev/null >/dev/null 2>&1
+fi

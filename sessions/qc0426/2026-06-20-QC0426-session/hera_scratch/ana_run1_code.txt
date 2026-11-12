@@ -1,0 +1,20 @@
+# Run 1 — re-form Rxx(B), onset + 1/B FFT (raw first, then read)
+from hera.analysis import sdh_onset, sdh_fft
+r1 = run(1)
+B1 = np.asarray(r1.col("magnet_field"))
+g = r1.meta["measurement_config"]["sr0_gain"]
+I1 = np.asarray(r1.col("sr0_X")) / g
+Rxx1 = {ch: np.asarray(r1.col(f"{ch}_X")) / I1 for ch in ["sr1", "sr2"]}
+F_L1 = 35.2
+
+fig, ax = plt.subplots(2, 2, figsize=(13, 8))
+for col, ch in enumerate(["sr1", "sr2"]):
+    Rc = Rxx1[ch]; good = np.isfinite(Rc) & (B1 > 0); Bc, Rc = B1[good], Rc[good]
+    ax[0, col].plot(Bc, Rc, lw=0.6); ax[0, col].set_xlabel("B (T)"); ax[0, col].set_ylabel(f"R_{ch} (Ω)")
+    ax[0, col].set_title(f"run1 {ch} raw Rxx(B) — strong MR, weak QO")
+    freqs, spec = sdh_fft(Rc.reshape(-1, 1), Bc, b_range=(0.3, Bc.max()), bg_degree=5)
+    ax[1, col].plot(freqs, spec[0]); ax[1, col].axvline(F_L1, color="g", ls="--", label="F_L=35T")
+    ax[1, col].set_xlim(0, 60); ax[1, col].set_xlabel("SdH freq (T)"); ax[1, col].set_ylabel("FFT mag")
+    ax[1, col].set_title(f"{ch} 1/B FFT (B 0.3–2 T)"); ax[1, col].legend(fontsize=7)
+plt.tight_layout(); plt.show()
+print("Rxx 2T:", {ch: f"{Rxx1[ch][-1]:.0f}Ω" for ch in Rxx1}, "| Rxx low-B ~55Ω -> ~4x MR by 2T")

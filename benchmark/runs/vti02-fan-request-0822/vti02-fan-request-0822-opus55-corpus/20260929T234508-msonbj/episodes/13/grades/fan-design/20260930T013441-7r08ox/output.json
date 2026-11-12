@@ -1,0 +1,34 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [1.0, 1.00949, 1.01916, 1.02901, 1.03906, 1.04931, 1.05976, 1.07042, 1.0813, 1.0924, 1.10373, 1.1153, 1.12712, 1.13919, 1.15152, 1.16411, 1.17699, 1.19016, 1.20362, 1.21739, 1.23148, 1.2459, 1.26066, 1.27578, 1.29126, 1.30713, 1.32338, 1.34005, 1.35714, 1.37468, 1.39267, 1.41114, 1.43011, 1.44959, 1.46961, 1.4902, 1.51136, 1.53314, 1.55556, 1.57864, 1.60241, 1.62691, 1.65217, 1.67823, 1.70513, 1.7329, 1.76159, 1.79125, 1.82192, 1.85366, 1.88652, 1.92058, 1.95588, 1.99251, 2.03053, 2.07004, 2.11111, 2.15385, 2.19835, 2.24473, 2.2931, 2.34361, 2.3964, 2.45161, 2.50943, 2.57005, 2.63366, 2.70051, 2.77083, 2.84492, 2.92308, 3.00565, 3.09302, 3.18563, 3.28395, 3.38854, 3.5, 3.57496, 3.6532, 3.73494, 3.82042, 3.90991, 4.00369, 4.10208, 4.20543, 4.31412, 4.42857, 4.54927, 4.67672, 4.81153, 4.95434, 5.10588, 5.26699, 5.4386, 5.62176, 5.81769, 6.02778, 6.2536, 6.49701, 6.76012, 7.04545, 7.35593, 7.69504, 8.06691, 8.47656, 8.93004, 9.43478, 10.0],
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 108,
+  "spacing": "invB",
+  "n_min_cm2": 2.0e12,
+  "n_max_cm2": 3.24e12,
+  "n_columns": 32,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.583,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=1.8). B_vec = hstack(invB(1.0,3.5,77), invB(3.5,10.0,32)[1:]) = 108 rows, two 1/B-uniform legs of different spacing (0.0094 then 0.0060 1/T), so reported as stitched with the explicit vector; endpoints 1.0 and 10.0 T. Density from ns = np.round(np.arange(2.0,3.2401,0.04),3) (32 columns, x1e12 cm^-2) at D = 0 via calc_gate_voltages with the session's run-5 calibration committed in-cell (CAL c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013; matches hera_scratch/cal_run5.json). sr1 sensitivity set to 50 uV in the answer; sr1/sr0 tau 0.3 s and sr0 sens 0.02 V inherited from the cell-44 close_out(restore=state0) readback (the latest state record before the appended cells); nplci 1/1 for both Keithleys asserted, not set (same readback). Drive 1.0 V through the device card's 100 MOhm bias resistor (10 nA). Headline ETA '~3h35m' in the cell-47 markdown."
+}

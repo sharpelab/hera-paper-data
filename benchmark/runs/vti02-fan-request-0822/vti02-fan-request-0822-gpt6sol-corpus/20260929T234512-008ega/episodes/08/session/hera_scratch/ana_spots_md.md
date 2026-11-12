@@ -1,0 +1,3 @@
+## Runs 6–7 — SdH spot checks (`sdh-spot-check`): raw records
+
+Run 6 samples the electron side at (n,D)=(+3.20×10¹² cm⁻²,0); run 7 samples the accessible hole side at (−1.20×10¹² cm⁻²,0), both using the run-5 calibration. The raw traces and gate currents come first below. The lock-in is 10 nA nominal bias, sr1 gain unity, 50 µV sensitivity; neither trace reaches its 5 kΩ resistance full scale. Run 6 spans 0–10 T (921 points, 2.0 h), run 7 spans 10→0.3 T (486 points, 1.6 h). The temperature ranges 1.165–1.292 K in run 6 and 1.175–1.291 K in run 7. Run-7 TG current has a roughly −102 pA offset; its fluctuations stay well below the 1 nA trip.

@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""hera-watch stand-in for replay episodes. A watch armed on a run that does not
+exist yet (`--next`, or a run dir still to appear) waits, as the real one does,
+but for the measure cell rather than the run: once a code cell has been appended
+to the measure notebook since the cut, the measurement is handed to the rig and
+the episode ends. A digest of a run already on disk is a read: it goes to the
+real tool in the image's venv.
+
+The cut's measure-cell ids are in <episode>/.claude/measure_cells.json; the
+nb-collab stub logs each measure append to .claude/measure_appends.jsonl, which
+sees an append before JupyterLab saves it to disk. Arming writes
+<episode>/episode-stop.json (the same marker the PreToolUse hook writes) and
+blocks until the harness ends the session.
+"""
+
+import argparse
+import glob
+import json
+import os
+import sys
+import time
+from datetime import datetime, timezone
+
+REAL = os.path.expanduser("~/measurement_env/.venv/bin/hera-watch")
+MEASURE_SUFFIX = "_measure.ipynb"
+POLL_S = 2.0
+
+# The real tool's options, so the run dir is found wherever it sits in argv.
+p = argparse.ArgumentParser(prog="hera-watch", add_help=False)
+p.add_argument("run_dir", nargs="?")
+p.add_argument("--next", action="store_true")
+p.add_argument("--once", action="store_true")
+p.add_argument("--follow", action="store_true")
+p.add_argument("--raw", action="store_true")
+p.add_argument("--wait-start", type=float, default=1800.0)
+for opt in ("--poll", "--timeout", "--channels", "--bias-current", "--every", "--fs-warn", "--leak-excess-warn"):
+    p.add_argument(opt)
+args, _unknown = p.parse_known_args(sys.argv[1:])
+
+run_dir = args.run_dir
+# Help, a bare call (the real tool prints usage) and a digest of a run on disk
+# are reads and go to the real tool.
+is_read = ("-h" in sys.argv[1:] or "--help" in sys.argv[1:] or not sys.argv[1:]
+           or (not args.next and run_dir and os.path.isfile(os.path.join(run_dir, "metadata.json"))))
+if is_read:
+    if not os.path.exists(REAL):
+        print(f"hera-watch: {REAL} not in this image", file=sys.stderr)
+        sys.exit(2)
+    os.execv(REAL, [REAL, *sys.argv[1:]])
+
+root = os.environ.get("HERA_EPISODE_DIR") or os.getcwd()
+marker = os.path.join(root, "episode-stop.json")
+baseline_path = os.path.join(root, ".claude", "measure_cells.json")
+appends_path = os.path.join(root, ".claude", "measure_appends.jsonl")
+
+
+def new_code_cells(baseline: dict) -> list:
+    """Code cells in a measure notebook that the cut did not have, on disk or in
+    the nb-collab stub's append log."""
+    ids = []
+    for path in sorted(glob.glob(os.path.join(root, "*" + MEASURE_SUFFIX))):
+        try:
+            with open(path, encoding="utf-8") as fh:
+                cells = json.load(fh)["cells"]
+        except (OSError, ValueError, KeyError):
+            continue
+        before = set(baseline.get(os.path.basename(path), []))
+        ids += [c["id"] for c in cells if c.get("cell_type") == "code" and c.get("id") not in before]
+    if os.path.exists(appends_path):
+        with open(appends_path, encoding="utf-8") as fh:
+            for line in fh:
+                try:
+                    ids += [c["id"] for c in json.loads(line).get("cells", []) if c.get("kind") == "code"]
+                except ValueError:
+                    continue
+    return list(dict.fromkeys(ids))
+
+
+# An episode dir without the baseline predates it: every watch arms at once.
+baseline = None
+if os.path.exists(baseline_path):
+    with open(baseline_path, encoding="utf-8") as fh:
+        baseline = json.load(fh)
+
+print("# armed on data — waiting for the next run to start …", flush=True)
+deadline = time.monotonic() + args.wait_start if args.wait_start > 0 else None
+cells = [] if baseline is None else new_code_cells(baseline)
+while baseline is not None and not cells:
+    if deadline is not None and time.monotonic() >= deadline:
+        what = f"no new run appeared under {run_dir}" if args.next else f"run dir {run_dir} did not appear"
+        print(f"error: {what} within {args.wait_start:.0f}s", file=sys.stderr)
+        sys.exit(2)
+    time.sleep(POLL_S)
+    cells = new_code_cells(baseline)
+
+if not os.path.exists(marker):
+    with open(marker, "w", encoding="utf-8") as fh:
+        json.dump({
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "tool": "hera-watch",
+            "command": "hera-watch " + " ".join(sys.argv[1:]),
+            "invocation": "hera-watch",
+            "cell_ids": cells,
+            "tool_use_id": None,
+        }, fh, indent=2)
+while True:
+    time.sleep(60)

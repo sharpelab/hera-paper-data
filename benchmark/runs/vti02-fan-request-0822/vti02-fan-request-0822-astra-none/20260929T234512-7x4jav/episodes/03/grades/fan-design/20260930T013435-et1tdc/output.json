@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5.0, 5.2, 5.4, 5.6, 5.8, 6.0, 6.2, 6.4, 6.6, 6.8, 7.0, 7.2, 7.4, 7.6, 7.8, 8.0, 8.2, 8.4, 8.6, 8.8, 9.0, 9.2, 9.4, 9.6, 9.8, 10.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 221,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 11.0,
+  "flags": [],
+  "notes": "Cell 48 (appended with md cell 47): s.multimegasweep([magnet.field],[_fan_B],[k_tg.volt,k_bg.volt],[_fan_tg,_fan_bg],slow_delay=3,fast_delay=0); _fan_B = np.r_[0.0, np.round(np.arange(1.0,10.0001,0.2),4)] — a B=0 baseline point stitched onto a uniform 1.0-10.0 T / 0.2 T leg (47 rows). Density axis is the cell's own np.linspace(-1.2,3.2,221)x1e12 cm^-2 at nominal D=0, gate voltages from the session's committed run-5 calibration constants _fcal (c_tg, c_bg, n_offset, D_offset=-0.013) giving TG -0.277..+0.984 V, BG -0.465..+1.166 V (reproduced in a scratch script; all inside the cell-18 validators); the markdown notes an empirical capacitance ratio 0.772765 and that the absolute density scale is a geometry prior — values reported unscaled. The 3 s per-point dwell is a register_run_before interruptible_sleep, not a sweep delay. sr1 sensitivity 100 uV is set in the appended cell; sr0 sensitivity 0.02 V, both taus 0.3 s and nplci=1.0 are inherited from the cell-44 close_out(restore=state0) readback (which shows sr1 at 2e-6 before the answer's set). Excitation 1.0 V from sr1.amplitude readback, 100 Mohm bias resistor from meas_config. ETA 11 h stated in md cell 47 and the nb-collab --eta."
+}

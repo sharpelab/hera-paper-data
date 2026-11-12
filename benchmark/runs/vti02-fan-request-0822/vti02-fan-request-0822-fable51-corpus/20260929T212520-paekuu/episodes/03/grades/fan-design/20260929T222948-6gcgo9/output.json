@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.3,
+  "n_B": 201,
+  "spacing": "B",
+  "n_cm2": [3.2e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.367,
+  "flags": [],
+  "notes": "Trailing cells 47 (md) + 48 (code, unexecuted): a 1D sdh-spot-check field sweep s.sweep(magnet.field, np.round(np.arange(0.3, 1.3001, 0.005), 4), delay=0) = 201 uniform-B points, at the run-6 spot n = +3.2e12 cm^-2, D = 0 (Vtg +0.9836, Vbg +1.1661 from calc_gate_voltages with the run-5 calibration committed in-cell). It is framed as a fan precursor to pin the censored 7.5 T tone's onset; no further probe densities are named (no hera_scratch/plan.md), so no ladder and no fan is issued. Inherited instrument state comes from cell 44's close_out(restore=state0) readback (sr0 20 mV/0.3 s, sr1 tau 0.3 s, tg/bg nplci 1.0, drive_V 1.0); cell 48 sets sr1 sensitivity to 50 uV. Bias resistor 100 MOhm from device_card.md line 64. Stated ~22 min."
+}

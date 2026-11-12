@@ -1,0 +1,130 @@
+{
+  "frames": {
+    "stage": "WITec stage \u00b5m (WorldOrigin coords), the common frame of panels A/B",
+    "map003": "scan pixels of Scan LA 003 (pre-pickup survey)",
+    "map005": "scan pixels of Scan LA 005 (post-pickup)",
+    "video002/004/007": "video image pixels",
+    "device": "finished vti-01 Hall bar (transport channels sr1/sr2/sr3)"
+  },
+  "edges": [
+    {
+      "from": "map003",
+      "to": "stage",
+      "how": "in-file TDSpaceTransformation",
+      "uncertainty_um": 1.0,
+      "basis": "003 vs 005 same-region agreement ~1 \u00b5m (Raman contract hedge 7)"
+    },
+    {
+      "from": "map005",
+      "to": "stage",
+      "how": "in-file TDSpaceTransformation",
+      "uncertainty_um": 1.0,
+      "basis": "same"
+    },
+    {
+      "from": "video002",
+      "to": "stage",
+      "how": "in-file TDSpaceTransformation",
+      "uncertainty_um": 2.0,
+      "basis": "map005-on-video004 registration r=0.77, no flip (Raman contract); sheet-darker-than-background check reproduced here (f2 stdout)"
+    },
+    {
+      "from": "video004",
+      "to": "stage",
+      "how": "in-file TDSpaceTransformation",
+      "uncertainty_um": 2.0,
+      "basis": "map005-on-video004 registration r=0.77, no flip (Raman contract); sheet-darker-than-background check reproduced here (f2 stdout)"
+    },
+    {
+      "from": "video007",
+      "to": "stage",
+      "how": "in-file TDSpaceTransformation",
+      "uncertainty_um": 2.0,
+      "basis": "map005-on-video004 registration r=0.77, no flip (Raman contract); sheet-darker-than-background check reproduced here (f2 stdout)"
+    },
+    {
+      "from": "stage",
+      "to": "device",
+      "how": "NONE \u2014 no bridge supplied",
+      "uncertainty_um": null,
+      "basis": "no optical/GDS of finished device, no build-step testimony"
+    }
+  ],
+  "video_to_stage": {
+    "002": {
+      "world_origin_um": [
+        -12104.302734375,
+        1328.78955078125
+      ],
+      "affine_2x3_px_to_um": [
+        [
+          0.049132965043479804,
+          -0.00043969731383439143,
+          -12104.302734375
+        ],
+        [
+          -0.00043969731383439143,
+          -0.049132965043479804,
+          1328.78955078125
+        ]
+      ],
+      "um_per_px": 0.049134932458400726,
+      "rotation_deg": -0.5127337179408802,
+      "utc": "2026-05-28T19:55:44.916Z"
+    },
+    "004": {
+      "world_origin_um": [
+        -12095.1884765625,
+        1325.4732666015625
+      ],
+      "affine_2x3_px_to_um": [
+        [
+          0.049132965043479804,
+          -0.00043969731383439143,
+          -12095.1884765625
+        ],
+        [
+          -0.00043969731383439143,
+          -0.049132965043479804,
+          1325.4732666015625
+        ]
+      ],
+      "um_per_px": 0.049134932458400726,
+      "rotation_deg": -0.5127337179408802,
+      "utc": "2026-05-28T20:19:21.560Z"
+    },
+    "007": {
+      "world_origin_um": [
+        -12094.2890625,
+        1322.023193359375
+      ],
+      "affine_2x3_px_to_um": [
+        [
+          0.049132965043479804,
+          -0.00043969731383439143,
+          -12094.2890625
+        ],
+        [
+          -0.00043969731383439143,
+          -0.049132965043479804,
+          1322.023193359375
+        ]
+      ],
+      "um_per_px": 0.049134932458400726,
+      "rotation_deg": -0.5127337179408802,
+      "utc": "2026-05-28T20:29:39.317Z"
+    }
+  },
+  "region_masks": "inputs/regions.npz (labels_pre/labels_post on x_um/y_um grid, 0.5 um/px, already in the stage frame)",
+  "registration_uncertainty": {
+    "raman_internal_um": "1-2 (map<->map and map<->video), vs 5-20 um domain scale: domains are resolved within the Raman frame",
+    "stage_to_device": "NO BRIDGE - unbounded. No transform exists; no channel can be placed on any lamella. Source material of the device (picked-up sheet vs remnant) also undetermined."
+  },
+  "timeline_attachment": {
+    "map003_labels_pre": "2026-05-28 19:57 UTC, flake on substrate, PRE-pickup",
+    "map005_labels_post": "2026-05-28 20:20 UTC, remnant after ~20:10-20:19 pickup",
+    "transport_runs_0_18": "2026-08-18..20, finished encapsulated dual-gated device at 1.2-15 K (call, ana cell 33)",
+    "transport_runs_19_20": "2026-08-20, same cooldown (addendum, ana cell 38)",
+    "gap": "~3 months of unrecorded processing (pickup -> encapsulation -> gating -> cooldown) between Raman evidence and transport evidence"
+  }
+}

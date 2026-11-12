@@ -1,0 +1,29 @@
+# STACKING CALL — QC0426 is **ABA (Bernal)**, not ABC
+
+Output contract (`trilayer-stacking-fs-count` Step 7).
+
+## 1. Per-region verdict (STYLE strength scale)
+- **sr1 / T3-T4 (Rxx): ABA — strong.**
+- **sr2 / B4-B5 (Rxx): ABA — strong.**
+- Both probed regions are **coherent** (same F(n) signature) → single-domain over the probed area; **no ABA/ABC mosaic detected** here. ABC is **excluded (decisive)**; the residual hedge is on the ABA *specifics*, not on the ABC exclusion.
+
+## 2. Evidence
+The discriminating observable is the **dominant SdH fundamental frequency vs the Luttinger value F_L = (h/4e)·n**:
+- **F_dom = F_L/2** across the fan, both channels: median F_dom/F_L = **0.50–0.54**, scaling ∝ n (e.g. at n = −3.37e12, F_L = 35 T, measured **17 T**). Confirmed two independent ways — the per-column FFT *and* a direct **9-period count** over Δ(1/B) = 0.53 T⁻¹ (no FFT). A 2nd harmonic sits at F_L (exactly 2× F_dom at every n → harmonic, not an independent pocket).
+- **The count argument (model-independent):** a single 4-fold (spin×valley) Fermi pocket carrying the gated density oscillates at F_L. Observing F_dom = **F_L/2** means the density is split among **≥ 2 Fermi surfaces** (Luttinger Σf = F_L). **ABC has one pocket at the operating density (above the trigonal-warping Lifshitz transition; forward model `abc_fs` confirms single pocket = F_L at 1.5–3.5e12), so ≥2 FS excludes ABC.** Two coexisting Fermi surfaces is the **ABA** (ML + BL) signature. On the hole side the two are near-balanced (both ≈ F_L/2), consistent with the survey's hole-side balance note — they overlap near F_L/2 rather than splitting into a resolved pair.
+- **Absolute-scale verification (the load-bearing cross-check):** the QH **lever-arm** — gate-derived ν vs Hall-derived ν (R_K/|Rxy|) — agrees to **2–3 % (ν_gate/ν_Hall = 0.97–1.01)** across all (n, B). This pins the density scale independently of the geometry prior and **rules out a factor-2 scale error** (the only alternative that would put F_dom at the true F_L and re-admit ABC). Upgrades the (n, D) calibration from geometry-prior to QH-verified.
+- Forward model (`fs_count_b0`): ABC → 1 pocket at F_L; ABA → BL (≈F_L, electron side) + ML. Measured F_dom = F_L/2 matches **neither a single F_L pocket (ABC) nor the electron-side asymmetric ABA**, and *does* match a **balanced two-pocket (hole-side ABA)** picture (Σf = F_L with both ≈ F_L/2).
+
+## 3. Confidence + hedges
+- **ABC exclusion: decisive** — F_dom = F_L/2 with the density scale QH-verified to 2–3 %; robust to the geometry-prior uncertainty (a factor-2 error is excluded, smaller errors don't move F_L/2 vs F_L).
+- **ABA assignment: strong** — ≥2 FS is the trilayer-relevant reading of F_L/2 at D = 0 above Lifshitz. Falls short of "decisive" because: (a) the ML/BL pair is **not individually resolved** (they overlap near F_L/2 on the hole side) — the 2-FS count comes from the F_L/2 position + Luttinger, not from a resolved split pair; (b) the per-branch **LK-mass split** — the survey's deciding two-band cross-check — is **unavailable this session** (`temperature-dependence` blocklisted).
+- **Scope:** hole side only (electron-side spot check skipped once the hole side resolved); two Rxx regions (both ABA). D = 0 is the QH-verified calibration; D_offset = 0 assumed.
+
+## 4. What would firm the call (ABA strong → decisive)
+- **LK effective-mass series** at fixed (n, D=0): two distinct masses (light ML Dirac vs heavy BL) = decisive two-band confirmation — needs a session where `temperature-dependence` is unblocked.
+- **Resolve the ML/BL pair**: finer 1/B and/or lower electron temperature (mK rig) to split the two ≈F_L/2 tones, or hunt the small high-n ML partner on the electron side.
+- **Electron-side fan**: confirm the count on the other carrier sign (model predicts more asymmetric ML/BL there).
+- **High-field Streda/Chern offset** (Step 6) as an independent complement.
+
+## 5. Method note
+A confident call without feature-level evidence would be a protocol violation; this call rests on a twice-confirmed F_L/2 frequency, a QH-verified density scale, and the model-independent Luttinger count. "Cannot tell" was on the table after the ≤2 T spot check (no resolved tones) and was overcome by going to the field cap — the outcome is a positive, evidence-cited **ABA** call, region-resolved and hedged.

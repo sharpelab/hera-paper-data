@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 6.0,
+  "n_B": 221,
+  "spacing": "invB",
+  "n_min_cm2": 2.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 11,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.5,
+  "flags": [],
+  "notes": "Cell 48 issues s.multimegasweep with slow axis magnet.field over field_invB(1.,6.,221) and fast axis k_tg.volt/k_bg.volt from calc_gate_voltages(np.linspace(2.8,3.2,11), D=0, **FAN_CAL), the run-5 calibration committed in the same cell; n is in 1e12 cm^-2 per the docstring, and a scratch run reproduces the cell's printed gate spans TG 0.8690-0.9836 V, BG 1.0180-1.1663 V. slow_delay=1.0, fast_delay=3.0. The cell sets sr1=20 uV and sr0=20 mV; tau 0.3 s / 24 dB and gate-current NPLC 1 are only asserted, inherited from the close_out(restore=state0) readback in cell 44. Drive 1 V at 13.777 Hz through the meas_config 100 Mohm bias resistor. Stated ETA is ~3h30m in the markdown summary; the cell text gives 3.16 h before its 10 percent margin."
+}

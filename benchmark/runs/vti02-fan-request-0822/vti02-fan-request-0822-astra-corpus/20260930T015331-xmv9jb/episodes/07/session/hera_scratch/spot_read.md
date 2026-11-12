@@ -1,0 +1,7 @@
+## Runs 6–7 — spot checks before the Landau fan
+
+Raw TSVs first, then onset and window/detrender comparisons (`sdh-spot-check`). Both runs completed: sr1 B_1–B_2 spans −33…522 Ω (electron, run 6) and −0.4…576 Ω (hole, run 7), against 5 kΩ full scale. Drain current stays 9.81–9.94 nA; sample temperature 1.165–1.292 K; gate-current excursions remain below 0.22 nA. Resistance below uses the nominal 10 nA excitation (actual-current correction ≤2%); no negative values are folded positive.
+
+Electron frequency candidates near 7.3, 22.3 and 29.4 T require density tracking: harmonic flags alone cannot discard a real partition, and the sum-frequency origin remains unresolved. Run 6's 50 mT grid below 1 T undersamples the fastest expected tone; the default onset=0.3 T is not a usable measured onset. Restricting the helper to the valid 10 mT portion gives onset=1 T, **censored**. Before committing a large fan, a properly sampled low-field extension is required by `landau-fan` step 1. The hole check gives onset≈0.71 T but the available −1.2e12 density lies in the close-pair exception regime; its peaks vary with extraction window. Neither trace yet supplies a stacking verdict. Electron-side density tracking remains the next science step once the onset is bounded.
+
+Timing calibration: run 6 took 120.4 min for 10 T; run 7 took 95.7 min for 9.7 T. Subtracting the 438 s/T ramp gives 3.08 and 3.07 s/field-point, including the 3 s magnet settle. A fan must separately pay the gate-point dwell: the field-row settle does not settle each fast-axis gate move.

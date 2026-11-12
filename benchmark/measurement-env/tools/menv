@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# menv — run a command in the measurement-env project env, without
+# implicit sync. `uv run --project` syncs by default, which mutates
+# site-packages under live kernels (implicated in the 2026-06-10 VTI
+# ana-kernel deaths); rigs sync explicitly during deploy/maintenance,
+# never as a side effect of running something.
+#
+# Usage: menv python -c '...'   |   menv pytest   |   menv <anything>
+exec uv run --no-sync --project "${HOME}/measurement_env" "$@"

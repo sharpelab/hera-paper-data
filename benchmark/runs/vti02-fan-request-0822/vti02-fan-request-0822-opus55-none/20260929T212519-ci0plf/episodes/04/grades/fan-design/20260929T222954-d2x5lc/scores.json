@@ -1,0 +1,261 @@
+{
+  "grader": "fan-design",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "tier": "fan",
+  "flags": [],
+  "notes": "cell 48: multimegasweep, slow [magnet.field] = stitched B_vec (138 rows, 0.6 -> 10 T: d(1/B)=0.03 to 1.25 T, 0.0125 to 2.76 T, then 0.1 T uniform in B), fast [k_tg.volt, k_bg.volt] co-swept from calc_gate_voltages(n_vec, D=0, run-5 CAL c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) with n_vec = np.arange(-1.25, 3.2001, 0.05) in 1e12 cm^-2 (90 pts); slow_delay 3.0 / fast_delay 1.0 passed explicitly. sr1 sensitivity 100 uV set in the answer cell; sr1 tau 0.3 s and sr0 sens 0.02 / tau 0.3 s inherited from the cell-44 close_out(restore=state0) printed readback (cell 46 is a read-only namespace probe). Gate nplci (1,1) from that same readback, re-asserted in the precondition block. Drive 1.0 V / 13.777 Hz asserted; bias_resistor 100e6 from meas_config (cell 23). Wall clock from cell 47: '~6 h realistic' (5.5 h floor), ETA ~11:26.",
+  "versions": {
+    "scorer": "field resolution: wiki Fan-design scorer rev 108 (2026-09-19); forms + cost model 2026-09-22; vti-02 box 2026-09-26; NPLC in the cost 2026-09-26"
+  },
+  "status": "graded",
+  "ok": null,
+  "device": "vti-02",
+  "case": "vti02-fan-request-0822",
+  "params": {
+    "g": 4,
+    "m": 3.0,
+    "m_recipe_floor": 2.0,
+    "b_cut_T": 2.0,
+    "b_cut_note": "electron onset over 76 uncensored columns, 08-21/22/24/25 runs 5-8, 0.8-2.9e12: median 1.53 T, p90 2.0 T, flat in n (1.26 + 0.16 |n| T, rms 0.32 T); 2.0 T is the p90. 08-21 run 5 alone read 2.37 T (5-sigma floor of a 6.7-ohm-noise record; 08-22 run 6 at the same density with 3.2-ohm noise: 1.36 / 1.91 T)",
+    "n_window_cm2": [
+      1300000000000.0,
+      3400000000000.0
+    ],
+    "B_hi_T": 8.0,
+    "n_scale": 0.886,
+    "n_scale_note": "the 08-22 session's own pin for its run-5 calibration frame, the frame the cut state commits to: 0.886 +- 0.03 (session_notes.md:25; e-side Luttinger, h-side integer ladder, fan QH minima)",
+    "window_note": "provisional, actual frame: floor = the density whose F_L holds 5 periods from the 2.0 T onset to 8 T (1.3e12; 0.9e12 on the median onset); top = the D = 0 line's gate-safe reach, V_tg <= 1.0 V (3.4e12 frame, 3.1e12 actual); 8 T from a 2.0 T onset gives dF 2.7 T against tones 6.2 T apart that run 5's FFT resolves at dF 3.1 and merges at dF 5 -- 10 T buys 8 % more 1/B record for 15 min of ramp each way",
+    "side_note": "the hole side's gate-safe reach at D = 0 is |n| ~1.1e12 (TG limit -0.3 V, device_card.md:52): F_L ~11 T holds 3-4 periods above a 0.7 T onset with a 0.6-0.9 F_L ladder tone (08-22 run 7); the electron side holds the ABAB tone set at every density in reach (08-21 run 5, 08-22 run 6)",
+    "cost_model": {
+      "ramp_T_per_min": 0.137,
+      "field_settle_s": 3.0,
+      "point_overhead_s": 0.2,
+      "gate_read_s_per_plc": 0.045,
+      "flyback_s": 4.0
+    },
+    "scheme": "box",
+    "tone_model": "Halder_ABAB",
+    "signal_lockin": "sr1",
+    "b_lo_light_T": 0.75,
+    "b_lo_split_T": 1.0
+  },
+  "design": {
+    "spacing": null,
+    "field_mode": "stitched",
+    "D": 0.0,
+    "slow_axis": "B",
+    "slow_delay_s": 3.0,
+    "fast_delay_s": 1.0,
+    "lockins": [
+      {
+        "name": "sr0",
+        "sensitivity_V": 0.02,
+        "sensitivity_set_in_answer": false,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      },
+      {
+        "name": "sr1",
+        "sensitivity_V": 0.0001,
+        "sensitivity_set_in_answer": true,
+        "time_constant_s": 0.3,
+        "time_constant_set_in_answer": false
+      }
+    ],
+    "gate_current_reads": [
+      {
+        "name": "k_2400_tg_curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      },
+      {
+        "name": "k_2400_bg_curr",
+        "nplc": 1.0,
+        "nplc_set_in_answer": false
+      }
+    ],
+    "excitation_V": 1.0,
+    "bias_resistor_ohm": 100000000.0,
+    "n_fans": 1,
+    "stated_wall_clock_h": 6.0
+  },
+  "scores": {
+    "box": {
+      "quality": 0.762853331638367,
+      "p_call": 0.9828792438010222,
+      "light": {
+        "score": 7.0,
+        "p_call": 0.9999833319850708,
+        "min_spacing_T": 0.4143610512523417,
+        "chosen_n_actual_1e12": [
+          1.6391,
+          1.772,
+          1.9049,
+          2.0378,
+          2.1707,
+          2.3036,
+          2.4365
+        ],
+        "chosen_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "chosen_periods": [
+          3.643892459092383,
+          4.1960531636482425,
+          4.751478122882269,
+          5.311177953016072,
+          5.8696331439675955,
+          6.432492609873253,
+          6.996892181920816
+        ],
+        "columns_weighted": 39,
+        "columns_full": 28,
+        "not_weighted": {
+          "undersampled": 9,
+          "periods_short": 10
+        }
+      },
+      "split": {
+        "score": 6.0497830819369804,
+        "p_call": 0.9828792438010222,
+        "min_spacing_T": 0.5703479239313287,
+        "chosen_n_actual_1e12": [
+          1.772,
+          1.9492,
+          2.1264,
+          2.3036,
+          2.4808,
+          2.658,
+          2.8352
+        ],
+        "chosen_weights": [
+          0.46930136993698013,
+          0.6821459320000003,
+          0.89833578,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "chosen_periods": [
+          2.4386027398739603,
+          2.8642918640000006,
+          3.29667156,
+          3.7315241600000006,
+          4.16721928,
+          4.347585769347172,
+          4.16986981053326
+        ],
+        "columns_weighted": 35,
+        "columns_full": 15,
+        "not_weighted": {
+          "undersampled": 0,
+          "periods_short": 23
+        }
+      },
+      "A": 0.8184003194443836,
+      "acquisition": {
+        "lockin": "sr1",
+        "recorded": true,
+        "I_A": 1e-08,
+        "tau_s": 0.3,
+        "sensitivity_V": 0.0001,
+        "x_nA_rt_s": 5.47722557505166,
+        "delay_over_tau": 3.3333333333333335,
+        "quantized": false,
+        "A": 0.8184003194443836
+      },
+      "columns": 90,
+      "hole_or_off_table": 32,
+      "clipped": 0,
+      "windows": {
+        "light": {
+          "B_lo_T": 0.75,
+          "B_from_T": 0.7653,
+          "rows": 126,
+          "W_per_T": 1.2066771200836275
+        },
+        "split": {
+          "B_lo_T": 1.0,
+          "B_from_T": 1.0239,
+          "rows": 115,
+          "W_per_T": 0.876657876745776
+        }
+      },
+      "params": {
+        "m": [
+          2.0,
+          3.0
+        ],
+        "k": [
+          1.5,
+          3.5
+        ],
+        "cap": 7,
+        "spacing_bins": 0.5,
+        "saturation": 4,
+        "tone_model": "Halder_ABAB",
+        "signal_lockin": "sr1",
+        "b_lo_light_T": 0.75,
+        "b_lo_split_T": 1.0
+      },
+      "flags": [],
+      "hours": 5.666885644768856
+    },
+    "derived": {
+      "n_B": 138,
+      "n_columns": 90,
+      "n_columns_landed": 90,
+      "n_points": 12420,
+      "B_range_T": [
+        0.6,
+        10.0
+      ],
+      "dB_T": [
+        0.01100000000000001,
+        0.10000000000000142
+      ],
+      "n_range_cm2": [
+        -1250000000000.0,
+        3200000000000.0
+      ],
+      "dn_cm2": [
+        50000000000.0,
+        50000000000.0
+      ],
+      "n_range_actual_cm2": [
+        -1107500000000.0,
+        2835200000000.0
+      ],
+      "fast_delay_over_tau": {
+        "sr0": 3.3333333333333335,
+        "sr1": 3.3333333333333335
+      },
+      "I_bias_A": 1e-08,
+      "dwell_h": 3.565,
+      "stated_over_dwell": 1.6830294530154277,
+      "cost": {
+        "traverse_h": 1.143552311435523,
+        "settle_h": 0.115,
+        "rows_h": 4.408333333333333,
+        "estimated_wall_h": 5.666885644768856,
+        "stated_wall_clock_h": 6.0,
+        "stated_over_estimated": 1.0587826146692487,
+        "model": {
+          "ramp_T_per_min": 0.137,
+          "field_settle_s": 3.0,
+          "point_overhead_s": 0.2,
+          "gate_read_s_per_plc": 0.045,
+          "flyback_s": 4.0
+        }
+      }
+    }
+  }
+}

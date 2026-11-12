@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.9,
+  "B_max_T": 10.0,
+  "n_B": 103,
+  "spacing": "invB",
+  "n_min_cm2": 2.0e12,
+  "n_max_cm2": 3.25e12,
+  "n_columns": 30,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 2.1,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.67,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted) is a multimegasweep: slow axis magnet.field = field_invB(0.90, 10.0, 103) (uniform 1/B, d(1/B)=0.00991), fast axis paired (Vtg,Vbg) from calc_gate_voltages over np.linspace(3.25, 2.00, 30)e12 cm^-2 at D = 0 with the run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013); verified Vtg 0.998->0.640, Vbg 1.185->0.721 V, inside the validators. slow_delay=3.0, fast_delay=2.1 s passed to the call. sr1 sensitivity 50 uV set in cell 48; sr0 sensitivity 0.02 V and both tau = 0.3 s inherited from the cell-44 close_out(restore=state0) readback, which supersedes earlier sets and run snapshots. nplci 1/1 asserted in the cell's preconditions (reset after the gate-C legs). Drive 1.0 V through the 100 MOhm bias resistor (cell 32, = 10 nA). No autorange hook is registered on this station. Wall clock from the cell-47 header ETA ~3h40m (the itemized price is 200 min)."
+}

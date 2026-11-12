@@ -1,0 +1,42 @@
+# === Tc collapse: high-T cooling ladder (warm to 5.5V above Tc, step DOWN). real T=Probe1 ===
+import os, time as _t
+_lf = r"C:\Users\toploader\temperature_logs\Probe1_MixingCh_low.txt"
+assert _t.time() - os.path.getmtime(_lf) < 120, "Probe1 logfile stale — thermometry worker down"
+print(f"start: Probe1 T {temperature()*1e3:.1f} mK, heater {heater.volt()} V, curr {heater.curr():.2e} A")
+assert abs(magnet.field()) < 5e-3, "magnet not ~0"
+
+VTG_OP, VBG_OP = -5.39, +4.00
+Vdc = np.linspace(-5.0, 5.0, 25)
+ladder = [5.5, 5.25, 5.0, 4.75, 4.5]      # warm to 5.5V (above Tc), step DOWN through the collapse
+sr830_1.amplitude(0.1); sr830_3.sensitivity(20e-6); k_tg.nplci(1); k_bg.nplci(1)
+
+def heater_to(v_target):
+    v0 = float(heater.volt())
+    if abs(v_target - v0) < 1e-6: return
+    d = np.sign(v_target - v0); v = v0
+    while abs(v - v_target) > 1e-6:
+        dv = d*min(1.0, abs(v_target - v)); v = round(v+dv, 4)
+        heater.volt(v); _t.sleep(1)
+        assert abs(heater.curr()) > 1e-9 or v == 0.0, f"heater ~0 A at {v} V — open line"
+        _t.sleep(5*60*abs(dv)/1.0)        # 5 min per 1 V
+
+k_tg.volt(VTG_OP); k_bg.volt(VBG_OP)
+for hv in ladder:
+    heater_to(hv)
+    Tnow = float(temperature()); cur = heater.curr()
+    print(f"heater {hv} V -> Probe1 T {Tnow*1e3:.1f} mK, curr {cur:.3e} A")
+    meas_config["comment"] = f"Tc collapse: heater {hv}V, T~{Tnow*1e3:.1f}mK, Idc+/-50nA, opt, B~0 (cooling)"
+    s = sweep.AsyncStation(meas_config)
+    s.add_comment('temperature-dependence')
+    s.add_comment(f'Tc collapse rung (cooling): heater {hv}V T~{Tnow*1e3:.1f}mK (Probe1); Idc+/-50nA; opt; B~0')
+    s.ramp(dc205_1.volt, Vdc[0])
+    s.fp(temperature); s.fp(magnet.field); s.fp(heater.volt); s.fp(heater.curr)
+    s.fp(k_tg.volt).fp(k_tg.curr); s.fp(k_bg.volt).fp(k_bg.curr); s.fp(dc205_1.volt)
+    for lia in (sr830_1, sr830_2, sr830_3):
+        s.fp(lia.X).fp(lia.P)
+    s.plot(dc205_1.volt, sr830_3.X)
+    s.sweep(dc205_1.volt, Vdc, delay=1)
+    dc205_1.volt(0)
+
+heater.volt(0); k_tg.volt(0); k_bg.volt(0)
+print("Tc collapse ladder done; heater OFF -> recool. T now:", temperature()*1e3, "mK")

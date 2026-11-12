@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 93,
+  "spacing": "invB",
+  "n_min_cm2": 1.0e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 101,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 1.2,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": null, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1.0e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 6.83,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, md 47) chains three runs; the landed fan is run C: s3.multimegasweep([magnet.field], [B_fan=field_invB(10.0,1.0,93)]) slow, [k_tg.volt,k_bg.volt] fast from calc_gate_voltages(ns, 0.0, run-5 cal c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013) over ns=np.linspace(3.2,1.0,101) 1e12 cm^-2 at D=0 V/nm (scratch check: V_tg 0.353..0.984, V_bg 0.351..1.166, inside TG/BG validators); slow_delay=1.0, fast_delay=1.2. sr1's fan sensitivity is chosen at run time from the run-B sizing row (smallest of 50/100/200/500 uV with FS >= 2 R_max), so its value is untraceable (null) though set in the answer; sr0 sens 0.02 V and both taus 0.3 s are inherited from the executed close_out(restore=state0) readback in cell 44, which also shows tg/bg nplci = 1.0 and drive 1.0 V (I_BIAS = 1 V / 100 MOhm). Also issued: run A, a 1D sdh-spot-check ride-up 0->10 T (921-pt stitched uniform-B grid) at n=+2.5e12 at 50 uV, and run B, a single-row sizing megasweep of the same n-line at B=10 T at 100 uV. Stated price: ride-up ~1.6 h + sizing ~3 min + fan ~4.7 h = ~6.4 h, 'quoted 6 h 50 m' (6.83 h) in the md header ETA; the fan alone is stated at 4.7 h."
+}

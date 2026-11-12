@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 0.6,
+  "B_max_T": 10.0,
+  "n_B": 157,
+  "spacing": "invB",
+  "n_min_cm2": 0.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 91,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 1.8,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-5, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 9.5,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, `landau-fan-vti`): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=1, fast_delay=1.8), with B_vec = 1/np.linspace(1/0.6, 1/10.0, 157) (uniform in 1/B, 0.6->10 T) and gates from calc_gate_voltages over np.linspace(0.6, 3.2, 91)e12 cm^-2 at D = 0 using the session's run-5 calibration committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013). Cell 48 sets sr1.sensitivity(50e-6); sr0 sensitivity/tau and sr1 tau and both Keithley nplci are inherited from the cell-44 close_out(restore=state0) readback (sr0_sens 0.02, sr0_tau 0.3, sr1_tau 0.3, tg/bg_nplci 1.0), which is the latest state record before the appended cells. Excitation sr1 amplitude 1.0 V from the same readback; 100 MOhm bias resistor per device_card.md line 64. Markdown cell 47 states ~9.0 h computed, headline 9.5 h (ETA ~9h30m)."
+}

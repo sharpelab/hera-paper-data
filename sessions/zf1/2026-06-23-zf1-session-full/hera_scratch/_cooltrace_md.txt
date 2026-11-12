@@ -1,0 +1,5 @@
+## HERA — Ic(T) by measure-while-cooling (real T = Probe1), heater OFF
+
+Probe1 confirmed live (120→117 mK, falling; Probe2 dead 3.3 days). The sample is cooling through (possibly) the SC transition **right now** — so instead of re-heating, I capture I_c(T) on the natural cooldown: a loop of dV/dI vs I_dc sweeps (±50 nA, at the SC optimum, B≈0), each tagged with the **real** Probe1 T, until it reaches base (break at T<40 mK). Heater is OFF (parked).
+
+**Immediate read:** the first sweep is at ~110 mK. If I_c is already finite there, Tc > 110 mK and I'll re-heat for a controlled ladder above Tc; if I_c≈0 and grows as it cools, we're capturing the transition directly → Tc from the I_c onset. Each sweep ~30 s, so points are ~30 s / a few-mK apart through the transition (T drifts only ~1–2 mK within a 30 s sweep near here — fine). Precondition now includes a real **staleness guard** (Probe1 logfile must be advancing), the check that was missing. ~10–15 min. I'll read the first sweep off disk and the full I_c(T) at the end.

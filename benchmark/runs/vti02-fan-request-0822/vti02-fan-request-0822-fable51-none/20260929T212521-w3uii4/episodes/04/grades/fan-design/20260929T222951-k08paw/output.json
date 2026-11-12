@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5.0, 5.2, 5.4, 5.6, 5.8, 6.0, 6.2, 6.4, 6.6, 6.8, 7.0, 7.2, 7.4, 7.6, 7.8, 8.0, 8.2, 8.4, 8.6, 8.8, 9.0, 9.2, 9.4, 9.6, 9.8, 10.0],
+  "n_min_cm2": -1.24e12,
+  "n_max_cm2": 3.21e12,
+  "n_columns": 179,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 1.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.33,
+  "flags": [],
+  "notes": "Cell 48 (appended, unexecuted) issues s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=3.0, fast_delay=1.0). B_vec = unique(hstack(([0.0], arange(0.6,10.0001,0.2)))) is a B=0 baseline row plus a uniform 0.2 T leg 0.6-10.0 T, 49 rows total, hence B_values rather than one uniform range. Fast axis n_vec = round(arange(-1.24,3.2201,0.025),4) in 1e12 cm^-2, 179 pts, converted by calc_gate_voltages along D = 0 using the run-5 calibration constants committed in the cell (c_tg=2.796e-3, c_bg=2.161e-3, n_offset=-0.0894, D_offset=-0.013); the markdown flags these labels as raw-cal and possibly ~11 percent high (0.89 factor from run-6 FFT tone 29.5 T vs F_L 33.1 T) - values left unscaled. sr1 sensitivity 100 uV is set in the cell; sr1/sr0 tau 0.3 s and sr0 sens 0.02 V are inherited from the cell-44 close_out(restore=state0) readback, which also gives drive_V = 1.0 V; bias resistor 100 MOhm from device_card.md line 64. nplci 1/1 is asserted (not set) in cell 48 and matches that readback. Recorded params: T_sample, k_tg.curr, k_bg.curr, sr0.X/P, sr1.X/P. Stated run time ~4 h 20 m in the markdown header."
+}

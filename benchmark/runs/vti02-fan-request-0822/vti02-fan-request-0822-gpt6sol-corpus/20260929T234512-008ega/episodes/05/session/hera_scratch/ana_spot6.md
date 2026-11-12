@@ -1,0 +1,3 @@
+## Run 6 — electron SdH spot check at n = +3.2×10¹² cm⁻², D ≈ 0
+
+Raw Rxx(B) from the TSV is shown first, using the measured drain current. The windowed 1/B spectra show content near 7, 22, and 30 T. At this single density the ~30 T feature is compatible with a Luttinger-scale orbit but could be a sum/breakdown tone; the 7 and 22 T features are close to the ABAB model partition but a harmonic screen is required across density. The onset helper reports a 7 T component as censored at the low-field edge, so it does not give a measured die-off; the 22 T track turns on near 1.4 T. The next fan will establish whether these are distinct density-dispersing branches.

@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 121,
+  "spacing": "invB",
+  "n_min_cm2": 1.6e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 35,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 2.4,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 4.83,
+  "flags": [],
+  "notes": "Cell 48 (trailing, unexecuted): s.multimegasweep([magnet.field],[field_invB(1.0,10.0,121)],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=3.0, fast_delay=2.4); gates from calc_gate_voltages over np.linspace(3.2,1.6,35) (1e12 cm^-2) at D=0 with the session's run-5 calibration committed in the cell (c_tg 2.796e-3, c_bg 2.161e-3, n_offset -0.0894, D_offset -0.013) -> Vtg 0.9836->0.5252 V, Vbg 1.1661->0.5730 V, inside the committed limits; d(1/B) = 0.00750 T^-1 verified in scratch. Cell 48 sets sr1.sensitivity(50e-6); sr0 sens 0.02 V and both taus 0.3 s are inherited from cell 44's close_out(restore=state0) readback, which supersedes the run 6/7 metadata snapshots; nplci 1/1 asserted in the precondition read and also in that readback. Wall clock 4 h 50 m is the markdown cell 47 estimate."
+}

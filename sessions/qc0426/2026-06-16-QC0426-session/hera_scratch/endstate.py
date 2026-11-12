@@ -1,0 +1,5 @@
+# End-of-session state check (read-only)
+print("magnet.mag() =", magnet.mag(), "T ;", magnet._status())
+print("dc205/TG k_tg.voltage() =", k_tg.voltage(), "V")
+print("k_bg.volt() =", k_bg.volt(), "V ; k_2410(Si).volt() =", k_2410.volt(), "V")
+print("sample T =", heater.sample_temperature(), "K")

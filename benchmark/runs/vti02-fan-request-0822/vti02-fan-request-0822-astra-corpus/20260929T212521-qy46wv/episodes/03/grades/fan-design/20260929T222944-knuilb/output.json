@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0309096913954,
+  "B_max_T": 7.05,
+  "n_B": 238,
+  "spacing": "invB",
+  "n_min_cm2": 2.8e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 10,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 1.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr1", "sensitivity_V": 5e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 3.75,
+  "flags": [],
+  "notes": "Cell 48 (trailing code, with markdown cell 47) issues s.multimegasweep([magnet.field],[field_invB(1.0309096913954, 7.05, 238)], [k_tg.volt, k_bg.volt], calc_gate_voltages(np.linspace(2.8,3.2,10), 0, **CAL), slow_delay=1., fast_delay=0.); I reran those expressions in the venv (TG +0.869016..+0.983621 V, BG +1.017844..+1.166125 V, max Delta(1/B)=0.0034944 T^-1). Densities are the cell's own np.linspace(2.8,3.2,10) in 1e12 cm^-2 at D=0 with the run-5/run-6 rounded calibration committed in the cell (c_tg=0.002796, c_bg=0.002161, n_offset=-0.0894, D_offset=-0.013). sr1 sensitivity 50 uV is set in cell 48; tau=0.3 s/24 dB and sr0 sens 0.02 V and both gate nplci=1 are inherited from the close_out(restore=state0) readback in cell 44 (sr1_sens was 2e-6 there); fast_delay is 0 but the registered fan_before hook does an explicit interruptible_sleep(3 s) per point, and the markdown prices 3 s = 10 tau settling. Stated ETA is ~3h45m (markdown cell 47); drive 1 V through the 100 MOhm bias resistor = 10 nA; no autorange registered."
+}

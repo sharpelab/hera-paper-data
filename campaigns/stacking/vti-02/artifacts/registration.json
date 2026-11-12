@@ -1,0 +1,42 @@
+{
+  "device": "vti-02 (tetralayer graphene, VTI cooldown 2026-08-21/22)",
+  "frame": "topological (device-card contact map); no um coordinate frame exists for either modality",
+  "frame_bridges_supplied": {
+    "device_card_contact_map": "pad labels/numbers + arc order (T top arc L->R, B left side then bottom L->R); no positions",
+    "ana_notebook_geometry": "gate-stack thicknesses (t_tg 9.5 nm, t_bg 11 nm); B_1-B_2 path topology: dual-gated channel + TG-only series segment outside graphite BG footprint (cell 15) + Si-doped contact regions (cell 21)",
+    "raman_positions": "none (no map, no spot/region coordinates, no spot size, no cut outline)",
+    "optical_images": null,
+    "gds": null,
+    "stage_registered_video": null
+  },
+  "anchors_fit": 0,
+  "registration_uncertainty": "unbounded (no anchors); domain scale unknown (um-scale typical, N=3 statistics) => uncertainty >> domain scale",
+  "channels": [
+    {
+      "channel": "sr1",
+      "pair": "B_1-B_2",
+      "source": "T_0",
+      "drain": "B_3",
+      "pads": {
+        "B_1": "12",
+        "B_2": "04",
+        "T_0": "29",
+        "B_3": "27"
+      },
+      "transport_verdict": "ABAB (strong)",
+      "raman_region_overlap": "not placeable",
+      "coverage": "uncovered",
+      "coverage_note": "registration-limited: raman.md asserts in prose that the whole device is the isolated rhombohedral domain (would be 'covered' if established); unverifiable without a map, cut outline, or device image"
+    },
+    {
+      "channel": "rest-of-flake",
+      "pair": null,
+      "transport_verdict": null,
+      "raman_region_overlap": "asserted (whole 'cut region')",
+      "coverage": "n/a (no transport read)",
+      "coverage_note": "transport-uncovered; Raman leg inadmissible (no evidence/coordinates)"
+    }
+  ],
+  "stress_audit": "uncertainty unbounded: any covered/partial label flips under the stress shift -> coverage label registration-limited; 'uncovered' is the floor and does not flip; mechanism class is set by Step-1 admissibility (single-modality) and does not depend on the coverage label",
+  "artifact": "registration.png"
+}

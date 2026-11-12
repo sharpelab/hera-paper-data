@@ -1,0 +1,7 @@
+## HERA — Step 1→2: constant-D n-linecuts (locate the SC candidate arc)
+
+Run 4 confirmed the cap ratio (c_bg/c_tg = 1.19) and the landscape, but **cannot resolve SC** — at coarse 1 nA the hole-side R is floor/railing-limited. Per `sc-characterization.md` Step 1 ("locate with linecuts first — the arc is narrow, a blind polygon steps over it"), this cell takes **three constant-D n-linecuts at the favorable sign** (D < 0 = holes into WSe₂, house convention): **D = −0.4, −0.5, −0.6 V/nm**, each scanning **n = −8 → −1 ×10¹¹ cm⁻²** (wider than the nominal −4 to −6 band) at ~1×10¹⁰ step — several points across the expected ~5×10¹⁰ arc width. Hole side only, so we avoid the n≈0 gap and keep R resolvable.
+
+Mechanically a designed constant-D line: `calc_gate_voltages(ns, D0, c_tg, c_bg, n_offset)` → `sanitize_tg_bg` (validated off-line: all three D values land 71/71 in-range) → `multisweep`. **Magnet untouched** (still pristine — effective-zero-field comes later, only once a candidate is found). Drive kept at 1 nA (locator; SC-safe); sensitivity left as run-4 (resolves 5–500 Ω off the CNP). One cell, three runs in sequence, ~8–10 min total.
+
+**What I'm looking for:** a relative R_xx **dip** vs n that strengthens/tracks as |D| grows — that flags the candidate (n, D) to pin with a tight map and then probe with bias spectroscopy (dV/dI), the real SC test. If nothing on D<0, I'll check the D>0 corner next. I'll read the first cut (D=−0.4) off disk as the checkpoint. Watch gate currents stay pA on your live plot.

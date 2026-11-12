@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 1.0, 2.0, 2.020202, 2.040816, 2.061856, 2.083333, 2.105263, 2.12766, 2.150538, 2.173913, 2.197802, 2.222222, 2.247191, 2.272727, 2.298851, 2.325581, 2.352941, 2.380952, 2.409639, 2.439024, 2.469136, 2.5, 2.531646, 2.564103, 2.597403, 2.631579, 2.666667, 2.702703, 2.739726, 2.777778, 2.816901, 2.857143, 2.898551, 2.941176, 2.985075, 3.030303, 3.076923, 3.125, 3.174603, 3.225806, 3.278689, 3.333333, 3.389831, 3.448276, 3.508772, 3.571429, 3.636364, 3.703704, 3.773585, 3.846154, 3.921569, 4.0, 4.081633, 4.166667, 4.255319, 4.347826, 4.444444, 4.545455, 4.651163, 4.761905, 4.878049, 5.0, 5.128205, 5.263158, 5.405405, 5.555556, 5.714286, 5.882353, 6.060606, 6.25, 6.451613, 6.666667, 6.896552, 7.142857, 7.407407, 7.692308, 8.0, 8.333333, 8.695652, 9.090909, 9.52381, 10.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 111,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 3.0,
+  "fast_delay_s": 3.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_tg.curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_bg.curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 10.67,
+  "flags": [],
+  "notes": "Trailing cell 48 ('landau-fan'): s.multimegasweep([magnet.field],[_fan_B],[k_tg.volt,k_bg.volt],[_fan_tg,_fan_bg],slow_delay=3.,fast_delay=3.). Field vector _fan_B = np.r_[0.,1.,1/np.linspace(1/2,1/10,81)] — two reference rows at 0 and 1 T stitched to 81 rows uniform in 1/B from 2 to 10 T (83 rows). Density _fan_n = np.linspace(-1.2,3.2,111)*1e16 m^-2 = -1.20..+3.20e12 cm^-2 at nominal D = 0, gate voltages from the cell's explicit run-5 calibration constants (c_tg=2.796059e-3, c_bg=2.160696e-3 F/m^2, n_offset=-0.0893793e16, D_offset=-0.013e9); the markdown calls the absolute density scale a geometry prior (unscaled values reported). sr1 sensitivity 100 uV is set in the cell; sr0 0.02 V and both tau=0.3 s and both Keithley nplci=1.0 are inherited from the cell-44 close_out(restore=state0) readback. Drive sr1.amplitude()=1.0 V (cell-44 readback), 100 MOhm bias resistor from device_card.md line 64. Headline ETA in cell 47 markdown: ~10h40m."
+}

@@ -1,0 +1,14 @@
+## HERA — Step 3: SdH spot checks at n = ±6×10¹² cm⁻², D = 0
+
+Recipes: `measurements/sdh-spot-check.md` (mechanics per `field-sweep-1d`); Step 3 of `trilayer-stacking-fs-count`. Both density signs get a spot check (no side prior); electron side first, hole side second on the return traverse (never re-traverse — the hole cell sweeps 8 → 0.5 T).
+
+**Design (from the Step-1/2 numbers on the page above and in ana):**
+- Operating points on the calibrated D = 0 line: **electron (V_tg, V_bg) = (+2.849, +2.216)**, **hole (−2.797, −2.176)** — |n| = 6×10¹² cm⁻² pushes the periods without leaving the TG-limited window (realized max 6.3). **F_L = 62.0 T**.
+- **Blocking rate-limited magnet → uniform-B grid**, Nyquist held at the low edge (recipe step 1b): two segments — **0.5→1.0 T at ΔB = 2.0 mT** (Nyquist for F_L at B = 0.5) and **1.0→8.0 T at ΔB = 5.4 mT** (1.5× Nyquist margin at 1.0 T; oversampling in 1/B grows as B²). ~1550 pts. The 0.5 T floor sits below the expected onset (~1.5–3 T at this rig's 8 K electron temperature) so the onset is read directly; if oscillations were somehow alive below 0.5 T the onset comes back censored and we revisit.
+- **δF forecast**: onset 2 T → usable record 0.375 /T → δF ≈ 2.7 T. An ABA pair (f_ML + f_BL = 62) separates cleanly unless f_ML ≲ 5 T; the fan's n-tracking refines whatever this leaves merged.
+- **Settling**: dwell per point = magnet `settle_s` (3 s ≈ 10τ at τ = 0.3 s, 24 dB/oct — at the recipe's weak-tone floor, not bent) + ~0.25 s read; `delay=0` adds nothing. Per-point spacing ≈ ramp (0.9–2.4 s) + 3.25 s.
+- **Sensitivities** (card starting points, tuned to run-4 corner values and Hall arithmetic — stated): bias 2 V → 20 nA; sr1 2e-6 (R ~30 Ω → fs 0.3); **sr2 1e-6** (card 5e-7 would clip: 25–35 Ω × 20 nA ≈ 0.6 µV); **sr3 5e-5** (R_xy(8 T) ≈ 830 Ω → 17 µV; card 5e-6 clips 3×); **sr0 5e-2** (20 nA × 1e6 = 20 mV; card 1e-2 clips 2×).
+
+**Price per spot check:** ~1550 pts × ~5.3 s + initial ramps ≈ **2.3 h nominal, 2.4–2.6 h realistic**; two checks ≈ **5 h**. Ends at 0.5 T (fan-ready). Checkpoints: first rows (clipping/leakage/MR shape), then periodic digest reads; the electron-side FFT is read **before** the hole cell runs — its result can adjust the hole design.
+
+E1 auto-bucket: field moves within the 8 T cap, gates inside validators, no T change.

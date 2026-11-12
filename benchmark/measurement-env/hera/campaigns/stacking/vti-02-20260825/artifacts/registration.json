@@ -1,0 +1,126 @@
+{
+  "device": "vti-02",
+  "frame_bridges_requested_by_recipe": [
+    "stage-registered video images inside the Raman files",
+    "marker-frame optical images",
+    "device GDS (pad/contact geometry)",
+    "build-step list"
+  ],
+  "frame_bridges_supplied": {
+    "raman_spot_or_region_coordinates": null,
+    "raman_region_mask_or_raster": null,
+    "raman_map_or_spectra_files": null,
+    "stage_registered_video_images": null,
+    "marker_frame_optical_images": null,
+    "device_gds": null,
+    "flake_or_cut_outline": null,
+    "hall_bar_geometry_L_over_W": null,
+    "device_card_pad_table": "ordinal only (labels + bond pads + L->R convention)",
+    "build_step_list": "prose, from raman.md + device_card.md gate stack; no dates"
+  },
+  "metric_anchors_available": 0,
+  "transform_fitted": null,
+  "anchor_variants": [],
+  "registration_uncertainty": "UNBOUNDED / undefined - no anchor pair exists on the Raman side, so no transform and no fit error can be formed. Not a large number: no number.",
+  "domain_scale_on_this_flake": "unknown - no Raman map was supplied. Literature expectation for exfoliated multilayer graphene is um-scale domains (Lui 2011, via raman-stacking-id.md). Unbounded uncertainty exceeds any um-scale domain trivially.",
+  "ordinal_frame": {
+    "convention_quoted": "label = position, T = top arc L->R, B = left side then bottom L->R",
+    "pads": {
+      "T_0": {
+        "bond_pad": 29,
+        "edge": "top arc",
+        "ordinal": 0,
+        "alive": true,
+        "role": "source"
+      },
+      "T_1": {
+        "bond_pad": 41,
+        "edge": "top arc",
+        "ordinal": 1,
+        "alive": false,
+        "role": null
+      },
+      "T_2": {
+        "bond_pad": 1,
+        "edge": "top arc",
+        "ordinal": 2,
+        "alive": false,
+        "role": null
+      },
+      "T_3": {
+        "bond_pad": 42,
+        "edge": "top arc",
+        "ordinal": 3,
+        "alive": false,
+        "role": null
+      },
+      "T_4": {
+        "bond_pad": 43,
+        "edge": "top arc",
+        "ordinal": 4,
+        "alive": false,
+        "role": null
+      },
+      "B_1": {
+        "bond_pad": 12,
+        "edge": "left side",
+        "ordinal": 0,
+        "alive": true,
+        "role": "sr1 Rxx (+)"
+      },
+      "B_2": {
+        "bond_pad": 4,
+        "edge": "bottom L->R",
+        "ordinal": 1,
+        "alive": true,
+        "role": "sr1 Rxx (-)"
+      },
+      "B_3": {
+        "bond_pad": 27,
+        "edge": "bottom L->R",
+        "ordinal": 2,
+        "alive": true,
+        "role": "drain (sr0)"
+      }
+    },
+    "caveat": "The edge assignment is a prose reading of the device card's label convention, not a measured layout. It fixes ORDER around the mesa, never position, spacing, or the mesa outline. No scale exists."
+  },
+  "channels": [
+    {
+      "channel": "sr1 : B_1-B_2 (bond pads 12-04)",
+      "kind": "four-terminal Rxx pair (the only live one this cooldown)",
+      "transport_footprint": "the mesa segment between B_1 and B_2; extent unknown (no L/W, no outline)",
+      "raman_coverage": "uncovered",
+      "coverage_reason": "raman.md supplies no spot or region coordinates and no mask/raster, so no Raman region can be placed on this footprint. The document's device-level containment assertion ('we cut out the rhombohedral domain and expect the cut region to contain no ABA') is an unverified expectation with no post-cut map and no cut outline - it is an absence claim without a resolvability statement, not a registration.",
+      "composition_resolved": false
+    },
+    {
+      "channel": "T_0 -> B_3 (bond pads 29-27), two-terminal drive/drain path",
+      "kind": "current path; carries no four-terminal stacking read",
+      "transport_footprint": "diagonal across the mesa, top arc to bottom-right; strictly larger than the B_1-B_2 footprint",
+      "raman_coverage": "uncovered",
+      "coverage_reason": "same as above; additionally no stacking read exists on this path for either leg to cover.",
+      "composition_resolved": false
+    },
+    {
+      "channel": "sr2, sr3 (n.c.); T_1-T_4 (dead)",
+      "kind": "not wired / not alive",
+      "transport_footprint": null,
+      "raman_coverage": "n/a - no channel",
+      "coverage_reason": "device card: T_1-T_4 dead, sr2/sr3 not connected. This is why no mosaic test exists on this cooldown.",
+      "composition_resolved": false
+    }
+  ],
+  "raman_regions": [
+    {
+      "region": "R_cut - 'the cut region' (raman.md, prose)",
+      "coordinates": null,
+      "boundary": null,
+      "stage": "pre-stacking, on the parent flake (acquisition date unknown)",
+      "verdict_as_written": "ABC, 'strong' (labelled a lean by the document)",
+      "localisable": false,
+      "note": "The region is defined by an operation (a laser cut) whose outline was not supplied. Whether the B_1-B_2 footprint lies inside it is exactly the unregistered quantity."
+    }
+  ],
+  "stress_audit": "Shifting the registration by its uncertainty is vacuous here: with no transform, every geometry-dependent conclusion flips under an arbitrary shift. Every row whose conclusion depends on where the Raman region sits is therefore REGISTRATION-LIMITED, not classified. The sr1 row's fused verdict does not depend on registration - it is carried by transport, whose footprint is the channel by definition - so that row is stable."
+}

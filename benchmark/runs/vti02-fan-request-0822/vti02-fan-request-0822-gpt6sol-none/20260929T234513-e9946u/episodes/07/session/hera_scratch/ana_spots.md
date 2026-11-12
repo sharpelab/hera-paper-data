@@ -1,0 +1,3 @@
+## Runs 6–7 — D = 0 SdH spot checks, raw data then spectral read
+
+Run 6 is the electron-side A-region calibration point (n = +3.2×10¹² cm⁻², B 0→10 T); run 7 is the hole-side point (n = −1.2×10¹², B 10→0.3 T). Both are on the run-5 calibrated D = 0 gate line, but the absolute n scale still uses the top-hBN thickness prior. The plots show the raw measured-current-normalized |Rxx| against B and 1/B before the spectrum. The 1/B spectra are a guide to fan design, not yet a stacking verdict: run 5 showed two series CNP ridges, and a single trace cannot separate a fundamental tone from harmonics or different local regions.

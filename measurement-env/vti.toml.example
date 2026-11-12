@@ -1,0 +1,25 @@
+[influxdb]
+url = "https://metrics.aaronsharpe.science"
+token = ""
+org = "dgg"
+bucket = "vti"
+
+[hardware]
+lakeshore_gpib = "GPIB0::10::INSTR"
+temperature_log_dir = 'C:\Users\DGG\temperature_logs'
+ami1700_addr = "TCPIP0::192.168.0.100::7180::SOCKET"
+terranova_addr = "ASRL8::INSTR"
+lakeshore218_gpib = "GPIB0::15::INSTR"
+fastbi_host = "192.168.0.10"
+
+[health.lakeshore]
+metric = "sample temperature"
+threshold = 90
+
+[health.vti_aux]
+metric = "magnet temperature"
+threshold = 90
+
+[health.magnet]
+metric = "magnetic field"
+threshold = 90

@@ -1,0 +1,3 @@
+## Runs 6–7 — spot spectra and fan decision
+
+The electron trace (data/6) has strong oscillations above ~2 T and a structured high-field rise, with FFT peaks near 7.1, 14.2, 23.1 and 30.2 T over 1.5–9.5 T. Several peaks are near harmonics of the ~7 T tone, so a two-pocket assignment from one fixed-density trace is unsafe. The hole trace (data/7) has clear oscillations too, with peaks near 5.3 and 12.5 T; it is not an LK null. The raw |Rxx| maxima are ~530 and ~587 Ω, well below the 5 kΩ full scale used for these spots. A D ≈ 0 fan across both carrier signs will test whether distinct Landau branches track density separately and whether the CNP sequence distinguishes ABAB, ABCA, and ABCB; the parallel 0 T ridge in data/5 is a series-region confound to carry in that read.

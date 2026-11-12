@@ -1,0 +1,30 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "stitched",
+  "B_values": [0.0, 0.5, 1.0, 1.5, 1.7, 1.9, 2.1, 2.3, 2.5, 2.7, 2.9, 3.1, 3.3, 3.5, 3.7, 3.9, 4.1, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.7, 5.9, 6.1, 6.3, 6.5, 6.7, 6.9, 7.1, 7.3, 7.5, 7.7, 7.9, 8.1, 8.3, 8.5, 8.7, 8.9, 9.1, 9.3, 9.5, 9.7, 9.9, 10.0],
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 81,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 2.5,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-3, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.0,
+  "flags": [],
+  "notes": "Cell 48 (trailing code cell, md 47): s.multimegasweep([magnet.field],[B_vec],[k_tg.volt,k_bg.volt],[Vtg_vec,Vbg_vec], slow_delay=0.0, fast_delay=2.5). B_vec = np.r_[0.0, 0.5, 1.0, np.arange(1.5,10.0001,0.2), 10.0] -> 47 non-uniform rows (0.5 T coarse below 1.5 T, 0.2 T above), hence stitched. Density axis is the cell's own np.linspace(-1.2,+3.2,81) in 1e12 cm^-2 at D=0, converted with calc_gate_voltages and the run-5 calibration constants committed in the cell (c_tg=2.796059e-3, c_bg=2.160696e-3, n_offset=-0.089379, D_offset=-0.013). sr1 sensitivity set to 1e-3 in the answer; sr0 sensitivity 0.02 V and both tau=0.3 s and both Keithley nplci=1.0 are inherited from cell 44's executed close_out(restore=state0) readback (which supersedes the earlier 50 uV set in cell 42) and are re-asserted in cell 48's precondition block. Drive 1.0 V through the device card's 100 MOhm bias resistor. Stated run time from md cell 47: 'about five hours' (ETA ~5h)."
+}

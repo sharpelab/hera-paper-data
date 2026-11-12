@@ -1,0 +1,198 @@
+{
+ "run_id": "qc0426-r5",
+ "manifest": {
+  "run_id": "qc0426-r5",
+  "device": "QC0426",
+  "rig": "vti",
+  "date": "2026-06-19",
+  "mode": "E1",
+  "archive": "measurement-env/hera/docs/notes/2026-06-19-QC0426-session",
+  "rig_session_dir": "zack/20260619-QC0426",
+  "layout": "root",
+  "transcript": "full",
+  "variability_set": false,
+  "caveats": []
+ },
+ "provenance": {
+  "corpus_commit": null,
+  "corpus_dirty": null,
+  "source": "unstamped"
+ },
+ "time": {
+  "t_transcript_first": "2026-06-19T05:31:26+00:00",
+  "t_transcript_last": "2026-06-19T23:30:20+00:00",
+  "transcript_span_h": 17.981583055522705,
+  "session_h": 17.981583055522705,
+  "t_final_decision": "2026-06-19T21:44:47.910517+00:00",
+  "t_final_decision_source": "heuristic:ana-nb",
+  "decision_h": 16.222611532476215,
+  "t_first_sweep": "2026-06-19T05:46:13+00:00",
+  "t_last_sweep_end": "2026-06-19T23:09:25+00:00",
+  "sweep_span_h": 17.38652452674177,
+  "measuring_h": 9.29797843390041,
+  "longest_sweep_h": 2.591370575626691
+ },
+ "sweeps": {
+  "n_sweeps": 8,
+  "by_recipe": {
+   "gatemap": {
+    "n": 2,
+    "hours": 1.862
+   },
+   "landau-fan-vti": {
+    "n": 1,
+    "hours": 2.591
+   },
+   "sdh-spot-check": {
+    "n": 5,
+    "hours": 4.845
+   }
+  }
+ },
+ "utilization": {
+  "raw": 0.5347807389337315,
+  "hil": 0.5860887776852758,
+  "frac_measuring": 0.5347807389337315,
+  "frac_hera_court": 0.3776761435300781,
+  "frac_human_court": 0.08754311753619044,
+  "hera_court_h": 6.566475532650948,
+  "human_court_h": 1.5220705601904128,
+  "n_lands": 46,
+  "gaps": [
+   {
+    "after_sweep": 0,
+    "idle_s": 385.19298219680786,
+    "hera_s": 347.3801920413971,
+    "human_s": 37.81279015541077,
+    "land": 1781848616.296667,
+    "next_slug": "gatemap"
+   },
+   {
+    "after_sweep": 1,
+    "idle_s": 749.848906993866,
+    "hera_s": 729.4627094268799,
+    "human_s": 20.386197566986084,
+    "land": 1781855791.75136,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 2,
+    "idle_s": 448.0692503452301,
+    "hera_s": 53.483914375305176,
+    "human_s": 394.5853359699249,
+    "land": 1781857505.401712,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 3,
+    "idle_s": 389.3320486545563,
+    "hera_s": 237.89351630210876,
+    "human_s": 151.4385323524475,
+    "land": 1781862258.74538,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 4,
+    "idle_s": 4680.253109693527,
+    "hera_s": 69.60516881942749,
+    "human_s": 4610.6479408741,
+    "land": 1781864219.542322,
+    "next_slug": "sdh-spot-check"
+   },
+   {
+    "after_sweep": 6,
+    "idle_s": 22258.859830856323,
+    "hera_s": 22018.929002285004,
+    "human_s": 239.93082857131958,
+    "land": 1781895818.095002,
+    "next_slug": "landau-fan-vti"
+   },
+   {
+    "after_sweep": 7,
+    "idle_s": 207.20980548858643,
+    "hera_s": 182.55741429328918,
+    "human_s": 24.65239119529724,
+    "land": 1781905569.517317,
+    "next_slug": "sdh-spot-check"
+   }
+  ]
+ },
+ "messages": {
+  "n_transcript_files": 1,
+  "n_extraneous_transcripts": 1,
+  "n_assistant_entries": 544,
+  "n_api_requests": 216,
+  "n_sidechain_turns": 0,
+  "n_user_entries": 244,
+  "message_counts": {
+   "human": 7,
+   "loop_tick": 0,
+   "task_notification": 20,
+   "admin": 1,
+   "interrupt": 0
+  },
+  "n_tool_calls": 216,
+  "tool_calls": {
+   "Bash": 72,
+   "Bash[nb-collab]": 46,
+   "Write": 29,
+   "Read": 21,
+   "Bash[hera-watch]": 16,
+   "Bash[hera-notify]": 14,
+   "Edit": 11,
+   "Bash[nb]": 7
+  },
+  "tokens_by_model": {
+   "claude-opus-4-8": {
+    "in": 17751,
+    "out": 422394,
+    "cr": 73841081,
+    "cw5": 0,
+    "cw1h": 2040723,
+    "n_requests": 216
+   }
+  },
+  "cost_usd_est": 67.98,
+  "cost_complete": true
+ },
+ "notebook": {
+  "measure_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-19-QC0426-session/20260619_measure.ipynb",
+  "ana_notebook": "/home/zack/sharpelab/measurement-env/.worktrees/metrics_capture/hera/docs/notes/2026-06-19-QC0426-session/20260619_ana.ipynb",
+  "n_cells": 74,
+  "n_hera_cells": 46,
+  "n_slot_cells": 5,
+  "n_human_cells": 23,
+  "n_hera_executed": 23,
+  "n_hera_unexecuted": 0,
+  "n_ana_cells": 15,
+  "n_ana_figures": 4
+ },
+ "decision_candidates": [
+  {
+   "source": "ana-nb",
+   "t": "2026-06-19T21:44:47.910517+00:00",
+   "excerpt": "# Step 7 \u2014 the call: QC0426 is ABC (rhombohedral) trilayer\n\nLandau fan `data/7` (D=0, hole, n=\u22123\u2192\u22126.5e12 \u00d7 B 0\u21928 T), per-column 1/B FFT \u2192 F(n).\n\n## 1. Per-regio"
+  }
+ ],
+ "scratch": {
+  "n_scratch_files": 65,
+  "scratch_by_ext": {
+   ".md": 13,
+   ".npy": 1,
+   ".pkl": 1,
+   ".png": 12,
+   ".py": 38
+  },
+  "scratch_loc": 1259,
+  "n_scratch_figures": 12,
+  "n_scratch_notebooks": 0
+ },
+ "autonomy": {
+  "mode": "E1",
+  "n_human_msgs": 7,
+  "n_interrupts": 0,
+  "longest_unattended_h": 13.354615000022783,
+  "n_interventions": null
+ },
+ "extracted_at": "2026-07-18T00:36:46+00:00"
+}

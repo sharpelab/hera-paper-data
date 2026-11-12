@@ -1,0 +1,32 @@
+{
+  "status": "extracted",
+  "landed": "field_probe",
+  "form": "probe_only",
+  "B_min_T": 0.3,
+  "B_max_T": 1.2,
+  "n_B": 157,
+  "spacing": "invB",
+  "n_cm2": [2.0e12],
+  "declared_columns_cm2": [],
+  "D": 0.0,
+  "ladder_stated_h_per_column": null,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 0.0,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-05, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 100000000.0,
+  "n_fans": 1,
+  "stated_wall_clock_h": 0.283,
+  "flags": [],
+  "notes": "Cell 48 is the only appended code cell: a 1D sdh-spot-check low-field extension, s.sweep(magnet.field, field_invB(0.3, 1.2, N_ext), delay=0) at n = +2.0e12, D = 0 via calc_gate_voltages with the session's run-5 calibration (c_tg=2.796e-3, c_bg=2.161e-3, n_off=-0.0894, D_off=-0.013) -> (Vtg, Vbg) = (+0.6398, +0.7213) V; N_ext evaluates to 157 with d(1/B) = 1/(3*F_L(2.0e12)) = 0.01612. The fan itself is only designed in the markdown of cell 47 (electron side D = 0, n +2.00..+3.23e12 in 42 columns x uniform-1/B B_lo(0.65-1.0) -> 5.0 T, d(1/B) = 0.0100, fast 1.8 s, slow 3 s, 2h40m-4h20m) and is explicitly deferred until this extension pins B_lo, so no fan cell is issued; stated_wall_clock_h is the markdown's ~17 min for the landed extension. sr1 sensitivity 20 uV is set in the answer cell; sr1/sr0 tau 0.3 s, sr0 sens 0.02 V, drive amplitude 1.0 V and nplci 1/1 are inherited from the close_out(restore=state0) readback in cell 44 (latest state record before the appended cells). Bias resistor 100 MOhm from meas_config (cell 23) and the device card."
+}

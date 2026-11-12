@@ -1,0 +1,17 @@
+
+## 2026-08-22 — E1 grant
+
+- **GRANT** — operator (Zack) "go for autonomy" after gates A/B green; He attested fine (closed-loop system, not a concern). Kernel probe (measure cell 31, exec 16): BOUND, 22/22 names. VERIFY (measure cell 32, exec 17): `VERIFY: ALL GREEN` — all 23 checks OK (magnet +0.0063 T, validators == card, T_sample 1.166 K, heaters off, DC205 RNGE 2 / 0 V / 0.5 V/s, gates 0). E1 engaged on the printed verdict.
+- PROTOCOL — the brief's VERIFY list includes "He budget", which no kernel-connected instrument can read (AMI 1700 isn't in the setup section); handled as operator-attested. Either add an AMI 1700 connect to the VTI template or mark that item operator-attested in the brief template.
+- FEEDBACK/self — run 4 (gatemap, sr1 20 µV) aborted at the first-rows checkpoint: the CNP ridge at D ≈ +0.3 V/nm railed at 2.18 kΩ while the D ≈ 0 peaks (runs 0–3) were ≤ 330 Ω. Lesson for `gatemap` step 5 sizing: on a first map the ridge at the window's max-|D| corner, not the 1D-leg peak, sets R_max — size with ≥ 10× over the 1D peak or accept a rail. Re-run as run 5 at 100 µV (10 kΩ FS), peak 2.5–2.9 kΩ at fs 0.28.
+- TOOLING — `hera-watch` "⚠ LEAK k_2400_tg=Δ1xx pA" fires every gatemap row: the TG current excursion is the flyback charging transient at the row start (lo −200 / hi +120 pA around a −92 pA median), not a sustained excess. The warning should baseline per-row after the first few points or exclude the flyback transient.
+- RECIPE FIX — `gatemap` step 5 (sensitivity sizing): on a first map the CNP ridge at the window's largest |D| sets R_max, not the D ≈ 0 peaks seen in 1D legs (run 4: 1D peaks ≤ 330 Ω, ridge at D = +0.3 V/nm > 2.2 kΩ → railed at 20 µV; run 5 at 100 µV fine). Say: size to ≥ 10× the 1D peak, or to the gapped-CNP expectation at the map's |D|max.
+- RECIPE FIX — `cnp-and-dline-calibration` step 3 D-offset: the minimum of R_CNP along the ridge vs raw D is a usable "physically locates D = 0" feature (run 5: vertex at raw D = +0.013 V/nm, symmetric R on both sides); worth naming as the default feature to look for.
+- TOOLING — `hera-watch` ETA on a mixed-step field sweep (50 mT then 10 mT) extrapolates the current per-row rate (24 s/pt on the coarse leg → "6 h"); a per-setpoint-spacing model (ramp time ∝ ΔB + fixed overhead) would price it right.
+
+## 2026-08-23 — handoff (new HERA instance, same kernel, E1 stands)
+
+- PROTOCOL — at handoff there was no `hera_scratch/plan.md` and no on-disk copy of the "Step 2 model table" that measure cells 39/41 cite. Their predicted tones (ABAB 7.5/25.6 T at n = 3.2e12) can't be traced. Rewrote plan.md with an explicit discriminator table. The handoff checklist should require plan.md and any cited model artefacts on disk.
+- METHOD — `sdh-spot-check`: runs 6–7 had not been landed in ana at handoff (the protocol wants per-step landing). Landed now (ana cells 14–16). The run-6 Rxx-minima ladder gave a density-scale correction s = 0.894 vs the geometry prior (c_tg prior ~12 % high). That is a cheaper absolute-scale check than waiting for the fan and is worth naming in the recipe.
+- TOOLING — the ana kernel had been restarted across the handoff (exec count reset). The first `append --execute` failed with NameError until the setup cell was re-run. It would help if `nb-collab` warned when an edit_exec notebook's kernel has no executed setup cell.
+- Fan landed as measure step 4 on the operator's request ("a Landau fan for the stacking call").

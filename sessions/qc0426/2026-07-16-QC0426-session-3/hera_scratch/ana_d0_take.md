@@ -1,0 +1,3 @@
+**Read (run 5):** Calibration confirmed on-device — sr1's CNP crossing lands at n = 0.00e12 exactly on the designed line (single crossing, no off-line features); all arms metallic across |n| ≤ 6e12 (27–73 Ω), drain at full bias throughout. sr2's local maximum sits at n ≈ +0.55e12 → the B4–B5 region is charge-offset ~−0.5e12 relative to T3–T4 (mild inhomogeneity; carried into per-region reads — each channel's tones will be read against its own local F_L if they disagree). R(n) anchors for spot-check sensitivity: R(±6e12) ≈ 27–37 Ω on both Rxx channels.
+
+**Verdict: investigation step 1 complete.** Both density signs viable; proceeding to step 3 SdH spot checks at n = ±6e12, D = 0.

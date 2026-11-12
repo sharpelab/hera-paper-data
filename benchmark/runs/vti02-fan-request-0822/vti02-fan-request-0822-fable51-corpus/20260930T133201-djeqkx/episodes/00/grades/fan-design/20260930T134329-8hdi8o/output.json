@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "invB",
+  "B_min_T": 1.0,
+  "B_max_T": 10.0,
+  "n_B": 151,
+  "spacing": "invB",
+  "n_min_cm2": 0.5e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 55,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 2.0,
+  "fast_delay_s": 1.2,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 1e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.25,
+  "flags": [],
+  "notes": "Cell 48: s.multimegasweep([magnet.field],[field_invB(1.0,10.0,151)],[k_tg.volt,k_bg.volt],[Vtgs,Vbgs], slow_delay=2.0, fast_delay=1.2); fast axis np.linspace(3.2,0.5,55)e12 cm^-2 at D=0 V/nm via calc_gate_voltages with the run-5 CAL dict committed in the cell (Vtg 0.210-0.984, Vbg 0.165-1.166 V, verified in scratch). Recorded signals sr0.X/P and sr1.X/P: cell 48 sets sr1 sensitivity to 100 uV; sr0 sens 0.02 V and both tau 0.3 s inherited from the cell-44 close_out(restore=state0) readback, the latest state record. nplci 1/1 asserted (not set) in cell 48; drive 1.0 V through the 100 MOhm bias resistor (meas_config cell 23 / device card). Headline time 'ETA ~10:43 (=5h15m)' from the cell-47 markdown. A hole-side fan on the 10->1 T ride-down is mentioned as conditional future work, not issued."
+}

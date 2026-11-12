@@ -1,0 +1,33 @@
+{
+  "status": "extracted",
+  "landed": "fan",
+  "form": "2d_megasweep",
+  "field_mode": "B",
+  "B_min_T": 0.25,
+  "B_max_T": 10.0,
+  "n_B": 40,
+  "spacing": "B",
+  "n_min_cm2": -1.2e12,
+  "n_max_cm2": 3.2e12,
+  "n_columns": 111,
+  "D": 0.0,
+  "slow_axis": "B",
+  "slow_delay_s": 0.0,
+  "fast_delay_s": 2.4,
+  "lockins": [
+    {"name": "sr0", "sensitivity_V": 0.02, "sensitivity_set_in_answer": false,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false},
+    {"name": "sr1", "sensitivity_V": 2e-4, "sensitivity_set_in_answer": true,
+     "time_constant_s": 0.3, "time_constant_set_in_answer": false}
+  ],
+  "gate_current_reads": [
+    {"name": "k_2400_tg_curr", "nplc": 1.0, "nplc_set_in_answer": false},
+    {"name": "k_2400_bg_curr", "nplc": 1.0, "nplc_set_in_answer": false}
+  ],
+  "excitation_V": 1.0,
+  "bias_resistor_ohm": 1e8,
+  "n_fans": 1,
+  "stated_wall_clock_h": 5.0,
+  "flags": [],
+  "notes": "Cell 48 (appended code; markdown cell 47) issues s.multimegasweep with magnet.field slow over B_vec = np.round(np.arange(0.25, 10.0001, 0.25), 4) (40 rows, uniform in B) and k_tg/k_bg fast from calc_gate_voltages over n_vec = np.linspace(-1.2, +3.2, 111) at D = 0, slow_delay=0, fast_delay=2.4 s. Densities are the cell's own n_vec in 1e12 cm^-2, using the run-5 CAL committed in the cell (c_tg=2.7961e-3, c_bg=2.1607e-3, n_offset=-0.0894, D_offset=-0.013). The sweep records sr0.X/P, sr1.X/P and k_tg.curr/k_bg.curr. sr1 sensitivity is set to 200 uV in the cell; sr0 sensitivity 0.02 V, both taus 0.3 s and tg/bg nplci = 1 are inherited from the executed close_out(restore=state0) in cell 44, whose printed readback supersedes the earlier sets in cells 34/36/38/40. Drive 1.0 V through the 100 MOhm bias resistor (the cell's own amplitude/100e6 = 10 nA). Markdown 47 prices the run at about five hours."
+}

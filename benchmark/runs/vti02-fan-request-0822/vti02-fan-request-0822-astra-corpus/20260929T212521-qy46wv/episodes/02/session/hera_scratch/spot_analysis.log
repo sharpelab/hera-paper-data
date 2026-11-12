@@ -1,0 +1,149 @@
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:19: UserWarning: sdh_onset: tone 7.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  on=sdh_onset(R,B,r_full_scale=5000); print(on.summary())
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:19: UserWarning: sdh_onset: untracked tone(s): 3.4 T (never above threshold (max SNR 3.6 vs 5 across 3 windows))
+  on=sdh_onset(R,B,r_full_scale=5000); print(on.summary())
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: untracked tone(s): 3.1 T (never above threshold (max SNR 5.0 vs 5 across 2 windows)); 58.7 T (never above threshold (max SNR 4.0 vs 5 across 22 windows))
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: marginal tone 6.7 T would carry the onset (0.85 T) — excluded; onset_b = 1.30 T from the 21.7 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: untracked tone(s): 3.0 T (never above threshold (max SNR 3.1 vs 5 across 2 windows)); 58.7 T (never above threshold (max SNR 4.2 vs 5 across 22 windows))
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: marginal tone 6.7 T would carry the onset (1.06 T) — excluded; onset_b = 1.30 T from the 21.7 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: untracked tone(s): 3.1 T (never above threshold (max SNR 3.0 vs 5 across 2 windows)); 58.1 T (never above threshold (max SNR 3.9 vs 5 across 25 windows)); 41.1 T (never above threshold (max SNR 4.9 vs 5 across 18 windows)); 9.6 T (never above threshold (max SNR 4.3 vs 5 across 5 windows))
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: marginal tone 6.7 T would carry the onset (1.04 T) — excluded; onset_b = 1.38 T from the 22.0 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+run 6
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    electron side: n = +3.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (+0.9836, +1.1661); B 0 -> 10 T uniform-B (50 mT to 1 T, 10 mT above); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    921 of 921 (complete)
+  swept:   magnet_field 0 → 10 (monotonic)
+QUALITY 6 R range -32.947456304556134 529.6319160820163 I nA 9.84293 9.93544 T 1.165 1.292 leak pA [('k_2400_tg_curr', 123.3946), ('k_2400_bg_curr', 117.2982)]
+TIMING seconds 7218.443737745285 step median 7.4635045528411865 over bare ramp median 3.0833128643034877
+sdh_onset: onset_b = 0.30 T (tone 7.1 T) over B [0.30, 10.00] T
+  tone    7.1 T: onset  0.30 T  dF  0.31 T  snr_max   40.2  [censored@edge, 2x->14.1T, 3x->22.1T, 4x->29.5T]
+  tone   22.1 T: onset  1.36 T  dF  1.57 T  snr_max   37.1  [~3x7.1T]
+  tone   14.1 T: onset  1.62 T  dF  1.93 T  snr_max   52.5  [revives-below-gap, ~2x7.1T]
+  tone   29.5 T: onset  1.91 T  dF  2.36 T  snr_max   89.0  [~4x7.1T]
+  tone    3.0 T: onset  0.30 T  dF  0.31 T  snr_max   59.9  [censored@edge, near-residual]
+  tone    9.5 T: onset  0.30 T  dF  0.31 T  snr_max   21.8  [censored@edge]
+  tone    4.2 T: onset  0.30 T  dF  0.31 T  snr_max   33.7  [censored@edge]
+  tone    5.1 T: onset  0.30 T  dF  0.31 T  snr_max   48.7  [censored@edge]
+FFT 6 lo 0.3 degree 3 peaks [(3.09, 1122.16), (7.11, 706.45), (22.26, 321.55), (29.37, 296.07), (14.22, 246.94), (15.46, 211.42)]
+FFT 6 lo 0.3 degree 5 peaks [(3.09, 1225.61), (7.11, 745.23), (5.87, 329.58), (22.26, 320.34), (29.37, 295.97), (14.22, 242.63)]
+FFT 6 lo 0.3 degree 7 peaks [(7.11, 722.28), (22.26, 322.25), (5.87, 298.49), (29.37, 296.44), (14.22, 241.55), (15.46, 207.85)]
+FFT 6 lo 1.0 degree 3 peaks [(7.78, 8958.27), (14.44, 5950.31), (22.22, 5646.64), (29.99, 4472.13), (58.87, 1468.89), (33.33, 1110.41)]
+FFT 6 lo 1.0 degree 5 peaks [(7.78, 9162.96), (14.44, 5839.03), (22.22, 5658.98), (29.99, 4463.93), (58.87, 1469.74), (33.33, 1105.6)]
+FFT 6 lo 1.0 degree 7 peaks [(6.67, 8912.64), (14.44, 5773.08), (22.22, 5669.65), (29.99, 4457.52), (58.87, 1470.14), (33.33, 1102.07)]
+FFT 6 lo 1.5 degree 3 peaks [(7.06, 17316.36), (14.11, 11864.33), (29.99, 10377.38), (22.94, 9096.99), (58.22, 1846.86), (37.05, 1537.8)]
+FFT 6 lo 1.5 degree 5 peaks [(7.06, 21314.0), (14.11, 11358.39), (29.99, 10343.41), (22.94, 9017.37), (58.22, 1847.54), (37.05, 1522.5)]
+FFT 6 lo 1.5 degree 7 peaks [(3.53, 37934.15), (15.88, 11287.39), (29.99, 10328.88), (22.94, 8985.5), (58.22, 1847.26), (37.05, 1506.68)]
+FFT 6 lo 2.0 degree 3 peaks [(7.5, 27393.24), (29.99, 16521.58), (15.0, 16320.76), (22.49, 12449.83), (59.99, 3127.07), (44.99, 2165.72)]
+FFT 6 lo 2.0 degree 5 peaks [(5.0, 43894.3), (29.99, 16413.47), (15.0, 15089.05), (22.49, 12360.51), (59.99, 3135.29), (44.99, 2172.29)]
+FFT 6 lo 2.0 degree 7 peaks [(5.0, 32919.72), (29.99, 16403.25), (15.0, 14264.19), (22.49, 12526.78), (59.99, 3141.65), (44.99, 2199.1)]
+FFT 6 lo 3.0 degree 3 peaks [(4.28, 65113.27), (29.99, 34190.68), (21.42, 16932.5), (59.99, 6815.87)]
+FFT 6 lo 3.0 degree 5 peaks [(29.99, 33523.23), (8.57, 20306.94), (21.42, 17236.71), (59.99, 6861.91)]
+FFT 6 lo 3.0 degree 7 peaks [(29.99, 33623.28), (17.14, 22217.71), (8.57, 14459.21), (59.99, 6917.71)]
+run 7
+  type:    1D sweep
+  recipe:  sdh-spot-check
+  tags:    hole side: n = -1.20e12 cm^-2, D = +0.00 V/nm; (Vtg, Vbg) = (-0.2770, -0.4650); B 10 -> 0.3 T uniform-B 20 mT (ride-down); cal run 5: ratio 0.773, n_offset -0.089e12, D_offset -0.013
+  rows:    486 of 486 (complete)
+  swept:   magnet_field 10 → 0.3 (monotonic)
+QUALITY 7 R range -0.3754571869434766 586.8675532668536 I nA 9.8086 9.930670000000001 T 1.175 1.291 leak pA [('k_2400_tg_curr', 215.8295), ('k_2400_bg_curr', 120.0978)]
+TIMING seconds 5737.599640846252 step median 11.827555179595947 over bare ramp median 3.0675551795959386
+sdh_onset: onset_b = 0.71 T (tone 6.6 T) over B [0.30, 10.00] T
+  tone    6.6 T: onset  0.71 T  dF  0.77 T  snr_max   83.8  [~2x3.4T, 4x->26.2T]
+  tone    9.4 T: onset  1.27 T  dF  1.46 T  snr_max   38.9  [~2x4.7T]
+  tone    4.7 T: onset  1.03 T  dF  1.14 T  snr_max   22.7  [2x->9.4T, 3x->14.8T]
+  tone   14.8 T: onset  1.85 T  dF  2.26 T  snr_max   57.1  [~3x4.7T]
+  tone   26.2 T: onset  2.39 T  dF  3.14 T  snr_max   40.8  [revives-below-gap, ~4x6.6T]
+  tone    8.5 T: onset  1.39 T  dF  1.61 T  snr_max   45.6
+  tone   12.3 T: onset  1.60 T  dF  1.91 T  snr_max  123.6
+  tone    3.4 T: UNTRACKED — never above threshold (max SNR 3.6 vs 5 across 3 windows)
+FFT 7 lo 0.714 degree 3 peaks [(6.98, 34925.4), (4.65, 17722.37), (12.41, 8581.37), (13.96, 7974.61), (19.39, 3210.87), (23.27, 1300.0)]
+FFT 7 lo 0.714 degree 5 peaks [(6.98, 34872.63), (3.88, 17790.18), (12.41, 8587.9), (13.96, 7962.08), (19.39, 3211.49), (23.27, 1301.14)]
+FFT 7 lo 0.714 degree 7 peaks [(6.98, 34876.8), (4.65, 17904.19), (12.41, 8583.46), (13.96, 7971.38), (19.39, 3208.35), (23.27, 1299.28)]
+FFT 7 lo 1.0 degree 3 peaks [(6.67, 49583.01), (4.44, 41680.71), (12.22, 17609.93), (18.88, 6506.12), (28.88, 1368.27), (34.44, 989.66)]
+FFT 7 lo 1.0 degree 5 peaks [(6.67, 49471.21), (4.44, 41472.14), (12.22, 17627.59), (18.88, 6515.96), (28.88, 1369.29), (34.44, 989.08)]
+FFT 7 lo 1.0 degree 7 peaks [(6.67, 49716.61), (4.44, 41922.69), (12.22, 17598.21), (18.88, 6510.68), (28.88, 1372.22), (34.44, 987.45)]
+FFT 7 lo 1.5 degree 3 peaks [(5.29, 93323.28), (12.35, 46407.42), (21.17, 12715.58), (28.23, 3154.7), (33.52, 1992.34), (37.05, 1869.59)]
+FFT 7 lo 1.5 degree 5 peaks [(5.29, 92554.26), (12.35, 46287.96), (21.17, 12733.89), (28.23, 3155.76), (33.52, 1995.25), (37.05, 1872.11)]
+FFT 7 lo 1.5 degree 7 peaks [(5.29, 93839.65), (12.35, 46319.64), (21.17, 12743.8), (28.23, 3162.25), (33.52, 1993.83), (37.05, 1871.8)]
+FFT 7 lo 2.0 degree 3 peaks [(5.0, 90239.97), (12.5, 67334.19), (22.49, 19231.71), (37.49, 3907.29), (32.49, 2896.51), (49.99, 1955.35)]
+FFT 7 lo 2.0 degree 5 peaks [(5.0, 91017.44), (12.5, 66945.13), (22.49, 19262.09), (37.49, 3911.22), (32.49, 2912.77), (49.99, 1957.82)]
+FFT 7 lo 2.0 degree 7 peaks [(5.0, 88122.29), (12.5, 67194.16), (22.49, 19229.12), (37.49, 3906.59), (32.49, 2918.38), (49.99, 1960.65)]
+FFT 7 lo 3.0 degree 3 peaks [(8.57, 90886.12), (38.56, 12191.86), (51.42, 6325.31)]
+FFT 7 lo 3.0 degree 5 peaks [(12.85, 69487.59), (38.56, 12120.1), (51.42, 6334.85)]
+FFT 7 lo 3.0 degree 7 peaks [(12.85, 66969.41), (38.56, 12221.58), (51.42, 6361.85)]
+LOCAL ONSET AUDIT B<= 3.0, degree 3:
+sdh_onset: onset_b = 1.30 T (tone 21.7 T) over B [0.30, 3.00] T
+  tone   21.7 T: onset  1.30 T  dF  2.31 T  snr_max   10.3  [~7x3.1T]
+  tone    6.7 T: onset  0.85 T  dF  1.18 T  snr_max    9.3  [marginal]
+  tone   14.2 T: onset  1.56 T  dF  3.26 T  snr_max    5.3  [marginal, ~5x3.1T, 2x->29.5T]
+  tone   29.5 T: onset  1.73 T  dF  4.09 T  snr_max   11.4  [~2x14.2T]
+  tone    3.1 T: UNTRACKED — never above threshold (max SNR 5.0 vs 5 across 2 windows)
+  tone   58.7 T: UNTRACKED — never above threshold (max SNR 4.0 vs 5 across 22 windows)
+LOCAL ONSET AUDIT B<= 3.0, degree 5:
+sdh_onset: onset_b = 1.30 T (tone 21.7 T) over B [0.30, 3.00] T
+  tone   21.7 T: onset  1.30 T  dF  2.31 T  snr_max   10.9  [~7x3.0T]
+  tone    6.7 T: onset  1.06 T  dF  1.65 T  snr_max    9.1  [marginal]
+  tone   14.2 T: onset  1.56 T  dF  3.26 T  snr_max    5.4  [marginal, ~5x3.0T]
+  tone   29.5 T: onset  1.73 T  dF  4.09 T  snr_max   12.0  [~10x3.0T]
+  tone    3.0 T: UNTRACKED — never above threshold (max SNR 3.1 vs 5 across 2 windows)
+  tone   58.7 T: UNTRACKED — never above threshold (max SNR 4.2 vs 5 across 22 windows)
+LOCAL ONSET AUDIT B<= 4.0, degree 3:
+sdh_onset: onset_b = 1.38 T (tone 22.0 T) over B [0.30, 4.00] T
+  tone   13.9 T: onset  1.71 T  dF  2.98 T  snr_max    9.3  [marginal, ~2x6.7T, 3x->41.1T, 4x->58.1T]
+  tone    6.7 T: onset  1.04 T  dF  1.41 T  snr_max    7.8  [marginal, 2x->13.9T]
+  tone   22.0 T: onset  1.38 T  dF  2.11 T  snr_max   18.6  [~7x3.1T]
+  tone   29.5 T: onset  1.73 T  dF  3.06 T  snr_max   19.9  [~10x3.1T]
+  tone    3.1 T: UNTRACKED — never above threshold (max SNR 3.0 vs 5 across 2 windows)
+  tone   58.1 T: UNTRACKED — never above threshold (max SNR 3.9 vs 5 across 25 windows)
+  tone   41.1 T: UNTRACKED — never above threshold (max SNR 4.9 vs 5 across 18 windows)
+  tone    9.6 T: UNTRACKED — never above threshold (max SNR 4.3 vs 5 across 5 windows)/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: untracked tone(s): 3.1 T (never above threshold (max SNR 4.3 vs 5 across 3 windows)); 58.1 T (never above threshold (max SNR 3.7 vs 5 across 25 windows)); 41.1 T (never above threshold (max SNR 4.6 vs 5 across 18 windows))
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: marginal tone 9.6 T would carry the onset (0.30 T) — excluded; onset_b = 1.03 T from the 6.7 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: tone 3.1 T is above threshold through the lowest window — oscillations persist to the record's low edge; onset_b = 0.30 T is the record edge, not a measured die-off
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:39: UserWarning: sdh_onset: marginal tone 3.1 T would carry the onset (0.77 T) — excluded; onset_b = 1.02 T from the 6.8 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=hi,bg_degree=deg,r_full_scale=5000)
+/home/hera/measurements/zack/20260822-vti-02/hera_scratch/spot_analysis.py:41: UserWarning: sdh_onset: marginal tone 3.1 T would carry the onset (0.77 T) — excluded; onset_b = 1.02 T from the 6.8 T tone
+  local=sdh_onset(R,B,b_lo=.3,b_hi=5,bg_degree=5,r_full_scale=5000)
+
+LOCAL ONSET AUDIT B<= 4.0, degree 5:
+sdh_onset: onset_b = 1.03 T (tone 6.7 T) over B [0.30, 4.00] T
+  tone   13.9 T: onset  1.71 T  dF  2.98 T  snr_max    8.9  [revives-below-gap, marginal, ~2x6.7T, 3x->41.1T, 4x->58.1T]
+  tone    6.7 T: onset  1.03 T  dF  1.39 T  snr_max   18.3  [2x->13.9T]
+  tone   22.0 T: onset  1.38 T  dF  2.11 T  snr_max   18.0  [~7x3.1T]
+  tone   29.5 T: onset  1.73 T  dF  3.06 T  snr_max   19.2  [~3x9.6T]
+  tone    9.6 T: onset  0.30 T  dF  0.32 T  snr_max    8.5  [censored@edge, marginal, ~3x3.1T, 3x->29.5T]
+  tone    3.1 T: UNTRACKED — never above threshold (max SNR 4.3 vs 5 across 3 windows)
+  tone   58.1 T: UNTRACKED — never above threshold (max SNR 3.7 vs 5 across 25 windows)
+  tone   41.1 T: UNTRACKED — never above threshold (max SNR 4.6 vs 5 across 18 windows)
+LOCAL ONSET AUDIT B<= 5.0, degree 3:
+sdh_onset: onset_b = 0.30 T (tone 3.1 T) over B [0.30, 5.00] T
+  tone   14.0 T: onset  1.66 T  dF  2.49 T  snr_max   25.0  [~2x6.8T, 3x->43.6T, 4x->58.3T]
+  tone   21.9 T: onset  1.39 T  dF  1.92 T  snr_max   37.3  [~7x3.1T]
+  tone    6.8 T: onset  1.02 T  dF  1.28 T  snr_max   17.9  [2x->14.0T]
+  tone   29.5 T: onset  1.73 T  dF  2.64 T  snr_max   20.2  [~3x9.4T]
+  tone    3.1 T: onset  0.30 T  dF  0.32 T  snr_max   10.3  [censored@edge, near-residual, 3x->9.4T, 7x->21.9T]
+  tone   58.3 T: onset  3.67 T  dF 13.74 T  snr_max    7.1  [marginal, ~4x14.0T]
+  tone    9.4 T: onset  1.63 T  dF  2.41 T  snr_max   10.7  [~3x3.1T, 3x->29.5T]
+  tone   43.6 T: onset  2.97 T  dF  7.29 T  snr_max    5.5  [marginal, ~3x14.0T]
+LOCAL ONSET AUDIT B<= 5.0, degree 5:
+sdh_onset: onset_b = 1.02 T (tone 6.8 T) over B [0.30, 5.00] T
+  tone   14.0 T: onset  1.66 T  dF  2.49 T  snr_max   25.8  [~2x6.8T, 3x->43.6T, 4x->58.3T]
+  tone   21.9 T: onset  1.39 T  dF  1.92 T  snr_max   38.4  [~7x3.1T]
+  tone    6.8 T: onset  1.02 T  dF  1.28 T  snr_max   18.3  [2x->14.0T]
+  tone   29.5 T: onset  1.73 T  dF  2.64 T  snr_max   20.8  [~9x3.1T]
+  tone    3.1 T: onset  0.77 T  dF  0.91 T  snr_max    7.6  [marginal, near-residual, 3x->9.4T, 7x->21.9T, 9x->29.5T]
+  tone   58.3 T: onset  3.67 T  dF 13.74 T  snr_max    7.3  [marginal, ~4x14.0T]
+  tone    9.4 T: onset  1.63 T  dF  2.41 T  snr_max   10.9  [~3x3.1T]
+  tone   43.6 T: onset  2.97 T  dF  7.29 T  snr_max    5.6  [marginal, ~3x14.0T]
+Model limits ABAB [[ 6.03789317 22.91423488]
+ [ 7.30584092 25.78305127]] ABA [[ 1.39335487 27.54960613]
+ [ 1.92444678 31.17141788]]

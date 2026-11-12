@@ -1,0 +1,127 @@
+timestamp_utc,label,text
+2026-06-10T23:44:02+00:00,,"The wiring is validate as accurate per the measurement config in this notebook.  Safeties as well.  I ran gate B, your narrower limits are fine."
+2026-06-11T01:30:55+00:00,,status?  how does the fan look so far?
+2026-06-11T03:31:24+00:00,,running idx 40 now
+2026-06-11T04:36:08+00:00,,continue
+2026-06-11T04:50:36+00:00,,Lets do a ~12hr measurement as we ramp down to 0.  I would like to see a much finer B (~5x) and a wider N (say to 8) at say D=0.25.  Lets discuss the params and then add the cell.
+2026-06-11T04:57:24+00:00,,"Lets do D=0, make some use of the resolution for strengthening the conclusion.  the timing seems to fit very nicely, going over is fine, we have until 11am no problem.  perhaps we can buy a bit of n resolution with the extra time, again it's not a hard deadline.  propose again"
+2026-06-11T05:01:48+00:00,,do a nb wait on the cell
+2026-06-11T18:39:21+00:00,,I believe it has completed
+2026-06-11T19:43:04+00:00,,Interested in the temp sweep (2).  what temps are you thinking?
+2026-06-11T20:39:21+00:00,,"You are approved for 25K up to 14T (14T is cap not a suggested endpoint).  T control is via the lakeshore only.  3. I will get back to you on this, lets start the measurement while I research."
+2026-06-11T21:54:40+00:00,,"Bingcheng has gotten back with some heating procedure.  1. there is a manual step with the needle valve.  2. for safety he wants to do the heating at 0T field.  So lets ramp to 0T (wasted time but a learning opportunity).  Then he will come back and do the preconditions for the heat up to 25K.
+
+I see two paths, 1 I remove the 2/3 and 3/3 cells from the nb, and we do the manual/fix steps and then you add the cells back or 2. you add a ramp down cell we reorganize and edit- no.  I propose removeing the 2/3 and 3/3 series md and code cells, and you adding a ramp down cell and then reappending 2/3 and 3/3 adjusted as necessary"
+2026-06-11T22:11:35+00:00,,"From Bingcheng
+
+Bingcheng Suo  [6:02 PM]
+We typically avoid ramping temperature while at finite field (avoid temperature as the fast axis)  
+[6:03 PM]Field operations at T<= 25K is allowed
+
+I think we are good to go."
+2026-06-11T22:37:55+00:00,,"okay that will be fine, got the big boss Aaron's approval.
+
+The ramp down failed because we timedout out reading the temp as it was fighting with the grafana logging.  Bingcheng says they don't usually use it as a follow param for this reason.  We can fix this later but for now we can either disable the logging or not follow.  Do we want to follow, I think yes, which means we need to deal with the logging.
+
+I have started ramping the magnet to 0T without a measurement to unblock the heating next."
+2026-06-11T22:44:03+00:00,,"wait wait, we don't need the bingcheng compliant ladder, aaron has approved the ""non compliant"" version.  I have removed all 4 3/3 cells"
+2026-06-11T22:48:17+00:00,,"This will end with us at 6T and cooled?  basically perfect starting point to run the deciding measurement 1 f_low vs D, yes?"
+2026-06-12T02:51:59+00:00,,"I used your loop, it's running now."
+2026-06-12T04:21:55+00:00,,status?  and how are we lookin on ETA
+2026-06-12T04:31:08+00:00,,"We'll try it tonight and if it doesn't work out so be it.  Lets say it does get launched at 1am, would you want anything with the extra time budget?  Regardless we want to start after this measurement back at 0T so we can queue that ramp down"
+2026-06-12T05:08:35+00:00,,"I amended the cap cell to 13.5T, we don't need the extra headroom.
+
+It would be great to add strong preconditions on the cells that will be queued, I can paste them if you provide
+
+Also the cooldown procedure is simply heater.off() and wait.  Insert a cell that does that with appropriate thresholding, I will move it to the appropriate location."
+2026-06-12T05:12:03+00:00,,verify the cells and order looks correct.
+2026-06-12T06:50:06+00:00,,"indent fixed and T_TARGET set to 1.3, print fixed.  I started the cooldown cell and queued the rest."
+2026-06-12T07:02:36+00:00,,"Check the current temp and cool rate.  Evaluate whether we should wait, adjust or proceed at current T.  provide a runbook for accomplishing your choice."
+2026-06-12T07:12:36+00:00,,"done, queue is running, sweep 13 started
+
+I adjusted the precondition to use magnet.get_field(), magnet.mag() ought to be implemented but isn't currently."
+2026-06-12T07:14:48+00:00,,"## Context Usage
+
+**Model:** claude-fable-5[1m]  
+**Tokens:** 377.7k / 1m (38%)
+
+### Estimated usage by category
+
+| Category | Tokens | Percentage |
+|----------|--------|------------|
+| System prompt | 3.8k | 0.4% |
+| System tools | 19.8k | 2.0% |
+| MCP tools (deferred) | 24.7k | 2.5% |
+| System tools (deferred) | 14.6k | 1.5% |
+| Custom agents | 327 | 0.0% |
+| Skills | 1.6k | 0.2% |
+| Messages | 352.2k | 35.2% |
+| Free space | 622.3k | 62.2% |
+
+### MCP Tools
+
+| Tool | Server | Tokens |
+|------|--------|--------|
+| mcp__claude_ai_Gmail__create_draft | claude_ai_Gmail | 1.5k |
+| mcp__claude_ai_Gmail__create_label | claude_ai_Gmail | 1.2k |
+| mcp__claude_ai_Gmail__delete_label | claude_ai_Gmail | 122 |
+| mcp__claude_ai_Gmail__get_thread | claude_ai_Gmail | 416 |
+| mcp__claude_ai_Gmail__label_message | claude_ai_Gmail | 365 |
+| mcp__claude_ai_Gmail__label_thread | claude_ai_Gmail | 405 |
+| mcp__claude_ai_Gmail__list_drafts | claude_ai_Gmail | 650 |
+| mcp__claude_ai_Gmail__list_labels | claude_ai_Gmail | 311 |
+| mcp__claude_ai_Gmail__search_threads | claude_ai_Gmail | 1.7k |
+| mcp__claude_ai_Gmail__unlabel_message | claude_ai_Gmail | 370 |
+| mcp__claude_ai_Gmail__unlabel_thread | claude_ai_Gmail | 352 |
+| mcp__claude_ai_Gmail__update_label | claude_ai_Gmail | 1.1k |
+| mcp__claude_ai_Google_Calendar__create_event | claude_ai_Google_Calendar | 4.1k |
+| mcp__claude_ai_Google_Calendar__delete_event | claude_ai_Google_Calendar | 558 |
+| mcp__claude_ai_Google_Calendar__get_event | claude_ai_Google_Calendar | 278 |
+| mcp__claude_ai_Google_Calendar__list_calendars | claude_ai_Google_Calendar | 262 |
+| mcp__claude_ai_Google_Calendar__list_events | claude_ai_Google_Calendar | 1.9k |
+| mcp__claude_ai_Google_Calendar__respond_to_event | claude_ai_Google_Calendar | 774 |
+| mcp__claude_ai_Google_Calendar__suggest_time | claude_ai_Google_Calendar | 967 |
+| mcp__claude_ai_Google_Calendar__update_event | claude_ai_Google_Calendar | 3.5k |
+| mcp__claude_ai_Google_Drive__copy_file | claude_ai_Google_Drive | 425 |
+| mcp__claude_ai_Google_Drive__create_file | claude_ai_Google_Drive | 967 |
+| mcp__claude_ai_Google_Drive__download_file_content | claude_ai_Google_Drive | 392 |
+| mcp__claude_ai_Google_Drive__get_file_metadata | claude_ai_Google_Drive | 228 |
+| mcp__claude_ai_Google_Drive__get_file_permissions | claude_ai_Google_Drive | 137 |
+| mcp__claude_ai_Google_Drive__list_recent_files | claude_ai_Google_Drive | 390 |
+| mcp__claude_ai_Google_Drive__read_file_content | claude_ai_Google_Drive | 526 |
+| mcp__claude_ai_Google_Drive__search_files | claude_ai_Google_Drive | 705 |
+
+### Custom Agents
+
+| Agent Type | Source | Tokens |
+|------------|--------|--------|
+| hera | User | 73 |
+| hera-session | User | 81 |
+| hera-vti | User | 83 |
+| iris | User | 90 |
+
+### Skills
+
+| Skill | Source | Tokens |
+|-------|--------|--------|
+| deep-research | Built-in | ~160 |
+| update-config | Built-in | ~240 |
+| keybindings-help | Built-in | ~80 |
+| verify | Built-in | ~90 |
+| code-review | Built-in | ~130 |
+| simplify | Built-in | ~60 |
+| fewer-permission-prompts | Built-in | ~60 |
+| loop | Built-in | ~110 |
+| schedule | Built-in | ~130 |
+| claude-api | Built-in | ~360 |
+| run | Built-in | ~120 |
+| init | Built-in | ~20 |
+| review | Built-in | < 20 |
+| security-review | Built-in | ~30 |
+
+"
+2026-06-12T16:57:01+00:00,,"I agree great session.  It is closed and you performed superbly.
+
+Now I want to interview you about the session to work on improvements and understanding.  Can you please tell me what went well vs what didn't go well.  Physics, tooling, humans etc everything is in scope.
+
+Then if you have an requests/advice/suggestions for future runs."

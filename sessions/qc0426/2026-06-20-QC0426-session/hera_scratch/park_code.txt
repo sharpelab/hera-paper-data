@@ -1,0 +1,8 @@
+# End-of-goal park: field -> 0, gates -> 0 (safe idle). Primary goal met (ABA call).
+import time
+magnet.settle_s = 3.0
+print("parking field", round(magnet.field(), 3), "T -> 0 ...")
+magnet.field(0.0)
+dc205_volt(0.0); k_bg.volt(0.0)
+print(f"parked: B={magnet.field():.4f}T TG={dc205.voltage():.3f}V BG={k_2400.volt():.3f}V "
+      f"Si={k_2410.volt():.3f}V T={heater.sample_temperature():.3f}K")

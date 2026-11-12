@@ -1,0 +1,17 @@
+# The vti02-fan-request-0822 frontier (the 08-22 cut, the brief closing on the operator's request for the fan), Fable 5 × corpus: a fresh instance picks the 08-22
+# session up from the live corpus brief, in the session dir as the archived agent
+# left it after both spot checks are acquired (the electron one read, the hole ride-down just landed at 0.3 T) and before the fan cell is appended,
+# masked of the agent's own restatement of the fan-design rule. Corpus and
+# tactical prompt from the live corpus deploy, code from the current harness.
+case: vti02-fan-request-0822-fable-corpus
+source: ../../docs/notes/2026-08-22-vti-02-session
+cut:
+  transcript: b0c3c413-7523-44ec-a7c1-d3680081c6cb.jsonl
+  at: 3a4cf818-834e-4a30-b0fa-b6e764f242cc
+mask: masks/vti02-pre-fan-0822.yaml
+corpus: {sha: 13b07e9, harness: 8bf4e7d, condition: full, prompt: corpus}
+run: {model: claude-fable-5, effort: high, n: 10, timeout_s: 1800, stall_s: 600, max_turns: 120}
+allowed_tools: [Bash, Read, Write, Edit, Glob, Grep, ScheduleWakeup, Monitor]
+fresh:
+  brief: briefs/vti02-fan-request-0822/corpus.md
+grader: fan-design
